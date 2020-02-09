@@ -35,9 +35,9 @@
 
 Application::Application(GLFWwindow* pWin) : pWindow(pWin), Cam(pWin), pModel(NULL), ShadowGenerator(2048, 2048)
 {
-	//createScene();
+	createScene();
 	//createNormalTestScene();
-    createShadowTestScene();
+    //createShadowTestScene();
 
 
 }
