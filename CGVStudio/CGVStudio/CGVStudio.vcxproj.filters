@@ -14,11 +14,17 @@
     <Filter Include="Quelldateien\utils\shader">
       <UniqueIdentifier>{6a54a247-36e2-4ceb-a2f9-a70627911295}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Quelldateien\utils\yourclasses">
+    <Filter Include="Quelldateien\utils\lights">
+      <UniqueIdentifier>{0e2a75e8-af03-4a54-82b6-2dd27e130b0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\utils\util">
       <UniqueIdentifier>{c817caf9-5b5a-4c75-ba93-0eb97e38e4d2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Quelldateien\utils\Lights">
-      <UniqueIdentifier>{0e2a75e8-af03-4a54-82b6-2dd27e130b0f}</UniqueIdentifier>
+    <Filter Include="Quelldateien\game">
+      <UniqueIdentifier>{a1ffb1ae-499b-4f94-9552-1e36ab601008}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\utils\physics">
+      <UniqueIdentifier>{1628de27-7082-416d-9187-c2ac1053d860}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -71,13 +77,13 @@
       <Filter>Quelldateien\utils\shader</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\color.cpp">
-      <Filter>Quelldateien\utils\yourclasses</Filter>
+      <Filter>Quelldateien\utils\util</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\vector.cpp">
-      <Filter>Quelldateien\utils\yourclasses</Filter>
+      <Filter>Quelldateien\utils\util</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\rgbimage.cpp">
-      <Filter>Quelldateien\utils\yourclasses</Filter>
+      <Filter>Quelldateien\utils\util</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Model.cpp">
       <Filter>Quelldateien\utils\models</Filter>
@@ -86,16 +92,22 @@
       <Filter>Quelldateien\utils\models</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Lights.cpp">
-      <Filter>Quelldateien\utils\Lights</Filter>
+      <Filter>Quelldateien\utils\lights</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\ShaderLightMapper.cpp">
-      <Filter>Quelldateien\utils\Lights</Filter>
+      <Filter>Quelldateien\utils\lights</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Framebuffer.cpp">
       <Filter>Quelldateien\utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\ShadowMapGenerator.cpp">
-      <Filter>Quelldateien\utils\Lights</Filter>
+      <Filter>Quelldateien\utils\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CollisionHelper.cpp">
+      <Filter>Quelldateien\utils\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Game.cpp">
+      <Filter>Quelldateien\game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -145,13 +157,13 @@
       <Filter>Quelldateien\utils\shader</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\color.h">
-      <Filter>Quelldateien\utils\yourclasses</Filter>
+      <Filter>Quelldateien\utils\util</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\vector.h">
-      <Filter>Quelldateien\utils\yourclasses</Filter>
+      <Filter>Quelldateien\utils\util</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\rgbimage.h">
-      <Filter>Quelldateien\utils\yourclasses</Filter>
+      <Filter>Quelldateien\utils\util</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Model.h">
       <Filter>Quelldateien\utils\models</Filter>
@@ -160,16 +172,22 @@
       <Filter>Quelldateien\utils\models</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Lights.h">
-      <Filter>Quelldateien\utils\Lights</Filter>
+      <Filter>Quelldateien\utils\lights</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\ShaderLightMapper.h">
-      <Filter>Quelldateien\utils\Lights</Filter>
+      <Filter>Quelldateien\utils\lights</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Framebuffer.h">
       <Filter>Quelldateien\utils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\ShadowMapGenerator.h">
-      <Filter>Quelldateien\utils\Lights</Filter>
+      <Filter>Quelldateien\utils\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\CollisionHelper.h">
+      <Filter>Quelldateien\utils\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Game.h">
+      <Filter>Quelldateien\game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -9,9 +9,20 @@
 #include <stdio.h>
 #include "Application.h"
 #include "freeimage.h"
+#include "Game.h"
 
 void PrintOpenGLVersion();
 
+// GLFW function declerations
+void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode);
+
+// The Width of the screen
+const GLuint SCREEN_WIDTH = 800;
+
+// The height of the screen
+const GLuint SCREEN_HEIGHT = 600;
+
+Game myGame(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 int main () {
     FreeImage_Initialise();
@@ -28,10 +39,9 @@ int main () {
     glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #endif
     
-    const int WindowWidth = 800;
-    const int WindowHeight = 600;
+
     
-    GLFWwindow* window = glfwCreateWindow (WindowWidth, WindowHeight, "Computergrafik - Hochschule Osnabrück", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow (SCREEN_WIDTH, SCREEN_HEIGHT, "Speice Inveiders", NULL, NULL);
     if (!window) {
         fprintf (stderr, "ERROR: can not open window with GLFW3\n");
         glfwTerminate();
@@ -44,23 +54,22 @@ int main () {
 	glewInit();
 #endif
 
+	myGame.Init();
     PrintOpenGLVersion();
     
     {
         double lastTime=0;
-        Application App(window);
-        App.start();
         while (!glfwWindowShouldClose (window)) {
             double now = glfwGetTime();
             double delta = now - lastTime;
             lastTime = now;
             // once per frame
             glfwPollEvents();
-            App.update((float)delta);
-            App.draw();
+			myGame.ProcessInput((float) delta);
+            myGame.Update((float)delta);
             glfwSwapBuffers (window);
         }
-        App.end();
+        myGame.End();
     }
     
     glfwTerminate();

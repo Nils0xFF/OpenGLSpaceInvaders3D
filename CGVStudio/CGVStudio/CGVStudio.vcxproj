@@ -110,6 +110,8 @@
     <ClCompile Include="..\..\src\TriangleSphereModel.cpp" />
     <ClCompile Include="..\..\src\vector.cpp" />
     <ClCompile Include="..\..\src\VertexBuffer.cpp" />
+    <ClCompile Include="..\..\src\CollisionHelper.cpp" />
+    <ClCompile Include="..\..\src\Game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Aabb.h" />
@@ -136,6 +138,8 @@
     <ClInclude Include="..\..\src\TriangleSphereModel.h" />
     <ClInclude Include="..\..\src\vector.h" />
     <ClInclude Include="..\..\src\VertexBuffer.h" />
+    <ClInclude Include="..\..\src\CollisionHelper.h" />
+    <ClInclude Include="..\..\src\Game.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
