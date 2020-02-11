@@ -176,3 +176,9 @@ std::string Vector::toString() const{
     ss << "X: " << X << " ,Y: " << Y << ",Z: " << Z;
     return ss.str();
 }
+
+std::ostream& operator<<(std::ostream& os, const Vector& v)
+{
+	os << v.toString();
+	return os;
+}

@@ -30,6 +30,6 @@ public:
     std::string toString() const;
  };
 
-
+std::ostream& operator<<(std::ostream& os, const Vector& v);
 bool cmpf(float A, float B, float epsilon);
 #endif /* defined(__SimpleRayTracer__vector__) */
