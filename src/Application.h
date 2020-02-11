@@ -28,6 +28,7 @@ public:
     void update(float dtime);
     void draw();
     void end();
+
 protected:
 	void createScene();
 	void createNormalTestScene();

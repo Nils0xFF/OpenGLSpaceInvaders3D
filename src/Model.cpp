@@ -26,7 +26,7 @@ Model::~Model()
     // TODO: Add your code (Exercise 3)
     deleteNodes(&RootNode);
     delete [] this->pMeshes;
-    for(int i = 0; i < MaterialCount; i++){
+    for(unsigned int i = 0; i < MaterialCount; i++){
         Texture::ReleaseShared(this->pMaterials[i].DiffTex);
     }
     delete [] this->pMaterials;
@@ -171,7 +171,7 @@ void Model::calcBoundingBox(const aiScene* pScene, AABB& Box)
     float smallestX = INFINITY, smallestY = INFINITY, smallestZ = INFINITY;
     
     if(pScene->HasMeshes()){
-        for(int i = 0; i< pScene->mNumMeshes; i++){
+        for(unsigned int i = 0; i< pScene->mNumMeshes; i++){
             for(int j = 0; j < pScene->mMeshes[i]->mNumVertices; j++){
                 if(pScene->mMeshes[i]->mVertices[j].x > largestX){
                     largestX = pScene->mMeshes[i]->mVertices[j].x;

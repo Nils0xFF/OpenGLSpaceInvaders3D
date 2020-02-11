@@ -26,6 +26,15 @@
     <Filter Include="Quelldateien\utils\physics">
       <UniqueIdentifier>{1628de27-7082-416d-9187-c2ac1053d860}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Quelldateien\game\gameObjects">
+      <UniqueIdentifier>{05a8b8a6-7d1c-454b-9deb-728e052bdcde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\game\gameObjects\components">
+      <UniqueIdentifier>{1ee4736e-6400-40c2-9ef7-661a17355aaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\game\gameObjects\components\colliders">
+      <UniqueIdentifier>{9fe65574-d659-4cb6-87cd-cf3288ac02a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -109,6 +118,18 @@
     <ClCompile Include="..\..\src\Game.cpp">
       <Filter>Quelldateien\game</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\GameObject.cpp">
+      <Filter>Quelldateien\game\gameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Component.cpp">
+      <Filter>Quelldateien\game\gameObjects\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Collider.cpp">
+      <Filter>Quelldateien\game\gameObjects\components\colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MeshRenderer.cpp">
+      <Filter>Quelldateien\game\gameObjects\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Camera.h">
@@ -188,6 +209,18 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Game.h">
       <Filter>Quelldateien\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameObject.h">
+      <Filter>Quelldateien\game\gameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Component.h">
+      <Filter>Quelldateien\game\gameObjects\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Collider.h">
+      <Filter>Quelldateien\game\gameObjects\components\colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MeshRenderer.h">
+      <Filter>Quelldateien\game\gameObjects\components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -68,9 +68,9 @@ bool RGBImage::saveToDisk( const char* Filename)
     memset(img,0,3*this->m_Width*this->m_Height);
     
     // 24bpp -> reverse RBG
-    for(int y=0; y<this->m_Height; y++)
+    for(int unsigned y=0; y<this->m_Height; y++)
     {
-        for(int x=0; x<this->m_Width; x++)
+        for(int unsigned x=0; x<this->m_Width; x++)
         {
             img[(x+y*this->m_Width)*3+2] = convertColorChannel(this->m_Image[y * this->m_Width  + x].R);
             img[(x+y*this->m_Width)*3+1] = convertColorChannel(this->m_Image[y * this->m_Width  + x].G);
@@ -109,7 +109,7 @@ bool RGBImage::saveToDisk( const char* Filename)
     
     // iterate over each line in the image
     // last to first line
-    for(int y = 0; y < this->m_Height; y++)
+    for(unsigned int y = 0; y < this->m_Height; y++)
     {
         // Write Line to File
         fwrite(img + ( this->m_Width * (this->m_Height-y-1) * 3), 3, this->m_Width, f);

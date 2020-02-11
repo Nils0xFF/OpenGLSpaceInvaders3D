@@ -12,12 +12,12 @@ enum GameState {
 class Game
 {
 public:
-	GameState state;
-	GLboolean keys[1024];
-	GLuint Width, Heigth;
+	Game(GLuint width, GLuint height) :State(PLAYING), Keys(), Width(width), Height(height) {};
+	GameState State;
+	GLboolean Keys[1024];
+	GLuint Width, Height;
 
-	Game(GLuint width, GLuint heigth) :Width(width), Heigth(heigth) {};
-	~Game();
+	~Game() {};
 
 	// Initialize game state (load all shaders/textures/levels)
 	void Init();

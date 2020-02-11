@@ -11,8 +11,6 @@
 #include "freeimage.h"
 #include "Game.h"
 
-void PrintOpenGLVersion();
-
 // GLFW function declerations
 void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode);
 
@@ -22,6 +20,7 @@ const GLuint SCREEN_WIDTH = 800;
 // The height of the screen
 const GLuint SCREEN_HEIGHT = 600;
 
+// myGame Object
 Game myGame(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 int main () {
@@ -54,19 +53,42 @@ int main () {
 	glewInit();
 #endif
 
+	glGetError();
+	glfwSetKeyCallback(window, keyPressed);
+
+	// OpenGL config
+	// glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	glEnable(GL_DEPTH_TEST); // enable depth-testing
+	glDepthFunc(GL_LESS); // depth-testing interprets a smaller value as "closer"
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	// Initialize the Game
 	myGame.Init();
-    PrintOpenGLVersion();
     
     {
-        double lastTime=0;
+		GLfloat lastTime = 0;
         while (!glfwWindowShouldClose (window)) {
-            double now = glfwGetTime();
-            double delta = now - lastTime;
+
+			// delta time calulations
+			GLfloat  now = glfwGetTime();
+			GLfloat  delta = now - lastTime;
             lastTime = now;
+
             // once per frame
             glfwPollEvents();
-			myGame.ProcessInput((float) delta);
-            myGame.Update((float)delta);
+			myGame.ProcessInput(delta);
+
+			// update Game
+            myGame.Update(delta);
+
+			// render Game
+			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT);
+			myGame.Render();
+
             glfwSwapBuffers (window);
         }
         myGame.End();
@@ -76,12 +98,16 @@ int main () {
     return 0;
 }
 
-
-void PrintOpenGLVersion()
+void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
-    // get version info
-    const GLubyte* renderer = glGetString (GL_RENDERER); // get renderer string
-    const GLubyte* version = glGetString (GL_VERSION); // version as a string
-    printf ("Renderer: %s\n", renderer);
-    printf ("OpenGL version supported %s\n", version);
+	// When a user presses the escape key, we set the WindowShouldClose property to true, closing the application
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, GL_TRUE);
+	if (key >= 0 && key < 1024)
+	{
+		if (action == GLFW_PRESS)
+			myGame.Keys[key] = GL_TRUE;
+		else if (action == GLFW_RELEASE)
+			myGame.Keys[key] = GL_FALSE;
+	}
 }
