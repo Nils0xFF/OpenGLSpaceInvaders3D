@@ -25,13 +25,15 @@ public:
 
 	void Update(float deltaTime) {
 		for (GameObject* g : gameObjects) {
-			g->Update(deltaTime);
+			if(g->isActive())
+				g->Update(deltaTime);
 		}
 	}
 
 	void Draw() {
 		for (GameObject* g : gameObjects) {
-			g->Draw();
+			if(g->isActive())
+				g->Draw();
 		}
 	};
 
