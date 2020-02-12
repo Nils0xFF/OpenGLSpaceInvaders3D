@@ -80,7 +80,6 @@ int main () {
 
             // once per frame
             glfwPollEvents();
-			myGame.ProcessInput(delta);
 
 			// update Game
             myGame.Update(delta);

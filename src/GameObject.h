@@ -7,7 +7,7 @@
 #include <vector>
 #include <list>
 
-class GameObject : public LifecycleObject
+class GameObject : public GameObjectInterface
 {
 private:
 	bool active = true;
@@ -32,9 +32,11 @@ public:
 		}
 	};
 
-	void Init() {};
+	void Init() {
+		transform.identity();
+	};
 	void Start() {};
-	void Update();
+	void Update(float deltaTime);
 
 	void Draw() {
 		if (mr != NULL) {
@@ -54,7 +56,7 @@ public:
 	const std::string& getName() { return name; }
 	void setName(const std::string name) { this->name = name; }
 	const Matrix& getTransform() const { return this->transform; }
-	void setTransform(const Matrix transform) { this->transform = transform; }
+	void setTransform(const Matrix& transform) { this->transform = transform; }
 
 	const MeshRenderer* getRenderer() { return mr; }
 	void setRenderer(MeshRenderer* mr) {
@@ -62,10 +64,12 @@ public:
 			std::cout << "Warning Overwriting existing Renderer!" << std::endl;
 			delete this->mr;
 		}
+		mr->setGameObject(this);
 		this->mr = mr;
 	}
 
 	void addComponent(Component* comp) {
+		comp->setGameObject(this);
 		this->components.push_back(comp);
 	}
 };

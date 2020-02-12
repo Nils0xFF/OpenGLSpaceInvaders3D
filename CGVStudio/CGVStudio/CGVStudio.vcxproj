@@ -109,6 +109,7 @@
     <ClCompile Include="..\..\src\PhongShader.cpp" />
     <ClCompile Include="..\..\src\rgbimage.cpp" />
     <ClCompile Include="..\..\src\ShadowMapGenerator.cpp" />
+    <ClCompile Include="..\..\src\TestController.cpp" />
     <ClCompile Include="..\..\src\Texture.cpp" />
     <ClCompile Include="..\..\src\TriangleBoxModel.cpp" />
     <ClCompile Include="..\..\src\TrianglePlaneModel.cpp" />
@@ -131,6 +132,7 @@
     <ClInclude Include="..\..\src\ConstantShader.h" />
     <ClInclude Include="..\..\src\Framebuffer.h" />
     <ClInclude Include="..\..\src\GameObject.h" />
+    <ClInclude Include="..\..\src\GameObjectInterface.h" />
     <ClInclude Include="..\..\src\IndexBuffer.h" />
     <ClInclude Include="..\..\src\InputManager.h" />
     <ClInclude Include="..\..\src\LifecycleObject.h" />
@@ -145,6 +147,7 @@
     <ClInclude Include="..\..\src\PhongShader.h" />
     <ClInclude Include="..\..\src\rgbimage.h" />
     <ClInclude Include="..\..\src\ShadowMapGenerator.h" />
+    <ClInclude Include="..\..\src\TestController.h" />
     <ClInclude Include="..\..\src\Texture.h" />
     <ClInclude Include="..\..\src\TriangleBoxModel.h" />
     <ClInclude Include="..\..\src\TrianglePlaneModel.h" />

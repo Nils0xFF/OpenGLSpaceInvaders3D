@@ -17,6 +17,18 @@ public:
 		}
 	};
 
+	void Init() {
+		for (GameObject* g : gameObjects) {
+			g->Init();
+		}
+	};
+
+	void Update(float deltaTime) {
+		for (GameObject* g : gameObjects) {
+			g->Update(deltaTime);
+		}
+	}
+
 	void Draw() {
 		for (GameObject* g : gameObjects) {
 			g->Draw();
