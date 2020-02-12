@@ -25,6 +25,10 @@ public:
 	// Initialize game state (load all shaders/textures/levels)
 	void Init();
 
+	// Called before the first Frame
+	// used to communicate between Components
+	void Start();
+
 	// GameLoop
 	void ProcessInput(GLfloat dt);
 	void Update(GLfloat dt);

@@ -20,6 +20,7 @@ public:
     LineBoxModel( const Vector& min, const Vector& max);
     virtual ~LineBoxModel() {}
     virtual void draw(const BaseCamera& Cam);
+
 protected:
     VertexBuffer VB;
     

@@ -4,6 +4,7 @@
 #include "Model.h"
 #include "PhongShader.h"
 #include "TestController.h"
+#include "BoxCollider.h"
 
 Scene testScene;
 
@@ -20,6 +21,7 @@ void Game::Init()
 	renderer->model = new Model(ASSET_DIRECTORY "bunny.dae", false);
 	renderer->model->shader(new PhongShader(), true);
 	go->setRenderer(renderer);
+	go->setCollider(new BoxCollider());
 	go->addComponent(new TestController());
 	testScene.addGameObject(go);
 
@@ -34,6 +36,10 @@ void Game::Init()
 	testScene.Init();
 }
 
+void Game::Start() {
+	testScene.Start();
+}
+
 void Game::ProcessInput(GLfloat dt)
 {
 }
@@ -42,6 +48,7 @@ void Game::Update(GLfloat dt)
 {
 	mainCamera.update();
 	testScene.Update(dt);
+	testScene.detectCollisions();
 }
 
 void Game::Render()

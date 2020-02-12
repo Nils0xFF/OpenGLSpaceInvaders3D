@@ -19,6 +19,6 @@ public:
 	virtual void Draw() {};
 	virtual void Destroy() {};
 
-	void setGameObject(GameObjectInterface* go) { this->gameObject = go; }
+	virtual void setGameObject(GameObjectInterface* go) { this->gameObject = go; }
 };
 

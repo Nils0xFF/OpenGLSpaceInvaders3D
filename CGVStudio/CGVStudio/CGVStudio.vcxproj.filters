@@ -148,6 +148,9 @@
     <ClCompile Include="..\..\src\TestController.cpp">
       <Filter>Quelldateien\game\customComponents</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\BoxCollider.cpp">
+      <Filter>Quelldateien\game\gameObjects\components\colliders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Camera.h">
@@ -257,6 +260,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\GameObjectInterface.h">
       <Filter>Quelldateien\game\gameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\BoxCollider.h">
+      <Filter>Quelldateien\game\gameObjects\components\colliders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

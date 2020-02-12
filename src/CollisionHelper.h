@@ -2,10 +2,13 @@
 #include "Aabb.h"
 class CollisionHelper
 {
-	static bool pointInBox(Vector box1, AABB box2);
-	static bool detectAABBCollision(AABB box1, AABB box2);
+public:
+	static bool pointInBox(Vector point, AABB box);
+	static bool detectAABBCollision(AABB a, AABB b);
 
 	static bool pointInSphere();
-	static bool detectSphereToAABBColission(){}
+	static bool detectSphereCollision();
+
+	static bool detectSphereToAABBCollission();
 };
 

@@ -21,8 +21,6 @@ const GLuint SCREEN_WIDTH = 800;
 // The height of the screen
 const GLuint SCREEN_HEIGHT = 600;
 
-// myGame Object
-
 int main () {
     FreeImage_Initialise();
     // start GL context and O/S window using the GLFW helper library
@@ -68,31 +66,34 @@ int main () {
 	Game myGame(window);
 	// Initialize the Game
 	myGame.Init();
+
+	// Start the Game
+	myGame.Start();
     
-    {
-		GLfloat lastTime = 0;
-        while (!glfwWindowShouldClose (window)) {
+    
+	GLfloat lastTime = 0;
+    while (!glfwWindowShouldClose (window)) {
 
-			// delta time calulations
-			GLfloat  now = glfwGetTime();
-			GLfloat  delta = now - lastTime;
-            lastTime = now;
+		// delta time calulations
+		GLfloat  now = glfwGetTime();
+		GLfloat  delta = now - lastTime;
+        lastTime = now;
 
-            // once per frame
-            glfwPollEvents();
+        // once per frame
+        glfwPollEvents();
 
-			// update Game
-            myGame.Update(delta);
+		// update Game
+        myGame.Update(delta);
 
-			// render Game
-			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			myGame.Render();
+		// render Game
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		myGame.Render();
 
-            glfwSwapBuffers (window);
-        }
-        myGame.End();
+        glfwSwapBuffers (window);
     }
+    myGame.End();
+   
     
     glfwTerminate();
     return 0;

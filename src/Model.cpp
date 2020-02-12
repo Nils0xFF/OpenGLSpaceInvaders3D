@@ -108,8 +108,6 @@ void Model::loadMeshes(const aiScene* pScene, bool FitSize)
                 this->pMeshes[i].VB.addVertex(pScene->mMeshes[i]->mVertices[j].x * scaleFactor, pScene->mMeshes[i]->mVertices[j].y * scaleFactor, pScene->mMeshes[i]->mVertices[j].z * scaleFactor);
             }
             
-            
-            
             if(pScene->mMeshes[i]->HasFaces()){
                 for(int j = 0; j < pScene->mMeshes[i]->mNumFaces; j++){
                     for(int k = 0; k < pScene->mMeshes[i]->mFaces->mNumIndices; k++){

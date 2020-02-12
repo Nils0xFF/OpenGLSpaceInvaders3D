@@ -2,8 +2,9 @@
 #include <string>
 #include "Matrix.h"
 #include "Component.h"
-#include "MeshRenderer.h"
 #include "LifecycleObject.h"
+#include "Collider.h"
+#include "MeshRenderer.h"
 #include <vector>
 #include <list>
 
@@ -18,14 +19,14 @@ private:
 	GameObject* parent;
 
 	MeshRenderer* mr;
+	Collider* collider;
 
 	std::list<Component*> components;
 	std::list<GameObject*> children;
 
 public:
-	GameObject():active(true),staticObject(false),name(""),mr(NULL),parent(NULL) {};
+	GameObject():active(true),staticObject(false),name(""),mr(NULL),collider(NULL),parent(NULL) {};
 	~GameObject() {
-		delete mr;
 		while (!components.empty()) {
 			delete components.front();
 			components.pop_front();
@@ -34,19 +35,27 @@ public:
 
 	void Init() {
 		transform.identity();
+		for (Component* c : this->components) {
+			c->Init();
+		}
 	};
-	void Start() {};
+
+	void Start() {
+		for (Component* c : this->components) {
+			c->Start();
+		}
+	};
 	void Update(float deltaTime);
 
 	void Draw() {
-		if (mr != NULL) {
-			mr->Draw();
+		for (Component* c : this->components) {
+			c->Draw();
 		}
 	};
 	void Destroy() {};
 
-	void onCollisionEnter() {};
-	void onTriggerEnter() {};
+	void onCollision(GameObject* other) {};
+	void onTrigger() {};
 
 	// getter/setter
 	bool isActive() const { return active; }
@@ -56,7 +65,13 @@ public:
 	const std::string& getName() { return name; }
 	void setName(const std::string name) { this->name = name; }
 	const Matrix& getTransform() const { return this->transform; }
-	void setTransform(const Matrix& transform) { this->transform = transform; }
+	void setTransform(const Matrix& transform) { 
+		if (staticObject) {
+			std::cout << "Trying to move static Object" << std::endl;
+			return;
+		}
+		this->transform = transform;
+	}
 
 	const MeshRenderer* getRenderer() { return mr; }
 	void setRenderer(MeshRenderer* mr) {
@@ -66,6 +81,18 @@ public:
 		}
 		mr->setGameObject(this);
 		this->mr = mr;
+		this->addComponent(mr);
+	}
+
+	const Collider* getCollider() { return collider; }
+	void setCollider(Collider* collider) {
+		if (this->collider != NULL) {
+			std::cout << "Warning Overwriting existing Collider!" << std::endl;
+			delete this->collider;
+		}
+		collider->setGameObject(this);
+		this->collider = collider;
+		this->addComponent(collider);
 	}
 
 	void addComponent(Component* comp) {
