@@ -10,6 +10,7 @@
 #include "Application.h"
 #include "freeimage.h"
 #include "Game.h"
+#include "InputManager.h"
 
 // GLFW function declerations
 void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -21,7 +22,6 @@ const GLuint SCREEN_WIDTH = 800;
 const GLuint SCREEN_HEIGHT = 600;
 
 // myGame Object
-Game myGame(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 int main () {
     FreeImage_Initialise();
@@ -65,6 +65,7 @@ int main () {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	Game myGame(window);
 	// Initialize the Game
 	myGame.Init();
     
@@ -86,7 +87,7 @@ int main () {
 
 			// render Game
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			myGame.Render();
 
             glfwSwapBuffers (window);
@@ -100,14 +101,15 @@ int main () {
 
 void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
+	InputManager& inputManager = InputManager::getInstance();
 	// When a user presses the escape key, we set the WindowShouldClose property to true, closing the application
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)
-			myGame.Keys[key] = GL_TRUE;
+			inputManager.Keys[key] = GL_TRUE;
 		else if (action == GLFW_RELEASE)
-			myGame.Keys[key] = GL_FALSE;
+			inputManager.Keys[key] = GL_FALSE;
 	}
 }

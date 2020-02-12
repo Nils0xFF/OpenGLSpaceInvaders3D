@@ -8,7 +8,7 @@ protected:
 	GameObject* gameObject;
 
 public:
-	//Component() :gameObject(nullptr) {};
+	Component() :gameObject(nullptr) {};
 	Component(GameObject* gameObject):gameObject(gameObject) {};
 	~Component() {};
 

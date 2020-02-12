@@ -35,6 +35,18 @@
     <Filter Include="Quelldateien\game\gameObjects\components\colliders">
       <UniqueIdentifier>{9fe65574-d659-4cb6-87cd-cf3288ac02a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Quelldateien\game\scenes">
+      <UniqueIdentifier>{7fafb112-34ad-4564-a76b-c2d9d2600ebc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\game\interfaces">
+      <UniqueIdentifier>{3722f4a7-a83b-41ff-8cbd-84d40e98a5e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\game\customComponents">
+      <UniqueIdentifier>{f06ea42d-1c4f-4080-8af1-db79b0f8b75f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\game\singeltons">
+      <UniqueIdentifier>{c3f49c73-1e17-4f9c-9da7-578d11a676d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -130,6 +142,9 @@
     <ClCompile Include="..\..\src\MeshRenderer.cpp">
       <Filter>Quelldateien\game\gameObjects\components</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Scene.cpp">
+      <Filter>Quelldateien\game\scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Camera.h">
@@ -221,6 +236,18 @@
     </ClInclude>
     <ClInclude Include="..\..\src\MeshRenderer.h">
       <Filter>Quelldateien\game\gameObjects\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Scene.h">
+      <Filter>Quelldateien\game\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\LifecycleObject.h">
+      <Filter>Quelldateien\game\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\InputManager.h">
+      <Filter>Quelldateien\game\singeltons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\CameraManager.h">
+      <Filter>Quelldateien\game\singeltons</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

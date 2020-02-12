@@ -98,6 +98,7 @@
     <ClCompile Include="..\..\src\GameObject.cpp" />
     <ClCompile Include="..\..\src\IndexBuffer.cpp" />
     <ClCompile Include="..\..\src\MeshRenderer.cpp" />
+    <ClCompile Include="..\..\src\Scene.cpp" />
     <ClCompile Include="..\..\src\ShaderLightMapper.cpp" />
     <ClCompile Include="..\..\src\Lights.cpp" />
     <ClCompile Include="..\..\src\LineBoxModel.cpp" />
@@ -123,6 +124,7 @@
     <ClInclude Include="..\..\src\BaseModel.h" />
     <ClInclude Include="..\..\src\BaseShader.h" />
     <ClInclude Include="..\..\src\Camera.h" />
+    <ClInclude Include="..\..\src\CameraManager.h" />
     <ClInclude Include="..\..\src\Collider.h" />
     <ClInclude Include="..\..\src\color.h" />
     <ClInclude Include="..\..\src\Component.h" />
@@ -130,7 +132,10 @@
     <ClInclude Include="..\..\src\Framebuffer.h" />
     <ClInclude Include="..\..\src\GameObject.h" />
     <ClInclude Include="..\..\src\IndexBuffer.h" />
+    <ClInclude Include="..\..\src\InputManager.h" />
+    <ClInclude Include="..\..\src\LifecycleObject.h" />
     <ClInclude Include="..\..\src\MeshRenderer.h" />
+    <ClInclude Include="..\..\src\Scene.h" />
     <ClInclude Include="..\..\src\ShaderLightMapper.h" />
     <ClInclude Include="..\..\src\Lights.h" />
     <ClInclude Include="..\..\src\LineBoxModel.h" />

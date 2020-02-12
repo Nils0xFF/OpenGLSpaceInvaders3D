@@ -69,7 +69,7 @@ bool Model::load(const char* ModelFile, bool FitSize)
 void Model::loadMeshes(const aiScene* pScene, bool FitSize)
 {
     
-    float fitScale = 5;
+    float fitScale = 1;
     float scaleFactor = 1;
     
     // TODO: Add your code (Exercise 3)

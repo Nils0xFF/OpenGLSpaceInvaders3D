@@ -1,7 +1,9 @@
 #pragma once
 #include <GL\glew.h>
+#include <GLFW\glfw3.h>
+#include "Camera.h"
 
-enum GameState {
+enum class GameState {
 	MENU,
 	PLAYING,
 	PAUSED,
@@ -12,10 +14,11 @@ enum GameState {
 class Game
 {
 public:
-	Game(GLuint width, GLuint height) :State(PLAYING), Keys(), Width(width), Height(height) {};
+	Game(GLFWwindow* pWin) : State(GameState::PLAYING), pWindow(pWin), mainCamera(pWindow) {};
+
+	GLFWwindow* pWindow;
 	GameState State;
-	GLboolean Keys[1024];
-	GLuint Width, Height;
+	Camera mainCamera;
 
 	~Game() {};
 
