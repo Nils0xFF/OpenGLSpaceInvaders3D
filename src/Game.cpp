@@ -3,6 +3,7 @@
 #include "MeshRenderer.h"
 #include "Model.h"
 #include "PhongShader.h"
+#include "TrianglePlaneModel.h"
 #include "TestController.h"
 #include "BoxCollider.h"
 
@@ -23,6 +24,13 @@ void Game::Init()
 	go->setRenderer(renderer);
 	go->setCollider(new BoxCollider());
 	go->addComponent(new TestController());
+	testScene.addGameObject(go);
+
+	go = new GameObject();
+	renderer = new MeshRenderer();
+	renderer->model = new TrianglePlaneModel(10.0f, 10.0f, 10, 10);
+	renderer->model->shader(new PhongShader(), true);
+	go->setRenderer(renderer);
 	testScene.addGameObject(go);
 
 	CameraManager::getInstance().activeCamera = &mainCamera;
