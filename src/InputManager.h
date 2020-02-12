@@ -11,8 +11,8 @@ class InputManager
 		}
 
 	private:
-			InputManager() {};
-			InputManager(const InputManager& im) {};
+			InputManager():Keys() {};
+			InputManager(const InputManager& im):Keys() {};
 			InputManager& operator= (const InputManager& mg) {};
 		
 };

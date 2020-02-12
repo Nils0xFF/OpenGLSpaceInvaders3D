@@ -1,21 +1,24 @@
 #pragma once
+#include "GameObjectInterface.h"
 
-class GameObject;
+extern class GameObject;
 
 class Component
 {
 protected:
-	GameObject* gameObject;
+	GameObjectInterface* gameObject;
 
 public:
 	Component() :gameObject(nullptr) {};
-	Component(GameObject* gameObject):gameObject(gameObject) {};
+	Component(GameObjectInterface* gameObject):gameObject(gameObject) {};
 	~Component() {};
 
 	virtual void Init() {};
 	virtual void Start() {};
-	virtual void Update() {};
+	virtual void Update(float deltaTime) = 0;
 	virtual void Draw() {};
 	virtual void Destroy() {};
+
+	void setGameObject(GameObjectInterface* go) { this->gameObject = go; }
 };
 

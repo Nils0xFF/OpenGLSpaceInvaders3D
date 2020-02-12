@@ -4,6 +4,7 @@
 #include "Model.h"
 #include "PhongShader.h"
 #include "TrianglePlaneModel.h"
+#include "TestController.h"
 
 Scene testScene;
 
@@ -20,6 +21,7 @@ void Game::Init()
 	renderer->model = new Model(ASSET_DIRECTORY "bunny.dae", false);
 	renderer->model->shader(new PhongShader(), true);
 	go->setRenderer(renderer);
+	go->addComponent(new TestController());
 	testScene.addGameObject(go);
 
 	go = new GameObject();
@@ -36,6 +38,8 @@ void Game::Init()
 	dl->color(Color(0.5, 0.5, 0.5));
 	dl->castShadows(true);
 	ShaderLightMapper::instance().addLight(dl);
+
+	testScene.Init();
 }
 
 void Game::ProcessInput(GLfloat dt)
@@ -45,6 +49,7 @@ void Game::ProcessInput(GLfloat dt)
 void Game::Update(GLfloat dt)
 {
 	mainCamera.update();
+	testScene.Update(dt);
 }
 
 void Game::Render()
