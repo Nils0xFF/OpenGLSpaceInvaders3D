@@ -7,19 +7,19 @@
 #include <glfw/glfw3.h>
 #endif
 #include <stdio.h>
-#include "Application.h"
 #include "freeimage.h"
 #include "Game.h"
 #include "InputManager.h"
 
 // GLFW function declerations
 void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode);
+void windowResize(GLFWwindow* window, int width, int height);
 
 // The Width of the screen
-const GLuint SCREEN_WIDTH = 800;
+const GLuint SCREEN_WIDTH = 960;
 
 // The height of the screen
-const GLuint SCREEN_HEIGHT = 600;
+const GLuint SCREEN_HEIGHT = 540;
 
 // myGame Object
 
@@ -55,9 +55,10 @@ int main () {
 
 	glGetError();
 	glfwSetKeyCallback(window, keyPressed);
+	glfwSetWindowSizeCallback(window, windowResize);
 
 	// OpenGL config
-	// glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	glEnable(GL_DEPTH_TEST); // enable depth-testing
 	glDepthFunc(GL_LESS); // depth-testing interprets a smaller value as "closer"
 	glEnable(GL_CULL_FACE);
@@ -112,4 +113,10 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode)
 		else if (action == GLFW_RELEASE)
 			inputManager.Keys[key] = GL_FALSE;
 	}
+}
+
+void windowResize(GLFWwindow* window, int width, int height)
+{
+	int newWidth = (int)(height * 16 / 9);
+	glViewport(0, 0, newWidth, height);
 }

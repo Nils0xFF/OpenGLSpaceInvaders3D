@@ -3,6 +3,7 @@
 #include "MeshRenderer.h"
 #include "Model.h"
 #include "PhongShader.h"
+#include "TrianglePlaneModel.h"
 
 Scene testScene;
 
@@ -17,6 +18,13 @@ void Game::Init()
 	GameObject *go = new GameObject();
 	MeshRenderer* renderer = new MeshRenderer();
 	renderer->model = new Model(ASSET_DIRECTORY "bunny.dae", false);
+	renderer->model->shader(new PhongShader(), true);
+	go->setRenderer(renderer);
+	testScene.addGameObject(go);
+
+	go = new GameObject();
+	renderer = new MeshRenderer();
+	renderer->model = new TrianglePlaneModel(10.0f, 10.0f, 10, 10);
 	renderer->model->shader(new PhongShader(), true);
 	go->setRenderer(renderer);
 	testScene.addGameObject(go);
