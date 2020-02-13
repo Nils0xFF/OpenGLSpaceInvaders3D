@@ -9,5 +9,6 @@ class Collider : public Component
 		virtual bool checkCollision(const Collider* other) const = 0;
 		virtual void Start() {};
 		virtual void Update(float deltaTime) {};
+		virtual void updateBoundingVolume() {};
 };
 

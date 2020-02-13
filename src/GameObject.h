@@ -91,6 +91,7 @@ public:
 		}
 		this->transform = transform;
 		this->mr->updateTransform();
+		this->collider->updateBoundingVolume();
 	}
 
 	const MeshRenderer* getRenderer() { return mr; }
@@ -99,7 +100,6 @@ public:
 			std::cout << "Warning Overwriting existing Renderer!" << std::endl;
 			delete this->mr;
 		}
-		mr->setGameObject(this);
 		this->mr = mr;
 		this->addComponent(mr);
 		this->areaBox = &(mr->model->boundingBox());
@@ -111,7 +111,6 @@ public:
 			std::cout << "Warning Overwriting existing Collider!" << std::endl;
 			delete this->collider;
 		}
-		collider->setGameObject(this);
 		this->collider = collider;
 		this->addComponent(collider);
 	}

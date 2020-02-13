@@ -78,7 +78,8 @@ void Model::loadMeshes(const aiScene* pScene, bool FitSize)
         this->pMeshes = new Mesh[pScene->mNumMeshes];
         this->MeshCount = pScene->mNumMeshes;
         this->calcBoundingBox(pScene, this->BoundingBox);
-        
+		this->updateBoundingBox();
+
         if(FitSize){
             float largest = std::max(std::max(this->boundingBox().size().X, this->boundingBox().size().Y), this->boundingBox().size().Z);
             scaleFactor = fitScale / largest;

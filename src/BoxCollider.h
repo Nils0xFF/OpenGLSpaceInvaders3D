@@ -33,16 +33,21 @@ public:
 	}
 
 	void Update(float deltaTime) {
-		collsionBox->transform(gameObject->getTransform());
 	}
 
 	void Draw() {
-		if (debugModel != NULL) delete debugModel;
-		Vector c[8];
-		collsionBox->corners(c);
-		debugModel = new LineBoxModel(c);
-		debugModel->shader(debugShader, false);
-		if (debugModel != NULL) debugModel->draw(*CameraManager::getInstance().activeCamera);
+		#if _DEBUG
+			if (debugModel != NULL) delete debugModel;
+			Vector c[8];
+			collsionBox->corners(c);
+			debugModel = new LineBoxModel(c);
+			debugModel->shader(debugShader, false);
+			if (debugModel != NULL) debugModel->draw(*CameraManager::getInstance().activeCamera);
+		#endif //_DEBUG
+	}
+
+	void updateBoundingVolume() {
+		collsionBox->transform(gameObject->getTransform());
 	}
 
 };

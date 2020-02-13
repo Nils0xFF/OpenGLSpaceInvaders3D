@@ -12,6 +12,10 @@ class MeshRenderer : public Component
 			delete model;
 		}
 
+		void Init() {
+			model->transform(gameObject->getTransform());
+		}
+
 		void Update(float deltaTime) {
 		}
 

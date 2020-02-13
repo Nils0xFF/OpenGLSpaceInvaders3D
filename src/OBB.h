@@ -21,16 +21,16 @@ private:
 protected:
 	Vector right, up, forward, center, halfSize;
 	Vector verts[8];
-	const AABB& boundingBox;
 
 public:
 
-	OBB(const AABB& boundingBox):boundingBox(boundingBox) {
+	OBB(const AABB& boundingBox){
 		halfSize = boundingBox.size() * 0.5f;
 		center = boundingBox.center();
+
 		right = Vector(1, 0, 0);
 		up = Vector(0, 1, 0);
-		forward = Vector(0, 1, 0);
+		forward = Vector(0, 0, 1);
 		calculatePoints();
 	}
 
@@ -42,11 +42,10 @@ public:
 	};
 
 	void transform(const Matrix& transform) {
-		center = boundingBox.center();
 		right = transform.right().normalize();
 		up = transform.up().normalize();
 		forward = transform.forward().normalize();
-
+		center = transform.translation() + up * halfSize;
 
 		calculatePoints();
 	}
@@ -57,6 +56,9 @@ public:
 		calculatePoints();
 	}
 
+	const Vector& getRight() const { return right; }
+	const Vector& getForward() const { return forward; }
+	const Vector& getUp() const { return up; }
 
 };
 

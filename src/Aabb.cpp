@@ -7,6 +7,7 @@
 //
 
 #include "Aabb.h"
+#include "OBB.h"
 
 AABB AABB::UnitBox(Vector(-1,-1,-1), Vector(1,1,1));
 
@@ -30,10 +31,10 @@ Vector AABB::size() const
 
 AABB AABB::transform(const Matrix& m) const
 {
+	OBB t(*this);
+	t.transform(m);
 	Vector c[8];
-	corners(c);
-	for (int i = 0; i < 8; ++i)
-		c[i] = m * c[i];
+	t.corners(c);
 	AABB r;
 	r.fromPoints(c, 8);
 	return r;

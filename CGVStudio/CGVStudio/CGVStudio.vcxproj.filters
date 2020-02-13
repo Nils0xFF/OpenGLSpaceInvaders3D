@@ -112,9 +112,6 @@
     <ClCompile Include="..\..\src\Model.cpp">
       <Filter>Quelldateien\utils\models</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Aabb.cpp">
-      <Filter>Quelldateien\utils\models</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Lights.cpp">
       <Filter>Quelldateien\utils\lights</Filter>
     </ClCompile>
@@ -155,6 +152,9 @@
       <Filter>Quelldateien\game\gameObjects\components\colliders</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\OBB.cpp">
+      <Filter>Quelldateien\utils\physics\boundingVolumes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Aabb.cpp">
       <Filter>Quelldateien\utils\physics\boundingVolumes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -216,9 +216,6 @@
     <ClInclude Include="..\..\src\Model.h">
       <Filter>Quelldateien\utils\models</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Aabb.h">
-      <Filter>Quelldateien\utils\models</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Lights.h">
       <Filter>Quelldateien\utils\lights</Filter>
     </ClInclude>
@@ -271,6 +268,9 @@
       <Filter>Quelldateien\game\gameObjects\components\colliders</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\OBB.h">
+      <Filter>Quelldateien\utils\physics\boundingVolumes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Aabb.h">
       <Filter>Quelldateien\utils\physics\boundingVolumes</Filter>
     </ClInclude>
   </ItemGroup>
