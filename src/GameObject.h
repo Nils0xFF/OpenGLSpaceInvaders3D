@@ -1,12 +1,16 @@
 #pragma once
 #include <string>
+#include <vector>
+#include <list>
+
 #include "Matrix.h"
 #include "Component.h"
 #include "LifecycleObject.h"
 #include "Collider.h"
 #include "MeshRenderer.h"
-#include <vector>
-#include <list>
+#include "ConstantShader.h"
+#include "LineBoxModel.h"
+
 
 class GameObject : public GameObjectInterface
 {
@@ -21,11 +25,18 @@ private:
 	MeshRenderer* mr;
 	Collider* collider;
 
+	const AABB* areaBox;
+	LineBoxModel* debugModel;
+	ConstantShader debugShader;
+
 	std::list<Component*> components;
 	std::list<GameObject*> children;
 
 public:
-	GameObject():active(true),staticObject(false),name(""),mr(NULL),collider(NULL),parent(NULL) {};
+	GameObject():active(true),staticObject(false),name(""),mr(NULL),collider(NULL),parent(NULL),areaBox(),debugShader(),debugModel(NULL) {
+		debugShader.color(Color(0,1,0));
+	};
+
 	~GameObject() {
 		while (!components.empty()) {
 			delete components.front();
@@ -48,13 +59,21 @@ public:
 	void Update(float deltaTime);
 
 	void Draw() {
+		#if _DEBUG
+			if (debugModel != NULL) delete debugModel;
+			debugModel = new LineBoxModel(areaBox->Min, areaBox->Max);
+			debugModel->shader(&debugShader, false);
+			if (debugModel != NULL) debugModel->draw(*CameraManager::getInstance().activeCamera);
+		#endif
 		for (Component* c : this->components) {
 			c->Draw();
 		}
 	};
 	void Destroy() {};
 
-	void onCollision(GameObject* other) {};
+	void onCollision(GameObject* other) {
+		std::cout << "Kollision!" << std::endl;
+	};
 	void onTrigger() {};
 
 	// getter/setter
@@ -71,6 +90,8 @@ public:
 			return;
 		}
 		this->transform = transform;
+		this->mr->updateTransform();
+		this->collider->updateBoundingVolume();
 	}
 
 	const MeshRenderer* getRenderer() { return mr; }
@@ -79,9 +100,9 @@ public:
 			std::cout << "Warning Overwriting existing Renderer!" << std::endl;
 			delete this->mr;
 		}
-		mr->setGameObject(this);
 		this->mr = mr;
 		this->addComponent(mr);
+		this->areaBox = &(mr->model->boundingBox());
 	}
 
 	const Collider* getCollider() { return collider; }
@@ -90,10 +111,11 @@ public:
 			std::cout << "Warning Overwriting existing Collider!" << std::endl;
 			delete this->collider;
 		}
-		collider->setGameObject(this);
 		this->collider = collider;
 		this->addComponent(collider);
 	}
+
+	const AABB* getAreaBox() { return areaBox; }
 
 	void addComponent(Component* comp) {
 		comp->setGameObject(this);

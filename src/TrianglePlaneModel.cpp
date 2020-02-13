@@ -17,6 +17,8 @@ TrianglePlaneModel::TrianglePlaneModel( float DimX, float DimZ, int NumSegX, int
     float stepx = DimX/(float)(NumSegX-1);
     float stepz = DimZ/(float)(NumSegZ-1);
 
+	BoundingBox = AABB(Vector(-startx,0,-startz), Vector(startx, 0, startz));
+
     // 1. setup vertex buffer
     VB.begin();
     for( int i=0; i<NumSegZ; i++)

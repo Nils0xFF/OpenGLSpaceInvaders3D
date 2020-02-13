@@ -47,8 +47,8 @@
     <Filter Include="Quelldateien\game\singeltons">
       <UniqueIdentifier>{c3f49c73-1e17-4f9c-9da7-578d11a676d1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Quelldateien\utils\postprocessing">
-      <UniqueIdentifier>{d95dedcf-eb88-4c57-8b69-7ef6aed6f106}</UniqueIdentifier>
+    <Filter Include="Quelldateien\utils\physics\boundingVolumes">
+      <UniqueIdentifier>{ea836192-c9a2-4790-b67b-8bc069f0bab7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -112,9 +112,6 @@
     <ClCompile Include="..\..\src\Model.cpp">
       <Filter>Quelldateien\utils\models</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Aabb.cpp">
-      <Filter>Quelldateien\utils\models</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Lights.cpp">
       <Filter>Quelldateien\utils\lights</Filter>
     </ClCompile>
@@ -153,6 +150,12 @@
     </ClCompile>
     <ClCompile Include="..\..\src\BoxCollider.cpp">
       <Filter>Quelldateien\game\gameObjects\components\colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\OBB.cpp">
+      <Filter>Quelldateien\utils\physics\boundingVolumes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Aabb.cpp">
+      <Filter>Quelldateien\utils\physics\boundingVolumes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -213,9 +216,6 @@
     <ClInclude Include="..\..\src\Model.h">
       <Filter>Quelldateien\utils\models</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Aabb.h">
-      <Filter>Quelldateien\utils\models</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Lights.h">
       <Filter>Quelldateien\utils\lights</Filter>
     </ClInclude>
@@ -266,6 +266,12 @@
     </ClInclude>
     <ClInclude Include="..\..\src\BoxCollider.h">
       <Filter>Quelldateien\game\gameObjects\components\colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\OBB.h">
+      <Filter>Quelldateien\utils\physics\boundingVolumes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Aabb.h">
+      <Filter>Quelldateien\utils\physics\boundingVolumes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -12,12 +12,19 @@ class MeshRenderer : public Component
 			delete model;
 		}
 
-		void Update(float deltaTime) {
+		void Init() {
 			model->transform(gameObject->getTransform());
+		}
+
+		void Update(float deltaTime) {
 		}
 
 		void Draw() {
 			model->draw(*CameraManager::getInstance().activeCamera);
+		}
+
+		void updateTransform() {
+			model->transform(gameObject->getTransform());
 		}
 };
 

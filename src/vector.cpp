@@ -56,6 +56,15 @@ Vector Vector::operator*(float c) const
     );
 }
 
+Vector Vector::operator*(const Vector& v) const
+{
+	return Vector(
+		this->X * v.X,
+		this->Y * v.Y,
+		this->Z * v.Z
+	);
+}
+
 Vector Vector::operator-() const
 {
 	return Vector(

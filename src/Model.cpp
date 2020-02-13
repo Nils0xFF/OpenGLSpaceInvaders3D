@@ -78,7 +78,8 @@ void Model::loadMeshes(const aiScene* pScene, bool FitSize)
         this->pMeshes = new Mesh[pScene->mNumMeshes];
         this->MeshCount = pScene->mNumMeshes;
         this->calcBoundingBox(pScene, this->BoundingBox);
-        
+		this->updateBoundingBox();
+
         if(FitSize){
             float largest = std::max(std::max(this->boundingBox().size().X, this->boundingBox().size().Y), this->boundingBox().size().Z);
             scaleFactor = fitScale / largest;
@@ -196,6 +197,7 @@ void Model::calcBoundingBox(const aiScene* pScene, AABB& Box)
     
     Box.Max = Vector(largestX, largestY, largestZ);
     Box.Min = Vector(smallestX, smallestY, smallestZ);
+	this->initialBoundingBox = Box;
 }
 
 void Model::loadNodes(const aiScene* pScene)

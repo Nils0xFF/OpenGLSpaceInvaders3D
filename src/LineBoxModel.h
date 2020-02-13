@@ -12,17 +12,22 @@
 #include <stdio.h>
 #include "basemodel.h"
 #include "vertexbuffer.h"
+#include "Aabb.h"
 
 class LineBoxModel : public BaseModel
 {
 public:
     LineBoxModel( float Width=1, float Height=1, float Depth=1 );
     LineBoxModel( const Vector& min, const Vector& max);
+	LineBoxModel(Vector c[8]);
     virtual ~LineBoxModel() {}
     virtual void draw(const BaseCamera& Cam);
 
+	const AABB& boundingBox() const { return BoundingBox; }
+
 protected:
     VertexBuffer VB;
+	AABB BoundingBox;
     
 };
 
