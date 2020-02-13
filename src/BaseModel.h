@@ -21,8 +21,8 @@ public:
     BaseModel();
     virtual ~BaseModel();
     virtual void draw(const BaseCamera& Cam);
-    const Matrix& transform() const { return Transform; }
-    void transform( const Matrix& m) { Transform = m; }
+    virtual const Matrix& transform() const { return Transform; }
+    virtual void transform( const Matrix& m) { Transform = m; }
     virtual void shader( BaseShader* shader, bool deleteOnDestruction=false );
     virtual BaseShader* shader() const { return pShader; }
     virtual const AABB& boundingBox() const { return AABB::unitBox(); }

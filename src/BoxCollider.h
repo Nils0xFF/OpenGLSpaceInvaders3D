@@ -5,35 +5,45 @@
 #include "MeshRenderer.h"
 #include "CameraManager.h"
 #include "ConstantShader.h"
+#include"OBB.h"
 
 class BoxCollider :
 	public Collider
 {
 public:
-	const AABB* collsionBox;
+	OBB* collsionBox;
 	LineBoxModel* debugModel;
+	ConstantShader* debugShader;
 
 	~BoxCollider() {
+		delete collsionBox;
 		delete debugModel;
+		delete debugShader;
 	}
 
-	bool checkCollision(const Collider& other) const;
+	bool checkCollision(const Collider* other) const;
 
+	void Init() {
+		debugShader = new ConstantShader();
+		debugShader->color(Color(1.0f,0,0));
+	}
 
 	void Start() {
-		collsionBox = &(gameObject->getRenderer()->model->boundingBox());
-		debugModel = new LineBoxModel(collsionBox->Min, collsionBox->Max);
-		ConstantShader* shader = new ConstantShader();
-		shader->color(Color(0,1,0));
-		debugModel->shader(shader, true);
+		collsionBox = new OBB(gameObject->getRenderer()->model->boundingBox());
 	}
 
 	void Update(float deltaTime) {
-		// debugModel->transform(Matrix().translation(gameObject->getTransform().translation()));
+		collsionBox->transform(gameObject->getTransform());
 	}
 
 	void Draw() {
+		if (debugModel != NULL) delete debugModel;
+		Vector c[8];
+		collsionBox->corners(c);
+		debugModel = new LineBoxModel(c);
+		debugModel->shader(debugShader, false);
 		if (debugModel != NULL) debugModel->draw(*CameraManager::getInstance().activeCamera);
 	}
+
 };
 

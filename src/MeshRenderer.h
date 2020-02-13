@@ -13,11 +13,14 @@ class MeshRenderer : public Component
 		}
 
 		void Update(float deltaTime) {
-			model->transform(gameObject->getTransform());
 		}
 
 		void Draw() {
 			model->draw(*CameraManager::getInstance().activeCamera);
+		}
+
+		void updateTransform() {
+			model->transform(gameObject->getTransform());
 		}
 };
 

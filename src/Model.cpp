@@ -196,6 +196,7 @@ void Model::calcBoundingBox(const aiScene* pScene, AABB& Box)
     
     Box.Max = Vector(largestX, largestY, largestZ);
     Box.Min = Vector(smallestX, smallestY, smallestZ);
+	this->initialBoundingBox = Box;
 }
 
 void Model::loadNodes(const aiScene* pScene)

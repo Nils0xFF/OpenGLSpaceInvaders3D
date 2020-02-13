@@ -41,7 +41,7 @@ public:
 			if (g->isActive() && !g->isStatic() && g->getCollider() != NULL)
 				for (GameObject* other : gameObjects) {
 					if (other != g && other->getCollider() != NULL) {
-						if (g->getCollider()->checkCollision(*(other->getCollider()))) {
+						if (g->getCollider()->checkCollision(other->getCollider())) {
 							g->onCollision(other);
 							other->onCollision(g);
 						}
