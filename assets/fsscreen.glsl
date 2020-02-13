@@ -8,7 +8,7 @@ uniform float time = 1.0;
 uniform float curveIntensity = 1.0;
 uniform float curveScale = 1.05;
 uniform float barRange = 0.015;
-uniform float barFrequency = 0.05;
+uniform float barFrequency = 0.5;
 uniform float barSpeed = 0.4;
 uniform float barOffset = 0.0075;
 uniform float lineScale = .004;
@@ -47,7 +47,7 @@ vec3 scanline(vec3 color, vec2 uv){
 vec2 horizontalBars(vec2 uv) {
 	for (float i = 0.0; i < 1.0; i += barSpeed) {
         float pos = mod(time * barSpeed * i, 1.7);
-        float offset = sin(1.0 - tan(time * i)) * barOffset;
+        float offset = sin(time * barFrequency * i) * barOffset;
 
 		float edge0 = (pos - barRange);
 		float edge1 = (pos + barRange);
