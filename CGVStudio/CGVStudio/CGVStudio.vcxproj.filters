@@ -47,6 +47,9 @@
     <Filter Include="Quelldateien\game\singeltons">
       <UniqueIdentifier>{c3f49c73-1e17-4f9c-9da7-578d11a676d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Quelldateien\utils\postprocessing">
+      <UniqueIdentifier>{d95dedcf-eb88-4c57-8b69-7ef6aed6f106}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
