@@ -9,8 +9,6 @@ bool CollisionHelper::pointInBox(const Vector* point, const AABB* box)
 
 bool CollisionHelper::detectAABBCollision(const AABB* a, const AABB* b)
 {
-	std::cout << a->Min << " - " << a->Max << std::endl;
-	std::cout << b->Min << " - " << b->Max << std::endl << std::endl << std::endl;
 	return (a->Min.X <= b->Max.X && a->Max.X >= b->Min.X) &&
 		(a->Min.Y <= b->Max.Y && a->Max.Y >= b->Min.Y)&&
 		(a->Min.Z <= b->Max.Z && a->Max.Z >= b->Min.Z);
