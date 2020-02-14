@@ -149,8 +149,6 @@ void windowResize(GLFWwindow* window, int width, int height)
 
 void toggleFullScreen(GLFWwindow* window)
 {    
-    if (isMaxed) toggleMaxScreen(window);
-
     isFullscreen = !isFullscreen;
     if (isFullscreen)
     {

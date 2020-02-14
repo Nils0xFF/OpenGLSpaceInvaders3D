@@ -97,7 +97,7 @@ public:
 	void Destroy() {};
 
 	void onCollision(GameObject* other) {
-		std::cout << "Kollision!" << std::endl;
+		std::cout << "Kollision! " << name << " " << other->name << std::endl;
 	};
 	void onTrigger() {};
 
