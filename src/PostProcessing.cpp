@@ -4,7 +4,7 @@
 #include <exception>
 #include "CameraManager.h"
 
-PostProcessing::PostProcessing(float width, float height, float samples): Width(width), Height(height), MSAA(samples)
+PostProcessing::PostProcessing()
 {
 	Init();
 	shader = new ScreenShader();
@@ -16,6 +16,9 @@ PostProcessing::~PostProcessing()
 		delete shader;		
 	}
 	shader = NULL;
+
+	glDeleteFramebuffers(1, &fbo);
+	glDeleteFramebuffers(1, &transferFbo);
 }
 
 void PostProcessing::Begin()
@@ -131,10 +134,11 @@ void PostProcessing::setMSAA(unsigned int samples)
 	MSAA = samples;
 }
 
-void PostProcessing::setResolution(float width, float height)
+void PostProcessing::setResolution(unsigned int width, unsigned int height, unsigned int samples)
 {
 	Width = width;
 	Height = height;
+	setMSAA(samples);
 
 	glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, textureMulti);
 	glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, MSAA, GL_RGB, Width, Height, GL_TRUE);

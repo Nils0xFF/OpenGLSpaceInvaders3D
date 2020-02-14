@@ -2,30 +2,38 @@
 #include "ScreenShader.h"
 
 class PostProcessing
-{
+{	
 public:
-	PostProcessing(float width, float height, float samples);
-	~PostProcessing();
+	static PostProcessing& getInstance() {
+		static PostProcessing instance;
+		return instance;
+	}	
 
 	ScreenShader* shader;
-
 	void setMSAA(unsigned int samples);
-	void setResolution(float width, float height);
+	void setResolution(unsigned int width, unsigned int height, unsigned int samples);
 
-protected:
-	void Init();
 	void Begin();
 	void End(float time);
+
+protected:
+	void Init();	
 	void GenerateScreenQuad();
 
 private:	
-	float Width, Height = 0.0f;
+	PostProcessing();
+	~PostProcessing();
+	PostProcessing(const PostProcessing& post) {};
+	PostProcessing& operator= (const PostProcessing& post) {};
+
+	unsigned int Width = 960;
+	unsigned int Height = 540;
 	unsigned int MSAA = 1;
 	unsigned int quad = 0;
 	unsigned int textureMulti = 0;
 	unsigned int texture = 0;
 	unsigned int fbo = 0;
 	unsigned int transferFbo = 0;
-	unsigned int rbo = 0;	
+	unsigned int rbo = 0;
 };
 
