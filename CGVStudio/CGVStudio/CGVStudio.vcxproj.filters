@@ -50,6 +50,9 @@
     <Filter Include="Quelldateien\utils\physics\boundingVolumes">
       <UniqueIdentifier>{ea836192-c9a2-4790-b67b-8bc069f0bab7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Quelldateien\utils\postprocessing">
+      <UniqueIdentifier>{376c6109-5c8b-4dd8-bc8b-3b6f2478023a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -156,6 +159,12 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Aabb.cpp">
       <Filter>Quelldateien\utils\physics\boundingVolumes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PostProcessing.cpp">
+      <Filter>Quelldateien\utils\postprocessing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ScreenShader.cpp">
+      <Filter>Quelldateien\utils\shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -272,6 +281,12 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Aabb.h">
       <Filter>Quelldateien\utils\physics\boundingVolumes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PostProcessing.h">
+      <Filter>Quelldateien\utils\postprocessing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ScreenShader.h">
+      <Filter>Quelldateien\utils\shader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

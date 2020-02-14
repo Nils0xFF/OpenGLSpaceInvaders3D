@@ -12,23 +12,27 @@
 #include "InputManager.h"
 
 // Post-Processing
-#include "BaseShader.h"
+#include "ScreenShader.h"
 #include "CameraManager.h"
+#include "TrianglePlaneModel.h"
 #ifdef WIN32
 #define ASSET_DIRECTORY "../../assets/"
 #else
 #define ASSET_DIRECTORY "../assets/"
 #endif
+unsigned int texture;
+unsigned int textureMulti;
+unsigned int rbo;
 
 // GLFW function declerations
 void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode);
 void windowResize(GLFWwindow* window, int width, int height);
 
 // The Width of the screen
-const GLuint SCREEN_WIDTH = 960;
+GLuint SCREEN_WIDTH = 960;
 
 // The height of the screen
-const GLuint SCREEN_HEIGHT = 540;
+GLuint SCREEN_HEIGHT = 540;
 
 int main () {
     FreeImage_Initialise();
@@ -78,7 +82,6 @@ int main () {
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
 	// Texture-attachment for framebuffer
-	unsigned int textureMulti;
 	glGenTextures(1, &textureMulti);
 	glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, textureMulti);
 	glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, 16, GL_RGB, SCREEN_WIDTH, SCREEN_HEIGHT, GL_TRUE);
@@ -91,7 +94,6 @@ int main () {
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, textureMulti, 0);
 
 	// Renderbuffer to sample depth- & stencil-texture
-	unsigned int rbo;
 	glGenRenderbuffers(1, &rbo);
 	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
 	glRenderbufferStorageMultisample(GL_RENDERBUFFER, 16, GL_DEPTH24_STENCIL8, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -110,7 +112,6 @@ int main () {
 	glGenFramebuffers(1, &intermediateFBO);
 	glBindFramebuffer(GL_FRAMEBUFFER, intermediateFBO);
 	// create a color attachment texture
-	unsigned int texture;
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCREEN_WIDTH, SCREEN_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
@@ -149,9 +150,7 @@ int main () {
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 
-	BaseShader* screenShader = new BaseShader();
-	screenShader->load(ASSET_DIRECTORY "vsscreen.glsl", ASSET_DIRECTORY "fsscreen.glsl");
-
+	ScreenShader* shader = new ScreenShader();
 
 	Game myGame(window);
 	// Initialize the Game
@@ -182,7 +181,7 @@ int main () {
 
 		// Post-Processing
 		glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClearColor(0.9f, 0.9f, 0.9f, 0.9f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
 
@@ -192,20 +191,14 @@ int main () {
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, intermediateFBO);
 		glBlitFramebuffer(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture);
-		screenShader->activate(*CameraManager::getInstance().activeCamera);
-		screenShader->setParameter(screenShader->getParameterID("time"), now);
-		screenShader->setParameter(screenShader->getParameterID("inverted"), false);
-		screenShader->setParameter(screenShader->getParameterID("gray"), false);
-		screenShader->setParameter(screenShader->getParameterID("blured"), false);
-		screenShader->setParameter(screenShader->getParameterID("curved"), false);
-		screenShader->setParameter(screenShader->getParameterID("bars"), false);
-		screenShader->setParameter(screenShader->getParameterID("lines"), false);
-		screenShader->setParameter(screenShader->getParameterID("vig"), false);
+		shader->activate(*CameraManager::getInstance().activeCamera);
+		shader->setTime(now);
+
 		glBindVertexArray(quadVAO);
 		glDisable(GL_DEPTH_TEST);		
 		glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -218,6 +211,7 @@ int main () {
 
 	// Post-Processing
 	glDeleteFramebuffers(1, &fbo);
+	glDeleteFramebuffers(1, &intermediateFBO);
    
     
     glfwTerminate();
@@ -241,6 +235,14 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode)
 
 void windowResize(GLFWwindow* window, int width, int height)
 {
-	int newWidth = (int)(height * 16 / 9);
-	glViewport(0, 0, newWidth, height);
+	SCREEN_WIDTH = (int)(height * 16 / 9);
+	SCREEN_HEIGHT = height;
+	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, textureMulti);
+	glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, 16, GL_RGB, SCREEN_WIDTH, SCREEN_HEIGHT, GL_TRUE);
+	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+	glRenderbufferStorageMultisample(GL_RENDERBUFFER, 16, GL_DEPTH24_STENCIL8, SCREEN_WIDTH, SCREEN_HEIGHT);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCREEN_WIDTH, SCREEN_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 }
