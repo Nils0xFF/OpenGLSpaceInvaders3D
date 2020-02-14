@@ -15,7 +15,7 @@ enum class GameState {
 class Game
 {
 public:
-	Game(GLFWwindow* pWin) : State(GameState::PLAYING), pWindow(pWin), mainCamera(pWindow) {};
+	Game(GLFWwindow* pWin) : State(GameState::PLAYING), pWindow(pWin), mainCamera(pWindow) { glfwGetWindowSize(pWin, &SCREEN_WIDTH, &SCREEN_HEIGHT); };
 
 	GLFWwindow* pWindow;
 	GameState State;
@@ -42,7 +42,7 @@ public:
 	void End();
 
 private:
-	int SCREEN_WIDTH = 960;
-	int SCREEN_HEIGHT = 540;
+	int SCREEN_WIDTH;
+	int SCREEN_HEIGHT;
 };
 

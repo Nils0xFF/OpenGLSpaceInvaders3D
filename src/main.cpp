@@ -16,12 +16,6 @@
 void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode);
 void windowResize(GLFWwindow* window, int width, int height);
 
-// The Width of the screen
-GLuint SCREEN_WIDTH = 960;
-
-// The height of the screen
-GLuint SCREEN_HEIGHT = 540;
-
 Game* myGame;
 
 int main () {
@@ -39,7 +33,7 @@ int main () {
     glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #endif
     	
-    GLFWwindow* window = glfwCreateWindow (SCREEN_WIDTH, SCREEN_HEIGHT, "Speice Inveiders", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow (960, 540, "Speice Inveiders", NULL, NULL);
     if (!window) {
         fprintf (stderr, "ERROR: can not open window with GLFW3\n");
         glfwTerminate();
@@ -57,7 +51,7 @@ int main () {
 	glfwSetWindowSizeCallback(window, windowResize);
 
 	// OpenGL config
-	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	glViewport(0, 0, 960, 540);
 	glEnable(GL_DEPTH_TEST); // enable depth-testing
 	glDepthFunc(GL_LESS); // depth-testing interprets a smaller value as "closer"
 	glEnable(GL_CULL_FACE);
@@ -85,6 +79,7 @@ int main () {
 
         // once per frame
         glfwPollEvents();
+		myGame->ProcessInput(delta);
 
 		// update Game
         myGame->Update(delta);
@@ -121,8 +116,8 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode)
 
 void windowResize(GLFWwindow* window, int width, int height)
 {	
-	SCREEN_WIDTH = (int)(height * 16 / 9);
-	SCREEN_HEIGHT = height;
+	int SCREEN_WIDTH = (int)(height * 16 / 9);
+	int SCREEN_HEIGHT = height;
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	myGame->WindowResize(SCREEN_WIDTH, SCREEN_HEIGHT);

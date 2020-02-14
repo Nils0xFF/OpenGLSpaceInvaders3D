@@ -134,11 +134,10 @@ void PostProcessing::setMSAA(unsigned int samples)
 	MSAA = samples;
 }
 
-void PostProcessing::setResolution(unsigned int width, unsigned int height, unsigned int samples)
+void PostProcessing::setResolution(unsigned int width, unsigned int height)
 {
 	Width = width;
 	Height = height;
-	setMSAA(samples);
 
 	glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, textureMulti);
 	glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, MSAA, GL_RGB, Width, Height, GL_TRUE);

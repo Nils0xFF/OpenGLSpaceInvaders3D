@@ -57,15 +57,15 @@ void Game::Start() {
 }
 
 void Game::ProcessInput(GLfloat dt)
-{
+{	
 }
 
 void Game::WindowResize(int width, int height)
 {
 	SCREEN_WIDTH = width;
 	SCREEN_HEIGHT = height;
-
-	PostProcessing::getInstance().setResolution(SCREEN_WIDTH, SCREEN_HEIGHT, 16);
+	
+	PostProcessing::getInstance().setResolution(SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
 void Game::Update(GLfloat dt)
@@ -94,7 +94,7 @@ void Game::Render()
 		default:
 			break;
 	}
-
+	
 	testScene.Draw();
 	ShaderLightMapper::instance().deactivate();
 	PostProcessing::getInstance().End(glfwGetTime());

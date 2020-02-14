@@ -27,6 +27,14 @@ public:
 	void setVignetteRadius(float value);
 	void setVignetteSoftness(float value);
 
+	bool isOn() const { return On; }
+	bool isInverted() const { return Inverted; }
+	bool isGray() const { return Gray; }
+	bool isBlured() const { return Blured; }
+	bool isCurved() const { return Curved; }
+	bool isBars() const { return Bars; }
+	bool isLines() const { return Lines; }
+	bool isVig() const { return Vig; }
 	float getBlurOffset() const { return BlurOffset; }
 	float getCurveIntensity() const { return CurveIntensity; }
 	float getCurveScale() const { return CurveScale; }
