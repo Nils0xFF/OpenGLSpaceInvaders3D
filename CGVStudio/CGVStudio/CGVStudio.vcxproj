@@ -100,8 +100,10 @@
     <ClCompile Include="..\..\src\IndexBuffer.cpp" />
     <ClCompile Include="..\..\src\MeshRenderer.cpp" />
     <ClCompile Include="..\..\src\OBB.cpp" />
+    <ClCompile Include="..\..\src\PostProcessing.cpp" />
     <ClCompile Include="..\..\src\Prefab.cpp" />
     <ClCompile Include="..\..\src\Scene.cpp" />
+    <ClCompile Include="..\..\src\ScreenShader.cpp" />
     <ClCompile Include="..\..\src\ShaderLightMapper.cpp" />
     <ClCompile Include="..\..\src\Lights.cpp" />
     <ClCompile Include="..\..\src\LineBoxModel.cpp" />
@@ -142,8 +144,10 @@
     <ClInclude Include="..\..\src\LifecycleObject.h" />
     <ClInclude Include="..\..\src\MeshRenderer.h" />
     <ClInclude Include="..\..\src\OBB.h" />
+    <ClInclude Include="..\..\src\PostProcessing.h" />
     <ClInclude Include="..\..\src\Prefab.h" />
     <ClInclude Include="..\..\src\Scene.h" />
+    <ClInclude Include="..\..\src\ScreenShader.h" />
     <ClInclude Include="..\..\src\ShaderLightMapper.h" />
     <ClInclude Include="..\..\src\Lights.h" />
     <ClInclude Include="..\..\src\LineBoxModel.h" />

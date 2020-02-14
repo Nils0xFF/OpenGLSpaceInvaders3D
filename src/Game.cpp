@@ -60,6 +60,14 @@ void Game::ProcessInput(GLfloat dt)
 {
 }
 
+void Game::WindowResize(int width, int height)
+{
+	SCREEN_WIDTH = width;
+	SCREEN_HEIGHT = height;
+
+	PostProcessing::getInstance().setResolution(SCREEN_WIDTH, SCREEN_HEIGHT, 16);
+}
+
 void Game::Update(GLfloat dt)
 {
 	mainCamera.update();
@@ -69,6 +77,7 @@ void Game::Update(GLfloat dt)
 
 void Game::Render()
 {
+	PostProcessing::getInstance().Begin();
 	ShaderLightMapper::instance().activate();
 	switch (State)
 	{
@@ -88,6 +97,7 @@ void Game::Render()
 
 	testScene.Draw();
 	ShaderLightMapper::instance().deactivate();
+	PostProcessing::getInstance().End(glfwGetTime());
 
 	GLenum Error = glGetError();
 	assert(Error == 0);

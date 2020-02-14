@@ -2,6 +2,7 @@
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
 #include "Camera.h"
+#include "PostProcessing.h"
 
 enum class GameState {
 	MENU,
@@ -34,7 +35,14 @@ public:
 	void Update(GLfloat dt);
 	void Render();
 
+	// Post-Processing
+	void WindowResize(int width, int height);
+
 	// Deloading
 	void End();
+
+private:
+	int SCREEN_WIDTH = 960;
+	int SCREEN_HEIGHT = 540;
 };
 

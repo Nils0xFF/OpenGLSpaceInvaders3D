@@ -5,13 +5,14 @@ in vec2 TexCoords;
 
 uniform sampler2D screenTexture;
 uniform float time = 1.0;
+uniform bool on = true;
 uniform bool inverted = false;
 uniform bool gray = false;
 uniform bool blured = false;
-uniform bool curved = false;
-uniform bool bars = false;
-uniform bool lines = false;
-uniform bool vig = false;
+uniform bool curved = true;
+uniform bool bars = true;
+uniform bool lines = true;
+uniform bool vig = true;
 uniform float blurOffset = 1.0 / 300.0;
 uniform float curveIntensity = 1.0;
 uniform float curveScale = 1.05;
@@ -75,18 +76,28 @@ vec3 vignette(vec3 color, vec2 uv)
     return color * vignette;
 }
 
-vec3 scanline(vec3 color, vec2 uv){    
+vec3 scanline(vec3 color, vec2 uv)
+{
 	color.rgb += sin((uv.y / lineScale - (time * lineSpeed * 6.0))) * lineIntensity;
+	// color.rgb += sin(uv.x / lineScale * 2.0) * lineIntensity * 0.5;
 	return color;
 }
 
 vec2 curve(vec2 uv)
 {
-   uv = uv * 2.0 - 1.0;
+   	uv = uv * 2.0 - 1.0;
     vec2 offset = abs( uv.yx ) / vec2( 5.0, 4.0 ) * curveIntensity;
     uv = uv + uv * offset * offset;
     uv = uv * 0.5 + 0.5;
     return uv;
+}
+
+vec3 cutoff(vec3 color, vec2 uv) {
+	if ( uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0 )
+    {
+        color = vec3( 0.0, 0.0, 0.0 );
+    }
+	return color;
 }
 
 vec2 horizontalBars(vec2 uv) {
@@ -107,6 +118,13 @@ vec2 horizontalBars(vec2 uv) {
 
 void main()
 {
+	if (!on) 
+	{
+		FragColor = vec4(texture(screenTexture, TexCoords).rgb, 1.0);
+		return;
+	}
+
+
 	vec2 uv = TexCoords;
 	if (curved) 
 	{
@@ -118,7 +136,7 @@ void main()
 	}
 
 	vec3 color = texture(screenTexture, uv).rgb;
-	
+
 	if (inverted)
 	{
 		color = inverse(color);
@@ -138,8 +156,7 @@ void main()
 	if (vig) 
 	{
 		color = vignette(color, uv);
-	}	
+	}
 
 	FragColor = vec4(color, 1.0);
 }
-
