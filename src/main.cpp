@@ -78,23 +78,23 @@ int main () {
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
 	// Texture-attachment for framebuffer
-	unsigned int texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCREEN_WIDTH, SCREEN_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	unsigned int textureMulti;
+	glGenTextures(1, &textureMulti);
+	glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, textureMulti);
+	glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, 16, GL_RGB, SCREEN_WIDTH, SCREEN_HEIGHT, GL_TRUE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);	
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 
 	// Attaching texture to framebuffer
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, textureMulti, 0);
 
 	// Renderbuffer to sample depth- & stencil-texture
 	unsigned int rbo;
 	glGenRenderbuffers(1, &rbo);
 	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, SCREEN_WIDTH, SCREEN_HEIGHT);
+	glRenderbufferStorageMultisample(GL_RENDERBUFFER, 16, GL_DEPTH24_STENCIL8, SCREEN_WIDTH, SCREEN_HEIGHT);
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 	// Attaching renderbuffer (depth- & stencil-texture)
@@ -105,6 +105,26 @@ int main () {
 		std::cout << "Not able to create framebuffer." << std::endl;
 		return -1;
 	}
+
+	unsigned int intermediateFBO;
+	glGenFramebuffers(1, &intermediateFBO);
+	glBindFramebuffer(GL_FRAMEBUFFER, intermediateFBO);
+	// create a color attachment texture
+	unsigned int texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCREEN_WIDTH, SCREEN_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
+
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+		std::cout << "Not able to create framebuffer." << std::endl;
+		return -1;
+	}
+
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	// TODO REMOVE
@@ -168,23 +188,26 @@ int main () {
 
 		myGame.Render();
 
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, fbo);
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, intermediateFBO);
+		glBlitFramebuffer(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture);
 		screenShader->activate(*CameraManager::getInstance().activeCamera);
 		screenShader->setParameter(screenShader->getParameterID("time"), now);
 		screenShader->setParameter(screenShader->getParameterID("inverted"), false);
 		screenShader->setParameter(screenShader->getParameterID("gray"), false);
-		screenShader->setParameter(screenShader->getParameterID("blured"), true);
-		screenShader->setParameter(screenShader->getParameterID("curved"), true);
-		screenShader->setParameter(screenShader->getParameterID("bars"), true);
-		screenShader->setParameter(screenShader->getParameterID("lines"), true);
-		screenShader->setParameter(screenShader->getParameterID("vig"), true);
+		screenShader->setParameter(screenShader->getParameterID("blured"), false);
+		screenShader->setParameter(screenShader->getParameterID("curved"), false);
+		screenShader->setParameter(screenShader->getParameterID("bars"), false);
+		screenShader->setParameter(screenShader->getParameterID("lines"), false);
+		screenShader->setParameter(screenShader->getParameterID("vig"), false);
 		glBindVertexArray(quadVAO);
-		glDisable(GL_DEPTH_TEST);
-		glBindTexture(GL_TEXTURE_2D, texture);
+		glDisable(GL_DEPTH_TEST);		
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 
         glfwSwapBuffers (window);
