@@ -6,8 +6,10 @@
 #include "TrianglePlaneModel.h"
 #include "TestController.h"
 #include "BoxCollider.h"
+#include "InputManager.h"
 
 Scene testScene;
+GameObject* Bunny;
 
 #ifdef WIN32
 #define ASSET_DIRECTORY "../../assets/"
@@ -29,11 +31,11 @@ void Game::Init()
 	go->setTransform(Matrix().translation(0, 3, 0));
 	testScene.addGameObject(go);
 
-	go = new GameObject();
-	go->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "bunny.dae", false), new PhongShader(), true));
-	go->setName("BunnyMain");
-	go->setCollider(new BoxCollider());
-	testScene.addGameObject(go);
+	Bunny = new GameObject();
+	Bunny->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "bunny.dae", false), new PhongShader(), true));
+	Bunny->setName("BunnyMain");
+	Bunny->setCollider(new BoxCollider());
+	testScene.addGameObject(Bunny);
 
 	go = new GameObject();
 	go->setRenderer(new MeshRenderer(new TrianglePlaneModel(10.0f, 10.0f, 10, 10), new PhongShader(), true));
@@ -61,6 +63,25 @@ void Game::Start() {
 
 void Game::ProcessInput(GLfloat dt)
 {	
+	if (InputManager::getInstance().Keys[GLFW_KEY_W])
+	{
+		Bunny->moveTo(Bunny->getTransform() * Matrix().translation(Vector(0.0f, 0.0f, -1.0f) * dt));
+	}
+
+	if (InputManager::getInstance().Keys[GLFW_KEY_S])
+	{
+		Bunny->moveTo(Bunny->getTransform() * Matrix().translation(Vector(0.0f, 0.0f, 1.0f) * dt));
+	}
+
+	if (InputManager::getInstance().Keys[GLFW_KEY_A])
+	{
+		Bunny->moveTo(Bunny->getTransform() * Matrix().translation(Vector(-1.0f, 0.0f, 0.0f) * dt));
+	}
+
+	if (InputManager::getInstance().Keys[GLFW_KEY_D])
+	{
+		Bunny->moveTo(Bunny->getTransform() * Matrix().translation(Vector(1.0f, 0.0f, 0.0f) * dt));
+	}
 }
 
 void Game::WindowResize(int width, int height)
