@@ -19,7 +19,7 @@ void Game::Init()
 {
 	GameObject *go = new GameObject();
 	go->setName("Bunny1");
-	go->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "buddha.dae", false), new PhongShader(), true));
+	go->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "bunny.dae", false), new PhongShader(), true));
 	go->setCollider(new BoxCollider());
 	go->addComponent(new TestController());
 	testScene.addGameObject(go);
@@ -30,7 +30,7 @@ void Game::Init()
 	testScene.addGameObject(go);
 
 	go = new GameObject();
-	go->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "buddha.dae", false), new PhongShader(), true));
+	go->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "bunny.dae", false), new PhongShader(), true));
 	go->setName("BunnyMain");
 	go->setCollider(new BoxCollider());
 	testScene.addGameObject(go);
