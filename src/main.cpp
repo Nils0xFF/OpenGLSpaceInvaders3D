@@ -15,6 +15,18 @@
 // GLFW function declerations
 void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode);
 void windowResize(GLFWwindow* window, int width, int height);
+void windowMaximize(GLFWwindow* window, int maximized);
+void toggleFullScreen(GLFWwindow* window);
+void toggleMaxScreen(GLFWwindow* window);
+
+int WINDOWPOS_X = 100;
+int WINDOWPOS_Y = 100;
+int WINDOW_WIDTH = 960;
+int WINDOW_HEIGHT = 540;
+int SAVED_WINDOW_WIDTH = WINDOW_WIDTH;
+int SAVED_WINDOW_HEIGHT = WINDOW_HEIGHT;
+bool isFullscreen = false;
+bool isMaxed = false;
 
 Game* myGame;
 
@@ -33,12 +45,13 @@ int main () {
     glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #endif
     	
-    GLFWwindow* window = glfwCreateWindow (960, 540, "Speice Inveiders", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow (WINDOW_WIDTH, WINDOW_HEIGHT, "Speice Inveiders", NULL, NULL);
     if (!window) {
         fprintf (stderr, "ERROR: can not open window with GLFW3\n");
         glfwTerminate();
         return 1;
     }
+    glfwSetWindowPos(window, WINDOWPOS_X, WINDOWPOS_Y);
     glfwMakeContextCurrent (window);
 
 #if WIN32
@@ -48,7 +61,7 @@ int main () {
 
 	glGetError();
 	glfwSetKeyCallback(window, keyPressed);
-	glfwSetWindowSizeCallback(window, windowResize);
+	glfwSetFramebufferSizeCallback(window, windowResize);    
 
 	// OpenGL config
 	glViewport(0, 0, 960, 540);
@@ -67,11 +80,16 @@ int main () {
     
     
 	GLfloat lastTime = 0;
-    while (!glfwWindowShouldClose (window)) {
-		
+    while (!glfwWindowShouldClose (window))
+    {
+        // used instead of glfwSetMaximizeCallback doesnt exist
+        if (glfwGetWindowAttrib(window, GLFW_MAXIMIZED)) {
+            isMaxed = true;
+        }
+
 		// delta time calulations
-		GLfloat  now = glfwGetTime();
-		GLfloat  delta = now - lastTime;
+		GLfloat now = glfwGetTime();
+		GLfloat delta = now - lastTime;
         lastTime = now;
 
         // once per frame
@@ -107,6 +125,10 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode)
         PostProcessing::getInstance().setMSAA(1);
     if (key == GLFW_KEY_KP_2 && action == GLFW_PRESS)
         PostProcessing::getInstance().setMSAA(32);
+    if (key == GLFW_KEY_F11 && action == GLFW_PRESS)
+        toggleFullScreen(window);
+    if (key == GLFW_KEY_F10 && action == GLFW_PRESS)
+        toggleMaxScreen(window);
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)
@@ -118,9 +140,44 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode)
 
 void windowResize(GLFWwindow* window, int width, int height)
 {	
-	int SCREEN_WIDTH = (int)(height * 16 / 9);
-	int SCREEN_HEIGHT = height;
-	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    WINDOW_WIDTH = (int)(height * 16 / 9);
+    WINDOW_HEIGHT = height;
+	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-	myGame->WindowResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	myGame->WindowResize(WINDOW_WIDTH, WINDOW_HEIGHT);
+}
+
+void toggleFullScreen(GLFWwindow* window)
+{    
+    if (isMaxed) toggleMaxScreen(window);
+
+    isFullscreen = !isFullscreen;
+    if (isFullscreen)
+    {
+        glfwGetWindowPos(window, &WINDOWPOS_X, &WINDOWPOS_Y);
+        glfwGetWindowSize(window, &SAVED_WINDOW_WIDTH, &SAVED_WINDOW_HEIGHT);
+
+        const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+
+        glfwSetWindowMonitor(window, glfwGetPrimaryMonitor(), 0, 0, mode->width, mode->height, 0);
+    }
+    else
+    {
+        glfwSetWindowMonitor(window, nullptr, WINDOWPOS_X, WINDOWPOS_Y, SAVED_WINDOW_WIDTH, SAVED_WINDOW_HEIGHT, 0);
+    }
+}
+
+void toggleMaxScreen(GLFWwindow* window)
+{
+    if (isFullscreen) toggleFullScreen(window);
+
+    isMaxed = !isMaxed;
+    if (isMaxed)
+    {
+        glfwMaximizeWindow(window);
+    }
+    else
+    {
+        glfwRestoreWindow(window);
+    }
 }
