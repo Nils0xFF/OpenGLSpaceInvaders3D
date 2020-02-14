@@ -12,6 +12,7 @@ class ShadowMapShader : public BaseShader
 {
 public:
 	ShadowMapShader();
+	ShadowMapShader* clone() { return new ShadowMapShader(*this); }
 	virtual void activate(const BaseCamera& Cam) const;
 protected:
 	GLint EyePosLoc;

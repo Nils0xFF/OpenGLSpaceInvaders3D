@@ -21,6 +21,8 @@ public:
 		delete debugShader;
 	}
 
+	BoxCollider* clone() { return new BoxCollider(*this); }
+
 	bool checkCollision(const Collider* other) const;
 
 	void Init() {

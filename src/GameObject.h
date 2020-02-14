@@ -34,8 +34,34 @@ private:
 
 public:
 	GameObject():active(true),staticObject(false),name(""),mr(NULL),collider(NULL),parent(NULL),areaBox(),debugShader(),debugModel(NULL) {
+		transform.identity();
 		debugShader.color(Color(0,1,0));
 	};
+
+	GameObject(const GameObject& other):mr(NULL), collider(NULL),debugModel(NULL) {
+		this->transform = transform;
+		this->active = other.active;
+		this->staticObject = other.staticObject;
+		this->name = other.name;
+		this->parent = NULL;
+		debugShader.color(Color(0, 1, 0));
+
+		for (GameObject* g : other.children) {
+			this->addChild(new GameObject(*g));
+		}
+
+		for (Component* c : other.components) {
+			if (dynamic_cast<MeshRenderer*>(c)) {
+				setRenderer(dynamic_cast<MeshRenderer*>(c)->clone());
+				continue;
+			}
+			if (dynamic_cast<Collider*>(c)) {
+				setCollider(dynamic_cast<Collider*>(c)->clone());
+				continue;
+			} 
+			this->addComponent(c->clone());
+		}
+	}
 
 	~GameObject() {
 		while (!components.empty()) {
@@ -45,7 +71,6 @@ public:
 	};
 
 	void Init() {
-		transform.identity();
 		for (Component* c : this->components) {
 			c->Init();
 		}
@@ -84,7 +109,11 @@ public:
 	const std::string& getName() { return name; }
 	void setName(const std::string name) { this->name = name; }
 	const Matrix& getTransform() const { return this->transform; }
-	void setTransform(const Matrix& transform) { 
+	void setTransform(const Matrix& transform) {
+		this->transform = transform;
+	}
+
+	void moveTo(const Matrix& transform) { 
 		if (staticObject) {
 			std::cout << "Trying to move static Object" << std::endl;
 			return;
@@ -107,6 +136,10 @@ public:
 
 	const Collider* getCollider() { return collider; }
 	void setCollider(Collider* collider) {
+		if (!this->mr) {
+			std::cout << "Adding a Collider requires a Renderer!" << std::endl;
+			return;
+		}
 		if (this->collider != NULL) {
 			std::cout << "Warning Overwriting existing Collider!" << std::endl;
 			delete this->collider;
@@ -117,9 +150,19 @@ public:
 
 	const AABB* getAreaBox() { return areaBox; }
 
+	const GameObject* getParent() const { return parent; }
+	void setParent(GameObject* p) { parent = p; }
+
+	const std::list<Component*>& getComponents() const { return components; }
 	void addComponent(Component* comp) {
 		comp->setGameObject(this);
 		this->components.push_back(comp);
+	}
+
+	const std::list<GameObject*>& getChildren() const { return children; }
+	void addChild(GameObject* g) { 
+		g->setParent(this); 
+		this->children.push_back(g);
 	}
 };
 

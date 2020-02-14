@@ -18,28 +18,28 @@ Scene testScene;
 void Game::Init()
 {
 	GameObject *go = new GameObject();
-	MeshRenderer* renderer = new MeshRenderer();
-	renderer->model = new Model(ASSET_DIRECTORY "bunny.dae", false);
-	renderer->model->shader(new PhongShader(), true);
-	go->setRenderer(renderer);
+	go->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "bunny.dae", false), new PhongShader(), true));
 	go->setCollider(new BoxCollider());
 	go->addComponent(new TestController());
 	testScene.addGameObject(go);
 
+	go = new GameObject(*go);
+	go->setTransform(Matrix().translation(0, 3, 0));
+	testScene.addGameObject(go);
+
 	go = new GameObject();
-	renderer = new MeshRenderer();
-	renderer->model = new Model(ASSET_DIRECTORY "bunny.dae", false);
-	renderer->model->shader(new PhongShader(), true);
-	go->setRenderer(renderer);
+	go->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "bunny.dae", false), new PhongShader(), true));
 	go->setCollider(new BoxCollider());
 	testScene.addGameObject(go);
 
 	go = new GameObject();
-	renderer = new MeshRenderer();
-	renderer->model = new TrianglePlaneModel(10.0f, 10.0f, 10, 10);
-	renderer->model->shader(new PhongShader(), true);
-	go->setRenderer(renderer);
+	go->setRenderer(new MeshRenderer(new TrianglePlaneModel(10.0f, 10.0f, 10, 10), new PhongShader(), true));
 	testScene.addGameObject(go);
+
+	go = new GameObject(*go);
+	go->setTransform(Matrix().translation(0, 3, 0));
+	testScene.addGameObject(go);
+
 
 	CameraManager::getInstance().activeCamera = &mainCamera;
 

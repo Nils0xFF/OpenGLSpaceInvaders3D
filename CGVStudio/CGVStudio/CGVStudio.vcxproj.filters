@@ -160,6 +160,9 @@
     <ClCompile Include="..\..\src\Aabb.cpp">
       <Filter>Quelldateien\utils\physics\boundingVolumes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Prefab.cpp">
+      <Filter>Quelldateien\game\gameObjects</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\PostProcessing.cpp">
       <Filter>Quelldateien\utils\postprocessing</Filter>
     </ClCompile>
@@ -281,6 +284,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Aabb.h">
       <Filter>Quelldateien\utils\physics\boundingVolumes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Prefab.h">
+      <Filter>Quelldateien\game\gameObjects</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\PostProcessing.h">
       <Filter>Quelldateien\utils\postprocessing</Filter>
