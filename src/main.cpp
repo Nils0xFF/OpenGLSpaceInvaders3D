@@ -63,13 +63,10 @@ int main () {
 	// Initialize the Game
 	myGame->Init();
 	// Start the Game
-	myGame->Start();
+	myGame->Start();    
     
-	// Post-Processing Test
-	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     
 	GLfloat lastTime = 0;
-	GLfloat combinedTime = 0;
     while (!glfwWindowShouldClose (window)) {
 		
 		// delta time calulations
@@ -79,13 +76,12 @@ int main () {
 
         // once per frame
         glfwPollEvents();
-		myGame->ProcessInput(delta);
 
 		// update Game
         myGame->Update(delta);
 
 		// render Game
-		myGame->Render();
+		myGame->Render();        
 		
         glfwSwapBuffers (window);
     }
@@ -105,6 +101,12 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode)
 	// When a user presses the escape key, we set the WindowShouldClose property to true, closing the application
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
+	if (key == GLFW_KEY_KP_0 && action == GLFW_PRESS)
+		PostProcessing::getInstance().shader->on(!PostProcessing::getInstance().shader->isOn());
+    if (key == GLFW_KEY_KP_1 && action == GLFW_PRESS)
+        PostProcessing::getInstance().setMSAA(1);
+    if (key == GLFW_KEY_KP_2 && action == GLFW_PRESS)
+        PostProcessing::getInstance().setMSAA(32);
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)

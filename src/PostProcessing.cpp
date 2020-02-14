@@ -103,6 +103,16 @@ void PostProcessing::Init()
 	GenerateScreenQuad();
 }
 
+void PostProcessing::Update()
+{
+	glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, textureMulti);
+	glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, MSAA, GL_RGB, Width, Height, GL_TRUE);
+	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+	glRenderbufferStorageMultisample(GL_RENDERBUFFER, MSAA, GL_DEPTH24_STENCIL8, Width, Height);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, Width, Height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+}
+
 void PostProcessing::GenerateScreenQuad()
 {
 	float quadVertices[] = {
@@ -130,8 +140,9 @@ void PostProcessing::GenerateScreenQuad()
 void PostProcessing::setMSAA(unsigned int samples)
 {
 	if (samples < 1) samples = 1;
-	if (samples > 16) samples = 16;
 	MSAA = samples;
+
+	Update();
 }
 
 void PostProcessing::setResolution(unsigned int width, unsigned int height)
@@ -139,10 +150,5 @@ void PostProcessing::setResolution(unsigned int width, unsigned int height)
 	Width = width;
 	Height = height;
 
-	glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, textureMulti);
-	glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, MSAA, GL_RGB, Width, Height, GL_TRUE);
-	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-	glRenderbufferStorageMultisample(GL_RENDERBUFFER, MSAA, GL_DEPTH24_STENCIL8, Width, Height);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, Width, Height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	Update();
 }

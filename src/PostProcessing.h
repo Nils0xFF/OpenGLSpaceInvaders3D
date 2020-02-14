@@ -17,7 +17,8 @@ public:
 	void End(float time);
 
 protected:
-	void Init();	
+	void Init();
+	void Update();
 	void GenerateScreenQuad();
 
 private:	
