@@ -5,6 +5,14 @@ in vec2 TexCoords;
 
 uniform sampler2D screenTexture;
 uniform float time = 1.0;
+uniform bool inverted = false;
+uniform bool gray = false;
+uniform bool blured = false;
+uniform bool curved = false;
+uniform bool bars = false;
+uniform bool lines = false;
+uniform bool vig = false;
+uniform float blurOffset = 1.0 / 300.0;
 uniform float curveIntensity = 1.0;
 uniform float curveScale = 1.05;
 uniform float barRange = 0.015;
@@ -18,18 +26,46 @@ uniform float vignetteRadius = 0.45;
 uniform	float vignetteSoftness = 1.0;
 
 
-vec4 inverse(vec4 color)
+vec3 inverse(vec3 color)
 {
-	return vec4(vec3(1.0 - color), 1.0);
+	return vec3(1.0 - color);
 }
 
-vec2 curve(vec2 uv)
+vec3 grayscale(vec3 color)
 {
-   uv = uv * 2.0 - 1.0;
-    vec2 offset = abs( uv.yx ) / vec2( 5.0, 4.0 ) * curveIntensity;
-    uv = uv + uv * offset * offset;
-    uv = uv * 0.5 + 0.5;
-    return uv;
+	float average = 0.2126 * color.r + 0.7152 * color.g + 0.0722 * color.b;
+	return vec3(average, average, average);
+}
+
+vec3 blur(vec3 color)
+{
+    vec2 offsets[9] = vec2[](
+        vec2(-blurOffset,  blurOffset), // top-left
+        vec2( 0.0f,    blurOffset), // top-center
+        vec2( blurOffset,  blurOffset), // top-right
+        vec2(-blurOffset,  0.0f),   // center-left
+        vec2( 0.0f,    0.0f),   // center-center
+        vec2( blurOffset,  0.0f),   // center-right
+        vec2(-blurOffset, -blurOffset), // bottom-left
+        vec2( 0.0f,   -blurOffset), // bottom-center
+        vec2( blurOffset, -blurOffset)  // bottom-right    
+    );
+
+    float kernel[9] = float[](
+		1.0 / 16, 2.0 / 16, 1.0 / 16,
+		2.0 / 16, 4.0 / 16, 2.0 / 16,
+		1.0 / 16, 2.0 / 16, 1.0 / 16  
+	);
+    
+    vec3 sampleTex[9];
+    for(int i = 0; i < 9; i++)
+    {
+        sampleTex[i] = vec3(texture(screenTexture, TexCoords.st + offsets[i]));
+    }
+    for(int i = 0; i < 9; i++)
+        color += sampleTex[i] * kernel[i];
+
+	return color;
 }
 
 vec3 vignette(vec3 color, vec2 uv)
@@ -42,6 +78,15 @@ vec3 vignette(vec3 color, vec2 uv)
 vec3 scanline(vec3 color, vec2 uv){    
 	color.rgb += sin((uv.y / lineScale - (time * lineSpeed * 6.0))) * lineIntensity;
 	return color;
+}
+
+vec2 curve(vec2 uv)
+{
+   uv = uv * 2.0 - 1.0;
+    vec2 offset = abs( uv.yx ) / vec2( 5.0, 4.0 ) * curveIntensity;
+    uv = uv + uv * offset * offset;
+    uv = uv * 0.5 + 0.5;
+    return uv;
 }
 
 vec2 horizontalBars(vec2 uv) {
@@ -62,9 +107,39 @@ vec2 horizontalBars(vec2 uv) {
 
 void main()
 {
-	vec2 uv = horizontalBars(curve(TexCoords));	
-	vec3 color = vignette(scanline(texture(screenTexture, uv).rgb, uv), uv);
+	vec2 uv = TexCoords;
+	if (curved) 
+	{
+		uv = curve(uv);
+	}
+	if (bars) 
+	{
+		uv = horizontalBars(uv);
+	}
+
+	vec3 color = texture(screenTexture, uv).rgb;
 	
+	if (inverted)
+	{
+		color = inverse(color);
+	}
+	if (gray)
+	{
+		color = grayscale(color);
+	}
+	if (blured)
+	{
+		color = blur(color);
+	}
+	if (lines) 
+	{
+		color = scanline(color, uv);
+	}
+	if (vig) 
+	{
+		color = vignette(color, uv);
+	}	
+
 	FragColor = vec4(color, 1.0);
 }
 

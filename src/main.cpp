@@ -175,6 +175,13 @@ int main () {
 		glActiveTexture(GL_TEXTURE0);
 		screenShader->activate(*CameraManager::getInstance().activeCamera);
 		screenShader->setParameter(screenShader->getParameterID("time"), now);
+		screenShader->setParameter(screenShader->getParameterID("inverted"), false);
+		screenShader->setParameter(screenShader->getParameterID("gray"), false);
+		screenShader->setParameter(screenShader->getParameterID("blured"), true);
+		screenShader->setParameter(screenShader->getParameterID("curved"), true);
+		screenShader->setParameter(screenShader->getParameterID("bars"), true);
+		screenShader->setParameter(screenShader->getParameterID("lines"), true);
+		screenShader->setParameter(screenShader->getParameterID("vig"), true);
 		glBindVertexArray(quadVAO);
 		glDisable(GL_DEPTH_TEST);
 		glBindTexture(GL_TEXTURE_2D, texture);
