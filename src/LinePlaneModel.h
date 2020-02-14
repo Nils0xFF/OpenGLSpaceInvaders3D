@@ -17,6 +17,7 @@ class LinePlaneModel : public BaseModel
 {
 public:
     LinePlaneModel( float DimX, float DimZ, int NumSegX, int NumSegZ );
+	LinePlaneModel* clone() { return new LinePlaneModel(*this); }
     virtual ~LinePlaneModel() {}
     virtual void draw(const BaseCamera& Cam);
 protected:

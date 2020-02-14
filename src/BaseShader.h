@@ -29,6 +29,7 @@ class BaseShader
 {
 public:
     BaseShader();
+	virtual BaseShader* clone() { return new BaseShader(*this); }
     virtual ~BaseShader() {}
     virtual void modelTransform(const Matrix& m) { ModelTransform = m; }
     virtual const Matrix& modelTransform() const { return ModelTransform; }

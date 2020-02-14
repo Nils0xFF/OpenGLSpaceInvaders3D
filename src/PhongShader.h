@@ -32,6 +32,7 @@ class PhongShader : public BaseShader
 {
 public:
     PhongShader(bool LoadStaticShaderCode=true);
+	PhongShader* clone() { return new PhongShader(); }
     // setter
     void diffuseColor( const Color& c);
     void ambientColor( const Color& c);

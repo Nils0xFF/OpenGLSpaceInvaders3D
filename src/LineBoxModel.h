@@ -20,6 +20,7 @@ public:
     LineBoxModel( float Width=1, float Height=1, float Depth=1 );
     LineBoxModel( const Vector& min, const Vector& max);
 	LineBoxModel(Vector c[8]);
+	LineBoxModel* clone() { return new LineBoxModel(*this); }
     virtual ~LineBoxModel() {}
     virtual void draw(const BaseCamera& Cam);
 

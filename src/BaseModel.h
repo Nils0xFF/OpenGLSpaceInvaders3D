@@ -19,6 +19,13 @@ class BaseModel
 {
 public:
     BaseModel();
+	BaseModel(const BaseModel& other) {
+		this->pShader = other.pShader->clone();
+		this->DeleteShader = other.DeleteShader;
+		this->ShadowCaster = other.ShadowCaster;
+		this->Transform = other.Transform;
+	};
+	virtual BaseModel* clone() { return new BaseModel(*this); }
     virtual ~BaseModel();
     virtual void draw(const BaseCamera& Cam);
     virtual const Matrix& transform() const { return Transform; }
