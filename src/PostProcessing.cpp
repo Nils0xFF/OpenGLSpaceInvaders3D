@@ -8,6 +8,9 @@ PostProcessing::PostProcessing()
 {
 	Init();
 	shader = new ScreenShader();
+#ifdef _DEBUG
+	shader->on(false);
+#endif // _DEBUG	
 }
 
 PostProcessing::~PostProcessing()
