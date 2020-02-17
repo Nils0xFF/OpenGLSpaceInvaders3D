@@ -119,8 +119,9 @@ public:
 			return;
 		}
 		this->transform = transform;
-		this->mr->updateTransform();
-		this->collider->updateBoundingVolume();
+		for (Component* c : components) {
+			c->updateTransform();
+		}
 	}
 
 	const MeshRenderer* getRenderer() { return mr; }

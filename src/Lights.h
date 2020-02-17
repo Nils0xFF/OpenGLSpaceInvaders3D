@@ -15,6 +15,7 @@ public:
 	};
 
 	BaseLight(const Vector& p = Vector(10, 10, 10), const Color& c = ::Color(1, 1, 1)) : Position(p), Col(c), Attenuation(1,0,0), ShadowCaster(false) {}
+	BaseLight(const BaseLight& other) = default;
 	virtual ~BaseLight() {}
 
 	const Vector& position() const { return Position; }
@@ -31,6 +32,8 @@ public:
 
 	virtual LightType type() const = 0;
 
+	virtual BaseLight* clone() = 0;
+
 protected:
 	Vector Position;
 	Vector Attenuation;
@@ -44,6 +47,8 @@ public:
 	PointLight(const Vector& p = Vector(10, 10, 10), const Color& c = ::Color(1, 1, 1)) : BaseLight(p,c) {}
 	virtual ~PointLight() {}
 
+	PointLight* clone() { return new PointLight(*this); }
+
 	virtual LightType type() const { return POINT; }
 };
 
@@ -52,6 +57,8 @@ class DirectionalLight : public BaseLight
 public:
 	DirectionalLight(const Vector& d = Vector(-1, -1, -1), const Color& c = ::Color(1, 1, 1)) : BaseLight(Vector(10,10,10), c), Direction(d) {}
 	virtual ~DirectionalLight() {}
+
+	DirectionalLight* clone() { return new DirectionalLight(*this); }
 
 	virtual LightType type() const { return DIRECTIONAL; }
 
@@ -67,6 +74,8 @@ class SpotLight : public BaseLight
 public:
 	SpotLight(const Vector& p = Vector(10, 10, 10), const Vector& d = Vector(-1, -1, -1), float InnerRadius = 30.0, float OuterRadius = 40.0f, const Color& c = ::Color(1, 1, 1)) : BaseLight(p, c), Direction(d), InnerRadius(InnerRadius), OuterRadius(OuterRadius) {}
 	virtual ~SpotLight() {}
+
+	SpotLight* clone() { return new SpotLight(*this); }
 
 	virtual LightType type() const { return SPOT; }
 

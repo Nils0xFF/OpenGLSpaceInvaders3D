@@ -3,6 +3,7 @@
 #include <GLFW\glfw3.h>
 #include "Camera.h"
 #include "PostProcessing.h"
+#include "ShadowMapGenerator.h"
 
 enum class GameState {
 	MENU,
@@ -42,6 +43,7 @@ public:
 	void End();
 
 private:
+	ShadowMapGenerator ShadowGenerator;
 	int SCREEN_WIDTH;
 	int SCREEN_HEIGHT;
 };

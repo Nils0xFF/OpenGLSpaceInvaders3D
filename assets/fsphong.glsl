@@ -1,6 +1,6 @@
 #version 400
 
-const int MAX_LIGHTS=14;
+const int MAX_LIGHTS=164;
 
 in vec3 Position;
 in vec3 Normal;

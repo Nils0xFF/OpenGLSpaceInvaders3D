@@ -2,6 +2,7 @@
 #include "BaseShader.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <algorithm>
 
 #ifdef WIN32
 #define ASSET_DIRECTORY "../../assets/"
@@ -28,7 +29,7 @@ ShaderLightMapper::ShaderLightMapper()
 {
 
 	BaseShader Shader;
-	bool loaded = Shader.load(ASSET_DIRECTORY"vslightdummy.glsl", ASSET_DIRECTORY"fslightdummy.glsl");
+	bool loaded = Shader.load(ASSET_DIRECTORY"vsphong.glsl", ASSET_DIRECTORY"fsphong.glsl");
 	assert(loaded);
 
 	GLuint BlockIndex = glGetUniformBlockIndex(Shader.openGLProgramID(), "Lights");
@@ -59,10 +60,22 @@ void ShaderLightMapper::addLight(BaseLight* Light)
 {
 	assert(Light);
 
-	if (lights().size() >= MaxLightCount)
+	if (lights().size() >= MaxLightCount) {
+		std::cout << "Reached Max Lights, skipping this one!" << std::endl;
 		return;
+	}
 
 	Lights.push_back(Light);
+}
+
+void ShaderLightMapper::removeLight(BaseLight* Light)
+{
+	assert(Light);
+
+	if (lights().size() == 0)
+		return;
+	
+	std::remove(Lights.begin() , Lights.end(), Light);
 }
 
 

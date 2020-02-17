@@ -7,7 +7,7 @@
 #include "TestController.h"
 #include "BoxCollider.h"
 #include "InputManager.h"
-
+#include "LightComponent.h"
 Scene testScene;
 GameObject* Bunny;
 
@@ -21,7 +21,7 @@ void Game::Init()
 {
 	GameObject *go = new GameObject();
 	go->setName("Bunny1");
-	go->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "bunny.dae", false), new PhongShader(), true));
+	go->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "dragon.dae", false), new PhongShader(), true));
 	go->setCollider(new BoxCollider());
 	go->addComponent(new TestController());
 	testScene.addGameObject(go);
@@ -29,10 +29,13 @@ void Game::Init()
 	go = new GameObject(*go);
 	go->setName("Bunny2");
 	go->setTransform(Matrix().translation(0, 3, 0));
+	PointLight* light = new PointLight(Vector(0,0,0), Color(0,1,2));
+	light->attenuation(Vector(0,0,1));
+	go->addComponent(new LightComponent(light));
 	testScene.addGameObject(go);
 
 	Bunny = new GameObject();
-	Bunny->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "bunny.dae", false), new PhongShader(), true));
+	Bunny->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "dragon.dae", false), new PhongShader(), true));
 	Bunny->setName("BunnyMain");
 	Bunny->setCollider(new BoxCollider());
 	testScene.addGameObject(Bunny);
@@ -101,7 +104,11 @@ void Game::Update(GLfloat dt)
 
 void Game::Render()
 {
+	ShadowGenerator.generate(testScene.getModelList());
+
+	PostProcessing::getInstance().shader->on(false);
 	PostProcessing::getInstance().Begin();
+
 	ShaderLightMapper::instance().activate();
 	switch (State)
 	{

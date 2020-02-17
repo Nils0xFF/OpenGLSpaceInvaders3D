@@ -48,7 +48,7 @@ public:
 		#endif //_DEBUG
 	}
 
-	void updateBoundingVolume() {
+	void updateTransform() {
 		collsionBox->transform(gameObject->getTransform());
 	}
 

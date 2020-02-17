@@ -12,7 +12,7 @@
 #endif
 #include "lights.h"
 
-#define MaxLightCount 14
+#define MaxLightCount 164
 
 class ShaderLightMapper
 {
@@ -20,6 +20,7 @@ public:
 	typedef std::vector<BaseLight*> LightList;
 
 	void addLight(BaseLight* Light);
+	void removeLight(BaseLight* Light);
 	const LightList& lights() const { return Lights; }
 	void clear();
 
