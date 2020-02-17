@@ -172,6 +172,9 @@
     <ClCompile Include="..\..\src\LightComponent.cpp">
       <Filter>Quelldateien\game\gameObjects\components</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Particle.cpp">
+      <Filter>Quelldateien\utils\models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Camera.h">
@@ -296,6 +299,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\ScreenShader.h">
       <Filter>Quelldateien\utils\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Particle.h">
+      <Filter>Quelldateien\utils\models</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\LightComponent.h">
       <Filter>Quelldateien\game\gameObjects\components</Filter>
