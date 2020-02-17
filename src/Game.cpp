@@ -7,6 +7,7 @@
 #include "TestController.h"
 #include "BoxCollider.h"
 #include "InputManager.h"
+#include "Particle.h"
 
 Scene testScene;
 GameObject* Bunny;
@@ -43,6 +44,11 @@ void Game::Init()
 
 	go = new GameObject(*go);
 	go->setTransform(Matrix().translation(0, 3, 0));
+	testScene.addGameObject(go);
+
+	go = new GameObject();
+	go->setRenderer(new MeshRenderer(new Particle(), new ConstantShader(), true));
+	go->setTransform(Matrix().translation(0, 0, 2));
 	testScene.addGameObject(go);
 
 
@@ -120,6 +126,7 @@ void Game::Render()
 	}
 	
 	testScene.Draw();
+
 	ShaderLightMapper::instance().deactivate();
 	PostProcessing::getInstance().End(glfwGetTime());
 

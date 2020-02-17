@@ -50,6 +50,8 @@ void PostProcessing::End(float time)
 	glBindVertexArray(quad);
 	glDisable(GL_DEPTH_TEST);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	shader->deactivate();
 }
 
 void PostProcessing::Init()
