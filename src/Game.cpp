@@ -9,9 +9,13 @@
 #include "InputManager.h"
 #include "LightComponent.h"
 #include "Particle.h"
+#include "PlayerController.h"
+#include "FollowCameraController.h"
+
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 Scene testScene;
-GameObject* Bunny;
 
 #ifdef WIN32
 #define ASSET_DIRECTORY "../../assets/"
@@ -21,12 +25,12 @@ GameObject* Bunny;
 
 void Game::Init()
 {
-	GameObject *go = new GameObject();
+	/*GameObject *go = new GameObject();
 	go->setName("Bunny1");
+	go->setTransform(Matrix().translation(0, 1, 0));
 	go->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "dragon.dae", false), new PhongShader(), true));
 	go->setCollider(new BoxCollider());
 	go->addComponent(new TestController());
-	go->getComponentByType<TestController>()->speed = 5.0f;
 	testScene.addGameObject(go);
 
 	go = new GameObject(*go);
@@ -35,27 +39,23 @@ void Game::Init()
 	PointLight* light = new PointLight(Vector(0,0,0), Color(0,1,2));
 	light->attenuation(Vector(0,0,1));
 	go->addComponent(new LightComponent(light));
-	testScene.addGameObject(go);
+	go->getComponentByType<TestController>()->speed = -1.0f;
+	testScene.addGameObject(go);*/
+	
 
-	Bunny = new GameObject();
-	Bunny->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "dragon.dae", false), new PhongShader(), true));
-	Bunny->setName("BunnyMain");
-	Bunny->setCollider(new BoxCollider());
-	testScene.addGameObject(Bunny);
+	GameObject* go = new GameObject();
+	go->setTransform(go->getTransform() * Matrix().rotationY(-0.5f * M_PI));
+	go->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "dragon.dae", false), new PhongShader(), true));
+	go->setName("Player");
+	go->addComponent(new PlayerController());
+	go->addComponent(new TestController());
+	go->setCollider(new BoxCollider());
+	go->addComponent(new FollowCameraController(mainCamera, Vector(0,1.0f,2.0f)));
+	testScene.addGameObject(go);
 
 	go = new GameObject();
 	go->setRenderer(new MeshRenderer(new TrianglePlaneModel(10.0f, 10.0f, 10, 10), new PhongShader(), true));
 	testScene.addGameObject(go);
-
-	go = new GameObject(*go);
-	go->setTransform(Matrix().translation(0, 3, 0));
-	testScene.addGameObject(go);
-
-	go = new GameObject();
-	go->setRenderer(new MeshRenderer(new Particle(), new ConstantShader(), true));
-	go->setTransform(Matrix().translation(0, 0, 2));
-	testScene.addGameObject(go);
-
 
 	CameraManager::getInstance().activeCamera = &mainCamera;
 
@@ -74,25 +74,6 @@ void Game::Start() {
 
 void Game::ProcessInput(GLfloat dt)
 {	
-	if (InputManager::getInstance().Keys[GLFW_KEY_W])
-	{
-		Bunny->moveTo(Bunny->getTransform() * Matrix().translation(Vector(0.0f, 0.0f, -1.0f) * dt));
-	}
-
-	if (InputManager::getInstance().Keys[GLFW_KEY_S])
-	{
-		Bunny->moveTo(Bunny->getTransform() * Matrix().translation(Vector(0.0f, 0.0f, 1.0f) * dt));
-	}
-
-	if (InputManager::getInstance().Keys[GLFW_KEY_A])
-	{
-		Bunny->moveTo(Bunny->getTransform() * Matrix().translation(Vector(-1.0f, 0.0f, 0.0f) * dt));
-	}
-
-	if (InputManager::getInstance().Keys[GLFW_KEY_D])
-	{
-		Bunny->moveTo(Bunny->getTransform() * Matrix().translation(Vector(1.0f, 0.0f, 0.0f) * dt));
-	}
 }
 
 void Game::WindowResize(int width, int height)

@@ -95,6 +95,7 @@
     <ClCompile Include="..\..\src\color.cpp" />
     <ClCompile Include="..\..\src\Component.cpp" />
     <ClCompile Include="..\..\src\ConstantShader.cpp" />
+    <ClCompile Include="..\..\src\FollowCameraController.cpp" />
     <ClCompile Include="..\..\src\Framebuffer.cpp" />
     <ClCompile Include="..\..\src\GameObject.cpp" />
     <ClCompile Include="..\..\src\IndexBuffer.cpp" />
@@ -102,7 +103,7 @@
     <ClCompile Include="..\..\src\MeshRenderer.cpp" />
     <ClCompile Include="..\..\src\OBB.cpp" />
     <ClCompile Include="..\..\src\Particle.cpp" />
-    <ClCompile Include="..\..\src\ParticleShader.cpp" />
+    <ClCompile Include="..\..\src\PlayerController.cpp" />
     <ClCompile Include="..\..\src\PostProcessing.cpp" />
     <ClCompile Include="..\..\src\Prefab.cpp" />
     <ClCompile Include="..\..\src\Scene.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="..\..\src\color.h" />
     <ClInclude Include="..\..\src\Component.h" />
     <ClInclude Include="..\..\src\ConstantShader.h" />
+    <ClInclude Include="..\..\src\FollowCameraController.h" />
     <ClInclude Include="..\..\src\Framebuffer.h" />
     <ClInclude Include="..\..\src\GameObject.h" />
     <ClInclude Include="..\..\src\GameObjectInterface.h" />
@@ -150,6 +152,7 @@
     <ClInclude Include="..\..\src\OBB.h" />
     <ClInclude Include="..\..\src\Particle.h" />
     <ClInclude Include="..\..\src\ParticleShader.h" />
+    <ClInclude Include="..\..\src\PlayerController.h" />
     <ClInclude Include="..\..\src\PostProcessing.h" />
     <ClInclude Include="..\..\src\Prefab.h" />
     <ClInclude Include="..\..\src\Scene.h" />

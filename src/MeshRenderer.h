@@ -26,6 +26,9 @@ class MeshRenderer : public Component
 		MeshRenderer* clone() { return new MeshRenderer(*this); }
 
 		void Init() {
+		}
+
+		void Start() {
 			model->transform(gameObject->getTransform());
 		}
 

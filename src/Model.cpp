@@ -13,7 +13,6 @@
 
 Model::Model() : pMeshes(NULL), MeshCount(0), pMaterials(NULL), MaterialCount(0)
 {
-    
 }
 Model::Model(const char* ModelFile, bool FitSize) : pMeshes(NULL), MeshCount(0), pMaterials(NULL), MaterialCount(0)
 {
@@ -77,7 +76,7 @@ void Model::loadMeshes(const aiScene* pScene, bool FitSize)
         
         this->pMeshes = new Mesh[pScene->mNumMeshes];
         this->MeshCount = pScene->mNumMeshes;
-        this->calcBoundingBox(pScene, this->BoundingBox);
+        this->calcBoundingBox(pScene, this->InitialBoundingBox);
 		this->updateBoundingBox();
 
         if(FitSize){
@@ -197,7 +196,7 @@ void Model::calcBoundingBox(const aiScene* pScene, AABB& Box)
     
     Box.Max = Vector(largestX, largestY, largestZ);
     Box.Min = Vector(smallestX, smallestY, smallestZ);
-	this->initialBoundingBox = Box;
+	this->InitialBoundingBox = Box;
 }
 
 void Model::loadNodes(const aiScene* pScene)

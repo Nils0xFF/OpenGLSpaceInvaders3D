@@ -31,7 +31,8 @@ public:
 	}
 
 	void Start() {
-		collsionBox = new OBB(gameObject->getRenderer()->model->boundingBox());
+		collsionBox = new OBB(gameObject->getRenderer()->model->initialBoundingBox(), gameObject->getTransform());
+		updateTransform();
 	}
 
 	void Update(float deltaTime) {
@@ -51,6 +52,7 @@ public:
 	void updateTransform() {
 		collsionBox->transform(gameObject->getTransform());
 	}
+
 
 };
 

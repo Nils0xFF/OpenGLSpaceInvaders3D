@@ -31,13 +31,23 @@ Vector AABB::size() const
 
 AABB AABB::transform(const Matrix& m) const
 {
+	Vector c[8];
+	corners(c);
+	for (int i = 0; i < 8; ++i)
+		c[i] = m * c[i];
+	AABB r;
+	r.fromPoints(c, 8);
+	return r;
+
+	/*
 	OBB t(*this);
-	t.transform(m);
+	t.transformNoCenter(m);
 	Vector c[8];
 	t.corners(c);
 	AABB r;
 	r.fromPoints(c, 8);
 	return r;
+	*/
 }
 
 AABB AABB::merge(const AABB& a, const AABB& b) const
@@ -78,7 +88,7 @@ void AABB::corners(Vector c[8]) const
 	c[4].X = Min.X; c[4].Y = Min.Y; c[4].Z = Max.Z;
 	c[5].X = Max.X; c[5].Y = Min.Y; c[5].Z = Max.Z;
 	c[6].X = Max.X; c[6].Y = Max.Y; c[6].Z = Max.Z;
-	c[7].X = Max.X; c[7].Y = Min.Y; c[7].Z = Max.Z;
+	c[7].X = Min.X; c[7].Y = Max.Y; c[7].Z = Max.Z;
 }
 
 void AABB::fromPoints(const Vector* Points, unsigned int PointCount)

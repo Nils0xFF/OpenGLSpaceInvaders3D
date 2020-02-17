@@ -175,8 +175,11 @@
     <ClCompile Include="..\..\src\Particle.cpp">
       <Filter>Quelldateien\utils\models</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ParticleShader.cpp">
-      <Filter>Quelldateien</Filter>
+    <ClCompile Include="..\..\src\PlayerController.cpp">
+      <Filter>Quelldateien\game\customComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FollowCameraController.cpp">
+      <Filter>Quelldateien\game\customComponents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -312,6 +315,12 @@
     <ClInclude Include="..\..\src\ParticleShader.h" />
     <ClInclude Include="..\..\src\Tags.h">
       <Filter>Quelldateien\game\gameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PlayerController.h">
+      <Filter>Quelldateien\game\customComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FollowCameraController.h">
+      <Filter>Quelldateien\game\customComponents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

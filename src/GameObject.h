@@ -22,6 +22,9 @@ private:
 	std::string name = "";
 	Tag tag = Tag::Default;
 
+	Vector deltaTranslation;
+	Matrix deltaRotation;
+
 	Matrix transform;
 	GameObject* parent;
 
@@ -36,7 +39,7 @@ private:
 	std::list<GameObject*> children;
 
 public:
-	GameObject():active(true),staticObject(false),name(""),mr(NULL),collider(NULL),parent(NULL),areaBox(),debugShader(),debugModel(NULL) {
+	GameObject():active(true),staticObject(false),name(""),mr(NULL),collider(NULL),parent(NULL),areaBox(),debugShader(),debugModel(NULL),tag(Tag::Default) {
 		transform.identity();
 		debugShader.color(Color(0,1,0));
 	};
@@ -46,6 +49,7 @@ public:
 		this->active = other.active;
 		this->staticObject = other.staticObject;
 		this->name = other.name;
+		this->tag = other.tag;
 		this->parent = NULL;
 		debugShader.color(Color(0, 1, 0));
 
@@ -80,10 +84,13 @@ public:
 	};
 
 	void Start() {
+		deltaRotation = Matrix().identity();
+		deltaTranslation = Vector(0,0,0);
 		for (Component* c : this->components) {
 			c->Start();
 		}
 	};
+
 	void Update(float deltaTime);
 
 	void Draw() {
@@ -116,7 +123,18 @@ public:
 	void setName(const std::string name) { this->name = name; }
 	const Matrix& getTransform() const { return this->transform; }
 	void setTransform(const Matrix& transform) {
+		std::cout << "Old FWD: " << this->transform.forward() << std::endl;
+		std::cout << "Inc FWD: " << transform.forward() << std::endl;
 		this->transform = transform;
+		std::cout << "New FWD: " << this->transform.forward() << std::endl;
+	}
+
+	void translate(const Vector& delta) {
+		this->deltaTranslation += delta;
+	}
+
+	void rotate(const Matrix& rot) {
+		this->deltaRotation *= rot;
 	}
 
 	void moveTo(const Matrix& transform) { 
@@ -144,6 +162,7 @@ public:
 	const Collider* getCollider() { return collider; }
 	void setCollider(Collider* collider) {
 		if (!this->mr) {
+			delete collider;
 			std::cout << "Adding a Collider requires a Renderer!" << std::endl;
 			return;
 		}
