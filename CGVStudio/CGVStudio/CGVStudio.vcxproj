@@ -163,6 +163,7 @@
     <ClInclude Include="..\..\src\PhongShader.h" />
     <ClInclude Include="..\..\src\rgbimage.h" />
     <ClInclude Include="..\..\src\ShadowMapGenerator.h" />
+    <ClInclude Include="..\..\src\Tags.h" />
     <ClInclude Include="..\..\src\TestController.h" />
     <ClInclude Include="..\..\src\Texture.h" />
     <ClInclude Include="..\..\src\TriangleBoxModel.h" />

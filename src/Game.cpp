@@ -26,6 +26,7 @@ void Game::Init()
 	go->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "dragon.dae", false), new PhongShader(), true));
 	go->setCollider(new BoxCollider());
 	go->addComponent(new TestController());
+	go->getComponentByType<TestController>()->speed = 5.0f;
 	testScene.addGameObject(go);
 
 	go = new GameObject(*go);

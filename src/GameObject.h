@@ -10,6 +10,7 @@
 #include "MeshRenderer.h"
 #include "ConstantShader.h"
 #include "LineBoxModel.h"
+#include "Tags.h"
 
 
 class GameObject : public GameObjectInterface
@@ -19,6 +20,8 @@ private:
 	bool staticObject = false;
 
 	std::string name = "";
+	Tag tag = Tag::Default;
+
 	Matrix transform;
 	GameObject* parent;
 
@@ -107,6 +110,9 @@ public:
 	bool isStatic() const { return staticObject; }
 	void setStatic(const bool staticObject) { this->staticObject = staticObject; }
 	const std::string& getName() { return name; }
+	void setTag(Tag tag) { this->tag = tag; }
+	const Tag getTag() const { return tag; }
+
 	void setName(const std::string name) { this->name = name; }
 	const Matrix& getTransform() const { return this->transform; }
 	void setTransform(const Matrix& transform) {
@@ -165,5 +171,26 @@ public:
 		g->setParent(this); 
 		this->children.push_back(g);
 	}
+
+	template <typename T>
+	T* getComponentByType() {
+		for (Component* c : components) {
+			if (dynamic_cast<T*>(c)) {
+				return dynamic_cast<T*>(c);
+			}
+		}
+	}
+
+	template <typename T>
+	std::list<T*> getComponentsByType() {
+		std::list<T*> componentList;
+		for (Component* c : components) {
+			if (dynamic_cast<T*>(c)) {
+				myList.push_back(dynamic_cast<T*>(c));
+			}
+		}
+		return componentList;
+	}
+
 };
 

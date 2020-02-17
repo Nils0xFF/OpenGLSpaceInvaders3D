@@ -175,6 +175,9 @@
     <ClCompile Include="..\..\src\Particle.cpp">
       <Filter>Quelldateien\utils\models</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\ParticleShader.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Camera.h">
@@ -305,6 +308,10 @@
     </ClInclude>
     <ClInclude Include="..\..\src\LightComponent.h">
       <Filter>Quelldateien\game\gameObjects\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ParticleShader.h" />
+    <ClInclude Include="..\..\src\Tags.h">
+      <Filter>Quelldateien\game\gameObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
