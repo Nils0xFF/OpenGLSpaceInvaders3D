@@ -8,14 +8,14 @@ class OBB
 {
 private:
 	void calculatePoints() {
-		verts[0] = center + right * -halfSize +	up * -halfSize +	forward * -halfSize;
-		verts[1] = center + right * halfSize +	up * -halfSize +	forward * -halfSize;
-		verts[2] = center + right * -halfSize +	up * halfSize +		forward * -halfSize;
-		verts[3] = center + right * halfSize +	up * halfSize +		forward * -halfSize;
-		verts[4] = center + right * -halfSize +	up * -halfSize +	forward * halfSize;
-		verts[5] = center + right * halfSize +	up * -halfSize +	forward * halfSize;
-		verts[6] = center + right * -halfSize +	up * halfSize +		forward * halfSize;
-		verts[7] = center + right * halfSize +	up * halfSize +		forward * halfSize;
+		verts[0] = center + right * -halfSize.X +	up * -halfSize.Y +	forward * -halfSize.Z;
+		verts[1] = center + right * halfSize.X +	up * -halfSize.Y +	forward * -halfSize.Z;
+		verts[2] = center + right * -halfSize.X +	up * halfSize.Y +		forward * -halfSize.Z;
+		verts[3] = center + right * halfSize.X +	up * halfSize.Y +		forward * -halfSize.Z;
+		verts[4] = center + right * -halfSize.X +	up * -halfSize.Y +	forward * halfSize.Z;
+		verts[5] = center + right * halfSize.X +	up * -halfSize.Y +	forward * halfSize.Z;
+		verts[6] = center + right * -halfSize.X +	up * halfSize.Y +		forward * halfSize.Z;
+		verts[7] = center + right * halfSize.X +	up * halfSize.Y +		forward * halfSize.Z;
 	}
 
 protected:
@@ -45,7 +45,7 @@ public:
 		right = transform.right().normalize();
 		up = transform.up().normalize();
 		forward = transform.forward().normalize();
-		center = transform.translation() + up * halfSize;
+		center = transform.translation() + up * halfSize.Y;
 
 		calculatePoints();
 	}
