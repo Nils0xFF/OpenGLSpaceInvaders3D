@@ -1,5 +1,4 @@
 #include "ParticleGenerator.h"
-#include "ParticleShader.h"
 #include "CameraManager.h"
 #include "ConstantShader.h"
 ParticleGenerator::ParticleGenerator(unsigned int pps, Vector direction, float maxLife): Pps(pps), Direction(direction), MaxLife(maxLife)
@@ -26,8 +25,7 @@ void ParticleGenerator::Update(float deltaTime)
 	
 	float nr = std::round(Pps * deltaTime);
 	for (int i = 0; i < nr; i++) {
-		Particle* par = new Particle(Direction);
-		par->shader(new ParticleShader(), true);
+		Particle* par = new Particle(Direction);		
 		par->transform(gameObject->getTransform() * Matrix().scale(0.01f));
 		particles.push_back(par);
 	}

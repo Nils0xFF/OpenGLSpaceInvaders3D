@@ -188,6 +188,13 @@
       <Filter>Quelldateien\game\customComponents</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\ParticleGenerator.cpp">
+      <Filter>Quelldateien\game\customComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Text.cpp">
+      <Filter>Quelldateien\game\customComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\TextShader.cpp">
+      <Filter>Quelldateien\utils\shader</Filter>
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\GameSettings.cpp">
@@ -337,7 +344,15 @@
     <ClInclude Include="..\..\src\FollowCameraController.h">
       <Filter>Quelldateien\game\customComponents</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ParticleGenerator.h" />
+    <ClInclude Include="..\..\src\ParticleGenerator.h">
+      <Filter>Quelldateien\game\customComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Text.h">
+      <Filter>Quelldateien\game\customComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\TextShader.h">
+      <Filter>Quelldateien\utils\shader</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\GameSettings.h">
       <Filter>Quelldateien\game\statics</Filter>
     </ClInclude>

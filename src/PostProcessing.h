@@ -11,7 +11,6 @@ public:
 
 	ScreenShader* shader;
 	void setMSAA(unsigned int samples);
-	void setResolution(unsigned int width, unsigned int height);
 
 	void Begin();
 	void End(float time);

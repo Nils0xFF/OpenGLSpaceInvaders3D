@@ -66,6 +66,9 @@ public:
     virtual void update();
     virtual const Matrix& getViewMatrix() const;
     virtual const Matrix& getProjectionMatrix() const;
+
+    int WindowWidth;
+    int WindowHeight;
 protected:
     void updateMouseInput();
     void updateKeyboardInput();
@@ -85,9 +88,7 @@ protected:
     Vector m_Zoom;
     Vector m_Rotation;
     int m_LastMouseX;
-    int m_LastMouseY;
-    int WindowWidth;
-    int WindowHeight;
+    int m_LastMouseY;    
     GLFWwindow* pWindow;
     
 private:
