@@ -388,3 +388,4 @@ CGVStudio/.vs/CGVStudio/v16/.suo
 *.db
 
 !assets/*
+!assets/*/*
