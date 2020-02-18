@@ -24,7 +24,7 @@ class Model : public BaseModel
 {
 public:
     Model();
-    Model(const char* ModelFile, bool FitSize=true);
+    Model(const char* ModelFile, bool FitSize=true, bool Center=true);
 	Model(const Model& other) :BaseModel(other) {};
 	Model* clone() { 
 		Model* newModel = new Model(Filepath.c_str(), false);
@@ -34,7 +34,7 @@ public:
 	}
     virtual ~Model();
 
-    bool load(const char* ModelFile, bool FitSize=true);
+    bool load(const char* ModelFile, bool FitSize=true, bool Center = true);
     virtual void draw(const BaseCamera& Cam);
 	void updateBoundingBox() { this->BoundingBox = this->InitialBoundingBox.transform(Transform); }
 	const AABB& initialBoundingBox() const { return InitialBoundingBox; }
@@ -79,7 +79,7 @@ protected: // protected types
     };
     
 protected: // protected methods
-    void loadMeshes(const aiScene* pScene, bool FitSize);
+    void loadMeshes(const aiScene* pScene, bool FitSize, bool Center);
     void loadMaterials(const aiScene* pScene);
     void calcBoundingBox( const aiScene* pScene, AABB& Box);
 

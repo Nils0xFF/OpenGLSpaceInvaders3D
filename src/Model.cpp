@@ -14,9 +14,9 @@
 Model::Model() : pMeshes(NULL), MeshCount(0), pMaterials(NULL), MaterialCount(0)
 {
 }
-Model::Model(const char* ModelFile, bool FitSize) : pMeshes(NULL), MeshCount(0), pMaterials(NULL), MaterialCount(0)
+Model::Model(const char* ModelFile, bool FitSize, bool Center) : pMeshes(NULL), MeshCount(0), pMaterials(NULL), MaterialCount(0)
 {
-    bool ret = load(ModelFile, FitSize);
+    bool ret = load(ModelFile, FitSize, Center);
     if(!ret)
         throw std::exception();
 }
@@ -43,7 +43,7 @@ void Model::deleteNodes(Node* pNode)
         delete [] pNode->Meshes;
 }
 
-bool Model::load(const char* ModelFile, bool FitSize)
+bool Model::load(const char* ModelFile, bool FitSize, bool Center)
 {
     const aiScene* pScene = aiImportFile( ModelFile,aiProcessPreset_TargetRealtime_Fast | aiProcess_TransformUVCoords );
     
@@ -58,34 +58,43 @@ bool Model::load(const char* ModelFile, bool FitSize)
     if(pos !=std::string::npos)
         Path.resize(pos+1);
     
-    loadMeshes(pScene, FitSize);
+    loadMeshes(pScene, FitSize, Center);
     loadMaterials(pScene);
     loadNodes(pScene);
     
     return true;
 }
 
-void Model::loadMeshes(const aiScene* pScene, bool FitSize)
+void Model::loadMeshes(const aiScene* pScene, bool FitSize, bool Center)
 {
     
     float fitScale = 1;
     float scaleFactor = 1;
-    
+	Vector offset = Vector::zero();
+
     // TODO: Add your code (Exercise 3)
     if(pScene->HasMeshes()){
         
         this->pMeshes = new Mesh[pScene->mNumMeshes];
         this->MeshCount = pScene->mNumMeshes;
         this->calcBoundingBox(pScene, this->InitialBoundingBox);
-		this->updateBoundingBox();
+
 
         if(FitSize){
-            float largest = std::max(std::max(this->boundingBox().size().X, this->boundingBox().size().Y), this->boundingBox().size().Z);
+            float largest = std::max(std::max(this->InitialBoundingBox.size().X, this->InitialBoundingBox.size().Y), this->InitialBoundingBox.size().Z);
             scaleFactor = fitScale / largest;
-            this->BoundingBox.Max = this->BoundingBox.Max * scaleFactor;
-            this->BoundingBox.Min = this->BoundingBox.Min * scaleFactor;
+            this->InitialBoundingBox.Max = this->InitialBoundingBox.Max * scaleFactor;
+            this->InitialBoundingBox.Min = this->InitialBoundingBox.Min * scaleFactor;
         }
+
+		if (Center) {
+			offset = -InitialBoundingBox.center();
+			InitialBoundingBox.Min += offset;
+			InitialBoundingBox.Max += offset;
+		}
         
+		this->updateBoundingBox();
+
         for(int i = 0; i< pScene->mNumMeshes; i++){
             this->pMeshes[i].VB.begin();
             this->pMeshes[i].IB.begin();
@@ -105,7 +114,7 @@ void Model::loadMeshes(const aiScene* pScene, bool FitSize)
                 }
                 
                 
-                this->pMeshes[i].VB.addVertex(pScene->mMeshes[i]->mVertices[j].x * scaleFactor, pScene->mMeshes[i]->mVertices[j].y * scaleFactor, pScene->mMeshes[i]->mVertices[j].z * scaleFactor);
+                this->pMeshes[i].VB.addVertex(pScene->mMeshes[i]->mVertices[j].x * scaleFactor + offset.X, pScene->mMeshes[i]->mVertices[j].y * scaleFactor + offset.Y, pScene->mMeshes[i]->mVertices[j].z * scaleFactor + offset.Z);
             }
             
             if(pScene->mMeshes[i]->HasFaces()){

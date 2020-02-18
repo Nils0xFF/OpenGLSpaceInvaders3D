@@ -44,13 +44,13 @@ void Game::Init()
 	
 
 	GameObject* go = new GameObject();
-	go->setTransform(go->getTransform() * Matrix().rotationY(-0.5f * M_PI));
-	go->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "dragon.dae", false), new PhongShader(), true));
+	go->setTransform(go->getTransform() * Matrix().rotationY(0.5f * M_PI));
+	go->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "spaceship.obj", true), new PhongShader(), true));
 	go->setName("Player");
 	go->addComponent(new PlayerController());
-	go->addComponent(new TestController());
+	// go->addComponent(new TestController());
 	go->setCollider(new BoxCollider());
-	go->addComponent(new FollowCameraController(mainCamera, Vector(0,1.0f,2.0f)));
+	// go->addComponent(new FollowCameraController(mainCamera, Vector(0,1.0f,-2.0f)));
 	testScene.addGameObject(go);
 
 	go = new GameObject();

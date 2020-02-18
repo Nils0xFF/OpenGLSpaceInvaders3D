@@ -10,7 +10,7 @@ void GameObject::Update(float deltaTime)
 
 	moveTo(Matrix().translation(this->transform.translation() + this->deltaTranslation) * Matrix().translation(this->transform.translation()).invert() * this->transform  * deltaRotation);
 	deltaRotation = Matrix().identity();
-	deltaTranslation = Vector::zero();
+	deltaTranslation = deltaTranslation * 0.5f;
 
 	for (GameObject* g : this->children) {
 		g->setTransform(this->transform * g->getTransform());

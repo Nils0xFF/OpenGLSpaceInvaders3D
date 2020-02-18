@@ -16,7 +16,7 @@ enum class GameState {
 class Game
 {
 public:
-	Game(GLFWwindow* pWin) : State(GameState::PLAYING), pWindow(pWin), mainCamera(pWindow) { glfwGetWindowSize(pWin, &SCREEN_WIDTH, &SCREEN_HEIGHT); };
+	Game(GLFWwindow* pWin) : State(GameState::PLAYING), pWindow(pWin), mainCamera(pWindow), ShadowGenerator(2048, 2048) { glfwGetWindowSize(pWin, &SCREEN_WIDTH, &SCREEN_HEIGHT); };
 
 	GLFWwindow* pWindow;
 	GameState State;
