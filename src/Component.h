@@ -18,6 +18,8 @@ public:
 	virtual void Update(float deltaTime) = 0;
 	virtual void Draw() {};
 	virtual void Destroy() {};
+	virtual void updateTransform() {};
+
 	virtual Component* clone() = 0;
 
 	virtual void setGameObject(GameObjectInterface* go) { this->gameObject = go; }

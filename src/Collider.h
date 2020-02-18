@@ -10,6 +10,6 @@ class Collider : public Component
 		virtual Collider* clone() = 0;
 		virtual void Start() {};
 		virtual void Update(float deltaTime) {};
-		virtual void updateBoundingVolume() {};
+		virtual void updateTransform() {};
 };
 

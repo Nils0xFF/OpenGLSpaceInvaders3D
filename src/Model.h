@@ -36,7 +36,8 @@ public:
 
     bool load(const char* ModelFile, bool FitSize=true);
     virtual void draw(const BaseCamera& Cam);
-	void updateBoundingBox() { this->BoundingBox = this->initialBoundingBox.transform(Transform); }
+	void updateBoundingBox() { this->BoundingBox = this->InitialBoundingBox.transform(Transform); }
+	const AABB& initialBoundingBox() const { return InitialBoundingBox; }
     const AABB& boundingBox() const { return BoundingBox; }
 
 	virtual void transform(const Matrix& m) {
@@ -93,7 +94,7 @@ protected: // protected member variables
     unsigned int MeshCount;
     Material* pMaterials;
     unsigned int MaterialCount;
-    AABB initialBoundingBox;
+    AABB InitialBoundingBox;
 	AABB BoundingBox;
     
     std::string Filepath; // stores pathname and filename

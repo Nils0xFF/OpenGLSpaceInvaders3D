@@ -29,5 +29,14 @@ public:
 
 	void addGameObject(GameObject* go) { gameObjects.push_back(go); }
 
+	std::list<BaseModel*> getModelList() {
+		std::list<BaseModel*> models;
+		for (GameObject* g : gameObjects)
+		{
+			if(g->getRenderer())
+				models.push_back(g->getRenderer()->model);
+		}
+		return models;
+	}
 };
 
