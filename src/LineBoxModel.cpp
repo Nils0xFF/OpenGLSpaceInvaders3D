@@ -10,6 +10,7 @@
 
 LineBoxModel::LineBoxModel(float Width, float Height, float Depth)
 {
+
 	// TODO: Add your code (Exercise 1)
 	VB.begin();
 

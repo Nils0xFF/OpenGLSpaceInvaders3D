@@ -1,4 +1,4 @@
-#version 400
+#version 330
 
 const int MAX_LIGHTS=64;
 
@@ -23,6 +23,13 @@ uniform sampler2D DiffuseTexture;
 uniform sampler2D NormalTexture;
 uniform sampler2D ShadowMapTexture[MAX_LIGHTS];
 uniform mat4 ShadowMapMat[MAX_LIGHTS];
+
+vec2 poissonDisk[4] = vec2[](
+  vec2( -0.94201624, -0.39906216 ),
+  vec2( 0.94558609, -0.76890725 ),
+  vec2( -0.094184101, -0.92938870 ),
+  vec2( 0.34495938, 0.29387760 )
+);
 
 struct Light
 {
@@ -57,7 +64,7 @@ void main()
     NormalTex.g = NormalTex.g * 2 - 1;
     NormalTex.b = NormalTex.b * 2 - 1;
     
-    mat3 tbnMatrix = mat3(Tangent, -BiTangent, Normal);
+    mat3 tbnMatrix = mat3(Tangent, BiTangent, Normal);
     vec3 N = normalize(tbnMatrix * NormalTex);
     
     vec3 E = normalize(EyePos-Position);
@@ -80,36 +87,47 @@ void main()
         
         if(light.ShadowIndex >= 0){
             
-            vec4 PosSM = ShadowMapMat[i] * vec4(Position.xyz,1);
-            PosSM.xyz /= PosSM.w;
+            vec4 PosSM = ShadowMapMat[light.ShadowIndex] * vec4(Position.xyz,1);
+            PosSM.xy /= PosSM.w;
             PosSM.xy = PosSM.xy * 0.5 + 0.5;
-            vec4 DepthSM = texture(ShadowMapTexture[i], PosSM.xy);
-            
-            if (DepthSM.r < PosSM.z) {
-                visibility = 0.0;
+
+            float closestDepth = texture(ShadowMapTexture[light.ShadowIndex], PosSM.xy).r;
+            float currentDepth = PosSM.z;
+            if(light.Type == 1){
+                L = -normalize(light.Direction);
+            }                
+            float bias = 0.005 * (sat(dot(N, L)));
+
+            for (int j=0;j<4;j++){
+                float closestDepth = texture(ShadowMapTexture[light.ShadowIndex], PosSM.xy + poissonDisk[j]/1000.0).r;
+                if(closestDepth < currentDepth - bias){
+                    visibility -= 0.2;
+                }
             }
+
+
         }
         
         vec3 Color = vec3(0,0,0);
         switch (light.Type) {
                 // Point Light
             case 0:
-                Color += intensity * light.Color;
+                Color = intensity * light.Color;
                 break;
                 // Directional Light
             case 1:
                 L = -normalize(light.Direction);
-                Color += visibility * light.Color;
+                Color = visibility * light.Color;
                 break;
                 // Spot Light
             case 2:
                 float omega = acos(dot(normalize(light.Direction), normalize(-L)));
                 
                 if(omega <= light.SpotRadius.x){
-                    Color += light.Color;
+                    Color = light.Color;
                 }else if(omega <= light.SpotRadius.y){
                     float x = (omega - light.SpotRadius.x) / (light.SpotRadius.y - light.SpotRadius.x);
-                    Color += (1.0f - sat(x)) * light.Color;
+                    Color = (1.0f - sat(x)) * light.Color;
                 }
                 
                 Color *= intensity * visibility;
@@ -125,6 +143,6 @@ void main()
         
     }
     
-    FragColor = vec4((DiffuseComponent + AmbientColor)*DiffTex.rgb + SpecularComponent, DiffTex.a);
+    FragColor = vec4((DiffuseComponent + AmbientColor) * DiffTex.rgb + SpecularComponent, DiffTex.a);
     
 }

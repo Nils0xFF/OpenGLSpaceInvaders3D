@@ -98,7 +98,8 @@ public:
 			if (debugModel != NULL) delete debugModel;
 			debugModel = new LineBoxModel(areaBox->Min, areaBox->Max);
 			debugModel->shader(&debugShader, false);
-			if (debugModel != NULL) debugModel->draw(*CameraManager::getInstance().activeCamera);
+			debugModel->shadowCaster(false);
+			debugModel->draw(*CameraManager::getInstance().activeCamera);
 		#endif
 		for (Component* c : this->components) {
 			c->Draw();
