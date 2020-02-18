@@ -179,6 +179,8 @@
       <Filter>Quelldateien\utils\shader</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\ParticleGenerator.cpp">
+      <Filter>Quelldateien\utils\customComponents</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\PlayerController.cpp">
       <Filter>Quelldateien\game\customComponents</Filter>
     </ClCompile>
@@ -317,6 +319,8 @@
       <Filter>Quelldateien\utils\shader</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\ParticleGenerator.h">
+      <Filter>Quelldateien\utils\customComponents</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\LightComponent.h">
       <Filter>Quelldateien\game\gameObjects\components</Filter>
     </ClInclude>
