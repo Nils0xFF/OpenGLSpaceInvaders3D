@@ -7,7 +7,7 @@
 #include "TestController.h"
 #include "BoxCollider.h"
 #include "InputManager.h"
-#include "Particle.h"
+#include "ParticleGenerator.h"
 
 Scene testScene;
 GameObject* Bunny;
@@ -36,6 +36,7 @@ void Game::Init()
 	Bunny->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "bunny.dae", false), new PhongShader(), true));
 	Bunny->setName("BunnyMain");
 	Bunny->setCollider(new BoxCollider());
+	Bunny->addComponent(new ParticleGenerator(1, Vector(0, 20, 0), 20));
 	testScene.addGameObject(Bunny);
 
 	go = new GameObject();
@@ -45,12 +46,7 @@ void Game::Init()
 	go = new GameObject(*go);
 	go->setTransform(Matrix().translation(0, 3, 0));
 	testScene.addGameObject(go);
-
-	go = new GameObject();
-	go->setRenderer(new MeshRenderer(new Particle(), new ConstantShader(), true));
-	go->setTransform(Matrix().translation(0, 0, 2));
-	testScene.addGameObject(go);
-
+	
 
 	CameraManager::getInstance().activeCamera = &mainCamera;
 

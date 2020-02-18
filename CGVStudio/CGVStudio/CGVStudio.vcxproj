@@ -101,6 +101,7 @@
     <ClCompile Include="..\..\src\MeshRenderer.cpp" />
     <ClCompile Include="..\..\src\OBB.cpp" />
     <ClCompile Include="..\..\src\Particle.cpp" />
+    <ClCompile Include="..\..\src\ParticleGenerator.cpp" />
     <ClCompile Include="..\..\src\ParticleShader.cpp" />
     <ClCompile Include="..\..\src\PostProcessing.cpp" />
     <ClCompile Include="..\..\src\Prefab.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="..\..\src\MeshRenderer.h" />
     <ClInclude Include="..\..\src\OBB.h" />
     <ClInclude Include="..\..\src\Particle.h" />
+    <ClInclude Include="..\..\src\ParticleGenerator.h" />
     <ClInclude Include="..\..\src\ParticleShader.h" />
     <ClInclude Include="..\..\src\PostProcessing.h" />
     <ClInclude Include="..\..\src\Prefab.h" />

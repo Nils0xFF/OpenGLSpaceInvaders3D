@@ -172,6 +172,12 @@
     <ClCompile Include="..\..\src\Particle.cpp">
       <Filter>Quelldateien\utils\models</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\ParticleShader.cpp">
+      <Filter>Quelldateien\utils\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ParticleGenerator.cpp">
+      <Filter>Quelldateien\game\customComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Camera.h">
@@ -299,6 +305,12 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Particle.h">
       <Filter>Quelldateien\utils\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ParticleShader.h">
+      <Filter>Quelldateien\utils\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ParticleGenerator.h">
+      <Filter>Quelldateien\game\customComponents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

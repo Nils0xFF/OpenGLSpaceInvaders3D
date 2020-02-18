@@ -1,6 +1,6 @@
 #include "Particle.h"
 
-Particle::Particle()
+Particle::Particle(Vector velocity, float life): Velocity(velocity), Life(life)
 {
 	VB.begin();
 
