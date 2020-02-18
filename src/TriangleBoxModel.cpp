@@ -10,11 +10,14 @@
 
 TriangleBoxModel::TriangleBoxModel(float Width, float Height, float Depth)
 {
+
     /// TODO: Add your code (Exercise 2)
     float BeginX = Width*-0.5f;
     float BeginY = Height*-0.5f;
     float BeginZ = Depth*-0.5f;
     
+	BoundingBox = AABB(Vector(BeginX, BeginY, BeginZ), Vector(-BeginX, -BeginY, -BeginZ));
+
     // 1. setup vertex buffer
     VB.begin();
 

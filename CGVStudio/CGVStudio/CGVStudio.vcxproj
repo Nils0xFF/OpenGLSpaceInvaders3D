@@ -99,6 +99,7 @@
     <ClCompile Include="..\..\src\FollowCameraController.cpp" />
     <ClCompile Include="..\..\src\Framebuffer.cpp" />
     <ClCompile Include="..\..\src\GameObject.cpp" />
+    <ClCompile Include="..\..\src\GameSettings.cpp" />
     <ClCompile Include="..\..\src\IndexBuffer.cpp" />
     <ClCompile Include="..\..\src\LightComponent.cpp" />
     <ClCompile Include="..\..\src\MeshRenderer.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="..\..\src\Framebuffer.h" />
     <ClInclude Include="..\..\src\GameObject.h" />
     <ClInclude Include="..\..\src\GameObjectInterface.h" />
+    <ClInclude Include="..\..\src\GameSettings.h" />
     <ClInclude Include="..\..\src\IndexBuffer.h" />
     <ClInclude Include="..\..\src\InputManager.h" />
     <ClInclude Include="..\..\src\LifecycleObject.h" />

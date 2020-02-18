@@ -31,7 +31,7 @@ public:
 	}
 
 	void Start() {
-		collsionBox = new OBB(gameObject->getRenderer()->model->initialBoundingBox(), gameObject->getTransform());
+		collsionBox = new OBB(gameObject->getRenderer()->model->initialBoundingBox());
 		updateTransform();
 	}
 
@@ -45,7 +45,8 @@ public:
 			collsionBox->corners(c);
 			debugModel = new LineBoxModel(c);
 			debugModel->shader(debugShader, false);
-			if (debugModel != NULL) debugModel->draw(*CameraManager::getInstance().activeCamera);
+			debugModel->shadowCaster(false);
+			debugModel->draw(*CameraManager::getInstance().activeCamera);
 		#endif //_DEBUG
 	}
 

@@ -130,24 +130,24 @@ AABB ShadowMapGenerator::calcSceneBoundingBox(std::list<BaseModel*>& Models) con
 	AABB OverallBox;
 
 	BaseModel* FirstModel = *Models.begin();
-	OverallBox = FirstModel->boundingBox().transform(FirstModel->transform());
+	OverallBox = FirstModel->boundingBox();
 
-	bool ShadowCasterFound = false;
+	bool ShadowReciverFound = false;
 
 	for (BaseModel* pModel : Models)
 	{
-		if (pModel->shadowCaster())
+		if (pModel->shadowReciver())
 		{
-			AABB Box = pModel->boundingBox().transform(pModel->transform());
-			if (ShadowCasterFound)
+			AABB Box = pModel->boundingBox();
+			if (ShadowReciverFound)
 				OverallBox.merge(Box);
 			else
 				OverallBox = Box;
-			ShadowCasterFound = true;
+			ShadowReciverFound = true;
 		}
 	}
 
-	if(!ShadowCasterFound)
+	if(!ShadowReciverFound)
 		return AABB(Vector(-5, -5, -5), Vector(5, 5, 5));
 
 	return OverallBox;
@@ -170,6 +170,8 @@ void ShadowMapGenerator::generate(std::list<BaseModel*>& Models)
 		return;
 
 	AABB SceneBoundingBox = calcSceneBoundingBox(Models);
+
+	std::cout << "Scene BB: " << SceneBoundingBox.Min << " - " << SceneBoundingBox.Max << std::endl;
 
 	int ShadowMapCount = 0;
 	for (BaseLight* pLight : ShaderLightMapper::instance().lights())
@@ -204,15 +206,17 @@ void ShadowMapGenerator::generate(std::list<BaseModel*>& Models)
 		
 		for (BaseModel* pModel : Models)
 		{
-			if (!pModel->shadowCaster())
+			if (!pModel->shadowCaster() && !pModel->shadowReciver())
 				continue;
-			
+
 			BaseShader* PrevShader = pModel->shader();
-			
-			pModel->shader(&Shader);
-			pModel->draw(ShadowCams[i]);
-			pModel->shader(PrevShader);
-			
+
+			if (pModel->shadowCaster()) {
+				pModel->shader(&Shader);
+				pModel->draw(ShadowCams[i]);
+				pModel->shader(PrevShader);
+			}
+
 			PhongShader* pPhong = dynamic_cast<PhongShader*>(PrevShader);
 			if (pPhong)
 			{
@@ -229,7 +233,6 @@ void ShadowMapGenerator::generate(std::list<BaseModel*>& Models)
 	glClearColor(0, 0, 0, 1);
 	glCullFace(GL_BACK);
 	glViewport(PrevViewport[0], PrevViewport[1], PrevViewport[2], PrevViewport[3]);
-
 
 
 }

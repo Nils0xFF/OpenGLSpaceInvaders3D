@@ -12,6 +12,8 @@
 #include "PlayerController.h"
 #include "FollowCameraController.h"
 #include "Text.h"
+#include "TriangleBoxModel.h"
+#include "GameSettings.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -46,23 +48,36 @@ void Game::Init()
 	
 
 	GameObject* go = new GameObject();
-	go->setTransform(go->getTransform() * Matrix().rotationY(0.5f * M_PI));
-	go->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "spaceship.obj", true), new PhongShader(), true));
+	go->setTransform(go->getTransform() * Matrix().translation(0,1,0) * Matrix().rotationY(0.5f * M_PI));
+	go->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "spaceships/spaceship_4.obj", true), new PhongShader(), true));
 	go->setName("Player");
 	go->addComponent(new PlayerController());
 	// go->addComponent(new TestController());
 	go->setCollider(new BoxCollider());
-	// go->addComponent(new FollowCameraController(mainCamera, Vector(0,1.0f,-2.0f)));
+	go->addComponent(new FollowCameraController(mainCamera, Vector(0,.65f,1.5f)));
 	testScene.addGameObject(go);
 
 	go = new GameObject();
-	go->setRenderer(new MeshRenderer(new TrianglePlaneModel(10.0f, 10.0f, 10, 10), new PhongShader(), true));
+	BaseModel* pModel = new TrianglePlaneModel(GameSettings::WORLD_WITH, 20, 1000, 100);
+	pModel->shadowCaster(false);
+	pModel->shadowReciver(false);
+	go->setRenderer(new MeshRenderer(pModel, new PhongShader(), true));
 	testScene.addGameObject(go);
+
+
+	go = new GameObject();
+	pModel = new Model(ASSET_DIRECTORY "skybox.obj", false);
+	pModel->shadowCaster(false);
+	pModel->shadowReciver(false);
+	go->setRenderer(new MeshRenderer(pModel, new PhongShader(), true));
+	testScene.addGameObject(go);
+
+
 
 	CameraManager::getInstance().activeCamera = &mainCamera;
 
 	DirectionalLight* dl = new DirectionalLight();
-	dl->direction(Vector(0, -1, -1));
+	dl->direction(Vector(1.0f, -1.0f, -0.50f));
 	dl->color(Color(0.5, 0.5, 0.5));
 	dl->castShadows(true);
 	ShaderLightMapper::instance().addLight(dl);
