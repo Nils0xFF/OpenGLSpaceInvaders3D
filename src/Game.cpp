@@ -11,11 +11,13 @@
 #include "ParticleGenerator.h"
 #include "PlayerController.h"
 #include "FollowCameraController.h"
+#include "Text.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
 
 Scene testScene;
+Text* test;
 
 #ifdef WIN32
 #define ASSET_DIRECTORY "../../assets/"
@@ -66,6 +68,8 @@ void Game::Init()
 	ShaderLightMapper::instance().addLight(dl);
 
 	testScene.Init();
+
+	test = new Text(ASSET_DIRECTORY "fonts/F25_Bank_Printer.ttf");
 }
 
 void Game::Start() {
@@ -74,14 +78,6 @@ void Game::Start() {
 
 void Game::ProcessInput(GLfloat dt)
 {	
-}
-
-void Game::WindowResize(int width, int height)
-{
-	SCREEN_WIDTH = width;
-	SCREEN_HEIGHT = height;
-	
-	PostProcessing::getInstance().setResolution(SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
 void Game::Update(GLfloat dt)
@@ -95,7 +91,6 @@ void Game::Render()
 {
 	ShadowGenerator.generate(testScene.getModelList());
 
-	PostProcessing::getInstance().shader->on(false);
 	PostProcessing::getInstance().Begin();
 
 	ShaderLightMapper::instance().activate();
@@ -114,8 +109,10 @@ void Game::Render()
 		default:
 			break;
 	}
-	
+		
 	testScene.Draw();
+
+	test->Render("Hallo, Welt!", 0.05, 0.05, 2, Color(0, 0, 0));
 
 	ShaderLightMapper::instance().deactivate();
 	PostProcessing::getInstance().End(glfwGetTime());

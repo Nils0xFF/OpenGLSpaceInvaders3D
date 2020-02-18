@@ -1,4 +1,5 @@
 #include "Particle.h"
+#include "ParticleShader.h"
 
 Particle::Particle(Vector velocity, float life): Velocity(velocity), Life(life)
 {
@@ -28,6 +29,8 @@ Particle::Particle(Vector velocity, float life): Velocity(velocity), Life(life)
 	IB.addIndex(3);
 
 	IB.end();
+
+	this->shader(new ParticleShader(), true);
 }
 
 void Particle::draw(const BaseCamera& Cam)

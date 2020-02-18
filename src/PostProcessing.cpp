@@ -26,6 +26,8 @@ PostProcessing::~PostProcessing()
 
 void PostProcessing::Begin()
 {
+	Update();
+
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 	glClearColor(0.9f, 0.9f, 0.9f, 0.9f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -110,6 +112,9 @@ void PostProcessing::Init()
 
 void PostProcessing::Update()
 {
+	Width = CameraManager::getInstance().activeCamera->WindowWidth;
+	Height = CameraManager::getInstance().activeCamera->WindowHeight;
+
 	glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, textureMulti);
 	glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, MSAA, GL_RGB, Width, Height, GL_TRUE);
 	glBindRenderbuffer(GL_RENDERBUFFER, rbo);
@@ -146,14 +151,6 @@ void PostProcessing::setMSAA(unsigned int samples)
 {
 	if (samples < 1) samples = 1;
 	MSAA = samples;
-
-	Update();
-}
-
-void PostProcessing::setResolution(unsigned int width, unsigned int height)
-{
-	Width = width;
-	Height = height;
 
 	Update();
 }

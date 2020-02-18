@@ -16,7 +16,7 @@ enum class GameState {
 class Game
 {
 public:
-	Game(GLFWwindow* pWin) : State(GameState::PLAYING), pWindow(pWin), mainCamera(pWindow), ShadowGenerator(2048, 2048) { glfwGetWindowSize(pWin, &SCREEN_WIDTH, &SCREEN_HEIGHT); };
+	Game(GLFWwindow* pWin) : State(GameState::PLAYING), pWindow(pWin), mainCamera(pWindow), ShadowGenerator(2048, 2048) {}
 
 	GLFWwindow* pWindow;
 	GameState State;
@@ -36,15 +36,10 @@ public:
 	void Update(GLfloat dt);
 	void Render();
 
-	// Post-Processing
-	void WindowResize(int width, int height);
-
 	// Deloading
 	void End();
 
 private:
 	ShadowMapGenerator ShadowGenerator;
-	int SCREEN_WIDTH;
-	int SCREEN_HEIGHT;
 };
 

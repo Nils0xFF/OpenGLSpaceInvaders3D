@@ -178,14 +178,20 @@
     <ClCompile Include="..\..\src\ParticleShader.cpp">
       <Filter>Quelldateien\utils\shader</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ParticleGenerator.cpp">
-      <Filter>Quelldateien\utils\customComponents</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\PlayerController.cpp">
       <Filter>Quelldateien\game\customComponents</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\FollowCameraController.cpp">
       <Filter>Quelldateien\game\customComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ParticleGenerator.cpp">
+      <Filter>Quelldateien\game\customComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Text.cpp">
+      <Filter>Quelldateien\game\customComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\TextShader.cpp">
+      <Filter>Quelldateien\utils\shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -318,9 +324,6 @@
     <ClInclude Include="..\..\src\ParticleShader.h">
       <Filter>Quelldateien\utils\shader</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ParticleGenerator.h">
-      <Filter>Quelldateien\utils\customComponents</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\LightComponent.h">
       <Filter>Quelldateien\game\gameObjects\components</Filter>
     </ClInclude>
@@ -333,6 +336,15 @@
     </ClInclude>
     <ClInclude Include="..\..\src\FollowCameraController.h">
       <Filter>Quelldateien\game\customComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ParticleGenerator.h">
+      <Filter>Quelldateien\game\customComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Text.h">
+      <Filter>Quelldateien\game\customComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\TextShader.h">
+      <Filter>Quelldateien\utils\shader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

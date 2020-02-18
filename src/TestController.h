@@ -16,7 +16,7 @@ public:
 	TestController* clone() { return new TestController(*this); }
 
 	void Update(float deltaTime) {
-		gameObject->rotate(Matrix().rotationZ(0.1 * M_PI * deltaTime));
+		gameObject->rotate(Matrix().rotationZ(0.1f * M_PI * deltaTime));
 	}
 };
 

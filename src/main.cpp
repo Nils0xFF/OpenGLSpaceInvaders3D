@@ -145,8 +145,6 @@ void windowResize(GLFWwindow* window, int width, int height)
     WINDOW_WIDTH = (int)(height * 16 / 9);
     WINDOW_HEIGHT = height;
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-
-	myGame->WindowResize(WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
 void toggleFullScreen(GLFWwindow* window)
