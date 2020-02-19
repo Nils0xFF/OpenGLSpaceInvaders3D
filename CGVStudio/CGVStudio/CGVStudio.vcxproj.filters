@@ -56,6 +56,15 @@
     <Filter Include="Quelldateien\game\statics">
       <UniqueIdentifier>{45d48d52-fdcc-400d-b56f-4e54184b7412}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Quelldateien\game\customComponents\Player">
+      <UniqueIdentifier>{a1c99dfe-0e1b-4b42-b05b-f3d476c2cc40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\game\customComponents\Enemy">
+      <UniqueIdentifier>{50657d90-995d-4159-aa33-5558f89da9b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\game\customComponents\Combat">
+      <UniqueIdentifier>{842bb047-eeec-4ab7-af73-efa53a72db0f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -181,12 +190,6 @@
     <ClCompile Include="..\..\src\ParticleShader.cpp">
       <Filter>Quelldateien\utils\shader</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\PlayerController.cpp">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\FollowCameraController.cpp">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\ParticleGenerator.cpp">
       <Filter>Quelldateien\game\customComponents</Filter>
     </ClCompile>
@@ -199,6 +202,18 @@
     </ClCompile>
     <ClCompile Include="..\..\src\GameSettings.cpp">
       <Filter>Quelldateien\game\statics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PlayerController.cpp">
+      <Filter>Quelldateien\game\customComponents\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\FollowCameraController.cpp">
+      <Filter>Quelldateien\game\customComponents\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\BulletController.cpp">
+      <Filter>Quelldateien\game\customComponents\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\SceneManager.cpp">
+      <Filter>Quelldateien\game\singeltons</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -338,12 +353,6 @@
     <ClInclude Include="..\..\src\Tags.h">
       <Filter>Quelldateien\game\gameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\PlayerController.h">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\FollowCameraController.h">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\ParticleGenerator.h">
       <Filter>Quelldateien\game\customComponents</Filter>
     </ClInclude>
@@ -355,6 +364,18 @@
     </ClInclude>
     <ClInclude Include="..\..\src\GameSettings.h">
       <Filter>Quelldateien\game\statics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PlayerController.h">
+      <Filter>Quelldateien\game\customComponents\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\FollowCameraController.h">
+      <Filter>Quelldateien\game\customComponents\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\BulletController.h">
+      <Filter>Quelldateien\game\customComponents\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\SceneManager.h">
+      <Filter>Quelldateien\game\singeltons</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

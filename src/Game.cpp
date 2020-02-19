@@ -7,6 +7,7 @@
 #include "TestController.h"
 #include "BoxCollider.h"
 #include "InputManager.h"
+#include "SceneManager.h"
 #include "LightComponent.h"
 #include "ParticleGenerator.h"
 #include "PlayerController.h"
@@ -29,6 +30,7 @@ Text* test;
 
 void Game::Init()
 {
+	SceneManager::getInstance().activeScene = &testScene;
 	/*GameObject *go = new GameObject();
 	go->setName("Bunny1");
 	go->setTransform(Matrix().translation(0, 1, 0));
@@ -46,31 +48,43 @@ void Game::Init()
 	go->getComponentByType<TestController>()->speed = -1.0f;
 	testScene.addGameObject(go);*/
 	
+	GameObject* playerBullet = new GameObject();
+	playerBullet->setTransform(Matrix().rotationY(0.5f * M_PI));
+	playerBullet->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "spaceships/spaceship_4.obj", true), new PhongShader(), true));
+	playerBullet->setCollider(new BoxCollider());
 
-	GameObject* go = new GameObject();
-	go->setTransform(go->getTransform() * Matrix().translation(0,1,0) * Matrix().rotationY(0.5f * M_PI));
-	go->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "spaceships/spaceship_4.obj", true), new PhongShader(), true));
-	go->setName("Player");
-	go->addComponent(new PlayerController());
+	PointLight* pl = new PointLight();
+	pl->color(Color(0, 0, 0.5));
+	pl->attenuation(Vector(0.5f, 0.1f, 0.05f));
+	pl->castShadows(true);
+	playerBullet->addComponent(new LightComponent(pl));
+	playerBullet->addComponent(new BulletController());
+	Prefab* playerBulletPrefab = new Prefab(playerBullet);
+
+	GameObject* player = new GameObject();
+	player->setTransform(Matrix().translation(0,1,0) * Matrix().rotationY(0.5f * M_PI));
+	player->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "spaceships/spaceship_4.obj", true), new PhongShader(), true));
+	player->setName("Player");
+	player->addComponent(new PlayerController(playerBulletPrefab));
 	// go->addComponent(new TestController());
-	go->setCollider(new BoxCollider());
-	go->addComponent(new FollowCameraController(mainCamera, Vector(0,.65f,1.5f)));
-	testScene.addGameObject(go);
+	player->setCollider(new BoxCollider());
+	player->addComponent(new FollowCameraController(mainCamera, Vector(0,.65f,1.5f)));
+	testScene.addGameObject(player);
 
-	go = new GameObject();
+	GameObject* ground = new GameObject();
 	BaseModel* pModel = new TrianglePlaneModel(GameSettings::WORLD_WITH, 20, 1000, 100);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
-	go->setRenderer(new MeshRenderer(pModel, new PhongShader(), true));
-	testScene.addGameObject(go);
+	ground->setRenderer(new MeshRenderer(pModel, new PhongShader(), true));
+	testScene.addGameObject(ground);
 
-
-	go = new GameObject();
+	GameObject* skyBox = new GameObject();
+	skyBox->setName("skyBox");
 	pModel = new Model(ASSET_DIRECTORY "skybox.obj", false);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
-	go->setRenderer(new MeshRenderer(pModel, new PhongShader(), true));
-	testScene.addGameObject(go);
+	skyBox->setRenderer(new MeshRenderer(pModel, new PhongShader(), true));
+	testScene.addGameObject(skyBox);
 
 
 
@@ -138,4 +152,5 @@ void Game::Render()
 
 void Game::End()
 {
+	delete test;
 }

@@ -9,7 +9,7 @@ public:
 
 	static const Vector right() { return Vector(1, 0, 0); }
 	static const Vector up() { return Vector(0, 1, 0); }
-	static const Vector forward() { return Vector(0, 0, 1); }
+	static const Vector forward() { return Vector(0, 0, -1); }
 	static const Vector zero() { return Vector(0, 0, 0); }
 
     float X;

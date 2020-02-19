@@ -75,7 +75,7 @@ void ShaderLightMapper::removeLight(BaseLight* Light)
 	if (lights().size() == 0)
 		return;
 	
-	std::remove(Lights.begin() , Lights.end(), Light);
+	Lights.erase(std::remove(Lights.begin() , Lights.end(), Light), Lights.end());
 }
 
 

@@ -9,12 +9,20 @@ void GameObject::Update(float deltaTime)
 	}
 
 	moveTo(Matrix().translation(this->transform.translation() + this->deltaTranslation) * Matrix().translation(this->transform.translation()).invert() * this->transform  * deltaRotation);
+
+	areaBox = *modelBox;
+	for (GameObject* g : this->children) {
+		g->translate(deltaTranslation);
+		g->rotate(deltaRotation);
+		g->Update(deltaTime);
+
+		areaBox.merge(*(g->modelBox));
+	}
+
 	deltaRotation = Matrix().identity();
 	deltaTranslation = Vector::zero();
 
-	for (GameObject* g : this->children) {
-		g->setTransform(this->transform * g->getTransform());
-	}
+
 
 
 }

@@ -171,7 +171,7 @@ void ShadowMapGenerator::generate(std::list<BaseModel*>& Models)
 
 	AABB SceneBoundingBox = calcSceneBoundingBox(Models);
 
-	std::cout << "Scene BB: " << SceneBoundingBox.Min << " - " << SceneBoundingBox.Max << std::endl;
+	// std::cout << "Scene BB: " << SceneBoundingBox.Min << " - " << SceneBoundingBox.Max << std::endl;
 
 	int ShadowMapCount = 0;
 	for (BaseLight* pLight : ShaderLightMapper::instance().lights())
