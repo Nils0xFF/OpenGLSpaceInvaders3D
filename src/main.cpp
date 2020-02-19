@@ -10,6 +10,7 @@
 #include "freeimage.h"
 #include "Game.h"
 #include "InputManager.h"
+#include "CameraManager.h"
 
 
 // GLFW function declerations
@@ -144,7 +145,13 @@ void windowResize(GLFWwindow* window, int width, int height)
 {	
     WINDOW_WIDTH = (int)(height * 16 / 9);
     WINDOW_HEIGHT = height;
-	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    if (width < WINDOW_WIDTH) {
+        WINDOW_WIDTH = width;
+        WINDOW_HEIGHT = (int)(width * 9 / 16);
+    }        
+    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+    CameraManager::getInstance().activeCamera->updateResolution(WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
 void toggleFullScreen(GLFWwindow* window)

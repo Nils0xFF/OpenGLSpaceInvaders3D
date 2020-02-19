@@ -1,15 +1,8 @@
 #include "Text.h"
 #include <iostream>
 #include "CameraManager.h"
-#include "TrianglePlaneModel.h"
 
-#ifdef WIN32
-#define ASSET_DIRECTORY "../../assets/"
-#else
-#define ASSET_DIRECTORY "../assets/"
-#endif
-
-Text::Text(const char* font)
+Text::Text()
 {
 	shader = new TextShader();
 	Init(font);
@@ -20,6 +13,7 @@ void Text::Render(const char* text, float x, float y, float scale, Color col)
 	shader->activate(*CameraManager::getInstance().activeCamera);
 	shader->textColor(col);
 
+	float originX = x;
 	int scr_width = CameraManager::getInstance().activeCamera->WindowWidth;
 	int scr_height = CameraManager::getInstance().activeCamera->WindowHeight;
 
@@ -27,6 +21,13 @@ void Text::Render(const char* text, float x, float y, float scale, Color col)
 	glBindVertexArray(VAO);
 
 	for (const char* c = text; *c; c++) {
+		if (*c == '\n') {
+			y -= (float) ((fontHeight >> 6) * scale / scr_height) * 4;
+			x = originX;
+			std::cout << y << std::endl;
+			continue;
+		}
+
 		Character ch = Characters[*c];
 
 		float xpos = ((x * 2- 1.0f) * scr_width + ch.bearingLeft * scale) / scr_width;
@@ -52,7 +53,8 @@ void Text::Render(const char* text, float x, float y, float scale, Color col)
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		
-		x += (ch.advance >> 6) * scale / scr_width / 2;
+		x += (ch.advanceX >> 6) * scale / scr_width / 2;
+		y += (ch.advanceY >> 6) * scale / scr_height / 2;
 	}
 
 	glBindVertexArray(0);
@@ -63,15 +65,20 @@ void Text::Render(const char* text, float x, float y, float scale, Color col)
 
 void Text::Init(const char* font)
 {
+	Characters.clear();
+
+	std::string location = ASSET_DIRECTORY;
+	location.append(font);
+
 	FT_Library lib;
 	if (FT_Init_FreeType(&lib))
 		throw new std::exception("Could not init FreeType library.");
 
 	FT_Face face;
-	if (FT_New_Face(lib, font, 0, &face))
+	if (FT_New_Face(lib, location.c_str(), 0, &face))
 		throw new std::exception("Could not load font.");
 
-	FT_Set_Pixel_Sizes(face, 0, 48);
+	FT_Set_Pixel_Sizes(face, 0, 128);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 	for (char c = 0; c < 127; c++) {		
@@ -98,17 +105,20 @@ void Text::Init(const char* font)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
+		
 		Character character = {
 			texture,
 			face->glyph->bitmap.width,
 			face->glyph->bitmap.rows,
 			face->glyph->bitmap_left,
 			face->glyph->bitmap_top,
-			face->glyph->advance.x
+			face->glyph->advance.x,
+			face->glyph->advance.y
 		};
 		Characters.insert(std::pair<char, Character>(c, character));			
 	}
+
+	fontHeight = face->height;
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	FT_Done_Face(face);

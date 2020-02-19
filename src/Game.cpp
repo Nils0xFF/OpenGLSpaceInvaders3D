@@ -14,12 +14,14 @@
 #include "Text.h"
 #include "TriangleBoxModel.h"
 #include "GameSettings.h"
+#include "Terrain.h"
+#include "TerrainShader.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
 
 Scene testScene;
-Text* test;
+Text* text;
 
 #ifdef WIN32
 #define ASSET_DIRECTORY "../../assets/"
@@ -58,17 +60,16 @@ void Game::Init()
 	testScene.addGameObject(go);
 
 	go = new GameObject();
-	BaseModel* pModel = new TrianglePlaneModel(GameSettings::WORLD_WITH, 20, 1000, 100);
+	BaseModel* pModel = new Terrain(GameSettings::WORLD_WITH, 20, 200, 200);
 	pModel->shadowCaster(false);
-	pModel->shadowReciver(false);
-	go->setRenderer(new MeshRenderer(pModel, new PhongShader(), true));
+	pModel->shadowReciver(true);
+	go->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
 	testScene.addGameObject(go);
-
 
 	go = new GameObject();
 	pModel = new Model(ASSET_DIRECTORY "skybox.obj", false);
 	pModel->shadowCaster(false);
-	pModel->shadowReciver(false);
+	pModel->shadowReciver(true);
 	go->setRenderer(new MeshRenderer(pModel, new PhongShader(), true));
 	testScene.addGameObject(go);
 
@@ -84,7 +85,9 @@ void Game::Init()
 
 	testScene.Init();
 
-	test = new Text(ASSET_DIRECTORY "fonts/F25_Bank_Printer.ttf");
+	text = new Text();
+	//text->setFont("game_over.ttf");
+	//text->setFont("i_mWeird.ttf");
 }
 
 void Game::Start() {
@@ -125,9 +128,11 @@ void Game::Render()
 			break;
 	}
 		
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	testScene.Draw();
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	test->Render("Hallo, Welt!", 0.05, 0.05, 2, Color(0, 0, 0));
+	text->Render("Hallo, Welt!\nHier koennte Ihre Werbung stehen.\nTest.", 0.05, 0.3, 0.5, Color(0, 0, 0));
 
 	ShaderLightMapper::instance().deactivate();
 	PostProcessing::getInstance().End(glfwGetTime());
@@ -138,4 +143,5 @@ void Game::Render()
 
 void Game::End()
 {
+	delete text;
 }

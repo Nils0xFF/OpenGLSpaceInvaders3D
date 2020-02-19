@@ -67,6 +67,8 @@ public:
     virtual const Matrix& getViewMatrix() const;
     virtual const Matrix& getProjectionMatrix() const;
 
+    void updateResolution(unsigned int Width, unsigned int Height);
+
     int WindowWidth;
     int WindowHeight;
 protected:

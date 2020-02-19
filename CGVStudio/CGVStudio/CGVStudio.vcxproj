@@ -122,6 +122,8 @@
     <ClCompile Include="..\..\src\PhongShader.cpp" />
     <ClCompile Include="..\..\src\rgbimage.cpp" />
     <ClCompile Include="..\..\src\ShadowMapGenerator.cpp" />
+    <ClCompile Include="..\..\src\Terrain.cpp" />
+    <ClCompile Include="..\..\src\TerrainShader.cpp" />
     <ClCompile Include="..\..\src\TestController.cpp" />
     <ClCompile Include="..\..\src\Text.cpp" />
     <ClCompile Include="..\..\src\TextShader.cpp" />
@@ -175,6 +177,8 @@
     <ClInclude Include="..\..\src\rgbimage.h" />
     <ClInclude Include="..\..\src\ShadowMapGenerator.h" />
     <ClInclude Include="..\..\src\Tags.h" />
+    <ClInclude Include="..\..\src\Terrain.h" />
+    <ClInclude Include="..\..\src\TerrainShader.h" />
     <ClInclude Include="..\..\src\TestController.h" />
     <ClInclude Include="..\..\src\Text.h" />
     <ClInclude Include="..\..\src\TextShader.h" />

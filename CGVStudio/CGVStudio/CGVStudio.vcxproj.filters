@@ -190,15 +190,20 @@
     <ClCompile Include="..\..\src\ParticleGenerator.cpp">
       <Filter>Quelldateien\game\customComponents</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\GameSettings.cpp">
+      <Filter>Quelldateien\game\statics</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Text.cpp">
-      <Filter>Quelldateien\game\customComponents</Filter>
+      <Filter>Quelldateien\game</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\TextShader.cpp">
       <Filter>Quelldateien\utils\shader</Filter>
-      <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\GameSettings.cpp">
-      <Filter>Quelldateien\game\statics</Filter>
+    <ClCompile Include="..\..\src\Terrain.cpp">
+      <Filter>Quelldateien\utils\models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\TerrainShader.cpp">
+      <Filter>Quelldateien\utils\shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -347,14 +352,20 @@
     <ClInclude Include="..\..\src\ParticleGenerator.h">
       <Filter>Quelldateien\game\customComponents</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Text.h">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\TextShader.h">
       <Filter>Quelldateien\utils\shader</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\GameSettings.h">
       <Filter>Quelldateien\game\statics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Text.h">
+      <Filter>Quelldateien\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Terrain.h">
+      <Filter>Quelldateien\utils\models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\TerrainShader.h">
+      <Filter>Quelldateien\utils\shader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

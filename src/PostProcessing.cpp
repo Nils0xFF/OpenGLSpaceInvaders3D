@@ -47,8 +47,8 @@ void PostProcessing::End(float time)
 	glBindTexture(GL_TEXTURE_2D, texture);
 
 	shader->setTime(time);
-	shader->activate(*CameraManager::getInstance().activeCamera);	
-		
+	shader->activate(*CameraManager::getInstance().activeCamera);
+
 	glBindVertexArray(quad);
 	glDisable(GL_DEPTH_TEST);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
