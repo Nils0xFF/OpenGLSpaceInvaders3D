@@ -73,7 +73,7 @@ void Game::Init()
 	player->addComponent(new FollowCameraController(mainCamera, Vector(0,.65f,1.5f)));
 	testScene.addGameObject(player);
 
-	go = new GameObject();
+	GameObject* go = new GameObject();
 	BaseModel* pModel = new Terrain(GameSettings::WORLD_WITH, 20, 200, 200);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(true);
