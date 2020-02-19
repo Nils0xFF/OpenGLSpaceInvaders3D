@@ -27,7 +27,7 @@ public:
     Model(const char* ModelFile, bool FitSize=true, bool Center=true);
 	Model(const Model& other) :BaseModel(other) {};
 	Model* clone() { 
-		Model* newModel = new Model(Filepath.c_str(), false);
+		Model* newModel = new Model(Filepath.c_str(), true);
 		newModel->shader(pShader->clone(), true);
 		newModel->transform(this->transform());
 	return newModel;

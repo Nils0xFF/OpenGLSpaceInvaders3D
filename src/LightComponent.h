@@ -24,12 +24,13 @@ public:
 	};
 
 	void Update(float deltaTime) {};
+
 	void updateTransform() {
 		light->position(gameObject->getTransform().translation());
 	};
 
 	void Destroy() {
-		if (light) {
+		if (light != NULL) {
 			ShaderLightMapper::instance().removeLight(light);
 			delete light;
 		}

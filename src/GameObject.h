@@ -18,6 +18,7 @@ class GameObject : public GameObjectInterface
 private:
 	bool active = true;
 	bool staticObject = false;
+	bool destroy = false;
 
 	std::string name = "";
 	Tag tag = Tag::Default;
@@ -31,7 +32,8 @@ private:
 	MeshRenderer* mr;
 	Collider* collider;
 
-	const AABB* areaBox;
+	const AABB* modelBox;
+	AABB areaBox;
 	LineBoxModel* debugModel;
 	ConstantShader debugShader;
 
@@ -39,7 +41,7 @@ private:
 	std::list<GameObject*> children;
 
 public:
-	GameObject():active(true),staticObject(false),name(""),mr(NULL),collider(NULL),parent(NULL),areaBox(),debugShader(),debugModel(NULL),tag(Tag::Default) {
+	GameObject():active(true),staticObject(false),name(""),mr(NULL),collider(NULL),parent(NULL),modelBox(NULL),areaBox(),debugShader(),debugModel(NULL),tag(Tag::Default) {
 		transform.identity();
 		debugShader.color(Color(0,1,0));
 	};
@@ -71,15 +73,28 @@ public:
 	}
 
 	~GameObject() {
+		
+		std::cout << "~GO()" << std::endl;
+
+		delete debugModel;
+
 		while (!components.empty()) {
 			delete components.front();
 			components.pop_front();
+		}
+
+		while (!children.empty()) {
+			delete children.front();
+			children.pop_front();
 		}
 	};
 
 	void Init() {
 		for (Component* c : this->components) {
 			c->Init();
+		}
+		for (GameObject* g : this->children) {
+			g->Init();
 		}
 	};
 
@@ -89,6 +104,9 @@ public:
 		for (Component* c : this->components) {
 			c->Start();
 		}
+		for (GameObject* g : this->children) {
+			g->Start();
+		}
 	};
 
 	void Update(float deltaTime);
@@ -96,7 +114,7 @@ public:
 	void Draw() {
 		#if _DEBUG
 			if (debugModel != NULL) delete debugModel;
-			debugModel = new LineBoxModel(areaBox->Min, areaBox->Max);
+			debugModel = new LineBoxModel(areaBox.Min, areaBox.Max);
 			debugModel->shader(&debugShader, false);
 			debugModel->shadowCaster(false);
 			debugModel->draw(*CameraManager::getInstance().activeCamera);
@@ -104,8 +122,19 @@ public:
 		for (Component* c : this->components) {
 			c->Draw();
 		}
+
+		for (GameObject* g : this->children) {
+			g->Draw();
+		}
 	};
-	void Destroy() {};
+
+	void Destroy() { 
+		#if _DEBUG
+			std::cout << "Destroy " << name << std::endl;
+		#endif
+			this->active = false;
+			this->destroy = true;
+	}
 
 	void onCollision(GameObject* other) {
 		std::cout << "Kollision! " << name << " " << other->name << std::endl;
@@ -117,6 +146,8 @@ public:
 	void setActive(const bool active) { this->active = active; }
 	bool isStatic() const { return staticObject; }
 	void setStatic(const bool staticObject) { this->staticObject = staticObject; }
+	bool isDeleted() { return destroy; }
+
 	const std::string& getName() { return name; }
 	void setTag(Tag tag) { this->tag = tag; }
 	const Tag getTag() const { return tag; }
@@ -124,10 +155,7 @@ public:
 	void setName(const std::string name) { this->name = name; }
 	const Matrix& getTransform() const { return this->transform; }
 	void setTransform(const Matrix& transform) {
-		std::cout << "Old FWD: " << this->transform.forward() << std::endl;
-		std::cout << "Inc FWD: " << transform.forward() << std::endl;
 		this->transform = transform;
-		std::cout << "New FWD: " << this->transform.forward() << std::endl;
 	}
 
 	void translate(const Vector& delta) {
@@ -157,7 +185,8 @@ public:
 		}
 		this->mr = mr;
 		this->addComponent(mr);
-		this->areaBox = &(mr->model->boundingBox());
+		this->modelBox = &(mr->model->boundingBox());
+		areaBox = *modelBox;
 	}
 
 	const Collider* getCollider() { return collider; }
@@ -175,7 +204,7 @@ public:
 		this->addComponent(collider);
 	}
 
-	const AABB* getAreaBox() { return areaBox; }
+	const AABB* getAreaBox() { return &areaBox; }
 
 	const GameObject* getParent() const { return parent; }
 	void setParent(GameObject* p) { parent = p; }
@@ -199,6 +228,8 @@ public:
 				return dynamic_cast<T*>(c);
 			}
 		}
+
+		return NULL;
 	}
 
 	template <typename T>

@@ -17,9 +17,15 @@ void Scene::Start() {
 }
 
 void Scene::Update(float deltaTime) {
-	for (GameObject* g : gameObjects) {
-		if (g->isActive())
-			g->Update(deltaTime);
+	for (list<GameObject*>::iterator it = gameObjects.begin(); it != gameObjects.end();) {
+		if ((*it)->isDeleted()) {
+			delete (*it);
+			it = gameObjects.erase(it);
+			continue;
+		}
+		if ((*it)->isActive())
+			(*it)->Update(deltaTime);
+		it++;
 	}
 }
 
