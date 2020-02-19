@@ -22,14 +22,18 @@ public:
     TriangleBoxModel(float Width=1, float Height=1, float Depth=1 );
     virtual ~TriangleBoxModel() {}
     virtual void draw(const BaseCamera& Cam);
-	virtual const AABB& boundingBox() const { return BoundingBox; }
-	virtual const AABB& initialBoundingBox() const { return BoundingBox; }
+	void updateBoundingBox() { this->BoundingBox = this->InitialBoundingBox.transform(Transform); }
+	const AABB& initialBoundingBox() const { return InitialBoundingBox; }
+	const AABB& boundingBox() const { return BoundingBox; }
+
+	// TriangleBoxModel* clone() { throw std::exception(); }
 
 protected:
     VertexBuffer VB;
     IndexBuffer IB;
 
 	AABB BoundingBox;
+	AABB InitialBoundingBox;
 };
 
 

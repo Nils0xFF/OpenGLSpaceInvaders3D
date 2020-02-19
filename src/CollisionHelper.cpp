@@ -9,9 +9,20 @@ bool CollisionHelper::pointInBox(const Vector* point, const AABB* box)
 
 bool CollisionHelper::detectAABBCollision(const AABB* a, const AABB* b)
 {
-	return (a->Min.X <= b->Max.X && a->Max.X >= b->Min.X) &&
-		(a->Min.Y <= b->Max.Y && a->Max.Y >= b->Min.Y)&&
-		(a->Min.Z <= b->Max.Z && a->Max.Z >= b->Min.Z);
+	Vector aVerts[8], bVerts[8];
+	a->corners(aVerts);
+	b->corners(bVerts);
+
+	if (Seperated(aVerts, bVerts, Vector::up()))
+		return false;
+
+	if (Seperated(aVerts, bVerts, Vector::forward()))
+		return false;
+
+	if (Seperated(aVerts, bVerts, Vector::right()))
+		return false;
+
+	return true;
 }
 
 // adapted from: https://gamedev.stackexchange.com/questions/44500/how-many-and-which-axes-to-use-for-3d-obb-collision-with-sat

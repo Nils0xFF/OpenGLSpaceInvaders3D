@@ -8,11 +8,19 @@ public:
 	BaseLight* light;
 
 	LightComponent(BaseLight* light) :light(light) {};
+
 	LightComponent(const LightComponent& other) {
 		this->light = other.light->clone();
 	}
 
-	~LightComponent() { Destroy(); }
+	~LightComponent() {
+		std::cout << "~LC()" << std::endl;
+		if (light != NULL) {
+			std::cout << "~LC() has Light" << std::endl;
+			ShaderLightMapper::instance().removeLight(light);
+			delete light;
+		}
+	}
 
 	LightComponent* clone() {
 		return new LightComponent(*this);

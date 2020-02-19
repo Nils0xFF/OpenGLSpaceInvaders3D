@@ -65,6 +65,12 @@
     <Filter Include="Quelldateien\game\customComponents\Combat">
       <UniqueIdentifier>{842bb047-eeec-4ab7-af73-efa53a72db0f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Quelldateien\game\customComponents\UI">
+      <UniqueIdentifier>{454b313b-7edf-4191-a4a5-6f4a21bcac4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\game\customComponents\Particle">
+      <UniqueIdentifier>{0212ab9e-d6c7-4ac9-961c-d9c3f6cd2057}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -160,9 +166,6 @@
     <ClCompile Include="..\..\src\Scene.cpp">
       <Filter>Quelldateien\game\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\TestController.cpp">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\BoxCollider.cpp">
       <Filter>Quelldateien\game\gameObjects\components\colliders</Filter>
     </ClCompile>
@@ -190,12 +193,6 @@
     <ClCompile Include="..\..\src\ParticleShader.cpp">
       <Filter>Quelldateien\utils\shader</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ParticleGenerator.cpp">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Text.cpp">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\TextShader.cpp">
       <Filter>Quelldateien\utils\shader</Filter>
       <Filter>Quelldateien</Filter>
@@ -214,6 +211,15 @@
     </ClCompile>
     <ClCompile Include="..\..\src\SceneManager.cpp">
       <Filter>Quelldateien\game\singeltons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\EnemyController.cpp">
+      <Filter>Quelldateien\game\customComponents\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Text.cpp">
+      <Filter>Quelldateien\game\customComponents\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ParticleGenerator.cpp">
+      <Filter>Quelldateien\game\customComponents\Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -316,9 +322,6 @@
     <ClInclude Include="..\..\src\CameraManager.h">
       <Filter>Quelldateien\game\singeltons</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\TestController.h">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\GameObjectInterface.h">
       <Filter>Quelldateien\game\gameObjects</Filter>
     </ClInclude>
@@ -353,12 +356,6 @@
     <ClInclude Include="..\..\src\Tags.h">
       <Filter>Quelldateien\game\gameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ParticleGenerator.h">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Text.h">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\TextShader.h">
       <Filter>Quelldateien\utils\shader</Filter>
     </ClInclude>
@@ -376,6 +373,15 @@
     </ClInclude>
     <ClInclude Include="..\..\src\SceneManager.h">
       <Filter>Quelldateien\game\singeltons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\EnemyController.h">
+      <Filter>Quelldateien\game\customComponents\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Text.h">
+      <Filter>Quelldateien\game\customComponents\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ParticleGenerator.h">
+      <Filter>Quelldateien\game\customComponents\Particle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

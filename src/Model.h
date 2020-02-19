@@ -40,13 +40,6 @@ public:
 	const AABB& initialBoundingBox() const { return InitialBoundingBox; }
     const AABB& boundingBox() const { return BoundingBox; }
 
-	virtual void transform(const Matrix& m) {
-		Transform = m;
-		updateBoundingBox();
-	}
-
-	const Matrix& transform() const { return Transform; }
-
 protected: // protected types
     struct Mesh
     {

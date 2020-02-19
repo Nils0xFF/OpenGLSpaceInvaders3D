@@ -31,7 +31,7 @@ public:
     virtual ~BaseModel();
     virtual void draw(const BaseCamera& Cam);
     virtual const Matrix& transform() const { return Transform; }
-    virtual void transform( const Matrix& m) { Transform = m; }
+	virtual void transform(const Matrix& m) { Transform = m; updateBoundingBox(); }
     virtual void shader( BaseShader* shader, bool deleteOnDestruction=false );
     virtual BaseShader* shader() const { return pShader; }
     virtual const AABB& boundingBox() const { return AABB::unitBox(); }
@@ -47,6 +47,8 @@ protected:
     bool DeleteShader;
 	bool ShadowCaster;
 	bool ShadowReciver;
+
+	virtual void updateBoundingBox() {};
 };
 
 
