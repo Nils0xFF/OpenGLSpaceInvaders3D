@@ -38,7 +38,7 @@ void Game::Init()
 	GameObject* playerBullet = new GameObject();
 	playerBullet->setName("PlayerBullet");
 	playerBullet->setTag(Tag::PlayerBullet);
-	BaseModel* pModel = new TriangleBoxModel(0.5f,0.5f,0.5f);
+	BaseModel* pModel = new TriangleBoxModel(0.05f,0.05f,0.3f);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	ConstantShader* shader = new ConstantShader();
@@ -74,21 +74,19 @@ void Game::Init()
 	enemy->setCollider(new BoxCollider());
 	testScene.addGameObject(enemy);
 
-	/* GameObject* ground = new GameObject();
-	pModel = new TrianglePlaneModel(GameSettings::WORLD_WITH, 20, 200, 200);
-	GameObject* go = new GameObject();
-	BaseModel* pModel = new Terrain(GameSettings::WORLD_WITH, 20, 200, 200);
+	GameObject* ground = new GameObject();
+	pModel = new Terrain(GameSettings::WORLD_WITH, 20, 200, 200);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(true);
-	go->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
-	testScene.addGameObject(go);
+	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
+	testScene.addGameObject(ground);
 
-	go = new GameObject();
+	GameObject* skybox = new GameObject();
 	pModel = new Model(ASSET_DIRECTORY "skybox.obj", false);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
-	go->setRenderer(new MeshRenderer(pModel, new PhongShader(), true));
-	testScene.addGameObject(go);
+	skybox->setRenderer(new MeshRenderer(pModel, new PhongShader(), true));
+	testScene.addGameObject(skybox);
 
 	CameraManager::getInstance().activeCamera = &mainCamera;
 
