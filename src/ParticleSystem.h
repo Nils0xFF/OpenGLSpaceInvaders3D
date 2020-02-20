@@ -22,6 +22,7 @@ public:
 	void Draw();
 
 	void Emit(const ParticleProps& props);
+	void Reset();
 protected:
 
 private:

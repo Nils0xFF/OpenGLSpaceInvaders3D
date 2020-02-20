@@ -18,9 +18,9 @@ void ParticleSystem::Update(float deltaTime)
 			par.setActive(false);
 			continue;
 		}
-		par.setLife(par.getLife() - deltaTime);
+		par.setRemaining(par.getRemaining() - deltaTime);
 		par.transform(par.transform() * Matrix().translation(par.getVelocity() * deltaTime));
-		//par.transform(par.transform() * Matrix().rotationZ(5 * deltaTime));
+		par.transform(par.transform() * Matrix().rotationZ(10 * deltaTime));
 	}
 }
 
@@ -32,9 +32,9 @@ void ParticleSystem::Draw()
 
 		float life = par.getRemaining() / par.getLife();
 		Color col = Color(
-			par.getColorBegin().R + life * (par.getColorEnd().R - par.getColorBegin().R),
-			par.getColorBegin().G + life * (par.getColorEnd().G - par.getColorBegin().G),
-			par.getColorBegin().B + life * (par.getColorEnd().B - par.getColorBegin().B)
+			par.getColorEnd().R + life * (par.getColorBegin().R - par.getColorEnd().R),
+			par.getColorEnd().G + life * (par.getColorBegin().G - par.getColorEnd().G),
+			par.getColorEnd().B + life * (par.getColorBegin().B - par.getColorEnd().B)
 		);
 		float size = par.getSizeBegin() + life * (par.getSizeEnd() - par.getSizeBegin());
 
@@ -51,10 +51,9 @@ void ParticleSystem::Emit(const ParticleProps& props)
 {
 	Particle& particle = particlePool[index];
 	particle.setActive(true);
+	particle.transform(Matrix().translation(props.Position));
 	particle.transform(particle.transform() *
-		Matrix().translation(props.Position));
-	particle.transform(particle.transform() *
-		Matrix().rotationZ(props.Rotation * Random::random()));
+		Matrix().rotationZ(props.Rotation * (Random::random() - 0.5f)));
 	particle.setVelocity(
 		Vector(
 			props.Velocity.X + props.VelocityVariation.X * (Random::random() - 0.5f),

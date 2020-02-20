@@ -103,13 +103,13 @@ void Game::Init()
 	//text->setFont("game_over.ttf");
 	//text->setFont("i_mWeird.ttf");
 
-	sys = new ParticleSystem(2);
-	props.colorBegin = Color(254 / 255.0f, 212 / 255.0f, 123 / 255.0f);
-	props.colorEnd = Color(254 / 255.0f, 109 / 255.0f, 41 / 255.0f);
+	sys = new ParticleSystem(100);
+	props.colorBegin = Color(1, 1, 1);
+	props.colorEnd = Color(0, 0, 0);
 	props.sizeBegin = 0.5f, props.sizeVariation = 0.3f, props.sizeEnd = 0.0f;
 	props.Life = 1.0f;
-	props.Velocity = Vector(0, 0, 0);
-	props.VelocityVariation = Vector(3, 1, 0);
+	props.Velocity = Vector(0, 0, 2);
+	props.VelocityVariation = Vector(1, 1, 1);
 	props.Position = Vector(0, 0, 0);
 
 }
@@ -120,6 +120,8 @@ void Game::Start() {
 
 void Game::ProcessInput(GLfloat dt)
 {	
+	if (InputManager::getInstance().Keys[GLFW_KEY_F])
+		sys->Emit(props);
 }
 
 void Game::Update(GLfloat dt)
@@ -127,8 +129,7 @@ void Game::Update(GLfloat dt)
 	mainCamera.update();
 	testScene.Update(dt);
 	testScene.detectCollisions();
-	sys->Update(dt);
-	sys->Emit(props);
+	sys->Update(dt);	
 }
 
 void Game::Render()
