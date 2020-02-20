@@ -1,5 +1,7 @@
 #pragma once
 #include "ScreenShader.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
 
 class PostProcessing
 {	
@@ -29,11 +31,12 @@ private:
 	unsigned int Width = 960;
 	unsigned int Height = 540;
 	unsigned int MSAA = 1;
-	unsigned int quad = 0;
 	unsigned int textureMulti = 0;
 	unsigned int texture = 0;
 	unsigned int fbo = 0;
 	unsigned int transferFbo = 0;
 	unsigned int rbo = 0;
-};
 
+	VertexBuffer VB;
+	IndexBuffer IB;
+};

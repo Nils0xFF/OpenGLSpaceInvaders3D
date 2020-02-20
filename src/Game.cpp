@@ -9,7 +9,6 @@
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "LightComponent.h"
-#include "ParticleGenerator.h"
 #include "PlayerController.h"
 #include "EnemyController.h"
 #include "FollowCameraController.h"
@@ -75,7 +74,7 @@ void Game::Init()
 	testScene.addGameObject(enemy);
 
 	GameObject* ground = new GameObject();
-	pModel = new Terrain(GameSettings::WORLD_WITH, 20, 200, 200);
+	pModel = new TrianglePlaneModel(GameSettings::WORLD_WITH, 20, 200, 200);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(true);
 	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));

@@ -24,7 +24,6 @@ void Text::Render(const char* text, float x, float y, float scale, Color col)
 		if (*c == '\n') {
 			y -= (float) ((fontHeight >> 6) * scale / scr_height) * 4;
 			x = originX;
-			std::cout << y << std::endl;
 			continue;
 		}
 

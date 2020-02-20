@@ -193,9 +193,6 @@
     <ClCompile Include="..\..\src\ParticleShader.cpp">
       <Filter>Quelldateien\utils\shader</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ParticleGenerator.cpp">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\GameSettings.cpp">
       <Filter>Quelldateien\game\statics</Filter>
     </ClCompile>
@@ -223,14 +220,14 @@
     <ClCompile Include="..\..\src\SceneManager.cpp">
       <Filter>Quelldateien\game\singeltons</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\ParticleSystem.cpp">
+      <Filter>Quelldateien\game\customComponents</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\EnemyController.cpp">
       <Filter>Quelldateien\game\customComponents\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Text.cpp">
       <Filter>Quelldateien\game\customComponents\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\ParticleGenerator.cpp">
-      <Filter>Quelldateien\game\customComponents\Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -367,9 +364,6 @@
     <ClInclude Include="..\..\src\Tags.h">
       <Filter>Quelldateien\game\gameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ParticleGenerator.h">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\TextShader.h">
       <Filter>Quelldateien\utils\shader</Filter>
     </ClInclude>
@@ -397,14 +391,14 @@
     <ClInclude Include="..\..\src\SceneManager.h">
       <Filter>Quelldateien\game\singeltons</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\ParticleSystem.h">
+      <Filter>Quelldateien\game\customComponents</Filter>      
+    </ClInclude>
     <ClInclude Include="..\..\src\EnemyController.h">
       <Filter>Quelldateien\game\customComponents\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Text.h">
       <Filter>Quelldateien\game\customComponents\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\ParticleGenerator.h">
-      <Filter>Quelldateien\game\customComponents\Particle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
