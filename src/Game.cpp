@@ -73,16 +73,14 @@ void Game::Init()
 	enemy->setCollider(new BoxCollider());
 	testScene.addGameObject(enemy);
 
-	/* GameObject* ground = new GameObject();
+	GameObject* ground = new GameObject();
 	pModel = new TrianglePlaneModel(GameSettings::WORLD_WITH, 20, 200, 200);
-	GameObject* go = new GameObject();
-	BaseModel* pModel = new Terrain(GameSettings::WORLD_WITH, 20, 200, 200);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(true);
-	go->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
-	testScene.addGameObject(go);
+	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
+	testScene.addGameObject(ground);
 
-	go = new GameObject();
+	GameObject* go = new GameObject();
 	pModel = new Model(ASSET_DIRECTORY "skybox.obj", false);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
