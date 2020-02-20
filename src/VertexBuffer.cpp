@@ -16,6 +16,17 @@ VertexBuffer::VertexBuffer() : ActiveAttributes(0), WithinBeginBlock(false), VAO
     
 }
 
+VertexBuffer::VertexBuffer(const VertexBuffer& other) : ActiveAttributes(0), WithinBeginBlock(false), VAO(0), VBO(0), VertexCount(0), BuffersInitialized(false) {
+	this->begin();
+	this->Vertices = other.Vertices;
+	this->Colors = other.Colors;
+	this->Texcoord0 = other.Texcoord0;
+	this->Texcoord1 = other.Texcoord1;
+	this->Texcoord2 = other.Texcoord2;
+	this->Texcoord3 = other.Texcoord3;
+	this->end();
+}
+
 VertexBuffer::~VertexBuffer()
 {
     if(BuffersInitialized)

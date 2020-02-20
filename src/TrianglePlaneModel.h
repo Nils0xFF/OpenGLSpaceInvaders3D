@@ -20,7 +20,7 @@ class TrianglePlaneModel : public BaseModel
 {
 public:
     TrianglePlaneModel( float DimX, float DimZ, int NumSegX, int NumSegZ );
-	TrianglePlaneModel* clone() { throw std::exception(); }
+	TrianglePlaneModel* clone() { return new TrianglePlaneModel(*this); }
     virtual ~TrianglePlaneModel() {}
     virtual void draw(const BaseCamera& Cam);
 

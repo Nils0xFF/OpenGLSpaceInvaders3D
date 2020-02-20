@@ -27,6 +27,8 @@ private:
 	Matrix deltaRotation;
 
 	Matrix transform;
+	Vector scale = Vector(1,1,1);
+
 	GameObject* parent;
 
 	MeshRenderer* mr;

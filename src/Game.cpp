@@ -36,7 +36,7 @@ void Game::Init()
 	GameObject* playerBullet = new GameObject();
 	playerBullet->setName("PlayerBullet");
 	playerBullet->setTag(Tag::PlayerBullet);
-	BaseModel* pModel = new Model(ASSET_DIRECTORY "spaceships/spaceship_4.obj", true);
+	BaseModel* pModel = new TriangleBoxModel(0.5f,0.5f,0.5f);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	ConstantShader* shader = new ConstantShader();

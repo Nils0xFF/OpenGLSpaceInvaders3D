@@ -25,6 +25,7 @@ class IndexBuffer
 {
 public:
     IndexBuffer();
+	IndexBuffer(const IndexBuffer& other);
     ~IndexBuffer();
     
     void begin();

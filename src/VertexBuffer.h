@@ -35,6 +35,7 @@ public:
     };
     
     VertexBuffer();
+	VertexBuffer(const VertexBuffer& other);
     ~VertexBuffer();
     
     void begin();

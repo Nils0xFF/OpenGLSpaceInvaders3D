@@ -26,7 +26,7 @@ public:
 	const AABB& initialBoundingBox() const { return InitialBoundingBox; }
 	const AABB& boundingBox() const { return BoundingBox; }
 
-	// TriangleBoxModel* clone() { throw std::exception(); }
+	TriangleBoxModel* clone() { return new TriangleBoxModel(*this); }
 
 protected:
     VertexBuffer VB;

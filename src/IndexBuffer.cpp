@@ -14,6 +14,13 @@ IndexBuffer::IndexBuffer() : BufferInitialized(false), WithinBeginAndEnd(false),
     
 }
 
+IndexBuffer::IndexBuffer(const IndexBuffer& other) : BufferInitialized(false), WithinBeginAndEnd(false), IndexFormat(GL_UNSIGNED_INT), IndexCount(0)
+{
+	this->begin();
+	this->Indices = other.Indices;
+	this->end();
+}
+
 IndexBuffer::~IndexBuffer()
 {
     
