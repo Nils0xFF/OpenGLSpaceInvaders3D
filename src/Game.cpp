@@ -67,9 +67,8 @@ void Game::Init()
 	player->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "spaceships/spaceship_4.obj", true), new PhongShader(), true));
 	player->setCollider(new BoxCollider());
 	player->addComponent(new PlayerController(playerBulletPrefab));
-	//player->addComponent(new FollowCameraController(mainCamera, Vector(0,.65f,1.5f)));
+	player->addComponent(new FollowCameraController(mainCamera, Vector(0,.65f,1.5f)));
 	testScene.addGameObject(player);
-
 
 	GameObject* enemyBullet = new GameObject();
 	enemyBullet->setName("EnemyBullet");
@@ -196,7 +195,7 @@ void Game::Render()
 		
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	testScene.Draw();
-	sys->Draw();
+	// sys->Draw();
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	text->Render("Hallo, Welt!\nHier koennte Ihre Werbung stehen.\nTest.", 0.05, 0.3, 0.5, Color(0, 0, 0));
@@ -211,4 +210,5 @@ void Game::Render()
 void Game::End()
 {
 	delete text;
+	delete sys;
 }

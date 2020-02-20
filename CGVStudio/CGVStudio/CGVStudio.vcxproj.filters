@@ -241,8 +241,8 @@
     <ClCompile Include="..\..\src\Random.cpp">
       <Filter>Quelldateien\utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\TestController.cpp">
-      <Filter>Quelldateien\game\customComponents</Filter>
+    <ClCompile Include="..\..\src\EnemySpawnerController.cpp">
+      <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -418,11 +418,9 @@
     <ClInclude Include="..\..\src\Random.h">
       <Filter>Quelldateien\utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\TestController.h">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\EnemyRowController.h">
       <Filter>Quelldateien\game\customComponents\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\EnemySpawnerController.h" />
   </ItemGroup>
 </Project>

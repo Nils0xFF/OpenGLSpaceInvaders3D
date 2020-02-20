@@ -76,7 +76,7 @@ public:
 
 	~GameObject() {
 		
-		std::cout << "~GO()" << std::endl;
+		// std::cout << "~GO()" << std::endl;
 
 		delete debugModel;
 
