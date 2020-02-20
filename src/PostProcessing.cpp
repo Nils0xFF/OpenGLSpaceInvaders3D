@@ -48,10 +48,15 @@ void PostProcessing::End(float time)
 
 	shader->setTime(time);
 	shader->activate(*CameraManager::getInstance().activeCamera);
+	
+	VB.activate();
+	IB.activate();
 
-	glBindVertexArray(quad);
 	glDisable(GL_DEPTH_TEST);
-	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glDrawElements(GL_TRIANGLES, IB.indexCount(), IB.indexFormat(), 0);
+
+	IB.deactivate();
+	VB.deactivate();
 
 	shader->deactivate();
 }
@@ -125,26 +130,25 @@ void PostProcessing::Update()
 
 void PostProcessing::GenerateScreenQuad()
 {
-	float quadVertices[] = {
-		// positions   // texCoords
-		-1.0f,  1.0f,  0.0f, 1.0f,
-		-1.0f, -1.0f,  0.0f, 0.0f,
-		 1.0f, -1.0f,  1.0f, 0.0f,
+	VB.begin();
+	VB.addTexcoord0(0.0f, 0.0f);
+	VB.addVertex(-1.0f, -1.0f, 0.0f);
+	VB.addTexcoord0(0.0f, 1.0f);
+	VB.addVertex(-1.0f, 1.0f, 0.0f);
+	VB.addTexcoord0(1.0f, 0.0f);
+	VB.addVertex(1.0f, -1.0f, 0.0f);
+	VB.addTexcoord0(1.0f, 1.0f);
+	VB.addVertex(1.0f, 1.0f, 0.0f);
+	VB.end();
 
-		-1.0f,  1.0f,  0.0f, 1.0f,
-		 1.0f, -1.0f,  1.0f, 0.0f,
-		 1.0f,  1.0f,  1.0f, 1.0f
-	};
-	unsigned int quadVBO;
-	glGenVertexArrays(1, &quad);
-	glGenBuffers(1, &quadVBO);
-	glBindVertexArray(quad);
-	glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+	IB.begin();
+	IB.addIndex(1);
+	IB.addIndex(0);
+	IB.addIndex(2);
+	IB.addIndex(1);
+	IB.addIndex(2);
+	IB.addIndex(3);
+	IB.end();
 }
 
 void PostProcessing::setMSAA(unsigned int samples)

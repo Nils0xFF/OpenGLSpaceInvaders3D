@@ -190,9 +190,6 @@
     <ClCompile Include="..\..\src\ParticleShader.cpp">
       <Filter>Quelldateien\utils\shader</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ParticleGenerator.cpp">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\GameSettings.cpp">
       <Filter>Quelldateien\game\statics</Filter>
     </ClCompile>
@@ -219,6 +216,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\SceneManager.cpp">
       <Filter>Quelldateien\game\singeltons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ParticleSystem.cpp">
+      <Filter>Quelldateien\game\customComponents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -358,9 +358,6 @@
     <ClInclude Include="..\..\src\Tags.h">
       <Filter>Quelldateien\game\gameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ParticleGenerator.h">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\TextShader.h">
       <Filter>Quelldateien\utils\shader</Filter>
     </ClInclude>
@@ -387,6 +384,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\SceneManager.h">
       <Filter>Quelldateien\game\singeltons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ParticleSystem.h">
+      <Filter>Quelldateien\game\customComponents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
