@@ -11,7 +11,7 @@ protected:
 public:
 	Component() :gameObject(nullptr) {};
 	Component(GameObjectInterface* gameObject):gameObject(gameObject) {};
-	~Component() { gameObject = NULL; }
+	virtual ~Component() { gameObject = NULL; }
 
 	virtual void Init() {};
 	virtual void Start() {};
@@ -19,6 +19,8 @@ public:
 	virtual void Draw() {};
 	virtual void Destroy() {};
 	virtual void updateTransform() {};
+
+	virtual void onCollision(GameObject* other) {};
 
 	virtual Component* clone() = 0;
 

@@ -65,6 +65,12 @@
     <Filter Include="Quelldateien\game\customComponents\Combat">
       <UniqueIdentifier>{842bb047-eeec-4ab7-af73-efa53a72db0f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Quelldateien\game\customComponents\UI">
+      <UniqueIdentifier>{454b313b-7edf-4191-a4a5-6f4a21bcac4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\game\customComponents\Particle">
+      <UniqueIdentifier>{0212ab9e-d6c7-4ac9-961c-d9c3f6cd2057}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -160,9 +166,6 @@
     <ClCompile Include="..\..\src\Scene.cpp">
       <Filter>Quelldateien\game\scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\TestController.cpp">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\BoxCollider.cpp">
       <Filter>Quelldateien\game\gameObjects\components\colliders</Filter>
     </ClCompile>
@@ -219,6 +222,12 @@
     </ClCompile>
     <ClCompile Include="..\..\src\ParticleSystem.cpp">
       <Filter>Quelldateien\game\customComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\EnemyController.cpp">
+      <Filter>Quelldateien\game\customComponents\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Text.cpp">
+      <Filter>Quelldateien\game\customComponents\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -321,9 +330,6 @@
     <ClInclude Include="..\..\src\CameraManager.h">
       <Filter>Quelldateien\game\singeltons</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\TestController.h">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\GameObjectInterface.h">
       <Filter>Quelldateien\game\gameObjects</Filter>
     </ClInclude>
@@ -386,7 +392,13 @@
       <Filter>Quelldateien\game\singeltons</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\ParticleSystem.h">
-      <Filter>Quelldateien\game\customComponents</Filter>
+      <Filter>Quelldateien\game\customComponents</Filter>      
+    </ClInclude>
+    <ClInclude Include="..\..\src\EnemyController.h">
+      <Filter>Quelldateien\game\customComponents\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Text.h">
+      <Filter>Quelldateien\game\customComponents\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

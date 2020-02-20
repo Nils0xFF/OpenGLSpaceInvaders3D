@@ -3,8 +3,9 @@ enum class Tag
 {
 	Default,
 	Player,
-	Bullet,
+	PlayerBullet,
 	Enemy,
+	EnemyBullet,
 	PowerUP,
 	Environment
 };

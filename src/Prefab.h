@@ -9,10 +9,10 @@ private:
 
 public:
 	Prefab(GameObject* prefab) :prefab(prefab) {};
-	~Prefab() { delete prefab; }
+	~Prefab() { if(prefab) delete prefab; }
 	GameObject* instantiate(const Vector& position = Vector::zero(), const Matrix& rotation = Matrix().identity(), std::string name = "") {
 		GameObject* toInstantiate = new GameObject(*prefab);
-		toInstantiate->setTransform(Matrix().translation(position) * rotation * prefab->getTransform());
+		toInstantiate->setTransform(Matrix().translation(position) * rotation);
 		toInstantiate->Init();
 		toInstantiate->Start();
 		SceneManager::getInstance().activeScene->addGameObject(toInstantiate);

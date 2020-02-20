@@ -27,6 +27,8 @@ private:
 	Matrix deltaRotation;
 
 	Matrix transform;
+	Vector scale = Vector(1,1,1);
+
 	GameObject* parent;
 
 	MeshRenderer* mr;
@@ -46,7 +48,7 @@ public:
 		debugShader.color(Color(0,1,0));
 	};
 
-	GameObject(const GameObject& other):mr(NULL), collider(NULL),debugModel(NULL) {
+	GameObject(const GameObject& other):mr(NULL), collider(NULL),debugModel(NULL), modelBox(NULL), areaBox() {
 		this->transform = transform;
 		this->active = other.active;
 		this->staticObject = other.staticObject;
@@ -90,6 +92,8 @@ public:
 	};
 
 	void Init() {
+		deltaRotation = Matrix().identity();
+		deltaTranslation = Vector(0, 0, 0);
 		for (Component* c : this->components) {
 			c->Init();
 		}
@@ -99,8 +103,6 @@ public:
 	};
 
 	void Start() {
-		deltaRotation = Matrix().identity();
-		deltaTranslation = Vector(0,0,0);
 		for (Component* c : this->components) {
 			c->Start();
 		}
@@ -138,6 +140,9 @@ public:
 
 	void onCollision(GameObject* other) {
 		std::cout << "Kollision! " << name << " " << other->name << std::endl;
+		for (Component* c : this->components) {
+			c->onCollision(other);
+		}
 	};
 	void onTrigger() {};
 

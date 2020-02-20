@@ -16,7 +16,8 @@ TriangleBoxModel::TriangleBoxModel(float Width, float Height, float Depth)
     float BeginY = Height*-0.5f;
     float BeginZ = Depth*-0.5f;
     
-	BoundingBox = AABB(Vector(BeginX, BeginY, BeginZ), Vector(-BeginX, -BeginY, -BeginZ));
+	InitialBoundingBox = AABB(Vector(BeginX, BeginY, BeginZ), Vector(-BeginX, -BeginY, -BeginZ));
+	updateBoundingBox();
 
     // 1. setup vertex buffer
     VB.begin();

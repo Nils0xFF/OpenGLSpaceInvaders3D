@@ -11,14 +11,17 @@ class BoxCollider :
 	public Collider
 {
 public:
-	OBB* collsionBox;
-	LineBoxModel* debugModel;
-	ConstantShader* debugShader;
+	OBB* collsionBox = NULL;
+	LineBoxModel* debugModel = NULL;
+	ConstantShader* debugShader = NULL;
 
 	~BoxCollider() {
 		delete collsionBox;
+		collsionBox = NULL;
 		delete debugModel;
+		debugModel = NULL;
 		delete debugShader;
+		debugShader = NULL;
 	}
 
 	BoxCollider* clone() { return new BoxCollider(*this); }

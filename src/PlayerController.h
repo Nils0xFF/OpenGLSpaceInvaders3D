@@ -27,6 +27,7 @@ private:
 		if (bc != NULL) {
 			bc->setDirection(Vector::forward());
 			bc->setSpeed(1.0f);
+			bc->setDamage(1);
 		}
 	}
 
@@ -66,6 +67,10 @@ public:
 
 		// deltaTranslate = deltaTranslate - deltaTranslate * deltaTime;
 
+	}
+
+	void onCollision() {
+		
 	}
 
 	PlayerController* clone() { return new PlayerController(*this); }
