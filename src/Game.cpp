@@ -39,7 +39,7 @@ void Game::Init()
 	GameObject* playerBullet = new GameObject();
 	playerBullet->setName("PlayerBullet");
 	playerBullet->setTag(Tag::PlayerBullet);
-	BaseModel* pModel = new TriangleBoxModel(0.5f,0.5f,0.5f);
+	BaseModel* pModel = new TriangleBoxModel(0.05f,0.05f,0.3f);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	ConstantShader* shader = new ConstantShader();
@@ -82,12 +82,12 @@ void Game::Init()
 	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
 	testScene.addGameObject(ground);
 
-	GameObject* go = new GameObject();
+	GameObject* skybox = new GameObject();
 	pModel = new Model(ASSET_DIRECTORY "skybox.obj", false);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
-	go->setRenderer(new MeshRenderer(pModel, new PhongShader(), true));
-	testScene.addGameObject(go);
+	skybox->setRenderer(new MeshRenderer(pModel, new PhongShader(), true));
+	testScene.addGameObject(skybox);
 
 	CameraManager::getInstance().activeCamera = &mainCamera;
 
