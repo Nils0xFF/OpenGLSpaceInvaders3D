@@ -229,6 +229,12 @@
     <ClCompile Include="..\..\src\Text.cpp">
       <Filter>Quelldateien\game\customComponents\UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Random.cpp">
+      <Filter>Quelldateien\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\TestController.cpp">
+      <Filter>Quelldateien\game\customComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Camera.h">
@@ -392,13 +398,19 @@
       <Filter>Quelldateien\game\singeltons</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\ParticleSystem.h">
-      <Filter>Quelldateien\game\customComponents</Filter>      
+      <Filter>Quelldateien\game\customComponents</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\EnemyController.h">
       <Filter>Quelldateien\game\customComponents\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Text.h">
       <Filter>Quelldateien\game\customComponents\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Random.h">
+      <Filter>Quelldateien\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\TestController.h">
+      <Filter>Quelldateien\game\customComponents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

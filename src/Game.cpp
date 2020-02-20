@@ -15,14 +15,16 @@
 #include "Text.h"
 #include "TriangleBoxModel.h"
 #include "GameSettings.h"
-#include "Terrain.h"
 #include "TerrainShader.h"
+#include "ParticleSystem.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
 
 Scene testScene;
 Text* text;
+ParticleSystem* sys;
+ParticleProps props;
 
 #ifdef WIN32
 #define ASSET_DIRECTORY "../../assets/"
@@ -61,7 +63,7 @@ void Game::Init()
 	player->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "spaceships/spaceship_4.obj", true), new PhongShader(), true));
 	player->setCollider(new BoxCollider());
 	player->addComponent(new PlayerController(playerBulletPrefab));
-	player->addComponent(new FollowCameraController(mainCamera, Vector(0,.65f,1.5f)));
+	//player->addComponent(new FollowCameraController(mainCamera, Vector(0,.65f,1.5f)));
 	testScene.addGameObject(player);
 
 	GameObject* enemy = new GameObject();
@@ -100,6 +102,16 @@ void Game::Init()
 	text = new Text();
 	//text->setFont("game_over.ttf");
 	//text->setFont("i_mWeird.ttf");
+
+	sys = new ParticleSystem(2);
+	props.colorBegin = Color(254 / 255.0f, 212 / 255.0f, 123 / 255.0f);
+	props.colorEnd = Color(254 / 255.0f, 109 / 255.0f, 41 / 255.0f);
+	props.sizeBegin = 0.5f, props.sizeVariation = 0.3f, props.sizeEnd = 0.0f;
+	props.Life = 1.0f;
+	props.Velocity = Vector(0, 0, 0);
+	props.VelocityVariation = Vector(3, 1, 0);
+	props.Position = Vector(0, 0, 0);
+
 }
 
 void Game::Start() {
@@ -115,6 +127,8 @@ void Game::Update(GLfloat dt)
 	mainCamera.update();
 	testScene.Update(dt);
 	testScene.detectCollisions();
+	sys->Update(dt);
+	sys->Emit(props);
 }
 
 void Game::Render()
@@ -142,6 +156,7 @@ void Game::Render()
 		
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	testScene.Draw();
+	sys->Draw();
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	text->Render("Hallo, Welt!\nHier koennte Ihre Werbung stehen.\nTest.", 0.05, 0.3, 0.5, Color(0, 0, 0));
