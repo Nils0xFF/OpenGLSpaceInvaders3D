@@ -11,6 +11,7 @@
 #include "Game.h"
 #include "InputManager.h"
 #include "CameraManager.h"
+#include "Random.h"
 
 
 // GLFW function declerations
@@ -78,8 +79,9 @@ int main () {
 	// Initialize the Game
 	myGame->Init();
 	// Start the Game
-	myGame->Start();    
-    
+	myGame->Start(); 
+
+    Random::Init();
     
 	GLfloat lastTime = 0;
     while (!glfwWindowShouldClose (window))

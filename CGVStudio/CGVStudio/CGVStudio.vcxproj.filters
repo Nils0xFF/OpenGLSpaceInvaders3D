@@ -238,6 +238,12 @@
     <ClCompile Include="..\..\src\EnemyRowController.cpp">
       <Filter>Quelldateien\game\customComponents\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Random.cpp">
+      <Filter>Quelldateien\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\TestController.cpp">
+      <Filter>Quelldateien\game\customComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Camera.h">
@@ -408,6 +414,12 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Text.h">
       <Filter>Quelldateien\game\customComponents\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Random.h">
+      <Filter>Quelldateien\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\TestController.h">
+      <Filter>Quelldateien\game\customComponents</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\EnemyRowController.h">
       <Filter>Quelldateien\game\customComponents\Enemy</Filter>

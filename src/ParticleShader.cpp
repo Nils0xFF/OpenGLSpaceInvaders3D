@@ -6,13 +6,15 @@
 #define ASSET_DIRECTORY "../assets/"
 #endif
 
-ParticleShader::ParticleShader(): Col(0.0f, 0.0f, 1.0f)
+ParticleShader::ParticleShader(): Col(0.0f, 0.0f, 1.0f), Alpha(1.0f)
 {
 	if (!load(ASSET_DIRECTORY "vsparticle.glsl", ASSET_DIRECTORY "fsparticle.glsl"))
 		throw new std::exception("Shader not found.");
 
 	ColorLoc = glGetUniformLocation(ShaderProgram, "color");
 	assert(ColorLoc >= 0);
+	AlphaLoc = glGetUniformLocation(ShaderProgram, "alpha");
+	assert(AlphaLoc >= 0);
 	ModelViewProjLoc = glGetUniformLocation(ShaderProgram, "ModelViewProjMat");
 	assert(ModelViewProjLoc >= 0);
 }
@@ -22,6 +24,7 @@ void ParticleShader::activate(const BaseCamera& Cam) const
 	BaseShader::activate(Cam);
 
 	glUniform3f(ColorLoc, Col.R, Col.G, Col.B);
+	glUniform1f(AlphaLoc, Alpha);
 
 	Matrix View = Cam.getViewMatrix();
 	Matrix Model = ModelTransform;
@@ -37,6 +40,7 @@ void ParticleShader::activate(const BaseCamera& Cam) const
 	Model.m22 = View.m22;
 	Matrix ModelView = View * Model;
 
-	Matrix ModelViewProj = Cam.getProjectionMatrix() * ModelView;
+	//Matrix ModelViewProj = Cam.getProjectionMatrix() * ModelView;
+	Matrix ModelViewProj = Cam.getProjectionMatrix() * Cam.getViewMatrix() * modelTransform();
 	glUniformMatrix4fv(ModelViewProjLoc, 1, GL_FALSE, ModelViewProj.m);
 }
