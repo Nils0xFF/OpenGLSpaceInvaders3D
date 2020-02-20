@@ -48,13 +48,13 @@ public:
 		debugShader.color(Color(0,1,0));
 	};
 
-	GameObject(const GameObject& other):mr(NULL), collider(NULL),debugModel(NULL), modelBox(NULL), areaBox() {
+	GameObject(const GameObject& other):mr(NULL), collider(NULL),debugModel(NULL), modelBox(NULL), areaBox(), destroy(false) {
 		this->transform = transform;
 		this->active = other.active;
 		this->staticObject = other.staticObject;
 		this->name = other.name;
 		this->tag = other.tag;
-		this->parent = NULL;
+		this->parent = other.parent;
 		debugShader.color(Color(0, 1, 0));
 
 		for (GameObject* g : other.children) {
@@ -98,6 +98,7 @@ public:
 			c->Init();
 		}
 		for (GameObject* g : this->children) {
+			g->setTransform(g->getTransform() * transform);
 			g->Init();
 		}
 	};

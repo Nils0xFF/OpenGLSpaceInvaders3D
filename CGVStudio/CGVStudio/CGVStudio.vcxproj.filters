@@ -71,6 +71,12 @@
     <Filter Include="Quelldateien\game\customComponents\Particle">
       <UniqueIdentifier>{0212ab9e-d6c7-4ac9-961c-d9c3f6cd2057}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Quelldateien\game\customComponents\Obstacles">
+      <UniqueIdentifier>{180bcdae-0fd2-4219-b6f6-a2318639521d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\game\customComponents\Spawner">
+      <UniqueIdentifier>{4c6fc7b5-76ac-48c9-80f0-b0cf005815ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -228,6 +234,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Text.cpp">
       <Filter>Quelldateien\game\customComponents\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\EnemyRowController.cpp">
+      <Filter>Quelldateien\game\customComponents\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Random.cpp">
       <Filter>Quelldateien\utils</Filter>
@@ -411,6 +420,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\TestController.h">
       <Filter>Quelldateien\game\customComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\EnemyRowController.h">
+      <Filter>Quelldateien\game\customComponents\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -98,6 +98,7 @@
     <ClCompile Include="..\..\src\Component.cpp" />
     <ClCompile Include="..\..\src\ConstantShader.cpp" />
     <ClCompile Include="..\..\src\EnemyController.cpp" />
+    <ClCompile Include="..\..\src\EnemyRowController.cpp" />
     <ClCompile Include="..\..\src\FollowCameraController.cpp" />
     <ClCompile Include="..\..\src\Framebuffer.cpp" />
     <ClCompile Include="..\..\src\GameObject.cpp" />
@@ -128,7 +129,6 @@
     <ClCompile Include="..\..\src\ShadowMapGenerator.cpp" />
     <ClCompile Include="..\..\src\Terrain.cpp" />
     <ClCompile Include="..\..\src\TerrainShader.cpp" />
-    <ClCompile Include="..\..\src\TestController.cpp" />
     <ClCompile Include="..\..\src\Text.cpp" />
     <ClCompile Include="..\..\src\TextShader.cpp" />
     <ClCompile Include="..\..\src\Texture.cpp" />
@@ -154,6 +154,7 @@
     <ClInclude Include="..\..\src\Component.h" />
     <ClInclude Include="..\..\src\ConstantShader.h" />
     <ClInclude Include="..\..\src\EnemyController.h" />
+    <ClInclude Include="..\..\src\EnemyRowController.h" />
     <ClInclude Include="..\..\src\FollowCameraController.h" />
     <ClInclude Include="..\..\src\Framebuffer.h" />
     <ClInclude Include="..\..\src\GameObject.h" />
@@ -187,7 +188,6 @@
     <ClInclude Include="..\..\src\Tags.h" />
     <ClInclude Include="..\..\src\Terrain.h" />
     <ClInclude Include="..\..\src\TerrainShader.h" />
-    <ClInclude Include="..\..\src\TestController.h" />
     <ClInclude Include="..\..\src\Text.h" />
     <ClInclude Include="..\..\src\TextShader.h" />
     <ClInclude Include="..\..\src\Texture.h" />

@@ -11,6 +11,7 @@
 #include "LightComponent.h"
 #include "PlayerController.h"
 #include "EnemyController.h"
+#include "EnemyRowController.h"
 #include "FollowCameraController.h"
 #include "Text.h"
 #include "TriangleBoxModel.h"
@@ -20,6 +21,7 @@
 
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <time.h>
 
 Scene testScene;
 Text* text;
@@ -34,6 +36,8 @@ ParticleProps props;
 
 void Game::Init()
 {
+	srand(static_cast <unsigned> (time(0)));
+
 	SceneManager::getInstance().activeScene = &testScene;
 
 	GameObject* playerBullet = new GameObject();
@@ -66,21 +70,57 @@ void Game::Init()
 	//player->addComponent(new FollowCameraController(mainCamera, Vector(0,.65f,1.5f)));
 	testScene.addGameObject(player);
 
+
+	GameObject* enemyBullet = new GameObject();
+	enemyBullet->setName("EnemyBullet");
+	enemyBullet->setTag(Tag::EnemyBullet);
+	pModel = new TriangleBoxModel(0.05f, 0.05f, 0.3f);
+	pModel->shadowCaster(false);
+	pModel->shadowReciver(false);
+	shader = new ConstantShader();
+	shader->color(Color(0.5f, 0,0));
+	enemyBullet->setRenderer(new MeshRenderer(pModel, shader, true));
+	enemyBullet->setCollider(new BoxCollider());
+
+	pl = new PointLight();
+	pl->color(Color(0.5f, 0, 0));
+	pl->attenuation(Vector(0.5f, 0.1f, 0.05f));
+	pl->castShadows(true);
+	enemyBullet->addComponent(new LightComponent(pl));
+	enemyBullet->addComponent(new BulletController());
+
+	Prefab* enemyBulletPrefab = new Prefab(enemyBullet);
+
 	GameObject* enemy = new GameObject();
-	enemy->setTransform(Matrix().translation(0, 1, -5));
 	enemy->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "spaceships/spaceship_1.obj", true), new PhongShader(), true));
 	enemy->setName("Enemy");
 	enemy->setTag(Tag::Enemy);
-	enemy->addComponent(new EnemyController(1));
+	enemy->addComponent(new EnemyController(1, 2.5f, enemyBulletPrefab));
 	enemy->setCollider(new BoxCollider());
-	testScene.addGameObject(enemy);
+	// testScene.addGameObject(enemy);
 
-	GameObject* ground = new GameObject();
+	GameObject* enemyRow = new GameObject();
+	enemyRow->setTransform(Matrix().translation(0, 1, -15));
+	enemyRow->addComponent(new EnemyRowController());
+	enemyRow->addChild(enemy);
+
+	enemy = new GameObject(*enemy);
+	enemy->setTransform(Matrix().translation(2, 0, 0));
+	enemyRow->addChild(enemy);
+
+	enemy = new GameObject(*enemy);
+	enemy->setTransform(Matrix().translation(-2, 0, 0));
+	enemyRow->addChild(enemy);
+
+	testScene.addGameObject(enemyRow);
+
+
+	/* GameObject* ground = new GameObject();
 	pModel = new TrianglePlaneModel(GameSettings::WORLD_WITH, 20, 200, 200);
 	pModel->shadowCaster(false);
-	pModel->shadowReciver(true);
+	pModel->shadowReciver(false);
 	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
-	testScene.addGameObject(ground);
+	testScene.addGameObject(ground); */
 
 	GameObject* skybox = new GameObject();
 	pModel = new Model(ASSET_DIRECTORY "skybox.obj", false);
@@ -92,7 +132,7 @@ void Game::Init()
 	CameraManager::getInstance().activeCamera = &mainCamera;
 
 	DirectionalLight* dl = new DirectionalLight();
-	dl->direction(Vector(1.0f, -1.0f, -0.50f));
+	dl->direction(Vector(0.1f, -1.5f, -1.0f));
 	dl->color(Color(0.5, 0.5, 0.5));
 	dl->castShadows(true);
 	ShaderLightMapper::instance().addLight(dl);
@@ -126,8 +166,8 @@ void Game::ProcessInput(GLfloat dt)
 
 void Game::Update(GLfloat dt)
 {
-	mainCamera.update();
 	testScene.Update(dt);
+	mainCamera.update();
 	testScene.detectCollisions();
 	sys->Update(dt);	
 }

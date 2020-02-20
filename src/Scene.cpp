@@ -29,17 +29,19 @@ void Scene::Update(float deltaTime) {
 	}
 }
 
-bool compareX(GameObject* a, GameObject* b) { return a->getAreaBox()->Min.X < b->getAreaBox()->Min.X; }
+bool compareZ(GameObject* a, GameObject* b) { return a->getAreaBox()->Min.Z > b->getAreaBox()->Min.Z; }
 
 // using one axis sweep and prune for now
+// most of our movement happens around the z axis, therefor we use that
 void Scene::detectCollisions() {
-	if (gameObjects.size() > 1) {
+	std::list<GameObject*> collisionObjects = allObjects();
+	if (collisionObjects.size() > 1) {
 
-		gameObjects.sort(compareX);
+		collisionObjects.sort(compareZ);
 		list<GameObject*> activeList;
 		list<pair<GameObject*, GameObject*>> reportedPairs;
 
-		for (GameObject* g : gameObjects) {
+		for (GameObject* g : collisionObjects) {
 			if (g->getCollider() != NULL) {
 				activeList.push_back(g);
 				for (list<GameObject*>::iterator it = activeList.begin(); it != activeList.end();) {
@@ -58,7 +60,7 @@ void Scene::detectCollisions() {
 			}
 		}
 
-		reportedPairs.unique();
+		// reportedPairs.unique();
 
 		for (pair<GameObject*, GameObject*> possibleCollision : reportedPairs) {
 			if (CollisionHelper::detectAABBCollision(possibleCollision.first->getAreaBox(), possibleCollision.second->getAreaBox())) {

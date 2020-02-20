@@ -1,5 +1,7 @@
 #include "GameObject.h"
 
+using namespace std;
+
 void GameObject::Update(float deltaTime)
 {
 	if (mr != NULL) mr->Update(deltaTime);
@@ -10,19 +12,28 @@ void GameObject::Update(float deltaTime)
 
 	moveTo(Matrix().translation(this->transform.translation() + this->deltaTranslation) * Matrix().translation(this->transform.translation()).invert() * this->transform  * deltaRotation);
 
-	areaBox = *modelBox;
-	for (GameObject* g : this->children) {
-		g->translate(deltaTranslation);
-		g->rotate(deltaRotation);
-		g->Update(deltaTime);
+	if (modelBox) {
+		areaBox = *modelBox;
+	}
+	else {
+		areaBox = AABB(transform.translation(), transform.translation());
+	}
 
-		areaBox.merge(*(g->modelBox));
+	for (list<GameObject*>::iterator it = children.begin(); it != children.end();) {
+		if ((*it)->isDeleted()) {
+			delete (*it);
+			it = children.erase(it);
+			continue;
+		}
+		if ((*it)->isActive())
+			(*it)->translate(deltaTranslation);
+			(*it)->rotate(deltaRotation);
+			(*it)->Update(deltaTime);
+			areaBox.merge(*((*it)->modelBox));
+		it++;
 	}
 
 	deltaRotation = Matrix().identity();
 	deltaTranslation = Vector::zero();
-
-
-
 
 }

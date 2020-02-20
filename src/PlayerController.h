@@ -14,6 +14,8 @@ class PlayerController :
 {
 
 private:
+	int maxHP = GameSettings::PLAYER_HP;
+	int currentHP = GameSettings::PLAYER_HP;
 	Prefab* bullet;
 	Vector deltaTranslate = Vector::zero();
 	float timeBetweenShots = 1.0f;
@@ -26,7 +28,7 @@ private:
 
 		if (bc != NULL) {
 			bc->setDirection(Vector::forward());
-			bc->setSpeed(1.0f);
+			bc->setSpeed(2.0f);
 			bc->setDamage(1);
 		}
 	}
@@ -69,8 +71,18 @@ public:
 
 	}
 
-	void onCollision() {
-		
+	void onCollision(GameObject* other) {
+		if (other->getTag() == Tag::EnemyBullet) {
+			std::cout << "Player HIT by EnemyBullet" << std::endl;
+			BulletController* bc = other->getComponentByType<BulletController>();
+			if (bc != NULL) {
+				this->currentHP -= bc->getDamage();
+				std::cout << "HP after HIT by EnemyBullet" << this->currentHP << std::endl;
+				if (this->currentHP <= 0) gameObject->Destroy();
+
+				other->Destroy();
+			}
+		}
 	}
 
 	PlayerController* clone() { return new PlayerController(*this); }

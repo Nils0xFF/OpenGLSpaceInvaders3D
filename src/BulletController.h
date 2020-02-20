@@ -1,6 +1,7 @@
 #pragma once
 #include "vector.h"
 #include "Component.h"
+#include "GameObject.h"
 
 class BulletController : public Component
 {
@@ -17,6 +18,13 @@ public:
 		}
 		gameObject->translate(direction * speed * deltaTime);
 	};
+
+	void onCollision(GameObject* other) {
+		if (other->getTag() == Tag::EnemyBullet || other->getTag() == Tag::PlayerBullet) {
+			this->Destroy();
+			other->Destroy();
+		}
+	}
 
 	BulletController* clone() { return new BulletController(*this); }
 
