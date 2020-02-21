@@ -54,7 +54,7 @@ public:
 		this->staticObject = other.staticObject;
 		this->name = other.name;
 		this->tag = other.tag;
-		this->parent = other.parent;
+		this->parent = NULL;
 		debugShader.color(Color(0, 1, 0));
 
 		for (GameObject* g : other.children) {

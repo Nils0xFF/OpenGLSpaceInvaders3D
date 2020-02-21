@@ -242,7 +242,7 @@
       <Filter>Quelldateien\utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\EnemySpawnerController.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\game\customComponents\Spawner</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -421,6 +421,8 @@
     <ClInclude Include="..\..\src\EnemyRowController.h">
       <Filter>Quelldateien\game\customComponents\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\EnemySpawnerController.h" />
+    <ClInclude Include="..\..\src\EnemySpawnerController.h">
+      <Filter>Quelldateien\game\customComponents\Spawner</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
