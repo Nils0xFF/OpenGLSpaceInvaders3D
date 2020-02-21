@@ -15,6 +15,9 @@ void GameObject::Update(float deltaTime)
 	if (modelBox) {
 		areaBox = *modelBox;
 	}
+	else if(!children.empty()){
+		areaBox = *children.front()->getAreaBox();
+	}
 	else {
 		areaBox = AABB(transform.translation(), transform.translation());
 	}

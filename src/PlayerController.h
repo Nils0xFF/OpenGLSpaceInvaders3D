@@ -33,6 +33,13 @@ private:
 		}
 	}
 
+	void takeDamage(int damage) {
+		this->currentHP -= damage;
+		if (this->currentHP <= 0) {
+			currentHP = 0;
+		}
+	}
+
 public:
 
 	PlayerController(Prefab* bullet) :bullet(bullet) {};
@@ -79,9 +86,13 @@ public:
 				this->currentHP -= bc->getDamage();
 				std::cout << "HP after HIT by EnemyBullet" << this->currentHP << std::endl;
 				if (this->currentHP <= 0) gameObject->Destroy();
-
 				other->Destroy();
 			}
+		}
+		if (other->getTag() == Tag::Enemy) {
+			std::cout << "Player HIT by Enemy" << std::endl;
+			this->currentHP -= 1;
+			other->Destroy();
 		}
 	}
 

@@ -7,8 +7,8 @@ class EnemySpawnerController :
 {
 private:
 	Prefab* enemyRow;
-	float timeBetweenRows = 5.0f;
-	float timeSinceLastRow = 5.0f;
+	float timeBetweenRows = 7.5f;
+	float timeSinceLastRow = timeBetweenRows;
 
 public:
 	EnemySpawnerController(Prefab* row) :enemyRow(row) {};

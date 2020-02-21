@@ -97,14 +97,14 @@ void ShaderLightMapper::activate()
 
 		switch (L->type())
 		{
-			case BaseLight::DIRECTIONAL:
+			case BaseLight::LightType::DIRECTIONAL:
 			{
 				DirectionalLight* dl = dynamic_cast<DirectionalLight*>(L);
 				SL->Direction = dl->direction();
 				SL->Direction.normalize();
 				break;
 			}
-			case BaseLight::SPOT:
+			case BaseLight::LightType::SPOT:
 			{
 				SpotLight* sl = dynamic_cast<SpotLight*>(L);
 				SL->Direction = sl->direction();
@@ -112,7 +112,7 @@ void ShaderLightMapper::activate()
 				SL->Direction.normalize();
 				break;
 			}
-            case BaseLight::POINT:
+			case BaseLight::LightType::POINT:
                 break;
 		}
 	}

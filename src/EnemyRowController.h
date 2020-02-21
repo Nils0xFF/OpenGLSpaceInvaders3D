@@ -16,11 +16,14 @@ public:
 		if (gameObject->getTransform().translation().Z > 2) {
 			gameObject->Destroy();
 		}
-		if (gameObject->getAreaBox()->Min.X > -GameSettings::WORLD_WITH / 2) {
+		if (xDir < 0 && gameObject->getAreaBox()->Min.X < -GameSettings::WORLD_WITH / 2.0f) {
 			xDir *= -1;
 		}
-		if (gameObject->getAreaBox()->Max.X < GameSettings::WORLD_WITH / 2) {
+		if (xDir > 0 && gameObject->getAreaBox()->Max.X > GameSettings::WORLD_WITH / 2.0f) {
 			xDir *= -1;
+		}
+		if (gameObject->getTransform().translation().Z > -2) {
+			xDir = 0;
 		}
 		gameObject->translate((-Vector::forward() * zSpeed  + Vector::right() * xSpeed * xDir) * deltaTime);
 	}

@@ -94,7 +94,7 @@ void Game::Init()
 	pl = new PointLight();
 	pl->color(Color(0.5f, 0, 0));
 	pl->attenuation(Vector(0.5f, 0.1f, 0.5f));
-	pl->castShadows(true);
+	pl->castShadows(false);
 	enemyBullet->addComponent(new LightComponent(pl));
 
 	Prefab* enemyBulletPrefab = new Prefab(enemyBullet);
@@ -122,10 +122,10 @@ void Game::Init()
 	Prefab* enemyRowPrefab = new Prefab(enemyRow);
 
 	GameObject* enemySpawner = new GameObject();
-	enemySpawner->setTransform(Matrix().translation(0, 1, -10));
+	enemySpawner->setTransform(Matrix().translation(0.0f, 1.0f, -15.0f));
 	shader = new ConstantShader();
 	shader->color(Color(0,0,0));
-	enemySpawner->setRenderer(new MeshRenderer(new TriangleBoxModel(0.05f, 0.05f, 0.3f), shader, true));
+	enemySpawner->setRenderer(new MeshRenderer(new TriangleBoxModel(0.1f, 0.1f, 0.1f), shader, true));
 	enemySpawner->addComponent(new EnemySpawnerController(enemyRowPrefab));
 	testScene.addGameObject(enemySpawner);
 
@@ -146,7 +146,7 @@ void Game::Init()
 	CameraManager::getInstance().activeCamera = &mainCamera;
 
 	DirectionalLight* dl = new DirectionalLight();
-	dl->direction(Vector(-0.5f, -2.0f, 1.0f));
+	dl->direction(Vector(-0.5f, -1.0f, -1.0f));
 	dl->color(Color(1, 1, 1));
 	dl->castShadows(true);
 	ShaderLightMapper::instance().addLight(dl);

@@ -68,6 +68,9 @@ public:
 				other->Destroy();
 			}
 		}
+		if (other->getTag() == Tag::EnemyBullet) {
+			other->Destroy();
+		}
 	}
 
 	EnemyController* clone() { return new EnemyController(*this); }

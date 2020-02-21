@@ -7,7 +7,7 @@
 class BaseLight
 {
 public:
-	enum LightType
+	enum class LightType
 	{
 		POINT = 0,
 		DIRECTIONAL,
@@ -27,8 +27,8 @@ public:
 	const Color& color() const { return Col; }
 	void color(const Color& c) { Col = c; }
 
-	bool castShadows() const { return type() == POINT ? false : ShadowCaster;  }
-	void castShadows(bool b) { type()==POINT ? ShadowCaster = false : ShadowCaster = b;  }
+	bool castShadows() const { return type() == LightType::POINT ? false : ShadowCaster;  }
+	void castShadows(bool b) { type()== LightType::POINT ? ShadowCaster = false : ShadowCaster = b;  }
 
 	virtual LightType type() const = 0;
 
@@ -49,18 +49,18 @@ public:
 
 	PointLight* clone() { return new PointLight(*this); }
 
-	virtual LightType type() const { return POINT; }
+	virtual LightType type() const { return LightType::POINT; }
 };
 
 class DirectionalLight : public BaseLight
 {
 public:
-	DirectionalLight(const Vector& d = Vector(-1, -1, -1), const Color& c = ::Color(1, 1, 1)) : BaseLight(Vector(10,10,10), c), Direction(d) {}
+	DirectionalLight(const Vector& d = Vector(-1, -1, -1), const Color& c = ::Color(1, 1, 1)) : BaseLight(Vector(0,5,-5), c), Direction(d) {}
 	virtual ~DirectionalLight() {}
 
 	DirectionalLight* clone() { return new DirectionalLight(*this); }
 
-	virtual LightType type() const { return DIRECTIONAL; }
+	virtual LightType type() const { return LightType::DIRECTIONAL; }
 
 	const Vector& direction() const { return Direction; }
 	void direction(const Vector& d) { Direction = d; }
@@ -77,7 +77,7 @@ public:
 
 	SpotLight* clone() { return new SpotLight(*this); }
 
-	virtual LightType type() const { return SPOT; }
+	virtual LightType type() const { return LightType::SPOT; }
 
 	float innerRadius() const { return InnerRadius; }
 	void innerRadius(float r) { InnerRadius = r; }

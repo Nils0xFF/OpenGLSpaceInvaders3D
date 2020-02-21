@@ -48,13 +48,14 @@ public:
 		debugShader.color(Color(0,1,0));
 	};
 
-	GameObject(const GameObject& other):mr(NULL), collider(NULL),debugModel(NULL), modelBox(NULL), areaBox(), destroy(false) {
+	GameObject(const GameObject& other):mr(NULL), collider(NULL),debugModel(NULL), modelBox(NULL), destroy(false) {
 		this->transform = other.transform;
 		this->active = other.active;
 		this->staticObject = other.staticObject;
 		this->name = other.name;
 		this->tag = other.tag;
 		this->parent = NULL;
+		this->areaBox = AABB(this->transform.translation(), this->transform.translation());
 		debugShader.color(Color(0, 1, 0));
 
 		for (Component* c : other.components) {

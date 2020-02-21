@@ -31,7 +31,7 @@ public:
 protected:
 	struct ShaderLight
 	{
-		int Type; Vector padding5;
+		BaseLight::LightType Type; Vector padding5;
 		Color Color; float padding0;
 		Vector Position; float padding1;
 		Vector Direction; float padding2;

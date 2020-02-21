@@ -3,6 +3,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "PhongShader.h"
+#include "GameSettings.h"
 
 #ifdef WIN32
 #define ASSET_DIRECTORY "../../assets/"
@@ -58,18 +59,18 @@ ShadowMapGenerator::~ShadowMapGenerator()
 
 Matrix ShadowMapGenerator::calcProjection(BaseLight* pLight, const AABB& BBox, const Matrix& View ) const
 {
-	assert(pLight->type() != BaseLight::POINT);
+	assert(pLight->type() != BaseLight::LightType::POINT);
 	Matrix Proj;
 
 	Matrix InvView = View;
 	InvView.invert();
 
-	if (pLight->type() == BaseLight::SPOT)
+	if (pLight->type() == BaseLight::LightType::SPOT)
 	{
 		SpotLight* sp = dynamic_cast<SpotLight*>(pLight);
 		Proj.perspective(sp->outerRadius()*2.0f / 180.0f*(float)M_PI, 1.0f, 0.001f, BBox.size().length() + (BBox.center()-InvView.translation()).length() );
 	}
-	else if (pLight->type() == BaseLight::DIRECTIONAL)
+	else if (pLight->type() == BaseLight::LightType::DIRECTIONAL)
 	{
 
 		Vector v[8];
@@ -98,22 +99,22 @@ Matrix ShadowMapGenerator::calcProjection(BaseLight* pLight, const AABB& BBox, c
 
 Matrix ShadowMapGenerator::calcView(BaseLight* pLight, const AABB& BBox) const
 {
-	assert(pLight->type() != BaseLight::POINT);
+	assert(pLight->type() != BaseLight::LightType::POINT);
 
 	Matrix view;
 
-	if (pLight->type() == BaseLight::SPOT)
+	if (pLight->type() == BaseLight::LightType::SPOT)
 	{
 		SpotLight* sp = dynamic_cast<SpotLight*>(pLight);
 		view.lookAt(sp->position() + sp->direction(), Vector(0, 1, 0), sp->position());
 
 	}
-	else if (pLight->type() == BaseLight::DIRECTIONAL)
+	else if (pLight->type() == BaseLight::LightType::DIRECTIONAL)
 	{
 		DirectionalLight* dl = dynamic_cast<DirectionalLight*>(pLight);
 		Vector Pos = BBox.center();
 		float diag = BBox.size().length();
-		Pos = Pos - dl->direction()* 0.5f*diag;
+		Pos = Pos - dl->direction() * 0.5f * diag;
 		view.lookAt(Pos + dl->direction(), Vector(0, 1, 0), Pos);
 		dl->position(Pos);
 	}
@@ -124,31 +125,18 @@ Matrix ShadowMapGenerator::calcView(BaseLight* pLight, const AABB& BBox) const
 
 AABB ShadowMapGenerator::calcSceneBoundingBox(std::list<BaseModel*>& Models) const
 {
-	if(Models.size()<=0)
-		return AABB(Vector(-5, -5, -5), Vector(5, 5, 5));
-	
-	AABB OverallBox;
-
-	BaseModel* FirstModel = *Models.begin();
-	OverallBox = FirstModel->boundingBox();
-
-	bool ShadowReciverFound = false;
+	AABB OverallBox = AABB(Vector(-GameSettings::WORLD_WITH/2, -1, -GameSettings::WORLD_DEPTH), Vector(-GameSettings::WORLD_WITH / 2, -1, 2));
+	if(Models.size()<= 0)
+		return OverallBox;
 
 	for (BaseModel* pModel : Models)
 	{
-		if (pModel->shadowReciver())
+		if (pModel->shadowReciver() || pModel->shadowCaster())
 		{
 			AABB Box = pModel->boundingBox();
-			if (ShadowReciverFound)
-				OverallBox.merge(Box);
-			else
-				OverallBox = Box;
-			ShadowReciverFound = true;
+			OverallBox.merge(Box);
 		}
 	}
-
-	if(!ShadowReciverFound)
-		return AABB(Vector(-5, -5, -5), Vector(5, 5, 5));
 
 	return OverallBox;
 }

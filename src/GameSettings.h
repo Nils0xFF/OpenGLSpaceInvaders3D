@@ -8,5 +8,6 @@ public:
 	static const unsigned int PLAYER_HP;
 
 	// World Parameters
-	static const unsigned int WORLD_WITH;
+	static const int WORLD_WITH;
+	static const int WORLD_DEPTH;
 };
