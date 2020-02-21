@@ -1,6 +1,7 @@
 #include "color.h"
 #include <assert.h>
 #include <math.h>
+#include <sstream>
 
 Color::Color():R(0.0f),G(0.0f),B(0.0f)
 {
@@ -48,4 +49,16 @@ float Color::grayscale() const
 
 Color Color::powColor(float exponent) const{
     return Color(pow(this->R, exponent), pow(this->G, exponent), pow(this->B, exponent));
+}
+
+std::string Color::toString() const {
+    std::stringstream ss;
+    ss << "R: " << R << " ,G: " << G << ",B: " << B;
+    return ss.str();
+}
+
+std::ostream& operator<<(std::ostream& os, const Color& c)
+{
+    os << c.toString();
+    return os;
 }
