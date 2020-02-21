@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "BulletController.h"
 #include "Prefab.h"
+#include "Random.h"
 
 class EnemyController : public Component
 {
@@ -49,8 +50,7 @@ public:
 		if (timeSinceLastShot >= timeToNextShot) {
 			fire();
 			timeSinceLastShot = 0;
-			float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-			timeToNextShot =  timeBetweenShots + shotVariation * (r - 0.5f);
+			timeToNextShot =  timeBetweenShots + shotVariation * (Random::random() - 0.5f);
 		}
 	}
 

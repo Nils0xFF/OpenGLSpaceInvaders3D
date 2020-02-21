@@ -226,9 +226,6 @@
     <ClCompile Include="..\..\src\SceneManager.cpp">
       <Filter>Quelldateien\game\singeltons</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\ParticleSystem.cpp">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\EnemyController.cpp">
       <Filter>Quelldateien\game\customComponents\Enemy</Filter>
     </ClCompile>
@@ -241,8 +238,11 @@
     <ClCompile Include="..\..\src\Random.cpp">
       <Filter>Quelldateien\utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\TestController.cpp">
-      <Filter>Quelldateien\game\customComponents</Filter>
+    <ClCompile Include="..\..\src\ParticleSystem.cpp">
+      <Filter>Quelldateien\game\customComponents\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ParticleGenerator.cpp">
+      <Filter>Quelldateien\game\customComponents\Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -406,9 +406,6 @@
     <ClInclude Include="..\..\src\SceneManager.h">
       <Filter>Quelldateien\game\singeltons</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\ParticleSystem.h">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\EnemyController.h">
       <Filter>Quelldateien\game\customComponents\Enemy</Filter>
     </ClInclude>
@@ -418,11 +415,14 @@
     <ClInclude Include="..\..\src\Random.h">
       <Filter>Quelldateien\utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\TestController.h">
-      <Filter>Quelldateien\game\customComponents</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\EnemyRowController.h">
       <Filter>Quelldateien\game\customComponents\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ParticleSystem.h">
+      <Filter>Quelldateien\game\customComponents\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ParticleGenerator.h">
+      <Filter>Quelldateien\game\customComponents\Particle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
