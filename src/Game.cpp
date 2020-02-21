@@ -13,6 +13,7 @@
 #include "EnemyController.h"
 #include "EnemyRowController.h"
 #include "FollowCameraController.h"
+#include "EnemySpawnerController.h"
 #include "Text.h"
 #include "TriangleBoxModel.h"
 #include "GameSettings.h"
@@ -73,13 +74,14 @@ void Game::Init()
 	player->setCollider(new BoxCollider());
 	player->addComponent(new PlayerController(playerBulletPrefab));
 	player->addComponent(new ParticleGenerator(100, props));
-	//player->addComponent(new FollowCameraController(mainCamera, Vector(0,.65f,1.5f)));
+	player->addComponent(new FollowCameraController(mainCamera, Vector(0,.65f,1.5f)));
 	testScene.addGameObject(player);
-
 
 	GameObject* enemyBullet = new GameObject();
 	enemyBullet->setName("EnemyBullet");
 	enemyBullet->setTag(Tag::EnemyBullet);
+	enemyBullet->addComponent(new BulletController());
+
 	pModel = new TriangleBoxModel(0.05f, 0.05f, 0.3f);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
@@ -93,7 +95,6 @@ void Game::Init()
 	pl->attenuation(Vector(0.5f, 0.1f, 0.05f));
 	pl->castShadows(true);
 	enemyBullet->addComponent(new LightComponent(pl));
-	enemyBullet->addComponent(new BulletController());
 
 	Prefab* enemyBulletPrefab = new Prefab(enemyBullet);
 
@@ -103,10 +104,9 @@ void Game::Init()
 	enemy->setTag(Tag::Enemy);
 	enemy->addComponent(new EnemyController(1, 2.5f, enemyBulletPrefab));
 	enemy->setCollider(new BoxCollider());
-	// testScene.addGameObject(enemy);
 
 	GameObject* enemyRow = new GameObject();
-	enemyRow->setTransform(Matrix().translation(0, 1, -15));
+	// enemyRow->setTransform(Matrix().translation(0, 1, -15));
 	enemyRow->addComponent(new EnemyRowController());
 	enemyRow->addChild(enemy);
 
@@ -118,8 +118,12 @@ void Game::Init()
 	enemy->setTransform(Matrix().translation(-2, 0, 0));
 	enemyRow->addChild(enemy);
 
-	testScene.addGameObject(enemyRow);
+	Prefab* enemyRowPrefab = new Prefab(enemyRow);
 
+	GameObject* enemySpawner = new GameObject();
+	enemySpawner->setTransform(Matrix().translation(0, 1, -15));
+	enemySpawner->addComponent(new EnemySpawnerController(enemyRowPrefab));
+	testScene.addGameObject(enemySpawner);
 
 	/* GameObject* ground = new GameObject();
 	pModel = new TrianglePlaneModel(GameSettings::WORLD_WITH, 20, 200, 200);
@@ -204,4 +208,5 @@ void Game::Render()
 void Game::End()
 {
 	delete text;
+	delete sys;
 }

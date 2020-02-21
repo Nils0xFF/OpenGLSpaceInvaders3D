@@ -244,6 +244,9 @@
     <ClCompile Include="..\..\src\ParticleGenerator.cpp">
       <Filter>Quelldateien\game\customComponents\Particle</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\EnemySpawnerController.cpp">
+      <Filter>Quelldateien\game\customComponents\Spawner</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Camera.h">
@@ -423,6 +426,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\ParticleGenerator.h">
       <Filter>Quelldateien\game\customComponents\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\EnemySpawnerController.h">
+      <Filter>Quelldateien\game\customComponents\Spawner</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

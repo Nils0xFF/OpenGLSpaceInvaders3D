@@ -46,7 +46,7 @@ void Scene::detectCollisions() {
 				activeList.push_back(g);
 				for (list<GameObject*>::iterator it = activeList.begin(); it != activeList.end();) {
 					if (g != *it) {
-						if (g->getAreaBox()->Min.X > (*it)->getAreaBox()->Max.X) {
+						if (g->getAreaBox()->Min.Z > (*it)->getAreaBox()->Max.Z) {
 							it = activeList.erase(it);
 							break;
 						}

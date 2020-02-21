@@ -45,6 +45,10 @@ public:
 		this->bullet = new Prefab(*other.bullet);
 	}
 
+	~EnemyController() {
+		if (bullet) delete bullet;
+	}
+
 	void Update(float deltaTime) {
 		timeSinceLastShot += deltaTime;
 		if (timeSinceLastShot >= timeToNextShot) {
