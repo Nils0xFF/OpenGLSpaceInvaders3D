@@ -49,17 +49,13 @@ public:
 	};
 
 	GameObject(const GameObject& other):mr(NULL), collider(NULL),debugModel(NULL), modelBox(NULL), areaBox(), destroy(false) {
-		this->transform = transform;
+		this->transform = other.transform;
 		this->active = other.active;
 		this->staticObject = other.staticObject;
 		this->name = other.name;
 		this->tag = other.tag;
 		this->parent = NULL;
 		debugShader.color(Color(0, 1, 0));
-
-		for (GameObject* g : other.children) {
-			this->addChild(new GameObject(*g));
-		}
 
 		for (Component* c : other.components) {
 			if (dynamic_cast<MeshRenderer*>(c)) {
@@ -71,6 +67,10 @@ public:
 				continue;
 			} 
 			this->addComponent(c->clone());
+		}
+
+		for (GameObject* g : other.children) {
+			this->addChild(new GameObject(*g));
 		}
 	}
 
@@ -122,6 +122,7 @@ public:
 			debugModel->shadowCaster(false);
 			debugModel->draw(*CameraManager::getInstance().activeCamera);
 		#endif
+
 		for (Component* c : this->components) {
 			c->Draw();
 		}

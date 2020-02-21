@@ -2,8 +2,11 @@
 #include "Matrix.h"
 #include "LifecycleObject.h"
 #include "Aabb.h"
+#include <list>
 
 extern class MeshRenderer;
+extern class GameObject;
+extern class Component;
 
 class GameObjectInterface: public LifecycleObject
 {
@@ -14,6 +17,19 @@ class GameObjectInterface: public LifecycleObject
 		virtual void rotate(const Matrix& rot) = 0;
 		virtual const MeshRenderer* getRenderer() = 0;
 		virtual const AABB* getAreaBox() = 0;
+		virtual const GameObject* getParent() const = 0 ;
+		virtual void setParent(GameObject* p) = 0;
+		virtual const std::list<Component*>& getComponents() const = 0;
 
+		virtual void addComponent(Component* comp) = 0;
+
+		virtual const std::list<GameObject*>& getChildren() const = 0;
+		virtual void addChild(GameObject* g) = 0;
+
+		template <typename T>
+		T* getComponentByType() = 0;
+
+		template <typename T>
+		std::list<T*> getComponentsByType() = 0;
 };
 

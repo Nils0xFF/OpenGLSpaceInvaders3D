@@ -100,6 +100,7 @@ void Game::Init()
 	enemy->setCollider(new BoxCollider());
 
 	GameObject* enemyRow = new GameObject();
+	// enemyRow->setTransform(Matrix().translation(0, 1, -15));
 	enemyRow->addComponent(new EnemyRowController());
 	enemyRow->addChild(enemy);
 
@@ -110,8 +111,6 @@ void Game::Init()
 	enemy = new GameObject(*enemy);
 	enemy->setTransform(Matrix().translation(-2, 0, 0));
 	enemyRow->addChild(enemy);
-
-	// testScene.addGameObject(enemyRow);
 
 	Prefab* enemyRowPrefab = new Prefab(enemyRow);
 

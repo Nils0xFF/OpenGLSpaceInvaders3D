@@ -20,7 +20,7 @@ public:
 	void Update(float dTime) {
 		timeSinceLastRow += dTime;
 		if (timeSinceLastRow >= timeBetweenRows) {
-			
+			std::cout << "Spawing Row @ " << gameObject->getTransform().translation() << std::endl;
 			enemyRow->instantiate(gameObject->getTransform().translation());
 			timeSinceLastRow = 0;
 		}

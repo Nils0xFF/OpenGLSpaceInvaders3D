@@ -17,8 +17,7 @@ public:
 		toInstantiate->setTransform(Matrix().translation(position) * rotation);
 		toInstantiate->Init();
 		toInstantiate->Start();
-		if(toInstantiate->getParent() == NULL)
-			SceneManager::getInstance().activeScene->addGameObject(toInstantiate);
+		SceneManager::getInstance().activeScene->addGameObject(toInstantiate);
 		return toInstantiate;
 	};
 };
