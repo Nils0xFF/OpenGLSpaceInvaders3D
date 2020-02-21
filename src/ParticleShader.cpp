@@ -8,7 +8,7 @@
 
 ParticleShader::ParticleShader(): Col(0.0f, 0.0f, 1.0f), Alpha(1.0f)
 {
-	if (!load(ASSET_DIRECTORY "vsparticle.glsl", ASSET_DIRECTORY "fsparticle.glsl"))
+	if (!load(ASSET_DIRECTORY "shader/vertex/vsparticle.glsl", ASSET_DIRECTORY "shader/fragment/fsparticle.glsl"))
 		throw new std::exception("Shader not found.");
 
 	ColorLoc = glGetUniformLocation(ShaderProgram, "color");

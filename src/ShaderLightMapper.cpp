@@ -29,7 +29,7 @@ ShaderLightMapper::ShaderLightMapper()
 {
 
 	BaseShader Shader;
-	bool loaded = Shader.load(ASSET_DIRECTORY"vsphong.glsl", ASSET_DIRECTORY"fsphong.glsl");
+	bool loaded = Shader.load(ASSET_DIRECTORY"shader/vertex/vsphong.glsl", ASSET_DIRECTORY"shader/fragment/fsphong.glsl");
 	assert(loaded);
 
 	GLuint BlockIndex = glGetUniformBlockIndex(Shader.openGLProgramID(), "Lights");

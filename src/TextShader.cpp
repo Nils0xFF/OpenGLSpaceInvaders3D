@@ -8,7 +8,7 @@
 
 TextShader::TextShader()
 {
-	if (!load(ASSET_DIRECTORY "vstext.glsl", ASSET_DIRECTORY "fstext.glsl"))
+	if (!load(ASSET_DIRECTORY "shader/vertex/vstext.glsl", ASSET_DIRECTORY "shader/fragment/fstext.glsl"))
 		throw new std::exception("Shader not found.");
 
 	textColorLoc = glGetUniformLocation(ShaderProgram, "textColor");

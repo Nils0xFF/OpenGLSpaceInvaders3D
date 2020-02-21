@@ -13,7 +13,7 @@
 
 ShadowMapShader::ShadowMapShader()
 {
-	bool loaded = load(ASSET_DIRECTORY"vsdepth.glsl", ASSET_DIRECTORY"fsdepth.glsl");
+	bool loaded = load(ASSET_DIRECTORY"shader/vertex/vsdepth.glsl", ASSET_DIRECTORY"shader/fragment/fsdepth.glsl");
 	if (!loaded)
 		throw std::exception();
 

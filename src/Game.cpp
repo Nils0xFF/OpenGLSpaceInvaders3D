@@ -71,7 +71,7 @@ void Game::Init()
 	player->setName("Player");
 	player->setTag(Tag::Player);
 	player->setTransform(Matrix().translation(0,1,0) * Matrix().rotationY(0.5f * (float) M_PI));
-	player->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "spaceships/spaceship_4.obj", true), new PhongShader(), true));
+	player->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/spaceships/spaceship_4.obj", true), new PhongShader(), true));
 	player->setCollider(new BoxCollider());
 	player->addComponent(new PlayerController(playerBulletPrefab));	
 	player->addComponent(new FollowCameraController(mainCamera, Vector(0,.65f,1.5f)));
@@ -100,7 +100,9 @@ void Game::Init()
 	Prefab* enemyBulletPrefab = new Prefab(enemyBullet);
 
 	GameObject* enemy = new GameObject();
-	enemy->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "spaceships/spaceship_1.obj", true), new PhongShader(), true));
+	BaseModel* enemyModel = new Model(ASSET_DIRECTORY "models/spaceships/spaceship_1.obj", true);
+	enemyModel->shadowCaster(false);
+	enemy->setRenderer(new MeshRenderer(enemyModel, new PhongShader(), true));
 	enemy->setName("Enemy");
 	enemy->setTag(Tag::Enemy);
 	enemy->addComponent(new EnemyController(1, 2.5f, enemyBulletPrefab));
@@ -137,7 +139,7 @@ void Game::Init()
 	testScene.addGameObject(ground); */
 
 	GameObject* skybox = new GameObject();
-	pModel = new Model(ASSET_DIRECTORY "skybox.obj", false);
+	pModel = new Model(ASSET_DIRECTORY "models/skybox.obj", false);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	skybox->setRenderer(new MeshRenderer(pModel, new PhongShader(), true));

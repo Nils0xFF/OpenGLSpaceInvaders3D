@@ -7,7 +7,7 @@
 #endif
 
 ScreenShader::ScreenShader() {
-	bool loaded = load(ASSET_DIRECTORY "vsscreen.glsl", ASSET_DIRECTORY "fsscreen.glsl");
+	bool loaded = load(ASSET_DIRECTORY "shader/vertex/vsscreen.glsl", ASSET_DIRECTORY "shader/fragment/fsscreen.glsl");
 	if (!loaded)
 		throw std::exception();
 	assignLocations();
