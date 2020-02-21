@@ -71,6 +71,9 @@ public:
 		if (other->getTag() == Tag::EnemyBullet) {
 			other->Destroy();
 		}
+		if (other->getTag() == Tag::Meteor) {
+			gameObject->Destroy();
+		}
 	}
 
 	EnemyController* clone() { return new EnemyController(*this); }

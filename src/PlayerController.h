@@ -91,6 +91,10 @@ public:
 			takeDamage(1);
 			other->Destroy();
 		}
+		if (other->getTag() == Tag::Meteor) {
+			takeDamage(GameSettings::METEOR_DAMAGE);
+			other->Destroy();
+		}
 	}
 
 	PlayerController* clone() { return new PlayerController(*this); }

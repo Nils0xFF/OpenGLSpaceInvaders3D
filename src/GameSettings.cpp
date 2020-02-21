@@ -29,6 +29,11 @@ const float GameSettings::BOSS_FIRERATE_VARIATION = 0.1f;
 const int GameSettings::SPAWNER_WAVES_BEFORE_BOSS = 10.0f;
 const float GameSettings::SPWANER_TIME_BETWEEN_WAVES = 5.0f;
 
+// Meteor Parameters
+const unsigned int GameSettings::METEOR_HP = 5;
+const float GameSettings::METEOR_Z_SPEED = 1.0f;
+const unsigned int GameSettings::METEOR_DAMAGE = 1;
+
 // World Parameters
 const int GameSettings::WORLD_WITH = 10;
 const int GameSettings::WORLD_DEPTH = 20;

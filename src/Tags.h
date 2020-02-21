@@ -7,5 +7,6 @@ enum class Tag
 	Enemy,
 	EnemyBullet,
 	PowerUP,
+	Meteor,
 	Environment
 };

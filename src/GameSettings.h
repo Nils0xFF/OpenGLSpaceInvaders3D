@@ -32,6 +32,11 @@ public:
 	static const int SPAWNER_WAVES_BEFORE_BOSS;
 	static const float SPWANER_TIME_BETWEEN_WAVES;
 
+	// Meteor Parameters
+	static const unsigned int METEOR_HP;
+	static const float METEOR_Z_SPEED;
+	static const unsigned int METEOR_DAMAGE;
+
 	// World Parameters
 	static const int WORLD_WITH;
 	static const int WORLD_DEPTH;

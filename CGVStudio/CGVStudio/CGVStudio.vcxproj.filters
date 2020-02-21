@@ -74,6 +74,9 @@
     <Filter Include="Quelldateien\game\customComponents\Spawner">
       <UniqueIdentifier>{4c6fc7b5-76ac-48c9-80f0-b0cf005815ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Quelldateien\game\customComponents\Enemy">
+      <UniqueIdentifier>{79dfff99-a350-4897-b9d8-2e36ffe5d34d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -237,6 +240,12 @@
     </ClCompile>
     <ClCompile Include="..\..\src\EnemySpawnerController.cpp">
       <Filter>Quelldateien\game\customComponents\Spawner</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\MeteorController.cpp">
+      <Filter>Quelldateien\game\customComponents\Obstacles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\EnemyController.cpp">
+      <Filter>Quelldateien\game\customComponents\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -414,6 +423,12 @@
     </ClInclude>
     <ClInclude Include="..\..\src\EnemySpawnerController.h">
       <Filter>Quelldateien\game\customComponents\Spawner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\MeteorController.h">
+      <Filter>Quelldateien\game\customComponents\Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\EnemyController.h">
+      <Filter>Quelldateien\game\customComponents\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

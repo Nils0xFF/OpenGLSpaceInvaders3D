@@ -138,6 +138,12 @@ void Game::Init()
 	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
 	testScene.addGameObject(ground); */
 
+	GameObject* rock = new GameObject();
+	rock->setTransform(Matrix().translation(Vector(0,1,-2)));
+	rock->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/meteors/rock2.obj",true),new PhongShader(), true));
+
+	testScene.addGameObject(rock);
+
 	GameObject* skybox = new GameObject();
 	pModel = new Model(ASSET_DIRECTORY "models/skybox.obj", false);
 	pModel->shadowCaster(false);
