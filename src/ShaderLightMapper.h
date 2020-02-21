@@ -31,19 +31,18 @@ public:
 protected:
 	struct ShaderLight
 	{
-		BaseLight::LightType Type; Vector padding5;
-		Color Color; float padding0;
-		Vector Position; float padding1;
-		Vector Direction; float padding2;
-		Vector Attenuation; float padding3;
+		BaseLight::LightType Type = BaseLight::LightType::POINT; Vector padding5;
+		Color Color; float padding0 = 0;
+		Vector Position; float padding1 = 0;
+		Vector Direction; float padding2 = 0;
+		Vector Attenuation; float padding3 = 0;
 		Vector SpotRadius;
-		int ShadowIndex;
-
+		int ShadowIndex = 0;
 	};
 
 	struct ShaderLightBlock
 	{
-		int LightCount; Vector padding0;
+		int LightCount = 0; Vector padding0;
 		ShaderLight lights[MaxLightCount];
 
 	};
@@ -53,7 +52,7 @@ protected:
 	~ShaderLightMapper();
 	LightList Lights;
 	ShaderLightBlock ShaderLights;
-	GLuint UBO;
+	GLuint UBO = 0;
 	static ShaderLightMapper* pMapper;
 };
 

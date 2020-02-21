@@ -29,9 +29,9 @@ public:
     {
         Texcoord() {}
         Texcoord(float _s, float _t, float _u=0) : s(_s), t(_t), u(_u) {}
-        float s;
-        float t;
-        float u;
+        float s = 0;
+        float t = 0;
+        float u = 0;
     };
     
     VertexBuffer();
@@ -83,12 +83,12 @@ private:
     std::vector<Vector> Texcoord1;
     std::vector<Vector> Texcoord2;
     std::vector<Vector> Texcoord3;
-    unsigned int ActiveAttributes;
-    bool WithinBeginBlock;
-    GLuint VBO;
-    GLuint VAO;
-    bool BuffersInitialized;
-    unsigned int VertexCount;
+    unsigned int ActiveAttributes = 0;
+    bool WithinBeginBlock = false;
+    GLuint VBO = 0;
+    GLuint VAO = 0;
+    bool BuffersInitialized = false;
+    unsigned int VertexCount = 0;
     
     
 };

@@ -109,7 +109,6 @@ void Game::Init()
 	enemy->setCollider(new BoxCollider());
 
 	GameObject* enemyRow = new GameObject();
-	// enemyRow->setTransform(Matrix().translation(0, 1, -15));
 	enemyRow->addComponent(new EnemyRowController());
 	enemyRow->addChild(enemy);
 
@@ -124,7 +123,7 @@ void Game::Init()
 	Prefab* enemyRowPrefab = new Prefab(enemyRow);
 
 	GameObject* enemySpawner = new GameObject();
-	enemySpawner->setTransform(Matrix().translation(0.0f, 1.0f, -GameSettings::WORLD_DEPTH));
+	enemySpawner->setTransform(Matrix().translation(0.0f, 1.0f, (float) -GameSettings::WORLD_DEPTH));
 	shader = new ConstantShader();
 	shader->color(Color(0,0,0));
 	enemySpawner->setRenderer(new MeshRenderer(new TriangleBoxModel(0.1f, 0.1f, 0.1f), shader, true));

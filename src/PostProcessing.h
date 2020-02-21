@@ -11,7 +11,7 @@ public:
 		return instance;
 	}	
 
-	ScreenShader* shader;
+	ScreenShader* shader = NULL;
 	void setMSAA(unsigned int samples);
 
 	void Begin();

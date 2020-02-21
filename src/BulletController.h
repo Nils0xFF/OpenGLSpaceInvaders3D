@@ -8,8 +8,8 @@ class BulletController : public Component
 {
 private:
 	Vector direction;
-	float speed;
-	int damage;
+	float speed = 1;
+	int damage = 1;
 
 public:
 

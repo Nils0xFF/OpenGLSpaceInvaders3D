@@ -12,9 +12,9 @@ public:
 	static const Vector forward() { return Vector(0, 0, -1); }
 	static const Vector zero() { return Vector(0, 0, 0); }
 
-    float X;
-    float Y;
-    float Z;
+    float X = 0;
+    float Y = 0;
+    float Z = 0;
     
     Vector( float x, float y, float z);
     Vector();
