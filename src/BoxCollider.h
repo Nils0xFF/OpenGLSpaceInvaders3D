@@ -15,6 +15,14 @@ public:
 	LineBoxModel* debugModel = NULL;
 	ConstantShader* debugShader = NULL;
 
+	BoxCollider() {}
+
+	BoxCollider(const BoxCollider& other) {
+		collsionBox = NULL;
+		debugModel = NULL;
+		debugShader = NULL;
+	}
+
 	~BoxCollider() {
 		delete collsionBox;
 		collsionBox = NULL;
@@ -30,7 +38,7 @@ public:
 
 	void Init() {
 		debugShader = new ConstantShader();
-		debugShader->color(Color(1.0f,0,0));
+		debugShader->color(Color(1.0f,0,1.0f));
 	}
 
 	void Start() {

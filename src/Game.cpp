@@ -54,7 +54,7 @@ void Game::Init()
 
 	PointLight* pl = new PointLight();
 	pl->color(Color(0, 0, 0.5));
-	pl->attenuation(Vector(0.5f, 0.1f, 0.05f));
+	pl->attenuation(Vector(0.5f, 0.1f, 0.5f));
 	pl->castShadows(true);
 	playerBullet->addComponent(new LightComponent(pl));
 	playerBullet->addComponent(new BulletController());
@@ -86,7 +86,7 @@ void Game::Init()
 
 	pl = new PointLight();
 	pl->color(Color(0.5f, 0, 0));
-	pl->attenuation(Vector(0.5f, 0.1f, 0.05f));
+	pl->attenuation(Vector(0.5f, 0.1f, 0.5f));
 	pl->castShadows(true);
 	enemyBullet->addComponent(new LightComponent(pl));
 
@@ -97,7 +97,7 @@ void Game::Init()
 	enemy->setName("Enemy");
 	enemy->setTag(Tag::Enemy);
 	enemy->addComponent(new EnemyController(1, 2.5f, enemyBulletPrefab));
-	enemy->setCollider(new BoxCollider());
+	// enemy->setCollider(new BoxCollider());
 
 	GameObject* enemyRow = new GameObject();
 	// enemyRow->setTransform(Matrix().translation(0, 1, -15));

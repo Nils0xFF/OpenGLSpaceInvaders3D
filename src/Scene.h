@@ -36,6 +36,7 @@ public:
 				objects.push_back(c);
 			}
 		}
+		objects.unique();
 		return objects;
 	}
 

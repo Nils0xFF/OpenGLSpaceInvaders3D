@@ -9,6 +9,8 @@ bool CollisionHelper::pointInBox(const Vector* point, const AABB* box)
 
 bool CollisionHelper::detectAABBCollision(const AABB* a, const AABB* b)
 {
+
+
 	Vector aVerts[8], bVerts[8];
 	a->corners(aVerts);
 	b->corners(bVerts);
@@ -21,6 +23,8 @@ bool CollisionHelper::detectAABBCollision(const AABB* a, const AABB* b)
 
 	if (Seperated(aVerts, bVerts, Vector::right()))
 		return false;
+
+	// std::cout << "AABB Colission!" << std::endl << a->Min << "-" << a->Max << std::endl << b->Min << "-" << b->Max << std::endl;
 
 	return true;
 }
@@ -43,33 +47,42 @@ bool CollisionHelper::detectOBBCollisions(const OBB& a, const OBB& b)
 
 	if (Seperated(aVerts, bVerts, b.getRight()))
 		return false;
+
 	if (Seperated(aVerts, bVerts, b.getUp()))
 		return false;
+
 	if (Seperated(aVerts, bVerts, b.getForward()))
 		return false;
 
+
 	if (Seperated(aVerts, bVerts, a.getRight().cross(b.getRight())))
 		return false;
+
 	if (Seperated(aVerts, bVerts, a.getRight().cross(b.getUp())))
 		return false;
+
 	if (Seperated(aVerts, bVerts, a.getRight().cross(b.getForward())))
 		return false;
 
 	if (Seperated(aVerts, bVerts, a.getUp().cross(b.getRight())))
 		return false;
+
 	if (Seperated(aVerts, bVerts, a.getUp().cross(b.getUp())))
 		return false;
+
 	if (Seperated(aVerts, bVerts, a.getUp().cross(b.getForward())))
 		return false;
 
 	if (Seperated(aVerts, bVerts, a.getForward().cross(b.getRight())))
 		return false;
+
 	if (Seperated(aVerts, bVerts, a.getForward().cross(b.getUp())))
 		return false;
+
 	if (Seperated(aVerts, bVerts, a.getForward().cross(b.getForward())))
 		return false;
 
-
+	std::cout << "OOBB Colission!!!!" << std::endl << aVerts[1] << " - " << aVerts[7] << std::endl << bVerts[1] << " - " << bVerts[7] << std::endl;
 	return true;
 }
 
@@ -81,14 +94,14 @@ bool CollisionHelper::Seperated(const Vector vertsA[], const Vector vertsB[], co
 		return false;
 
 	float aMin = FLT_MAX;
-	float aMax = FLT_MIN;
+	float aMax = -FLT_MAX;
 	float bMin = FLT_MAX;
-	float bMax = FLT_MIN;
+	float bMax = -FLT_MAX;
 
 	// project verts on axis and calulate the size of the interval
 	for (int i = 0; i < 8; i++) {
 		float aDist = vertsA[i].dot(axis);
-		aMin = std::min(aMin,aDist);
+		aMin = std::min(aMin, aDist);
 		aMax = std::max(aMax, aDist);
 		float bDist = vertsB[i].dot(axis);
 		bMin = std::min(bMin, bDist);

@@ -32,8 +32,8 @@ public:
 
 		right = Vector(1,0,0);
 		up = Vector(0,1,0);
-		forward = Vector(0,0,1);
-		calculatePoints();
+		forward = Vector(0,0,-1);
+		boundingBox.corners(verts);
 	}
 
 	OBB(const AABB& boundingBox, const Matrix& transform){

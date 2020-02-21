@@ -60,10 +60,11 @@ void Scene::detectCollisions() {
 			}
 		}
 
-		// reportedPairs.unique();
+		reportedPairs.unique();
 
 		for (pair<GameObject*, GameObject*> possibleCollision : reportedPairs) {
 			if (CollisionHelper::detectAABBCollision(possibleCollision.first->getAreaBox(), possibleCollision.second->getAreaBox())) {
+				// std::cout << "AABB Collision" << possibleCollision.first->getName() << " and " << possibleCollision.second->getName() << std::endl;
 				if (possibleCollision.first->getCollider()->checkCollision(possibleCollision.second->getCollider())) {
 					possibleCollision.first->onCollision(possibleCollision.second);
 					possibleCollision.second->onCollision(possibleCollision.first);
