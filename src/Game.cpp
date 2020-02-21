@@ -40,7 +40,7 @@ void Game::Init()
 	GameObject* playerBullet = new GameObject();
 	playerBullet->setName("PlayerBullet");
 	playerBullet->setTag(Tag::PlayerBullet);
-	BaseModel* pModel = new TriangleBoxModel(0.05f,0.05f,0.3f);
+	BaseModel* pModel = new TriangleBoxModel(0.1f,0.05f,0.3f);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	ConstantShader* shader = new ConstantShader();
@@ -124,7 +124,7 @@ void Game::Init()
 	Prefab* enemyRowPrefab = new Prefab(enemyRow);
 
 	GameObject* enemySpawner = new GameObject();
-	enemySpawner->setTransform(Matrix().translation(0.0f, 1.0f, -15.0f));
+	enemySpawner->setTransform(Matrix().translation(0.0f, 1.0f, -GameSettings::WORLD_DEPTH));
 	shader = new ConstantShader();
 	shader->color(Color(0,0,0));
 	enemySpawner->setRenderer(new MeshRenderer(new TriangleBoxModel(0.1f, 0.1f, 0.1f), shader, true));
@@ -132,7 +132,7 @@ void Game::Init()
 	testScene.addGameObject(enemySpawner);
 
 	/* GameObject* ground = new GameObject();
-	pModel = new TrianglePlaneModel(GameSettings::WORLD_WITH, 20, 200, 200);
+	pModel = new TrianglePlaneModel(GameSettings::WORLD_WITH, GameSettings::WORLD_DEPTH, 200, 200);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));

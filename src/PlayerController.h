@@ -18,8 +18,8 @@ private:
 	int currentHP = GameSettings::PLAYER_HP;
 	Prefab* bullet;
 	Vector deltaTranslate = Vector::zero();
-	float timeBetweenShots = 1.0f;
-	float timeSinceLastShot = 0.0f;
+	float timeBetweenShots = 1.0f / GameSettings::PLAYER_FIRERATE;
+	float timeSinceLastShot = timeBetweenShots;
 
 	void fire() {
 		std::cout << "Spawning Bullet @" << gameObject->getTransform().translation() + Vector::forward() << std::endl;
@@ -28,8 +28,8 @@ private:
 
 		if (bc != NULL) {
 			bc->setDirection(Vector::forward());
-			bc->setSpeed(2.0f);
-			bc->setDamage(1);
+			bc->setSpeed(GameSettings::PLAYER_BULLET_SPEED);
+			bc->setDamage(GameSettings::PLAYER_BULLET_DAMAGE);
 		}
 	}
 
@@ -37,6 +37,7 @@ private:
 		this->currentHP -= damage;
 		if (this->currentHP <= 0) {
 			currentHP = 0;
+			gameObject->Destroy();
 		}
 	}
 
@@ -80,18 +81,14 @@ public:
 
 	void onCollision(GameObject* other) {
 		if (other->getTag() == Tag::EnemyBullet) {
-			std::cout << "Player HIT by EnemyBullet" << std::endl;
 			BulletController* bc = other->getComponentByType<BulletController>();
 			if (bc != NULL) {
-				this->currentHP -= bc->getDamage();
-				std::cout << "HP after HIT by EnemyBullet" << this->currentHP << std::endl;
-				if (this->currentHP <= 0) gameObject->Destroy();
+				takeDamage(bc->getDamage());
 				other->Destroy();
 			}
 		}
 		if (other->getTag() == Tag::Enemy) {
-			std::cout << "Player HIT by Enemy" << std::endl;
-			this->currentHP -= 1;
+			takeDamage(1);
 			other->Destroy();
 		}
 	}

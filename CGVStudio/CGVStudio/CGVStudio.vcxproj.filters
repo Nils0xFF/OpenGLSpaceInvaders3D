@@ -59,9 +59,6 @@
     <Filter Include="Quelldateien\game\customComponents\Player">
       <UniqueIdentifier>{a1c99dfe-0e1b-4b42-b05b-f3d476c2cc40}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Quelldateien\game\customComponents\Enemy">
-      <UniqueIdentifier>{50657d90-995d-4159-aa33-5558f89da9b5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Quelldateien\game\customComponents\Combat">
       <UniqueIdentifier>{842bb047-eeec-4ab7-af73-efa53a72db0f}</UniqueIdentifier>
     </Filter>
@@ -226,14 +223,8 @@
     <ClCompile Include="..\..\src\SceneManager.cpp">
       <Filter>Quelldateien\game\singeltons</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\EnemyController.cpp">
-      <Filter>Quelldateien\game\customComponents\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Text.cpp">
       <Filter>Quelldateien\game\customComponents\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\EnemyRowController.cpp">
-      <Filter>Quelldateien\game\customComponents\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Random.cpp">
       <Filter>Quelldateien\utils</Filter>
@@ -409,17 +400,11 @@
     <ClInclude Include="..\..\src\SceneManager.h">
       <Filter>Quelldateien\game\singeltons</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\EnemyController.h">
-      <Filter>Quelldateien\game\customComponents\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Text.h">
       <Filter>Quelldateien\game\customComponents\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Random.h">
       <Filter>Quelldateien\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\EnemyRowController.h">
-      <Filter>Quelldateien\game\customComponents\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\ParticleSystem.h">
       <Filter>Quelldateien\game\customComponents\Particle</Filter>

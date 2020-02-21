@@ -2,6 +2,7 @@
 #include "vector.h"
 #include "Component.h"
 #include "GameObject.h"
+#include "GameSettings.h"
 
 class BulletController : public Component
 {
@@ -13,7 +14,7 @@ private:
 public:
 
 	void Update(float deltaTime) {
-		if (gameObject->getTransform().translation().Z < -15 || gameObject->getTransform().translation().Z > 2) {
+		if (gameObject->getTransform().translation().Z < -GameSettings::WORLD_DEPTH || gameObject->getTransform().translation().Z > 2) {
 			gameObject->Destroy();
 		}
 		gameObject->translate(direction * speed * deltaTime);

@@ -97,8 +97,6 @@
     <ClCompile Include="..\..\src\color.cpp" />
     <ClCompile Include="..\..\src\Component.cpp" />
     <ClCompile Include="..\..\src\ConstantShader.cpp" />
-    <ClCompile Include="..\..\src\EnemyController.cpp" />
-    <ClCompile Include="..\..\src\EnemyRowController.cpp" />
     <ClCompile Include="..\..\src\EnemySpawnerController.cpp" />
     <ClCompile Include="..\..\src\FollowCameraController.cpp" />
     <ClCompile Include="..\..\src\Framebuffer.cpp" />
@@ -155,8 +153,6 @@
     <ClInclude Include="..\..\src\color.h" />
     <ClInclude Include="..\..\src\Component.h" />
     <ClInclude Include="..\..\src\ConstantShader.h" />
-    <ClInclude Include="..\..\src\EnemyController.h" />
-    <ClInclude Include="..\..\src\EnemyRowController.h" />
     <ClInclude Include="..\..\src\EnemySpawnerController.h" />
     <ClInclude Include="..\..\src\FollowCameraController.h" />
     <ClInclude Include="..\..\src\Framebuffer.h" />
