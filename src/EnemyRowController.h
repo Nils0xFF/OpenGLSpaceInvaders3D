@@ -10,8 +10,8 @@ private:
 
 public:
 	void Update(float deltaTime) {
-		std::cout << "translation: " << gameObject->getTransform().translation() << std::endl;
-		std::cout << "Childs: " << gameObject->getChildren().size() << std::endl;
+		//std::cout << "translation: " << gameObject->getTransform().translation() << std::endl;
+		//std::cout << "Childs: " << gameObject->getChildren().size() << std::endl;
 		if (gameObject->getTransform().translation().Z > 2) {
 			gameObject->Destroy();
 		}
