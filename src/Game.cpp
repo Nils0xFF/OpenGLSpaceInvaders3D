@@ -26,6 +26,7 @@
 
 Scene testScene;
 Text* text;
+ParticleGenerator* gen;
 
 #ifdef WIN32
 #define ASSET_DIRECTORY "../../assets/"
@@ -65,6 +66,7 @@ void Game::Init()
 	props.Velocity = Vector(0, 0, 2);
 	props.VelocityVariation = Vector(1, 1, 1);
 	props.Position = Vector(0, 0, 0);
+	gen = new ParticleGenerator(100, props);
 
 	GameObject* player = new GameObject();
 	player->setName("Player");
@@ -72,9 +74,9 @@ void Game::Init()
 	player->setTransform(Matrix().translation(0,1,0) * Matrix().rotationY(0.5f * M_PI));
 	player->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "spaceships/spaceship_4.obj", true), new PhongShader(), true));
 	player->setCollider(new BoxCollider());
-	player->addComponent(new PlayerController(playerBulletPrefab));
-	player->addComponent(new ParticleGenerator(100, props));
+	player->addComponent(new PlayerController(playerBulletPrefab));	
 	player->addComponent(new FollowCameraController(mainCamera, Vector(0,.65f,1.5f)));
+	player->addComponent(gen);
 	testScene.addGameObject(player);
 
 	GameObject* enemyBullet = new GameObject();
@@ -150,8 +152,6 @@ void Game::Init()
 	testScene.Init();
 
 	text = new Text();
-	//text->setFont("game_over.ttf");
-	//text->setFont("i_mWeird.ttf");
 }
 
 void Game::Start() {
@@ -160,6 +160,8 @@ void Game::Start() {
 
 void Game::ProcessInput(GLfloat dt)
 {
+	if (InputManager::getInstance().Keys[GLFW_KEY_F])
+		gen->setEmiting(!gen->isEmiting());
 }
 
 void Game::Update(GLfloat dt)
@@ -208,5 +210,4 @@ void Game::Render()
 void Game::End()
 {
 	delete text;
-	delete sys;
 }

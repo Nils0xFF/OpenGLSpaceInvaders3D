@@ -3,12 +3,13 @@
 ParticleGenerator::ParticleGenerator(const float max, const ParticleProps& props)
 {
 	sys = new ParticleSystem(max);
+	this->props = props;
 }
 
 void ParticleGenerator::Update(float deltaTime)
 {
 	if (gameObject) {
-		props.Position += gameObject->getTransform().translation();
+		props.Position = gameObject->getTransform().translation();
 	}
 
 	sys->Update(deltaTime);
