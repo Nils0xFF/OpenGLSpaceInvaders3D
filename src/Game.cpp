@@ -18,7 +18,7 @@
 #include "TriangleBoxModel.h"
 #include "GameSettings.h"
 #include "TerrainShader.h"
-#include "ParticleSystem.h"
+#include "ParticleGenerator.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -26,8 +26,7 @@
 
 Scene testScene;
 Text* text;
-ParticleSystem* sys;
-ParticleProps props;
+ParticleGenerator* gen;
 
 #ifdef WIN32
 #define ASSET_DIRECTORY "../../assets/"
@@ -37,8 +36,6 @@ ParticleProps props;
 
 void Game::Init()
 {
-	srand(static_cast <unsigned> (time(0)));
-
 	SceneManager::getInstance().activeScene = &testScene;
 
 	GameObject* playerBullet = new GameObject();
@@ -61,14 +58,25 @@ void Game::Init()
 
 	Prefab* playerBulletPrefab = new Prefab(playerBullet);
 
+	ParticleProps props;
+	props.colorBegin = Color(1, 1, 1);
+	props.colorEnd = Color(0, 0, 0);
+	props.sizeBegin = 0.5f, props.sizeVariation = 0.3f, props.sizeEnd = 0.0f;
+	props.Life = 1.0f;
+	props.Velocity = Vector(0, 0, 2);
+	props.VelocityVariation = Vector(1, 1, 1);
+	props.Position = Vector(0, 0, 0);
+	gen = new ParticleGenerator(100, props);
+
 	GameObject* player = new GameObject();
 	player->setName("Player");
 	player->setTag(Tag::Player);
 	player->setTransform(Matrix().translation(0,1,0) * Matrix().rotationY(0.5f * M_PI));
 	player->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "spaceships/spaceship_4.obj", true), new PhongShader(), true));
 	player->setCollider(new BoxCollider());
-	player->addComponent(new PlayerController(playerBulletPrefab));
+	player->addComponent(new PlayerController(playerBulletPrefab));	
 	player->addComponent(new FollowCameraController(mainCamera, Vector(0,.65f,1.5f)));
+	player->addComponent(gen);
 	testScene.addGameObject(player);
 
 	GameObject* enemyBullet = new GameObject();
@@ -147,18 +155,6 @@ void Game::Init()
 	testScene.Init();
 
 	text = new Text();
-	//text->setFont("game_over.ttf");
-	//text->setFont("i_mWeird.ttf");
-
-	sys = new ParticleSystem(100);
-	props.colorBegin = Color(1, 1, 1);
-	props.colorEnd = Color(0, 0, 0);
-	props.sizeBegin = 0.5f, props.sizeVariation = 0.3f, props.sizeEnd = 0.0f;
-	props.Life = 1.0f;
-	props.Velocity = Vector(0, 0, 2);
-	props.VelocityVariation = Vector(1, 1, 1);
-	props.Position = Vector(0, 0, 0);
-
 }
 
 void Game::Start() {
@@ -166,9 +162,9 @@ void Game::Start() {
 }
 
 void Game::ProcessInput(GLfloat dt)
-{	
+{
 	if (InputManager::getInstance().Keys[GLFW_KEY_F])
-		sys->Emit(props);
+		gen->setEmiting(!gen->isEmiting());
 }
 
 void Game::Update(GLfloat dt)
@@ -176,7 +172,6 @@ void Game::Update(GLfloat dt)
 	testScene.Update(dt);
 	mainCamera.update();
 	testScene.detectCollisions();
-	sys->Update(dt);	
 }
 
 void Game::Render()
@@ -204,7 +199,6 @@ void Game::Render()
 		
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	testScene.Draw();
-	// sys->Draw();
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	text->Render("Hallo, Welt!\nHier koennte Ihre Werbung stehen.\nTest.", 0.05, 0.3, 0.5, Color(0, 0, 0));
@@ -219,5 +213,4 @@ void Game::Render()
 void Game::End()
 {
 	delete text;
-	delete sys;
 }

@@ -1,5 +1,4 @@
 #pragma once
-#include "Component.h"
 #include <vector>
 #include "Particle.h"
 
@@ -12,17 +11,15 @@ struct ParticleProps {
 	float Life = 1.0f;
 };
 
-class ParticleSystem : public Component
+class ParticleSystem
 {
 public:
 	ParticleSystem(unsigned int nr);
-	ParticleSystem* clone() { return new ParticleSystem(*this); }
 
 	void Update(float deltaTime);
 	void Draw();
 
 	void Emit(const ParticleProps& props);
-	void Reset();
 protected:
 
 private:

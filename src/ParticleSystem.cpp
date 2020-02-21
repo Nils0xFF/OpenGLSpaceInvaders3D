@@ -11,7 +11,7 @@ ParticleSystem::ParticleSystem(unsigned int nr)
 
 void ParticleSystem::Update(float deltaTime)
 {
-	for (Particle& par : particlePool) {
+		for (Particle& par : particlePool) {
 		if (!par.isActive())
 			continue;
 		if (par.getRemaining() <= 0.0f) {
@@ -20,7 +20,6 @@ void ParticleSystem::Update(float deltaTime)
 		}
 		par.setRemaining(par.getRemaining() - deltaTime);
 		par.transform(par.transform() * Matrix().translation(par.getVelocity() * deltaTime));
-		par.transform(par.transform() * Matrix().rotationZ(10 * deltaTime));
 	}
 }
 
@@ -36,7 +35,7 @@ void ParticleSystem::Draw()
 			par.getColorEnd().G + life * (par.getColorBegin().G - par.getColorEnd().G),
 			par.getColorEnd().B + life * (par.getColorBegin().B - par.getColorEnd().B)
 		);
-		float size = par.getSizeBegin() + life * (par.getSizeEnd() - par.getSizeBegin());
+		float size = par.getSizeEnd() + life * (par.getSizeBegin() - par.getSizeEnd());
 
 		//par.transform(par.transform() * Matrix().scale(size));
 		ParticleShader* shader = (ParticleShader*) par.shader();
@@ -50,7 +49,7 @@ void ParticleSystem::Draw()
 void ParticleSystem::Emit(const ParticleProps& props)
 {
 	Particle& particle = particlePool[index];
-	particle.setActive(true);
+	particle.setActive(true);	
 	particle.transform(Matrix().translation(props.Position));
 	particle.transform(particle.transform() *
 		Matrix().rotationZ(props.Rotation * (Random::random() - 0.5f)));
