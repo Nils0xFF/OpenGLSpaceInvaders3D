@@ -71,7 +71,7 @@ void Game::Init()
 	player->setName("Player");
 	player->setTag(Tag::Player);
 	player->setTransform(Matrix().translation(0,1,0) * Matrix().rotationY(0.5f * (float) M_PI));
-	player->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/spaceships/spaceship_4.obj", true), new PhongShader(), true));
+	player->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/spaceships/spaceship_4_new.obj", true), new PhongShader(), true));
 	player->setCollider(new BoxCollider());
 	player->addComponent(new PlayerController(playerBulletPrefab));	
 	player->addComponent(new FollowCameraController(mainCamera, Vector(0,.65f,1.5f)));
@@ -100,7 +100,7 @@ void Game::Init()
 	Prefab* enemyBulletPrefab = new Prefab(enemyBullet);
 
 	GameObject* enemy = new GameObject();
-	BaseModel* enemyModel = new Model(ASSET_DIRECTORY "models/spaceships/spaceship_1.obj", true);
+	BaseModel* enemyModel = new Model(ASSET_DIRECTORY "models/spaceships/spaceship_1_new.obj", true);
 	enemyModel->shadowCaster(false);
 	enemy->setRenderer(new MeshRenderer(enemyModel, new PhongShader(), true));
 	enemy->setName("Enemy");
