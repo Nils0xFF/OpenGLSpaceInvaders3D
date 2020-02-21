@@ -10,8 +10,8 @@ Terrain::Terrain(unsigned int Width, unsigned int Height, unsigned int SegX, uns
 
     VB.begin();
 
-    for (int i = 0; i < SegZ; i++) {
-        for (int j = 0; j < SegX; j++) {
+    for (unsigned int i = 0; i < SegZ; i++) {
+        for (unsigned int j = 0; j < SegX; j++) {
             VB.addNormal(0, 1, 0);
             float s0 = (float)j / (float)(SegX - 1);
             float t0 = (float)i / (float)(SegZ - 1);
@@ -24,8 +24,8 @@ Terrain::Terrain(unsigned int Width, unsigned int Height, unsigned int SegX, uns
 
     IB.begin();
 
-    for (int i = 0; i < SegZ - 1; i++) {
-        for (int j = 0; j < SegX - 1; j++)
+    for (unsigned int i = 0; i < SegZ - 1; i++) {
+        for (unsigned int j = 0; j < SegX - 1; j++)
         {
             unsigned int idx = i * SegX + j;
             IB.addIndex(idx + SegX);

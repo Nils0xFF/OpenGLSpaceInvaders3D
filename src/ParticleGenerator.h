@@ -5,7 +5,7 @@
 class ParticleGenerator : public Component
 {
 public:
-	ParticleGenerator(const float max, const ParticleProps& props);
+	ParticleGenerator(const unsigned int max, const ParticleProps& props);
 	~ParticleGenerator() { delete sys; }
 	ParticleGenerator* clone() { return new ParticleGenerator(*this); }
 

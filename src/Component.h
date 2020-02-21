@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObjectInterface.h"
 
-extern class GameObject;
+class GameObject;
 
 class Component
 {

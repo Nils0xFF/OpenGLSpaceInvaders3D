@@ -4,7 +4,6 @@
 #include "Model.h"
 #include "PhongShader.h"
 #include "TrianglePlaneModel.h"
-#include "TestController.h"
 #include "BoxCollider.h"
 #include "InputManager.h"
 #include "SceneManager.h"
@@ -71,7 +70,7 @@ void Game::Init()
 	GameObject* player = new GameObject();
 	player->setName("Player");
 	player->setTag(Tag::Player);
-	player->setTransform(Matrix().translation(0,1,0) * Matrix().rotationY(0.5f * M_PI));
+	player->setTransform(Matrix().translation(0,1,0) * Matrix().rotationY(0.5f * (float) M_PI));
 	player->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "spaceships/spaceship_4.obj", true), new PhongShader(), true));
 	player->setCollider(new BoxCollider());
 	player->addComponent(new PlayerController(playerBulletPrefab));	
@@ -201,10 +200,10 @@ void Game::Render()
 	testScene.Draw();
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	text->Render("Hallo, Welt!\nHier koennte Ihre Werbung stehen.\nTest.", 0.05, 0.3, 0.5, Color(0, 0, 0));
+	text->Render("Hallo, Welt!\nHier koennte Ihre Werbung stehen.\nTest.", 0.05f, 0.3f, 0.5f, Color(0, 0, 0));
 
 	ShaderLightMapper::instance().deactivate();
-	PostProcessing::getInstance().End(glfwGetTime());
+	PostProcessing::getInstance().End((float) glfwGetTime());
 
 	GLenum Error = glGetError();
 	assert(Error == 0);

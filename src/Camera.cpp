@@ -208,15 +208,15 @@ void Camera::updateMouseInput()
 }
 
 void Camera::updateKeyboardInput(){
-    double zoomSpeed = 1.0;
+    float zoomSpeed = 1.0f;
     if(glfwGetKey(pWindow, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS){
-        zoomSpeed = 8.0;
+        zoomSpeed = 8.0f;
     }
     if(glfwGetKey(pWindow, GLFW_KEY_UP) == GLFW_PRESS){
-        zoom(0.25 * zoomSpeed);
+        zoom(0.25f * zoomSpeed);
     }
     else if(glfwGetKey(pWindow, GLFW_KEY_DOWN) == GLFW_PRESS){
-        zoom(-0.25 * zoomSpeed);
+        zoom(-0.25f * zoomSpeed);
     }
 }
 

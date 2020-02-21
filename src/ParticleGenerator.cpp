@@ -1,6 +1,6 @@
 #include "ParticleGenerator.h"
 
-ParticleGenerator::ParticleGenerator(const float max, const ParticleProps& props)
+ParticleGenerator::ParticleGenerator(const unsigned int max, const ParticleProps& props)
 {
 	sys = new ParticleSystem(max);
 	this->props = props;

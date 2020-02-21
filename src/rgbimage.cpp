@@ -44,7 +44,7 @@ unsigned char RGBImage::convertColorChannel( float v)
 {
     if(v >= 1.0f) return 255;
     if(v <= 0) return 0;
-    return v * 255;
+    return (unsigned char)(v * 255);
 }
 
 // Quelle: https://stackoverflow.com/questions/2654480/writing-bmp-image-in-pure-c-c-without-other-libraries
@@ -137,10 +137,10 @@ RGBImage& RGBImage::SobelFilter(RGBImage& dst, const RGBImage& src, float factor
     float K[3][3] = {{1.0f,0.0f,-1.0f},{2.0f,0.0f,-2.0f},{1.0f,0.0f,-1.0f}};
     // int Kt[3][3] = {{1,2,1},{0,0,0},{-1,-2,-1}};
 
-    for (int x = 0; x < src.m_Width; x++) {
-        for (int y = 0; y < src.m_Width; y++) {
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
+    for (unsigned int x = 0; x < src.m_Width; x++) {
+        for (unsigned int y = 0; y < src.m_Width; y++) {
+            for (unsigned int i = 0; i < 3; i++) {
+                for (unsigned int j = 0; j < 3; j++) {
                     int offsetX = x-i-1;
                     int offsetY = y-j-1;
                     if(offsetX < 0) offsetX = 0;
@@ -165,9 +165,9 @@ RGBImage& RGBImage::GaussFilter(RGBImage& dst, const RGBImage& src, float factor
     RGBImage Gdash(src.m_Width, src.m_Height);
     float K[7] = {0.006f, 0.061f, 0.242f, 0.383f, 0.242f, 0.061f, 0.006f};
 
-    for (int x = 0; x < src.m_Width; x++) {
-        for (int y = 0; y < src.m_Width; y++) {
-            for (int i = 0; i < 7; i++) {
+    for (unsigned int x = 0; x < src.m_Width; x++) {
+        for (unsigned int y = 0; y < src.m_Width; y++) {
+            for (unsigned int i = 0; i < 7; i++) {
                 int offsetX = x-i-3;
                 int offsetY = y-i-3;
                 if(offsetX < 0) offsetX = 0;

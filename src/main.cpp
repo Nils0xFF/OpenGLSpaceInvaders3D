@@ -92,7 +92,7 @@ int main () {
         }
 
 		// delta time calulations
-		GLfloat now = glfwGetTime();
+		GLfloat now = (GLfloat) glfwGetTime();
 		GLfloat delta = now - lastTime;
         lastTime = now;
 

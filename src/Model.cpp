@@ -95,11 +95,11 @@ void Model::loadMeshes(const aiScene* pScene, bool FitSize, bool Center)
         
 		this->updateBoundingBox();
 
-        for(int i = 0; i< pScene->mNumMeshes; i++){
+        for(unsigned int i = 0; i< pScene->mNumMeshes; i++){
             this->pMeshes[i].VB.begin();
             this->pMeshes[i].IB.begin();
             
-            for(int j = 0; j < pScene->mMeshes[i]->mNumVertices; j++){
+            for(unsigned int j = 0; j < pScene->mMeshes[i]->mNumVertices; j++){
                 if(pScene->mMeshes[i]->HasNormals()){
                     this->pMeshes[i].VB.addNormal(pScene->mMeshes[i]->mNormals[j].x, pScene->mMeshes[i]->mNormals[j].y, pScene->mMeshes[i]->mNormals[j].z );
                 }
@@ -118,8 +118,8 @@ void Model::loadMeshes(const aiScene* pScene, bool FitSize, bool Center)
             }
             
             if(pScene->mMeshes[i]->HasFaces()){
-                for(int j = 0; j < pScene->mMeshes[i]->mNumFaces; j++){
-                    for(int k = 0; k < pScene->mMeshes[i]->mFaces->mNumIndices; k++){
+                for(unsigned int j = 0; j < pScene->mMeshes[i]->mNumFaces; j++){
+                    for(unsigned int k = 0; k < pScene->mMeshes[i]->mFaces->mNumIndices; k++){
                         this->pMeshes[i].IB.addIndex(pScene->mMeshes[i]->mFaces[j].mIndices[k]);
                     }
                 }
@@ -179,7 +179,7 @@ void Model::calcBoundingBox(const aiScene* pScene, AABB& Box)
     
     if(pScene->HasMeshes()){
         for(unsigned int i = 0; i< pScene->mNumMeshes; i++){
-            for(int j = 0; j < pScene->mMeshes[i]->mNumVertices; j++){
+            for(unsigned int j = 0; j < pScene->mMeshes[i]->mNumVertices; j++){
                 if(pScene->mMeshes[i]->mVertices[j].x > largestX){
                     largestX = pScene->mMeshes[i]->mVertices[j].x;
                 }

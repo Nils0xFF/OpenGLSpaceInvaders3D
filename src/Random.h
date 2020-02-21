@@ -6,7 +6,7 @@ class Random
 {
 public:
 	static void Init() {
-		std::srand(std::time(nullptr));
+		std::srand(static_cast <unsigned int> (std::time(nullptr)));
 	}
 
 	static float random() {

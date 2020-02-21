@@ -66,7 +66,7 @@ void Text::Init(const char* font)
 {
 	Characters.clear();
 
-	std::string location = ASSET_DIRECTORY;
+	std::string location = FONT_DIRECTORY;
 	location.append(font);
 
 	FT_Library lib;

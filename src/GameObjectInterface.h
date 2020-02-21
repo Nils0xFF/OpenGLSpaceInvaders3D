@@ -4,9 +4,9 @@
 #include "Aabb.h"
 #include <list>
 
-extern class MeshRenderer;
-extern class GameObject;
-extern class Component;
+class MeshRenderer;
+class GameObject;
+class Component;
 
 class GameObjectInterface: public LifecycleObject
 {

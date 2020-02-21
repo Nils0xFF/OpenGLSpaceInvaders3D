@@ -5,8 +5,8 @@ class GameSettings
 public:
 	// Player Parameters
 	static const float PLAYER_SPEED;
-	static const int PLAYER_HP;
+	static const unsigned int PLAYER_HP;
 
 	// World Parameters
-	static const int WORLD_WITH;
+	static const unsigned int WORLD_WITH;
 };

@@ -8,9 +8,9 @@
 #include FT_FREETYPE_H
 
 #ifdef WIN32
-#define ASSET_DIRECTORY "../../assets/fonts/"
+#define FONT_DIRECTORY "../../assets/fonts/"
 #else
-#define ASSET_DIRECTORY "../assets/"
+#define FONT_DIRECTORY "../assets/fonts/"
 #endif
 
 struct Character {

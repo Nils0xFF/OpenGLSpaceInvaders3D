@@ -22,7 +22,7 @@ void TerrainShader::activate(const BaseCamera& Cam) const
 {
 	BaseShader::activate(Cam);
 
-	glUniform1f(TimeLoc, glfwGetTime());
+	glUniform1f(TimeLoc, (GLfloat) glfwGetTime());
 	// always update matrices
 	Matrix ModelView = Cam.getViewMatrix() * ModelTransform;
 	Matrix ModelViewProj = Cam.getProjectionMatrix() * ModelView;

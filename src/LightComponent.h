@@ -14,9 +14,7 @@ public:
 	}
 
 	~LightComponent() {
-		std::cout << "~LC()" << std::endl;
 		if (light != NULL) {
-			std::cout << "~LC() has Light" << std::endl;
 			ShaderLightMapper::instance().removeLight(light);
 			delete light;
 		}
