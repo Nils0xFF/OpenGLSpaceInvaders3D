@@ -27,7 +27,10 @@ public:
 		currentGameState = GameState::WAVEMODE;
 	}
 	void ReStartGame() { StartGame(); };
-	void EndGame() { SceneManager::getInstance().LoadScene(&menuScene); };
+	void EndGame() { 
+		SceneManager::getInstance().LoadScene(&menuScene); 
+		currentGameState = GameState::MENU;
+	};
 
 	void PauseGame() { 
 		prePauseGameState = currentGameState;

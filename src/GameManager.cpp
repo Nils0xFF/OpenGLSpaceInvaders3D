@@ -161,7 +161,6 @@ void GameManager::createGameScene()
 	meteors.push_back(meteorPrefab);
 
 	GameObject* boss = new GameObject();
-	boss->setTransform(Matrix().translation(0.0f, 1.0f, (float) -GameSettings::WORLD_DEPTH) * Matrix().rotationY(0));
 	boss->setTag(Tag::Boss);
 	boss->setName("Boss");
 	boss->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/spaceships/cruiser01/cruiser01.obj", 7.5f), new PhongShader(), true));
