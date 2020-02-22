@@ -46,12 +46,12 @@ void Game::Init()
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	ConstantShader* shader = new ConstantShader();
-	shader->color(Color(0, 0, 0.5));
+	shader->color(Color(0, 0, 0.75f));
 	playerBullet->setRenderer(new MeshRenderer(pModel, shader, true));
 	playerBullet->setCollider(new BoxCollider());
 
 	PointLight* pl = new PointLight();
-	pl->color(Color(0, 0, 0.5));
+	pl->color(Color(0, 0, 0.75f));
 	pl->attenuation(Vector(0.5f, 0.1f, 0.5f));
 	pl->castShadows(true);
 	playerBullet->addComponent(new LightComponent(pl));
@@ -89,12 +89,12 @@ void Game::Init()
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	shader = new ConstantShader();
-	shader->color(Color(0.5f, 0,0));
+	shader->color(Color(0.75f, 0,0));
 	enemyBullet->setRenderer(new MeshRenderer(pModel, shader, true));
 	enemyBullet->setCollider(new BoxCollider());
 
 	pl = new PointLight();
-	pl->color(Color(0.5f, 0, 0));
+	pl->color(Color(0.75f, 0, 0));
 	pl->attenuation(Vector(0.5f, 0.1f, 0.5f));
 	pl->castShadows(false);
 	enemyBullet->addComponent(new LightComponent(pl));
@@ -144,7 +144,6 @@ void Game::Init()
 
 	GameObject* enemySpawner = new GameObject();
 	enemySpawner->setActive(false);
-	enemySpawner->setTransform(Matrix().translation(0.0f, 1.0f, -GameSettings::WORLD_DEPTH));
 	enemySpawner->setTransform(Matrix().translation(0.0f, 1.0f, (float) -GameSettings::WORLD_DEPTH));
 	shader = new ConstantShader();
 	shader->color(Color(0, 0, 0));
