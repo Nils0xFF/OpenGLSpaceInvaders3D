@@ -14,6 +14,7 @@
 #include "FollowCameraController.h"
 #include "EnemySpawnerController.h"
 #include "MeteorController.h"
+#include "BossController.h"
 #include "MeteorSpawnerController.h"
 #include "Text.h"
 #include "TriangleBoxModel.h"
@@ -25,7 +26,7 @@
 #include <math.h>
 #include <time.h>
 
-Scene testScene;
+Scene gameScene;
 Text* text;
 ParticleGenerator* gen;
 
@@ -42,9 +43,9 @@ void Game::Init()
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	skybox->setRenderer(new MeshRenderer(pModel, new PhongShader(), true));
-	testScene.addGameObject(skybox);
+	gameScene.addGameObject(skybox);
 
-	SceneManager::getInstance().activeScene = &testScene;
+	SceneManager::getInstance().activeScene = &gameScene;
 
 	GameObject* playerBullet = new GameObject();
 	playerBullet->setName("PlayerBullet");
@@ -85,7 +86,7 @@ void Game::Init()
 	player->addComponent(new PlayerController(playerBulletPrefab));	
 	player->addComponent(new FollowCameraController(mainCamera, Vector(0,.65f,1.5f)));
 	player->addComponent(gen);
-	testScene.addGameObject(player);
+	gameScene.addGameObject(player);
 
 	GameObject* enemyBullet = new GameObject();
 	enemyBullet->setName("EnemyBullet");
@@ -137,35 +138,51 @@ void Game::Init()
 	pModel->shadowReciver(false);
 	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
 	testScene.addGameObject(ground); */
+	
+	std::vector<Prefab*> meteors;
 
 	GameObject* meteor = new GameObject();
 	meteor->setTag(Tag::Meteor);
 	meteor->setName("Meteor");
 	meteor->setTransform(Matrix().rotationY(0.5f * M_PI));
-	meteor->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/meteors/rock2.obj"),new PhongShader(), true));
+	meteor->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/meteors/rock/rock.obj"),new PhongShader(), true));
 	meteor->setCollider(new BoxCollider());
 	meteor->addComponent(new MeteorController());
 	// testScene.addGameObject(meteor);
 
 	Prefab* meteorPrefab = new Prefab(meteor);
+	meteors.push_back(meteorPrefab);
+
+	meteor = new GameObject();
+	meteor->setTag(Tag::Meteor);
+	meteor->setName("Meteor");
+	meteor->setTransform(Matrix().rotationY(0.5f * M_PI));
+	meteor->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/meteors/rock_02/rock_02.obj"), new PhongShader(), true));
+	meteor->setCollider(new BoxCollider());
+	meteor->addComponent(new MeteorController());
+	
+	meteorPrefab = new Prefab(meteor);
+	meteors.push_back(meteorPrefab);
 
 	GameObject* enemySpawner = new GameObject();
-	enemySpawner->setActive(false);
+	// enemySpawner->setActive(false);
 	enemySpawner->setTransform(Matrix().translation(0.0f, 1.0f, (float) -GameSettings::WORLD_DEPTH));
 	shader = new ConstantShader();
 	shader->color(Color(0, 0, 0));
 	enemySpawner->setRenderer(new MeshRenderer(new TriangleBoxModel(0.1f, 0.1f, 0.1f), shader, true));
 	enemySpawner->addComponent(new EnemySpawnerController(enemyRowPrefab));
-	enemySpawner->addComponent(new MeteorSpawnerController(meteorPrefab));
-	testScene.addGameObject(enemySpawner);
+	enemySpawner->addComponent(new MeteorSpawnerController(meteors));
+	gameScene.addGameObject(enemySpawner);
 
 	GameObject* boss = new GameObject();
+	boss->setActive(false);
 	boss->setTransform(Matrix().translation(0.0f, 1.0f, -GameSettings::WORLD_DEPTH) * Matrix().rotationY(-0.5f * M_PI));
 	boss->setTag(Tag::Enemy);
 	boss->setName("Boss");
 	boss->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/spaceships/spaceship_6_new.obj", 10.0f), new PhongShader(), true));
 	boss->setCollider(new BoxCollider());
-	testScene.addGameObject(boss);
+	boss->addComponent(new BossController(new Prefab(*enemyBulletPrefab)));
+	gameScene.addGameObject(boss);
 
 	CameraManager::getInstance().activeCamera = &mainCamera;
 
@@ -175,13 +192,13 @@ void Game::Init()
 	dl->castShadows(true);
 	ShaderLightMapper::instance().addLight(dl);
 
-	testScene.Init();
+	gameScene.Init();
 
 	text = new Text();
 }
 
 void Game::Start() {
-	testScene.Start();
+	gameScene.Start();
 }
 
 void Game::ProcessInput(GLfloat dt)
@@ -192,14 +209,29 @@ void Game::ProcessInput(GLfloat dt)
 
 void Game::Update(GLfloat dt)
 {
-	testScene.Update(dt);
-	mainCamera.update();
-	testScene.detectCollisions();
+	switch (State)
+	{
+	case GameState::MENU:
+		break;
+	case GameState::PAUSED:
+		break;
+	case GameState::WON:
+		break;
+	case GameState::LOST:
+		break;
+	case GameState::PLAYING:
+		gameScene.Update(dt);
+		mainCamera.update();
+		gameScene.detectCollisions();
+		break;
+	default:
+		break;
+	}
 }
 
 void Game::Render()
 {
-	ShadowGenerator.generate(testScene.getModelList());
+	ShadowGenerator.generate(gameScene.getModelList());
 
 	PostProcessing::getInstance().Begin();
 
@@ -215,16 +247,18 @@ void Game::Render()
 		case GameState::LOST:
 			break;
 		case GameState::PLAYING:
+			gameScene.Draw();
+			text->Render("Hallo, Welt!\nHier koennte Ihre Werbung stehen.\nTest.", 0.05f, 0.3f, 0.5f, Color(1, 1, 1));
 			break;
 		default:
 			break;
 	}
 		
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	testScene.Draw();
+
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	text->Render("Hallo, Welt!\nHier koennte Ihre Werbung stehen.\nTest.", 0.05f, 0.3f, 0.5f, Color(0, 0, 0));
+
 
 	ShaderLightMapper::instance().deactivate();
 	PostProcessing::getInstance().End((float) glfwGetTime());

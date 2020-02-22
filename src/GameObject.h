@@ -186,6 +186,8 @@ public:
 		if (this->mr != NULL) {
 			std::cout << "Warning Overwriting existing Renderer!" << std::endl;
 			delete this->mr;
+			components.remove(this->mr);
+			this->mr = NULL;
 		}
 		this->mr = mr;
 		this->addComponent(mr);
@@ -195,14 +197,11 @@ public:
 
 	const Collider* getCollider() { return collider; }
 	void setCollider(Collider* collider) {
-		if (!this->mr) {
-			delete collider;
-			std::cout << "Adding a Collider requires a Renderer!" << std::endl;
-			return;
-		}
 		if (this->collider != NULL) {
 			std::cout << "Warning Overwriting existing Collider!" << std::endl;
 			delete this->collider;
+			components.remove(this->collider);
+			this->collider = NULL;
 		}
 		this->collider = collider;
 		this->addComponent(collider);
