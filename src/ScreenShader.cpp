@@ -1,4 +1,5 @@
 #include "ScreenShader.h"
+#include "CameraManager.h"
 
 #ifdef WIN32
 #define ASSET_DIRECTORY "../../assets/"
@@ -25,6 +26,7 @@ void ScreenShader::assignLocations()
 	BarsLoc = glGetUniformLocation(ShaderProgram, "bars");
 	LinesLoc = glGetUniformLocation(ShaderProgram, "lines");
 	VigLoc = glGetUniformLocation(ShaderProgram, "vig");
+	FogLoc = glGetUniformLocation(ShaderProgram, "fog");
 
 	BlurOffsetLoc = glGetUniformLocation(ShaderProgram, "blurOffset");
 	CurveIntensityLoc = glGetUniformLocation(ShaderProgram, "curveIntensity");
@@ -38,6 +40,17 @@ void ScreenShader::assignLocations()
 	LineSpeedLoc = glGetUniformLocation(ShaderProgram, "LineSpeed");
 	VignetteRadiusLoc = glGetUniformLocation(ShaderProgram, "vignetteRadius");
 	VignetteSoftnessLoc = glGetUniformLocation(ShaderProgram, "vignetteSoftness");
+	FogColorLoc = glGetUniformLocation(ShaderProgram, "fogColor");
+	
+	GLuint screenTexLoc = glGetUniformLocation(ShaderProgram, "screenTexture");
+	assert(screenTexLoc >= 0);	
+	GLuint depthTexLoc = glGetUniformLocation(ShaderProgram, "depthTexture");
+	assert(depthTexLoc >= 0);
+
+	activate(*CameraManager::getInstance().activeCamera);
+	glUniform1i(screenTexLoc, 0);
+	glUniform1i(depthTexLoc, 1);
+	deactivate();
 }
 
 void ScreenShader::activate(const BaseCamera& Cam) const
@@ -65,6 +78,8 @@ void ScreenShader::activate(const BaseCamera& Cam) const
 		glUniform1f(LinesLoc, Lines);
 	if (UpdateState & VIG_CHANGED)
 		glUniform1f(VigLoc, Vig);
+	if (UpdateState & FOG_CHANGED)
+		glUniform1f(FogLoc, Fog);
 
 	if (UpdateState & BLUR_OFFSET_CHANGED && Blured)
 		glUniform1f(BlurOffsetLoc, BlurOffset);
@@ -90,6 +105,8 @@ void ScreenShader::activate(const BaseCamera& Cam) const
 		glUniform1f(VignetteRadiusLoc, VignetteRadius);
 	if (UpdateState & VIGNETTE_SOFTNESS_CHANGED && Vig)
 		glUniform1f(VignetteSoftnessLoc, VignetteSoftness);
+	if (UpdateState & FOG_COLOR_CHANGED && Fog)
+		glUniform3f(FogColorLoc, FogColor.R, FogColor.G, FogColor.B);
 }
 
 ScreenShader* ScreenShader::on(bool value)
@@ -218,4 +235,16 @@ void ScreenShader::setVignetteSoftness(float value)
 {
 	VignetteSoftness = value;
 	UpdateState |= VIGNETTE_SOFTNESS_CHANGED;
+}
+
+void ScreenShader::setFog(const bool value)
+{
+	Fog = value;
+	UpdateState |= FOG_CHANGED;
+}
+
+void ScreenShader::setFogColor(const Color value)
+{
+	FogColor = value;
+	UpdateState |= FOG_COLOR_CHANGED;
 }

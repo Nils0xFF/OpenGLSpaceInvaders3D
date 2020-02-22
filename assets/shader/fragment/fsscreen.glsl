@@ -4,6 +4,7 @@ out vec4 FragColor;
 in vec2 TexCoords;
 
 uniform sampler2D screenTexture;
+uniform sampler2D depthTexture;
 uniform float time = 1.0;
 uniform bool on = true;
 uniform bool inverted = false;
@@ -13,6 +14,7 @@ uniform bool curved = true;
 uniform bool bars = true;
 uniform bool lines = true;
 uniform bool vig = true;
+uniform bool fog = true;
 uniform float blurOffset = 1.0 / 300.0;
 uniform float curveIntensity = 1.0;
 uniform float curveScale = 1.05;
@@ -25,6 +27,10 @@ uniform float lineIntensity = 0.03;
 uniform float lineSpeed = 1.0;
 uniform float vignetteRadius = 0.45;
 uniform	float vignetteSoftness = 1.0;
+uniform vec3 fogColor = vec3(0.4, 0.4, 0.4);
+
+const float density = 0.0001;
+const float gradient = 1.5;
 
 
 vec3 inverse(vec3 color)
@@ -136,6 +142,10 @@ void main()
 	}
 
 	vec3 color = texture(screenTexture, uv).rgb;
+	vec4 depthCol = texture(depthTexture, uv);
+	float depth = (depthCol.r + depthCol.g + depthCol.b) / 3;
+	if (fog && depth > 0.9975)	
+		color = mix(texture(screenTexture, uv).rgb, fogColor, depth).rgb;
 
 	if (inverted)
 	{

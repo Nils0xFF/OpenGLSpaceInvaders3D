@@ -26,27 +26,31 @@ public:
 	void setLineSpeed(float value);
 	void setVignetteRadius(float value);
 	void setVignetteSoftness(float value);
+	void setFog(const bool value);
+	void setFogColor(const Color value);
 
-	bool isOn() const { return On; }
-	bool isInverted() const { return Inverted; }
-	bool isGray() const { return Gray; }
-	bool isBlured() const { return Blured; }
-	bool isCurved() const { return Curved; }
-	bool isBars() const { return Bars; }
-	bool isLines() const { return Lines; }
-	bool isVig() const { return Vig; }
-	float getBlurOffset() const { return BlurOffset; }
-	float getCurveIntensity() const { return CurveIntensity; }
-	float getCurveScale() const { return CurveScale; }
-	float getBarRange() const { return BarRange; }
-	float getBarFrequency() const { return BarFrequency; }
-	float getBarSpeed() const { return BarSpeed; }
-	float getBarOffset() const { return BarOffset; }
-	float getLineScale() const { return LineScale; }
-	float getLineIntensity() const { return LineIntensity; }
-	float getLineSpeed() const { return LineSpeed; }
-	float getVignetteRadius() const { return VignetteRadius; }
-	float getVignetteSoftness() const { return VignetteSoftness; }
+	const bool isOn() const { return On; }
+	const bool isInverted() const { return Inverted; }
+	const bool isGray() const { return Gray; }
+	const bool isBlured() const { return Blured; }
+	const bool isCurved() const { return Curved; }
+	const bool isBars() const { return Bars; }
+	const bool isLines() const { return Lines; }
+	const bool isVig() const { return Vig; }
+	const float getBlurOffset() const { return BlurOffset; }
+	const float getCurveIntensity() const { return CurveIntensity; }
+	const float getCurveScale() const { return CurveScale; }
+	const float getBarRange() const { return BarRange; }
+	const float getBarFrequency() const { return BarFrequency; }
+	const float getBarSpeed() const { return BarSpeed; }
+	const float getBarOffset() const { return BarOffset; }
+	const float getLineScale() const { return LineScale; }
+	const float getLineIntensity() const { return LineIntensity; }
+	const float getLineSpeed() const { return LineSpeed; }
+	const float getVignetteRadius() const { return VignetteRadius; }
+	const float getVignetteSoftness() const { return VignetteSoftness; }
+	const bool isFog() const { return Fog; }
+	const Color getFogColor() const { return FogColor; }
 
 	virtual void activate(const BaseCamera& Cam) const;
 
@@ -63,6 +67,7 @@ private:
 	bool Bars = true;
 	bool Lines = true;
 	bool Vig = true;
+	bool Fog = true;
 	float BlurOffset = 1.0f / 300.0f;
 	float CurveIntensity = 1.0f;
 	float CurveScale = 1.05f;
@@ -75,6 +80,7 @@ private:
 	float LineSpeed = 1.0f;
 	float VignetteRadius = 0.45f;
 	float VignetteSoftness = 1.0f;
+	Color FogColor = Color(0.4f, 0.4f, 0.4f);
 
 	GLuint OnLoc;
 	GLuint TimeLoc;
@@ -97,6 +103,8 @@ private:
 	GLuint LineSpeedLoc;
 	GLuint VignetteRadiusLoc;
 	GLuint VignetteSoftnessLoc;
+	GLuint FogLoc;
+	GLuint FogColorLoc;
 
 	mutable unsigned int UpdateState;
 
@@ -121,7 +129,9 @@ private:
 		LINE_SPEED_CHANGED = 1 << 16,
 		VIGNETTE_RADIUS_CHANGED = 1 << 17,
 		VIGNETTE_SOFTNESS_CHANGED = 1 << 18,
-		ON_CHANGED = 1 << 19
+		ON_CHANGED = 1 << 19,
+		FOG_CHANGED = 1 << 20,
+		FOG_COLOR_CHANGED = 1 << 21
 	};
 };
 

@@ -17,7 +17,6 @@
 // GLFW function declerations
 void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode);
 void windowResize(GLFWwindow* window, int width, int height);
-void windowMaximize(GLFWwindow* window, int maximized);
 void toggleFullScreen(GLFWwindow* window);
 void toggleMaxScreen(GLFWwindow* window);
 
