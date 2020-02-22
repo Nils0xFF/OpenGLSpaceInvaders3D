@@ -85,6 +85,7 @@ void Game::ProcessInput(GLfloat dt)
 void Game::Update(GLfloat dt)
 {
 	GameManager::getInstance().Update(dt);
+	CameraManager::getInstance().activeCamera->update();
 	switch (gameManager.getGameState())
 	{
 	case GameState::MENU:
@@ -94,7 +95,6 @@ void Game::Update(GLfloat dt)
 	case GameState::TRANSITION:
 		SceneManager::getInstance().activeScene->Update(dt);
 		SceneManager::getInstance().activeScene->detectCollisions();
-		CameraManager::getInstance().activeCamera->update();
 		break;
 	case GameState::PAUSED:
 		break;

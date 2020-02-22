@@ -97,6 +97,7 @@ public:
 		deltaTranslation = Vector(0, 0, 0);
 		for (Component* c : this->components) {
 			c->Init();
+			c->updateTransform();
 		}
 		for (GameObject* g : this->children) {
 			g->setTransform(g->getTransform() * transform);

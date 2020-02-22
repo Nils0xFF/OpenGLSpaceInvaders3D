@@ -34,19 +34,12 @@
 
 void GameManager::createGameScene()
 {
-	GameObject* skybox = new GameObject();
-	BaseModel* pModel = new Model(ASSET_DIRECTORY "models/skybox.obj", false);
-	pModel->shadowCaster(false);
-	pModel->shadowReciver(false);
-	skybox->setRenderer(new MeshRenderer(pModel, new PhongShader(), true));
-	gameScene.addGameObject(skybox);
-
 	SceneManager::getInstance().activeScene = &gameScene;
 
 	GameObject* playerBullet = new GameObject();
 	playerBullet->setName("PlayerBullet");
 	playerBullet->setTag(Tag::PlayerBullet);
-	pModel = new TriangleBoxModel(0.1f, 0.05f, 0.3f);
+	BaseModel* pModel = new TriangleBoxModel(0.1f, 0.05f, 0.3f);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	ConstantShader* shader = new ConstantShader();
@@ -76,7 +69,7 @@ void GameManager::createGameScene()
 	GameObject* player = new GameObject();
 	player->setName("Player");
 	player->setTag(Tag::Player);
-	player->setTransform(Matrix().translation(0, 1, 0) * Matrix().rotationY((float)M_PI));
+	player->setTransform(Matrix().translation(0, 0.25f, 0) * Matrix().rotationY((float)M_PI));
 	player->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/spaceships/fighterjet/fighterjet.obj"), new PhongShader(), true));
 	player->setCollider(new BoxCollider());
 	player->addComponent(new PlayerController(playerBulletPrefab));
@@ -128,12 +121,12 @@ void GameManager::createGameScene()
 
 	Prefab* enemyRowPrefab = new Prefab(enemyRow);
 
-	/* GameObject* ground = new GameObject();
-	pModel = new TrianglePlaneModel(GameSettings::WORLD_WIDTH, GameSettings::WORLD_DEPTH, 200, 200);
+	GameObject* ground = new GameObject();
+	pModel = new TrianglePlaneModel(GameSettings::WORLD_WIDTH + 2 * GameSettings::MOUNTAIN_WIDTH, GameSettings::WORLD_DEPTH, 200, 200);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
-	gameScene.addGameObject(ground);*/
+	gameScene.addGameObject(ground);
 
 	std::vector<Prefab*> meteors;
 
@@ -170,7 +163,7 @@ void GameManager::createGameScene()
 	Prefab* bossPrefab = new Prefab(boss);
 
 	GameObject* enemySpawner = new GameObject();
-	enemySpawner->setTransform(Matrix().translation(0.0f, 1.0f, (float)-GameSettings::WORLD_DEPTH));
+	enemySpawner->setTransform(Matrix().translation(0.0f, 0.25f, (float)-GameSettings::WORLD_DEPTH));
 	shader = new ConstantShader();
 	shader->color(Color(0, 0, 0));
 	enemySpawner->setRenderer(new MeshRenderer(new TriangleBoxModel(0.1f, 0.1f, 0.1f), shader, true));

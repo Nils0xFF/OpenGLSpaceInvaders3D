@@ -8,7 +8,9 @@ in vec2 Texcoord;
 in vec3 Tangent;
 in vec3 BiTangent;
 
-out vec4 FragColor;
+layout (location = 0) out vec4 FragColor;
+layout (location = 1) out vec4 BrightColor;
+layout (location = 2) out vec4 DepthColor;
 
 uniform vec3 LightPos;
 uniform vec3 LightColor;

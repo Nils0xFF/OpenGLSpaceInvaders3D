@@ -1,7 +1,7 @@
 #include "TerrainShader.h"
 #include "GameSettings.h"
 
-TerrainShader::TerrainShader(const int worldWidth, const int mountainWidth): WorldWidth(worldWidth), MountainWidth(mountainWidth)
+TerrainShader::TerrainShader()
 {
 	if (!load(SHADER_DIRECTORY "vertex/vsterrain.glsl", SHADER_DIRECTORY "fragment/fsterrain.glsl"))
 		throw new std::exception("Shader not found!");

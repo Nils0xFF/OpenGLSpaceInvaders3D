@@ -28,7 +28,7 @@ public:
 	}
 	void ReStartGame() { StartGame(); };
 	void EndGame() { 
-		SceneManager::getInstance().LoadScene(&menuScene); 
+		SceneManager::getInstance().LoadScene(&gameScene);
 		currentGameState = GameState::MENU;
 	};
 
@@ -44,7 +44,7 @@ public:
 		createMenuScene();
 	};
 
-	void Start() { SceneManager::getInstance().LoadScene(&menuScene); }
+	void Start() { SceneManager::getInstance().LoadScene(&gameScene); }
 
 	void Update(float deltaTime) {
 		if (currentGameState == GameState::WAVEMODE || currentGameState == GameState::BOSSFIGHT || currentGameState == GameState::TRANSITION) {

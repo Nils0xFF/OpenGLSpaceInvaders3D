@@ -16,8 +16,8 @@ void main()
 	Texcoord = VertexTexcoord;
 
 	float totalWidth = WorldWidth + 2 * MountainWidth;
-	float test = WorldWidth * 0.5;
-	Position.y = clamp((Position.x - test / 2) / (MountainWidth / 2), 0, 1);
+	float test = 0;
+	Position.y = clamp((abs(Position.x) - (WorldWidth * 0.5)) / (MountainWidth / 2), 0, 1);
 	
     gl_Position = ModelViewProjMat * Position;
 }
