@@ -53,12 +53,12 @@ public:
 
 		float xMovement = 0.0f;
 
-		if (InputManager::getInstance().Keys[GLFW_KEY_A] && gameObject->getAreaBox()->Min.X > -GameSettings::WORLD_WITH / 2)
+		if (InputManager::getInstance().Keys[GLFW_KEY_A] && gameObject->getAreaBox()->Min.X > -GameSettings::WORLD_WIDTH / 2)
 		{
 			xMovement -= GameSettings::PLAYER_SPEED;
 		}
 
-		if (InputManager::getInstance().Keys[GLFW_KEY_D] && gameObject->getAreaBox()->Max.X < GameSettings::WORLD_WITH / 2)
+		if (InputManager::getInstance().Keys[GLFW_KEY_D] && gameObject->getAreaBox()->Max.X < GameSettings::WORLD_WIDTH / 2)
 		{
 			xMovement += GameSettings::PLAYER_SPEED;
 		}
