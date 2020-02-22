@@ -73,7 +73,7 @@ void Game::Init()
 	player->setName("Player");
 	player->setTag(Tag::Player);
 	player->setTransform(Matrix().translation(0,1,0) * Matrix().rotationY(0.5f * (float) M_PI));
-	player->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/spaceships/spaceship_4_new.obj", true), new PhongShader(), true));
+	player->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/spaceships/spaceship_4_new.obj"), new PhongShader(), true));
 	player->setCollider(new BoxCollider());
 	player->addComponent(new PlayerController(playerBulletPrefab));	
 	player->addComponent(new FollowCameraController(mainCamera, Vector(0,.65f,1.5f)));
@@ -102,7 +102,7 @@ void Game::Init()
 	Prefab* enemyBulletPrefab = new Prefab(enemyBullet);
 
 	GameObject* enemy = new GameObject();
-	BaseModel* enemyModel = new Model(ASSET_DIRECTORY "models/spaceships/spaceship_1_new.obj", true);
+	BaseModel* enemyModel = new Model(ASSET_DIRECTORY "models/spaceships/spaceship_1_new.obj");
 	enemyModel->shadowCaster(false);
 	enemy->setRenderer(new MeshRenderer(enemyModel, new PhongShader(), true));
 	enemy->setName("Enemy");
@@ -135,7 +135,7 @@ void Game::Init()
 	GameObject* meteor = new GameObject();
 	meteor->setTag(Tag::Meteor);
 	meteor->setName("Meteor");
-	// meteor->setTransform(Matrix().translation(Vector(0,1,-10)));
+	meteor->setTransform(Matrix().rotationY(0.5f * M_PI));
 	meteor->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/meteors/rock2.obj",true),new PhongShader(), true));
 	meteor->setCollider(new BoxCollider());
 	meteor->addComponent(new MeteorController());
@@ -151,6 +151,7 @@ void Game::Init()
 	enemySpawner->addComponent(new EnemySpawnerController(enemyRowPrefab));
 	enemySpawner->addComponent(new MeteorSpawnerController(meteorPrefab));
 	testScene.addGameObject(enemySpawner);
+
 
 	GameObject* skybox = new GameObject();
 	pModel = new Model(ASSET_DIRECTORY "models/skybox.obj", false);

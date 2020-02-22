@@ -14,9 +14,9 @@
 Model::Model() : pMeshes(NULL), MeshCount(0), pMaterials(NULL), MaterialCount(0)
 {
 }
-Model::Model(const char* ModelFile, bool FitSize, bool Center) : pMeshes(NULL), MeshCount(0), pMaterials(NULL), MaterialCount(0)
+Model::Model(const char* ModelFile, float fitScale, bool Center) : pMeshes(NULL), MeshCount(0), pMaterials(NULL), MaterialCount(0)
 {
-    bool ret = load(ModelFile, FitSize, Center);
+    bool ret = load(ModelFile, fitScale, Center);
     if(!ret)
         throw std::exception();
 }
@@ -43,7 +43,7 @@ void Model::deleteNodes(Node* pNode)
         delete [] pNode->Meshes;
 }
 
-bool Model::load(const char* ModelFile, bool FitSize, bool Center)
+bool Model::load(const char* ModelFile, float fitScale, bool Center)
 {
     const aiScene* pScene = aiImportFile( ModelFile,aiProcessPreset_TargetRealtime_Fast | aiProcess_TransformUVCoords );
     
@@ -58,17 +58,16 @@ bool Model::load(const char* ModelFile, bool FitSize, bool Center)
     if(pos !=std::string::npos)
         Path.resize(pos+1);
     
-    loadMeshes(pScene, FitSize, Center);
+    loadMeshes(pScene, fitScale, Center);
     loadMaterials(pScene);
     loadNodes(pScene);
     
     return true;
 }
 
-void Model::loadMeshes(const aiScene* pScene, bool FitSize, bool Center)
+void Model::loadMeshes(const aiScene* pScene, float fitScale, bool Center)
 {
     
-    float fitScale = 1;
     float scaleFactor = 1;
 	Vector offset = Vector::zero();
 
@@ -80,7 +79,7 @@ void Model::loadMeshes(const aiScene* pScene, bool FitSize, bool Center)
         this->calcBoundingBox(pScene, this->InitialBoundingBox);
 
 
-        if(FitSize){
+        if(fitScale > 0){
             float largest = std::max(std::max(this->InitialBoundingBox.size().X, this->InitialBoundingBox.size().Y), this->InitialBoundingBox.size().Z);
             scaleFactor = fitScale / largest;
             this->InitialBoundingBox.Max = this->InitialBoundingBox.Max * scaleFactor;
