@@ -117,6 +117,7 @@
     <ClCompile Include="..\..\src\EnemySpawnerController.cpp" />
     <ClCompile Include="..\..\src\FollowCameraController.cpp" />
     <ClCompile Include="..\..\src\Framebuffer.cpp" />
+    <ClCompile Include="..\..\src\GameManager.cpp" />
     <ClCompile Include="..\..\src\GameObject.cpp" />
     <ClCompile Include="..\..\src\GameSettings.cpp" />
     <ClCompile Include="..\..\src\IndexBuffer.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="..\..\src\EnemySpawnerController.h" />
     <ClInclude Include="..\..\src\FollowCameraController.h" />
     <ClInclude Include="..\..\src\Framebuffer.h" />
+    <ClInclude Include="..\..\src\GameManager.h" />
     <ClInclude Include="..\..\src\GameObject.h" />
     <ClInclude Include="..\..\src\GameObjectInterface.h" />
     <ClInclude Include="..\..\src\GameSettings.h" />

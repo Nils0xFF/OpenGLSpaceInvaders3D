@@ -27,7 +27,7 @@ public:
     Model(const char* ModelFile, float fitScale = 1.0f, bool Center=true);
 
 	Model* clone() { 
-		Model* newModel = new Model(this->Filepath.c_str());
+		Model* newModel = new Model(this->Filepath.c_str(), fitScale);
 		newModel->shader(pShader->clone(), true);
 		newModel->transform(this->transform());
 		return newModel;
@@ -94,6 +94,8 @@ protected: // protected member variables
     std::string Path; // stores path without filename
     Node RootNode;
     
+	float fitScale = 1.0f;
+
 };
 
 #endif /* Model_hpp */

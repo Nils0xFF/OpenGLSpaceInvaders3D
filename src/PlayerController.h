@@ -5,6 +5,7 @@
 #include "GameSettings.h"
 #include "SceneManager.h"
 #include "BulletController.h"
+#include "GameManager.h"
 
 #include <math.h>
 #include "Prefab.h"
@@ -35,9 +36,11 @@ private:
 
 	void takeDamage(int damage) {
 		this->currentHP -= damage;
+		GameManager::getInstance().updatePlayerHP(currentHP);
 		if (this->currentHP <= 0) {
 			currentHP = 0;
 			gameObject->Destroy();
+			GameManager::getInstance().PlayerDied();
 		}
 	}
 
@@ -47,6 +50,10 @@ public:
 
 	~PlayerController() {
 		delete bullet;
+	}
+
+	void Start() {
+		GameManager::getInstance().updatePlayerHP(currentHP);
 	}
 
 	void Update(float deltaTime) {

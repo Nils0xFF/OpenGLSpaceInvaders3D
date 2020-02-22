@@ -23,8 +23,8 @@ void toggleMaxScreen(GLFWwindow* window);
 
 int WINDOWPOS_X = 100;
 int WINDOWPOS_Y = 100;
-int WINDOW_WIDTH = 960;
-int WINDOW_HEIGHT = 540;
+int WINDOW_WIDTH = 1280;
+int WINDOW_HEIGHT = 720;
 int SAVED_WINDOW_WIDTH = WINDOW_WIDTH;
 int SAVED_WINDOW_HEIGHT = WINDOW_HEIGHT;
 bool isFullscreen = false;
@@ -66,7 +66,7 @@ int main () {
 	glfwSetFramebufferSizeCallback(window, windowResize);    
 
 	// OpenGL config
-	glViewport(0, 0, 960, 540);
+	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 	glEnable(GL_DEPTH_TEST); // enable depth-testing
 	glDepthFunc(GL_LESS); // depth-testing interprets a smaller value as "closer"
 	glEnable(GL_CULL_FACE);
@@ -134,6 +134,7 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode)
         toggleFullScreen(window);
     if (key == GLFW_KEY_F10 && action == GLFW_PRESS)
         toggleMaxScreen(window);
+
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)

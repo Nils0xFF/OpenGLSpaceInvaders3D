@@ -18,7 +18,7 @@ public:
 		toInstantiate->setTransform(Matrix().translation(position) * rotation);
 		toInstantiate->Init();
 		toInstantiate->Start();
-		SceneManager::getInstance().activeScene->addGameObject(toInstantiate);
+		SceneManager::getInstance().activeScene->addDynamicGameObject(toInstantiate);
 		return toInstantiate;
 	};
 

@@ -256,6 +256,9 @@
     <ClCompile Include="..\..\src\EnemyRowController.cpp">
       <Filter>Quelldateien\game\customComponents\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\GameManager.cpp">
+      <Filter>Quelldateien\game\singeltons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Camera.h">
@@ -447,6 +450,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\EnemyRowController.h">
       <Filter>Quelldateien\game\customComponents\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\GameManager.h">
+      <Filter>Quelldateien\game\singeltons</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

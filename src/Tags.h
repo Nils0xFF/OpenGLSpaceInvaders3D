@@ -5,6 +5,7 @@ enum class Tag
 	Player,
 	PlayerBullet,
 	Enemy,
+	Boss,
 	EnemyBullet,
 	PowerUP,
 	Meteor,

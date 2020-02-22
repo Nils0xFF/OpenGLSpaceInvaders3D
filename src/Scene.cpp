@@ -5,13 +5,13 @@
 using namespace std;
 
 void Scene::Init() {
-	for (GameObject* g : gameObjects) {
+	for (GameObject* g : initialGameObjects) {
 		g->Init();
 	}
 }
 
 void Scene::Start() {
-	for (GameObject* g : gameObjects) {
+	for (GameObject* g : initialGameObjects) {
 		g->Start();
 	}
 }

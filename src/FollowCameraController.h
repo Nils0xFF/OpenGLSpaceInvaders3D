@@ -16,7 +16,6 @@ public:
 
 	void updateTransform() {
 		cam.setPosition(gameObject->getTransform().translation() + offset);
-		// cam.setUp(gameObject->getTransform().up());
 		cam.setTarget(gameObject->getTransform().translation() + Vector::forward() * 2);
 	}
 

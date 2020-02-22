@@ -2,6 +2,8 @@
 #include "Component.h"
 #include "GameObject.h"
 #include "GameSettings.h"
+#include "GameManager.h"
+
 class EnemyRowController :
 	public Component
 {
@@ -15,6 +17,7 @@ public:
 	void Update(float deltaTime) {
 		if (gameObject->getTransform().translation().Z > 2) {
 			gameObject->Destroy();
+			GameManager::getInstance().RowDestroyed();
 		}
 		if (xDir < 0 && gameObject->getAreaBox()->Min.X < -GameSettings::WORLD_WITH / 2.0f) {
 			xDir *= -1;

@@ -4,6 +4,7 @@
 #include "GameSettings.h"
 #include "BulletController.h"
 #include "Random.h"
+#include "GameManager.h"
 
 class BossController :
 	public Component
@@ -22,9 +23,11 @@ private:
 
 	void takeDamage(int damage) {
 		currentHP -= damage;
+		GameManager::getInstance().updateBossHP(currentHP);
 		if (currentHP <= 0) {
 			currentHP = 0;
 			gameObject->Destroy();
+			GameManager::getInstance().BossDied();
 		}
 	}
 
@@ -39,8 +42,8 @@ private:
 
 			if (bc != NULL) {
 				bc->setDirection(-Vector::forward());
-				bc->setSpeed(GameSettings::ENEMEY_BULLET_SPEED);
-				bc->setDamage(GameSettings::ENEMEY_BULLET_DAMAGE);
+				bc->setSpeed(GameSettings::BOSS_BULLET_SPEED);
+				bc->setDamage(GameSettings::BOSS_BULLET_DAMAGE);
 			}
 		}
 	}
@@ -51,6 +54,10 @@ public:
 	BossController(const BossController& other) { this->bulletPrefab = other.bulletPrefab; }
 
 	BossController* clone() { return new BossController(*this); }
+
+	void Start() {
+		GameManager::getInstance().updateBossHP(currentHP);
+	}
 
 	void Update(float deltaTime) {
 		timeSinceLastShot += deltaTime;

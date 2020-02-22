@@ -7,6 +7,8 @@ class Scene : public LifecycleObject
 {
 private:
 	std::list<GameObject*> gameObjects;
+	std::list<GameObject*> initialGameObjects;
+	std::list<GameObject*> dynamicObjects;
 
 public:
 	Scene():gameObjects() {};
@@ -15,6 +17,8 @@ public:
 			delete gameObjects.front();
 			gameObjects.pop_front();
 		}
+		initialGameObjects.clear();
+		dynamicObjects.clear();
 	}
 
 	void Init();
@@ -27,7 +31,20 @@ public:
 
 	void Draw();
 
-	void addGameObject(GameObject* go) { gameObjects.push_back(go); }
+	void Load() {
+		Init();
+		Start();
+	};
+
+	void Unload() {
+		while (!dynamicObjects.empty()) {
+			delete dynamicObjects.front();
+			dynamicObjects.pop_front();
+		}
+	};
+
+	void addGameObject(GameObject* go) { initialGameObjects.push_back(go); gameObjects.push_back(go); }
+	void addDynamicGameObject(GameObject* go) { dynamicObjects.push_back(go); gameObjects.push_back(go); }
 
 	std::list<GameObject*> allObjects() {
 		std::list<GameObject*> objects = gameObjects;

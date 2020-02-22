@@ -35,8 +35,9 @@ public:
 				this->takeDamage(bc->getDamage());
 			}
 			other->Destroy();
+			return;
 		}
-		if (other->getTag() != Tag::Player && gameObject->getTransform().translation().Z > -GameSettings::WORLD_DEPTH / 2) {
+		if (other->getTag() != Tag::Player && other->getTag() != Tag::Boss && gameObject->getTransform().translation().Z > -GameSettings::WORLD_DEPTH / 2) {
 			other->Destroy();
 		}
 	}

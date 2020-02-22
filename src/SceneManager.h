@@ -9,8 +9,17 @@ public:
 		return instance;
 	}
 
+	void LoadScene(Scene* scene) {
+		if(activeScene)
+			activeScene->Unload();
+
+		activeScene = scene;
+		activeScene->Load();
+	}
+
 private:
 	SceneManager() {};
 	SceneManager(const SceneManager& im) {};
 	SceneManager& operator= (const SceneManager& mg) {};
+
 };

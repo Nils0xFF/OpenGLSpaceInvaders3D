@@ -16,6 +16,7 @@ Model::Model() : pMeshes(NULL), MeshCount(0), pMaterials(NULL), MaterialCount(0)
 }
 Model::Model(const char* ModelFile, float fitScale, bool Center) : pMeshes(NULL), MeshCount(0), pMaterials(NULL), MaterialCount(0)
 {
+	this->fitScale = fitScale;
     bool ret = load(ModelFile, fitScale, Center);
     if(!ret)
         throw std::exception();

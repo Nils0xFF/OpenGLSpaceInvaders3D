@@ -4,22 +4,14 @@
 #include "Camera.h"
 #include "PostProcessing.h"
 #include "ShadowMapGenerator.h"
-
-enum class GameState {
-	MENU,
-	PLAYING,
-	PAUSED,
-	WON,
-	LOST
-};
+#include "GameManager.h"
 
 class Game
 {
 public:
-	Game(GLFWwindow* pWin) : State(GameState::PLAYING), pWindow(pWin), mainCamera(pWindow), ShadowGenerator(2048, 2048) {}
+	Game(GLFWwindow* pWin) : pWindow(pWin), mainCamera(pWindow), ShadowGenerator(2048, 2048),gameManager(GameManager::getInstance()) {}
 
 	GLFWwindow* pWindow;
-	GameState State;
 	Camera mainCamera;
 
 	~Game() {};
@@ -41,5 +33,6 @@ public:
 
 private:
 	ShadowMapGenerator ShadowGenerator;
+	GameManager& gameManager;
 };
 

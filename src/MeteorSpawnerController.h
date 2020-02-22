@@ -3,6 +3,7 @@
 #include "Prefab.h"
 #include "Random.h"
 #include "GameSettings.h"
+#include "GameManager.h"
 
 class MeteorSpawnerController :
 	public Component
@@ -29,6 +30,16 @@ private:
 		timeSinceLastMeteor = 0;
 	}
 
+	void spawnRandomMeteorBoss() {
+		if (prefabs.size() <= 0) return;
+		int spawnIndex = std::round(Random::random() * (prefabs.size() - 1));
+		Prefab* prefab = prefabs[spawnIndex];
+		float xOffset = prefab->getGameObject()->getAreaBox()->size().X / 2.0f;
+		float xCord = Random::random() > 0.5f ? (GameSettings::WORLD_WITH / 2.0f - xOffset) : -(GameSettings::WORLD_WITH / 2.0f - xOffset);
+		prefab->instantiate(gameObject->getTransform().translation() + Vector(xCord, 0, 0), prefab->getGameObject()->getTransform());
+		timeSinceLastMeteor = 0;
+	}
+
 public:
 
 	MeteorSpawnerController(Prefab* prefab) {
@@ -50,30 +61,38 @@ public:
 	MeteorSpawnerController* clone() { return new MeteorSpawnerController(*this); }
 
 	void Update(float deltaTime) {
-		timeSinceLastMeteor += deltaTime;
-		if (!shower && timeSinceLastMeteor >= timeBetweenMeteors && timeSinceLastShower >= minTimeBetweenShowers) {
-			shower = Random::random() <= showerChance;
-			if (shower) {
-				timeSinceLastShower = 0;
-				currentShowerDuration = 0;
-				std::cout << "SHOWER!!" << std::endl;
+		if (GameManager::getInstance().getGameState() == GameState::WAVEMODE) {
+			timeSinceLastMeteor += deltaTime;
+			if (!shower && timeSinceLastMeteor >= timeBetweenMeteors && timeSinceLastShower >= minTimeBetweenShowers) {
+				shower = Random::random() <= showerChance;
+				if (shower) {
+					timeSinceLastShower = 0;
+					currentShowerDuration = 0;
+					std::cout << "SHOWER!!" << std::endl;
+				}
 			}
-		}
-		if (!shower) {
-			timeSinceLastShower += deltaTime;
-			if (timeSinceLastMeteor >= timeBetweenMeteors) {
-				spawnRandomMeteor();
+			if (!shower) {
+				timeSinceLastShower += deltaTime;
+				if (timeSinceLastMeteor >= timeBetweenMeteors) {
+					spawnRandomMeteor();
+				}
 			}
-		}
-		else {
-			currentShowerDuration += deltaTime;
-			if (timeSinceLastMeteor >= 1.0f / showerSpawnrate) {
-				spawnRandomMeteor();
-			}
+			else {
+				currentShowerDuration += deltaTime;
+				if (timeSinceLastMeteor >= 1.0f / showerSpawnrate) {
+					spawnRandomMeteor();
+				}
 
-			if (currentShowerDuration >= showerDuration) {
-				shower = false;
-				std::cout << "SHOWER End!!" << std::endl;
+				if (currentShowerDuration >= showerDuration) {
+					shower = false;
+					std::cout << "SHOWER End!!" << std::endl;
+				}
+			}
+		}
+		else if (GameManager::getInstance().getGameState() == GameState::BOSSFIGHT) {
+			timeSinceLastMeteor += deltaTime;
+			if (timeSinceLastMeteor >= 1.5f / showerSpawnrate) {
+				spawnRandomMeteorBoss();
 			}
 		}
 	}
