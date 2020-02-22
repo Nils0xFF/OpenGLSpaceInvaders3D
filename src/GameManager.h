@@ -47,6 +47,10 @@ public:
 	void Start() { SceneManager::getInstance().LoadScene(&menuScene); }
 
 	void Update(float deltaTime) {
+		if (currentGameState == GameState::WAVEMODE || currentGameState == GameState::BOSSFIGHT || currentGameState == GameState::TRANSITION) {
+			score += deltaTime;
+		}
+
 		if (
 			(currentGameState == GameState::WAVEMODE && rowsSpawnedSinceBoss >= GameSettings::SPAWNER_WAVES_BEFORE_BOSS)||
 			(currentGameState == GameState::BOSSFIGHT && !bossAlive)) {
@@ -72,7 +76,7 @@ public:
 	};
 
 	void PlayerDied() { currentGameState = GameState::LOST; }
-	void BossDied() { bossAlive = false; }
+	void BossDied() { bossAlive = false; score += 50; }
 	void RowSpawned() { rowsSpawnedSinceBoss++; currentRows++; }
 	void RowDestroyed() { currentRows--; }
 
@@ -81,6 +85,8 @@ public:
 
 	void updateBossHP(int hp) { bossHP = hp; }
 	int getBossHP() { return bossHP; }
+
+	int getScore() { return (int) std::round(score); }
 
 private:
 	Scene menuScene;
@@ -100,6 +106,8 @@ private:
 	int bossHP = 0;
 	int currentRows = 0;
 	int rowsSpawnedSinceBoss = 0;
+
+	float score = 0;
 
 	bool bossAlive = false;
 

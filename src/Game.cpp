@@ -88,6 +88,7 @@ void Game::Update(GLfloat dt)
 	switch (gameManager.getGameState())
 	{
 	case GameState::MENU:
+		break;
 	case GameState::BOSSFIGHT:
 	case GameState::WAVEMODE:
 	case GameState::TRANSITION:
@@ -117,23 +118,25 @@ void Game::Render()
 	switch (gameManager.getGameState())
 	{
 		case GameState::MENU:
-			text->Render("Space Invaders", 0.05f, 0.9f, 1.0f, Color(0, 0, 0));
-			text2->Render("Controls:\n<A/D>: Move Left/Right\n<SPACE>: Shoot\n<P> to Pause the Game", 0.05f, 0.8f, 0.5f, Color(0, 0, 0));
-			text3->Render("Press <ENTER> to Start\n\n<ESCAPE> to quit", 0.35f, 0.35f, 0.75f, Color(0, 0, 0));
+			text->Render("Space Invaders", 0.05f, 0.9f, 0.5f, Color(0, 0, 0));
+			text2->Render("Controls:\n<A/D>: Move Left/Right\n<SPACE>: Shoot\n<P> to Pause the Game", 0.05f, 0.8f, 0.25f, Color(0, 0, 0));
+			text3->Render("Press <ENTER> to Start\n\n<ESCAPE> to quit", 0.35f, 0.35f, 0.35f, Color(0, 0, 0));
 			break;
 		case GameState::PAUSED:
-			text->Render("Paused!", 0.35f, 0.9f, 1.0f, Color(1, 1, 1));
-			text3->Render("Press <ENTER> to Unpause\n\n<Q> for Menu", 0.35f, 0.35f, 0.75f, Color(0, 0, 0));
+			text->Render("Paused!", 0.35f, 0.9f, 0.5f, Color(1, 1, 1));
+			text3->Render("Press <ENTER> to Unpause\n\n<Q> for Menu", 0.35f, 0.35f, 0.35f, Color(.75f, .75f, .75f));
 			break;
 		case GameState::LOST:
-			text->Render("Game Over!\nScore:15", 0.35f, 0.9f, 1.0f, Color(1, 1, 1));
-			text3->Render("Press <ENTER> to Restart\n\n<Q> for Menu", 0.35f, 0.35f, 0.75f, Color(0, 0, 0));
+			text->Render("Game Over!\nScore:15", 0.35f, 0.9f, 0.5f, Color(1, 1, 1));
+			text3->Render("Press <ENTER> to Restart\n\n<Q> for Menu", 0.35f, 0.35f, 0.35f, Color(0, 0, 0));
 			break;
 		case GameState::BOSSFIGHT:
 		case GameState::TRANSITION:
 		case GameState::WAVEMODE:
-			text->Render("HP: 5/5", 0.125f, 0.85f, 0.5f, Color(1, 1, 1));
-			text2->Render("Score: 100", 0.125f, 0.8f, 0.5f, Color(1, 1, 1));
+			text->Render(("HP: " + std::to_string(
+				GameManager::getInstance().getPlayerHP()) + "/" +
+				std::to_string(GameSettings::PLAYER_HP)).c_str(), 0.125f, 0.85f, 0.25f, Color(1, 1, 1));
+			text2->Render(("Score: " + std::to_string(GameManager::getInstance().getScore())).c_str(), 0.125f, 0.8f, 0.25f, Color(1, 1, 1));
 			break;
 		default:
 			break;

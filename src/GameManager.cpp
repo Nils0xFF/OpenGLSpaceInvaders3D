@@ -129,11 +129,11 @@ void GameManager::createGameScene()
 	Prefab* enemyRowPrefab = new Prefab(enemyRow);
 
 	/* GameObject* ground = new GameObject();
-	pModel = new TrianglePlaneModel(GameSettings::WORLD_WITH, GameSettings::WORLD_DEPTH, 200, 200);
+	pModel = new TrianglePlaneModel(GameSettings::WORLD_WIDTH, GameSettings::WORLD_DEPTH, 200, 200);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
-	testScene.addGameObject(ground); */
+	gameScene.addGameObject(ground);*/
 
 	std::vector<Prefab*> meteors;
 

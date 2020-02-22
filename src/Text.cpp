@@ -17,6 +17,8 @@ void Text::Render(const char* text, float x, float y, float scale, Color col)
 	int scr_width = CameraManager::getInstance().activeCamera->WindowWidth;
 	int scr_height = CameraManager::getInstance().activeCamera->WindowHeight;
 
+	scale *= scr_width / 720.0f;
+
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(VAO);
 
