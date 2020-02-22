@@ -60,12 +60,16 @@ void Game::ProcessInput(GLfloat dt)
 			glfwWindowShouldClose(pWindow);
 		break;
 	case GameState::PAUSED:
-		if (InputManager::getInstance().Keys[GLFW_KEY_SPACE])
+		if (InputManager::getInstance().Keys[GLFW_KEY_ENTER])
 			gameManager.UnPauseGame();
-		if (InputManager::getInstance().Keys[GLFW_KEY_ESCAPE])
+		if (InputManager::getInstance().Keys[GLFW_KEY_Q])
 			gameManager.EndGame();
 		break;
 	case GameState::LOST:
+		if (InputManager::getInstance().Keys[GLFW_KEY_ENTER])
+			gameManager.ReStartGame();
+		if (InputManager::getInstance().Keys[GLFW_KEY_Q])
+			gameManager.EndGame();
 		break;
 	case GameState::BOSSFIGHT:
 	case GameState::WAVEMODE:
@@ -119,11 +123,11 @@ void Game::Render()
 			break;
 		case GameState::PAUSED:
 			text->Render("Paused!", 0.35f, 0.9f, 1.0f, Color(1, 1, 1));
-			text3->Render("Press <SPACE> to Unpause\n\n<ESCAPE> for Menu", 0.35f, 0.35f, 0.75f, Color(0, 0, 0));
+			text3->Render("Press <ENTER> to Unpause\n\n<Q> for Menu", 0.35f, 0.35f, 0.75f, Color(0, 0, 0));
 			break;
 		case GameState::LOST:
 			text->Render("Game Over!\nScore:15", 0.35f, 0.9f, 1.0f, Color(1, 1, 1));
-			text3->Render("Press <ENTER> to Restart\n\n<ESCAPE> for Menu", 0.35f, 0.35f, 0.75f, Color(0, 0, 0));
+			text3->Render("Press <ENTER> to Restart\n\n<Q> for Menu", 0.35f, 0.35f, 0.75f, Color(0, 0, 0));
 			break;
 		case GameState::BOSSFIGHT:
 		case GameState::TRANSITION:
