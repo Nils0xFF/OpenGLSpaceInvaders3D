@@ -250,6 +250,12 @@
     <ClCompile Include="..\..\src\MeteorSpawnerController.cpp">
       <Filter>Quelldateien\game\customComponents\Spawner</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\BossController.cpp">
+      <Filter>Quelldateien\game\customComponents\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\EnemyRowController.cpp">
+      <Filter>Quelldateien\game\customComponents\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Camera.h">
@@ -435,6 +441,12 @@
     </ClInclude>
     <ClInclude Include="..\..\src\MeteorSpawnerController.h">
       <Filter>Quelldateien\game\customComponents\Spawner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\BossController.h">
+      <Filter>Quelldateien\game\customComponents\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\EnemyRowController.h">
+      <Filter>Quelldateien\game\customComponents\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

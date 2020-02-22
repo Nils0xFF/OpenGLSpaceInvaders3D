@@ -6,13 +6,13 @@
 RGBImage::RGBImage( unsigned int Width, unsigned int Height):m_Width(Width),m_Height(Height)
 {
     // TODO: add your code
-	unsigned int Size = Height * Width;
-    this->m_Image = new Color[Size];
+	this->m_Image = new Color[Height * Width];
+	std::cout << "Size: " << sizeof(Color) * Height * Width << std::endl;
 }
 
 RGBImage::~RGBImage()
 {
-    delete this->m_Image;
+    delete[] this->m_Image;
 	this->m_Image = NULL;
 }
 

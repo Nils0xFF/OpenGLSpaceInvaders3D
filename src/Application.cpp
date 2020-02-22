@@ -92,7 +92,6 @@ void Application::createScene()
 	pModel->shadowCaster(false);
 	Models.push_back(pModel);
 
-
 	pModel = new Model(ASSET_DIRECTORY "scene.dae", false);
 	pModel->shader(new PhongShader(), true);
 	m.translation(10, 0, -10);

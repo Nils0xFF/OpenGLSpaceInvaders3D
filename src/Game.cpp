@@ -37,12 +37,19 @@ ParticleGenerator* gen;
 
 void Game::Init()
 {
+	GameObject* skybox = new GameObject();
+	BaseModel* pModel = new Model(ASSET_DIRECTORY "models/skybox.obj", false);
+	pModel->shadowCaster(false);
+	pModel->shadowReciver(false);
+	skybox->setRenderer(new MeshRenderer(pModel, new PhongShader(), true));
+	testScene.addGameObject(skybox);
+
 	SceneManager::getInstance().activeScene = &testScene;
 
 	GameObject* playerBullet = new GameObject();
 	playerBullet->setName("PlayerBullet");
 	playerBullet->setTag(Tag::PlayerBullet);
-	BaseModel* pModel = new TriangleBoxModel(0.1f,0.05f,0.3f);
+	pModel = new TriangleBoxModel(0.1f,0.05f,0.3f);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	ConstantShader* shader = new ConstantShader();
@@ -159,13 +166,6 @@ void Game::Init()
 	boss->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/spaceships/spaceship_6_new.obj", 10.0f), new PhongShader(), true));
 	boss->setCollider(new BoxCollider());
 	testScene.addGameObject(boss);
-
-	GameObject* skybox = new GameObject();
-	pModel = new Model(ASSET_DIRECTORY "models/skybox.obj", false);
-	pModel->shadowCaster(false);
-	pModel->shadowReciver(false);
-	skybox->setRenderer(new MeshRenderer(pModel, new PhongShader(), true));
-	testScene.addGameObject(skybox);
 
 	CameraManager::getInstance().activeCamera = &mainCamera;
 
