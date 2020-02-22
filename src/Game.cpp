@@ -136,7 +136,7 @@ void Game::Init()
 	meteor->setTag(Tag::Meteor);
 	meteor->setName("Meteor");
 	meteor->setTransform(Matrix().rotationY(0.5f * M_PI));
-	meteor->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/meteors/rock2.obj",true),new PhongShader(), true));
+	meteor->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/meteors/rock2.obj"),new PhongShader(), true));
 	meteor->setCollider(new BoxCollider());
 	meteor->addComponent(new MeteorController());
 	// testScene.addGameObject(meteor);
@@ -144,6 +144,7 @@ void Game::Init()
 	Prefab* meteorPrefab = new Prefab(meteor);
 
 	GameObject* enemySpawner = new GameObject();
+	enemySpawner->setActive(false);
 	enemySpawner->setTransform(Matrix().translation(0.0f, 1.0f, -GameSettings::WORLD_DEPTH));
 	shader = new ConstantShader();
 	shader->color(Color(0, 0, 0));
@@ -152,6 +153,13 @@ void Game::Init()
 	enemySpawner->addComponent(new MeteorSpawnerController(meteorPrefab));
 	testScene.addGameObject(enemySpawner);
 
+	GameObject* boss = new GameObject();
+	boss->setTransform(Matrix().translation(0.0f, 1.0f, -GameSettings::WORLD_DEPTH) * Matrix().rotationY(-0.5f * M_PI));
+	boss->setTag(Tag::Enemy);
+	boss->setName("Boss");
+	boss->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/spaceships/spaceship_6_new.obj", 10.0f), new PhongShader(), true));
+	boss->setCollider(new BoxCollider());
+	testScene.addGameObject(boss);
 
 	GameObject* skybox = new GameObject();
 	pModel = new Model(ASSET_DIRECTORY "models/skybox.obj", false);
