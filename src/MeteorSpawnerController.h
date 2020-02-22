@@ -22,7 +22,7 @@ private:
 
 	void spawnRandomMeteor() {
 		if (prefabs.size() <= 0) return;
-		int spawnIndex = std::round(Random::random() * (prefabs.size() - 1));
+		int spawnIndex = (int) std::round(Random::random() * (prefabs.size() - 1.0f));
 		Prefab* prefab = prefabs[spawnIndex];
 		float xOffset = prefab->getGameObject()->getAreaBox()->size().X / 2.0f;
 		float xCord = Random::random() * (GameSettings::WORLD_WIDTH - xOffset) - (GameSettings::WORLD_WIDTH - xOffset) / 2.0f;
@@ -32,7 +32,7 @@ private:
 
 	void spawnRandomMeteorBoss() {
 		if (prefabs.size() <= 0) return;
-		int spawnIndex = std::round(Random::random() * (prefabs.size() - 1));
+		int spawnIndex = (int) std::round(Random::random() * (prefabs.size() - 1));
 		Prefab* prefab = prefabs[spawnIndex];
 		float xOffset = prefab->getGameObject()->getAreaBox()->size().X / 2.0f;
 		float xCord = Random::random() > 0.5f ? (GameSettings::WORLD_WIDTH / 2.0f - xOffset) : -(GameSettings::WORLD_WIDTH / 2.0f - xOffset);

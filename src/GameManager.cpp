@@ -140,7 +140,7 @@ void GameManager::createGameScene()
 	GameObject* meteor = new GameObject();
 	meteor->setTag(Tag::Meteor);
 	meteor->setName("Meteor");
-	meteor->setTransform(Matrix().rotationY(0.5f * M_PI));
+	meteor->setTransform(Matrix().rotationY(0.5f * (float) M_PI));
 	meteor->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/meteors/rock/rock.obj"), new PhongShader(), true));
 	meteor->setCollider(new BoxCollider());
 	meteor->addComponent(new MeteorController());
@@ -152,7 +152,7 @@ void GameManager::createGameScene()
 	meteor = new GameObject();
 	meteor->setTag(Tag::Meteor);
 	meteor->setName("Meteor");
-	meteor->setTransform(Matrix().rotationY(0.5f * M_PI));
+	meteor->setTransform(Matrix().rotationY(0.5f * (float) M_PI));
 	meteor->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/meteors/rock_02/rock_02.obj"), new PhongShader(), true));
 	meteor->setCollider(new BoxCollider());
 	meteor->addComponent(new MeteorController());
@@ -161,7 +161,7 @@ void GameManager::createGameScene()
 	meteors.push_back(meteorPrefab);
 
 	GameObject* boss = new GameObject();
-	boss->setTransform(Matrix().translation(0.0f, 1.0f, -GameSettings::WORLD_DEPTH) * Matrix().rotationY(0));
+	boss->setTransform(Matrix().translation(0.0f, 1.0f, (float) -GameSettings::WORLD_DEPTH) * Matrix().rotationY(0));
 	boss->setTag(Tag::Boss);
 	boss->setName("Boss");
 	boss->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/spaceships/cruiser01/cruiser01.obj", 7.5f), new PhongShader(), true));

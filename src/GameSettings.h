@@ -15,7 +15,7 @@ public:
 	static const float ENEMEY_X_SPEED;
 	static const float ENEMEY_Z_SPEED;
 	static const float ENEMEY_BULLET_SPEED;
-	static const float ENEMEY_BULLET_DAMAGE;
+	static const int ENEMEY_BULLET_DAMAGE;
 	static const float ENEMEY_FIRERATE;
 	static const float ENEMEY_FIRERATE_VARIATION;
 
@@ -24,7 +24,7 @@ public:
 	static const float BOSS_X_SPEED;
 	static const float BOSS_Z_SPEED;
 	static const float BOSS_BULLET_SPEED;
-	static const float BOSS_BULLET_DAMAGE;
+	static const int BOSS_BULLET_DAMAGE;
 	static const float BOSS_FIRERATE;
 	static const float BOSS_FIRERATE_VARIATION;
 
