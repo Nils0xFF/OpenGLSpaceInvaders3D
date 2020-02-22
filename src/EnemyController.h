@@ -18,13 +18,17 @@ private:
 	float shotVariation = 0.25f;
 
 	void fire() {
-		GameObject* bulletInstance = bullet->instantiate(gameObject->getTransform().translation() - Vector::forward());
+		GameObject* bulletInstance = bullet->instantiate(
+			Vector(
+				gameObject->getTransform().translation().X, 
+				gameObject->getTransform().translation().Y, 
+				gameObject->getAreaBox()->Max.Z + bullet->getGameObject()->getAreaBox()->size().Z));
 		BulletController* bc = bulletInstance->getComponentByType<BulletController>();
 
 		if (bc != NULL) {
 			bc->setDirection(-Vector::forward());
-			bc->setSpeed(2.0f);
-			bc->setDamage(1);
+			bc->setSpeed(GameSettings::ENEMEY_BULLET_SPEED);
+			bc->setDamage(GameSettings::ENEMEY_BULLET_DAMAGE);
 		}
 	}
 

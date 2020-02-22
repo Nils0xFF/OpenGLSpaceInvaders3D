@@ -2,6 +2,8 @@
 #define __SimpleRayTracer__rgbimage__
 
 #include <iostream>
+#include <vector>
+
 class Color;
 
 class RGBImage

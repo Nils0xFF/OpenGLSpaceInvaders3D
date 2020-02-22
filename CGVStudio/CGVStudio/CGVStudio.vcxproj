@@ -5,9 +5,17 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -29,6 +37,12 @@
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -90,6 +104,7 @@
     <ClCompile Include="..\..\src\Application.cpp" />
     <ClCompile Include="..\..\src\BaseModel.cpp" />
     <ClCompile Include="..\..\src\BaseShader.cpp" />
+    <ClCompile Include="..\..\src\BossController.cpp" />
     <ClCompile Include="..\..\src\BoxCollider.cpp" />
     <ClCompile Include="..\..\src\BulletController.cpp" />
     <ClCompile Include="..\..\src\Camera.cpp" />
@@ -98,6 +113,7 @@
     <ClCompile Include="..\..\src\Component.cpp" />
     <ClCompile Include="..\..\src\ConstantShader.cpp" />
     <ClCompile Include="..\..\src\EnemyController.cpp" />
+    <ClCompile Include="..\..\src\EnemyRowController.cpp" />
     <ClCompile Include="..\..\src\EnemySpawnerController.cpp" />
     <ClCompile Include="..\..\src\FollowCameraController.cpp" />
     <ClCompile Include="..\..\src\Framebuffer.cpp" />
@@ -148,6 +164,7 @@
     <ClInclude Include="..\..\src\Application.h" />
     <ClInclude Include="..\..\src\BaseModel.h" />
     <ClInclude Include="..\..\src\BaseShader.h" />
+    <ClInclude Include="..\..\src\BossController.h" />
     <ClInclude Include="..\..\src\BoxCollider.h" />
     <ClInclude Include="..\..\src\BulletController.h" />
     <ClInclude Include="..\..\src\Camera.h" />
@@ -157,6 +174,7 @@
     <ClInclude Include="..\..\src\Component.h" />
     <ClInclude Include="..\..\src\ConstantShader.h" />
     <ClInclude Include="..\..\src\EnemyController.h" />
+    <ClInclude Include="..\..\src\EnemyRowController.h" />
     <ClInclude Include="..\..\src\EnemySpawnerController.h" />
     <ClInclude Include="..\..\src\FollowCameraController.h" />
     <ClInclude Include="..\..\src\Framebuffer.h" />

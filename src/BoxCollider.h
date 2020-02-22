@@ -11,21 +11,18 @@ class BoxCollider :
 	public Collider
 {
 public:
-	OBB* collsionBox = NULL;
+	OBB collsionBox = OBB(AABB());
 	LineBoxModel* debugModel = NULL;
 	ConstantShader* debugShader = NULL;
 
 	BoxCollider() {}
 
 	BoxCollider(const BoxCollider& other) {
-		collsionBox = NULL;
 		debugModel = NULL;
 		debugShader = NULL;
 	}
 
 	~BoxCollider() {
-		delete collsionBox;
-		collsionBox = NULL;
 		delete debugModel;
 		debugModel = NULL;
 		delete debugShader;
@@ -42,7 +39,13 @@ public:
 	}
 
 	void Start() {
-		collsionBox = new OBB(gameObject->getRenderer()->model->initialBoundingBox());
+		if (gameObject->getRenderer()->model) 
+		{
+			collsionBox = OBB(gameObject->getRenderer()->model->initialBoundingBox());
+		}
+		else {
+			std::cout << "Warning:: Collider without Renderer!" << std::endl;
+		}
 		updateTransform();
 	}
 
@@ -53,7 +56,7 @@ public:
 		#if _DEBUG
 			if (debugModel != NULL) delete debugModel;
 			Vector c[8];
-			collsionBox->corners(c);
+			collsionBox.corners(c);
 			debugModel = new LineBoxModel(c);
 			debugModel->shader(debugShader, false);
 			debugModel->shadowCaster(false);
@@ -62,7 +65,7 @@ public:
 	}
 
 	void updateTransform() {
-		collsionBox->transform(gameObject->getTransform());
+		collsionBox.transform(gameObject->getTransform());
 	}
 
 
