@@ -133,18 +133,14 @@ void Game::Render()
 			break;
 		default:
 			break;
-	}
-		
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-
+	}		
 
 	ShaderLightMapper::instance().deactivate();
-	PostProcessing::getInstance().End((float) glfwGetTime());
+	PostProcessing::getInstance().End();
 
 	GLenum Error = glGetError();
+	if (Error != 0)
+		std::cout << Error << std::endl;
 	assert(Error == 0);
 }
 
