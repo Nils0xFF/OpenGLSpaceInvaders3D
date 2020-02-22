@@ -25,12 +25,12 @@ class Model : public BaseModel
 public:
     Model();
     Model(const char* ModelFile, bool FitSize=true, bool Center=true);
-	Model(const Model& other) :BaseModel(other) {};
+
 	Model* clone() { 
-		Model* newModel = new Model(Filepath.c_str(), true);
+		Model* newModel = new Model(this->Filepath.c_str());
 		newModel->shader(pShader->clone(), true);
 		newModel->transform(this->transform());
-	return newModel;
+		return newModel;
 	}
     virtual ~Model();
 

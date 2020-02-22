@@ -82,7 +82,6 @@ bool CollisionHelper::detectOBBCollisions(const OBB& a, const OBB& b)
 	if (Seperated(aVerts, bVerts, a.getForward().cross(b.getForward())))
 		return false;
 
-	std::cout << "OOBB Colission!!!!" << std::endl << aVerts[1] << " - " << aVerts[7] << std::endl << bVerts[1] << " - " << bVerts[7] << std::endl;
 	return true;
 }
 

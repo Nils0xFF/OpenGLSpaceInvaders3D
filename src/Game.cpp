@@ -13,6 +13,8 @@
 #include "EnemyRowController.h"
 #include "FollowCameraController.h"
 #include "EnemySpawnerController.h"
+#include "MeteorController.h"
+#include "MeteorSpawnerController.h"
 #include "Text.h"
 #include "TriangleBoxModel.h"
 #include "GameSettings.h"
@@ -114,22 +116,14 @@ void Game::Init()
 	enemyRow->addChild(enemy);
 
 	enemy = new GameObject(*enemy);
-	enemy->setTransform(Matrix().translation(2, 0, 0));
+	enemy->setTransform(Matrix().translation(1.5f, 0, 0));
 	enemyRow->addChild(enemy);
 
 	enemy = new GameObject(*enemy);
-	enemy->setTransform(Matrix().translation(-2, 0, 0));
+	enemy->setTransform(Matrix().translation(-1.5f, 0, 0));
 	enemyRow->addChild(enemy);
 
 	Prefab* enemyRowPrefab = new Prefab(enemyRow);
-
-	GameObject* enemySpawner = new GameObject();
-	enemySpawner->setTransform(Matrix().translation(0.0f, 1.0f, -GameSettings::WORLD_DEPTH));
-	shader = new ConstantShader();
-	shader->color(Color(0,0,0));
-	enemySpawner->setRenderer(new MeshRenderer(new TriangleBoxModel(0.1f, 0.1f, 0.1f), shader, true));
-	enemySpawner->addComponent(new EnemySpawnerController(enemyRowPrefab));
-	testScene.addGameObject(enemySpawner);
 
 	/* GameObject* ground = new GameObject();
 	pModel = new TrianglePlaneModel(GameSettings::WORLD_WITH, GameSettings::WORLD_DEPTH, 200, 200);
@@ -138,11 +132,25 @@ void Game::Init()
 	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
 	testScene.addGameObject(ground); */
 
-	GameObject* rock = new GameObject();
-	rock->setTransform(Matrix().translation(Vector(0,1,-2)));
-	rock->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/meteors/rock2.obj",true),new PhongShader(), true));
+	GameObject* meteor = new GameObject();
+	meteor->setTag(Tag::Meteor);
+	meteor->setName("Meteor");
+	// meteor->setTransform(Matrix().translation(Vector(0,1,-10)));
+	meteor->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/meteors/rock2.obj",true),new PhongShader(), true));
+	meteor->setCollider(new BoxCollider());
+	meteor->addComponent(new MeteorController());
+	// testScene.addGameObject(meteor);
 
-	testScene.addGameObject(rock);
+	Prefab* meteorPrefab = new Prefab(meteor);
+
+	GameObject* enemySpawner = new GameObject();
+	enemySpawner->setTransform(Matrix().translation(0.0f, 1.0f, -GameSettings::WORLD_DEPTH));
+	shader = new ConstantShader();
+	shader->color(Color(0, 0, 0));
+	enemySpawner->setRenderer(new MeshRenderer(new TriangleBoxModel(0.1f, 0.1f, 0.1f), shader, true));
+	enemySpawner->addComponent(new EnemySpawnerController(enemyRowPrefab));
+	enemySpawner->addComponent(new MeteorSpawnerController(meteorPrefab));
+	testScene.addGameObject(enemySpawner);
 
 	GameObject* skybox = new GameObject();
 	pModel = new Model(ASSET_DIRECTORY "models/skybox.obj", false);

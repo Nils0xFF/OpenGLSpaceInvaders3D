@@ -134,15 +134,11 @@ public:
 	};
 
 	void Destroy() { 
-		#if _DEBUG
-			std::cout << "Destroy " << name << std::endl;
-		#endif
 			this->active = false;
 			this->destroy = true;
 	}
 
 	void onCollision(GameObject* other) {
-		std::cout << "Kollision! " << name << " " << other->name << std::endl;
 		for (Component* c : this->components) {
 			c->onCollision(other);
 		}

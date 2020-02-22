@@ -36,7 +36,7 @@ public:
 			}
 			other->Destroy();
 		}
-		if (other->getTag() != Tag::Player) {
+		if (other->getTag() != Tag::Player && gameObject->getTransform().translation().Z > -GameSettings::WORLD_DEPTH / 2) {
 			other->Destroy();
 		}
 	}

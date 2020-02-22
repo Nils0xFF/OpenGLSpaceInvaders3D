@@ -54,7 +54,7 @@ public:
 		if (timeSinceLastShot >= timeToNextShot) {
 			fire();
 			timeSinceLastShot = 0;
-			timeToNextShot =  timeBetweenShots + shotVariation * (Random::random() - 0.5f);
+			timeToNextShot =  timeBetweenShots + timeBetweenShots * shotVariation * (Random::random() - 0.5f);
 		}
 	}
 
@@ -70,9 +70,6 @@ public:
 		}
 		if (other->getTag() == Tag::EnemyBullet) {
 			other->Destroy();
-		}
-		if (other->getTag() == Tag::Meteor) {
-			gameObject->Destroy();
 		}
 	}
 

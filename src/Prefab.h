@@ -20,5 +20,9 @@ public:
 		SceneManager::getInstance().activeScene->addGameObject(toInstantiate);
 		return toInstantiate;
 	};
+
+	GameObjectInterface* getGameObject() {
+		return prefab;
+	}
 };
 

@@ -107,6 +107,7 @@
     <ClCompile Include="..\..\src\LightComponent.cpp" />
     <ClCompile Include="..\..\src\MeshRenderer.cpp" />
     <ClCompile Include="..\..\src\MeteorController.cpp" />
+    <ClCompile Include="..\..\src\MeteorSpawnerController.cpp" />
     <ClCompile Include="..\..\src\OBB.cpp" />
     <ClCompile Include="..\..\src\Particle.cpp" />
     <ClCompile Include="..\..\src\ParticleGenerator.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="..\..\src\LightComponent.h" />
     <ClInclude Include="..\..\src\MeshRenderer.h" />
     <ClInclude Include="..\..\src\MeteorController.h" />
+    <ClInclude Include="..\..\src\MeteorSpawnerController.h" />
     <ClInclude Include="..\..\src\OBB.h" />
     <ClInclude Include="..\..\src\Particle.h" />
     <ClInclude Include="..\..\src\ParticleGenerator.h" />

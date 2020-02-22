@@ -9,16 +9,16 @@ const int GameSettings::PLAYER_BULLET_DAMAGE = 1;
 
 // Base Enemy Parameters
 const unsigned int GameSettings::ENEMY_HP = 1;
-const float GameSettings::ENEMEY_X_SPEED = 1.0f;
-const float GameSettings::ENEMEY_Z_SPEED = 1;
+const float GameSettings::ENEMEY_X_SPEED = 0.5f;
+const float GameSettings::ENEMEY_Z_SPEED = 1.0f;
 const float GameSettings::ENEMEY_BULLET_SPEED = 1.0f;
-const float GameSettings:: ENEMEY_BULLET_DAMAGE = 1.0f;
+const float GameSettings::ENEMEY_BULLET_DAMAGE = 1.0f;
 const float GameSettings::ENEMEY_FIRERATE = 1.0f;
 const float GameSettings::ENEMEY_FIRERATE_VARIATION = 1.0f;
 
 // Boss Enemy Parameters
 const unsigned int GameSettings::BOSS_HP = 10;
-const float GameSettings::BOSS_X_SPEED = 1.0f;
+const float GameSettings::BOSS_X_SPEED = 0.0f;
 const float GameSettings::BOSS_Z_SPEED = 1.0f;
 const float GameSettings::BOSS_BULLET_SPEED = 2.0f;
 const float GameSettings::BOSS_BULLET_DAMAGE = 2.0f;
@@ -31,7 +31,7 @@ const float GameSettings::SPWANER_TIME_BETWEEN_WAVES = 5.0f;
 
 // Meteor Parameters
 const unsigned int GameSettings::METEOR_HP = 5;
-const float GameSettings::METEOR_Z_SPEED = 1.0f;
+const float GameSettings::METEOR_Z_SPEED = 2.5f;
 const unsigned int GameSettings::METEOR_DAMAGE = 1;
 
 // World Parameters
