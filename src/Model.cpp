@@ -139,7 +139,7 @@ void Model::loadMaterials(const aiScene* pScene)
     if(pScene->HasMaterials()){
         this->pMaterials = new Material[pScene->mNumMaterials];
         this->MaterialCount = pScene->mNumMaterials;
-        for(int i = 0; i< pScene->mNumMaterials; i++){
+        for(unsigned int i = 0; i< pScene->mNumMaterials; i++){
             this->pMaterials[i] = Material();
             
             aiColor4D diffuse, specular, ambient;

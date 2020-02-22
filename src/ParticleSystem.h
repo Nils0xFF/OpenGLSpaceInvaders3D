@@ -4,10 +4,10 @@
 
 struct ParticleProps {
 	Vector Position;
-	float Rotation;
+	float Rotation = 0;
 	Vector Velocity, VelocityVariation;
 	Color colorBegin, colorEnd;
-	float sizeBegin, sizeEnd, sizeVariation;
+	float sizeBegin = 0, sizeEnd = 0, sizeVariation = 0;
 	float Life = 1.0f;
 };
 

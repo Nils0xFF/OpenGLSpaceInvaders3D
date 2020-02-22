@@ -46,11 +46,11 @@ protected: // protected types
         Mesh()  {}
         VertexBuffer VB;
         IndexBuffer IB;
-        int MaterialIdx;
+        int MaterialIdx = -1;
     };
     struct Material
     {
-        Material() : DiffTex(NULL), DiffColor(1,1,1),SpecColor(0.3f,0.3f,0.3f), AmbColor(0,0,0), SpecExp(10) {}
+        Material() : DiffTex(NULL), NormalTex(NULL), DiffColor(1,1,1),SpecColor(0.3f,0.3f,0.3f), AmbColor(0,0,0), SpecExp(10) {}
         Color DiffColor;
         Color SpecColor;
         Color AmbColor;
@@ -83,10 +83,10 @@ protected: // protected methods
     void deleteNodes(Node* pNode);
 
 protected: // protected member variables
-    Mesh* pMeshes;
-    unsigned int MeshCount;
-    Material* pMaterials;
-    unsigned int MaterialCount;
+    Mesh* pMeshes = NULL;
+    unsigned int MeshCount = 0;
+    Material* pMaterials = NULL;
+    unsigned int MaterialCount = 0;
     AABB InitialBoundingBox;
 	AABB BoundingBox;
     

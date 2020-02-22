@@ -3,7 +3,7 @@
 class SceneManager
 {
 public:
-	Scene* activeScene;
+	Scene* activeScene = NULL;
 	static SceneManager& getInstance() {
 		static SceneManager instance;
 		return instance;
