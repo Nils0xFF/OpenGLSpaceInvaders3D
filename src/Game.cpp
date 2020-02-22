@@ -124,12 +124,12 @@ void Game::Init()
 
 	Prefab* enemyRowPrefab = new Prefab(enemyRow);
 
-	/* GameObject* ground = new GameObject();
-	pModel = new TrianglePlaneModel(GameSettings::WORLD_WITH, GameSettings::WORLD_DEPTH, 200, 200);
+	GameObject* ground = new GameObject();
+	pModel = new TrianglePlaneModel(GameSettings::WORLD_WIDTH + 2 * GameSettings::MOUNTAIN_WIDTH, GameSettings::WORLD_DEPTH, 200, 200);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
-	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
-	testScene.addGameObject(ground); */
+	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(GameSettings::WORLD_WIDTH, GameSettings::MOUNTAIN_WIDTH), true));
+	testScene.addGameObject(ground);
 
 	GameObject* meteor = new GameObject();
 	meteor->setTag(Tag::Meteor);

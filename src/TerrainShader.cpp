@@ -1,21 +1,19 @@
 #include "TerrainShader.h"
 #include "GameSettings.h"
 
-#ifdef WIN32
-#define ASSET_DIRECTORY "../../assets/"
-#else
-#define ASSET_DIRECTORY "../assets/"
-#endif
-
-TerrainShader::TerrainShader()
+TerrainShader::TerrainShader(const int worldWidth, const int mountainWidth): WorldWidth(worldWidth), MountainWidth(mountainWidth)
 {
-	if (!load(ASSET_DIRECTORY "vsterrain.glsl", ASSET_DIRECTORY "fsterrain.glsl"))
+	if (!load(SHADER_DIRECTORY "vertex/vsterrain.glsl", SHADER_DIRECTORY "fragment/fsterrain.glsl"))
 		throw new std::exception("Shader not found!");
 
 	TimeLoc = glGetUniformLocation(ShaderProgram, "Time");
 	assert(TimeLoc >= 0);
 	ModelViewProjLoc = glGetUniformLocation(ShaderProgram, "ModelViewProjMat");
 	assert(ModelViewProjLoc >= 0);
+	WorldWidthLoc = glGetUniformLocation(ShaderProgram, "WorldWidth");
+	assert(WorldWidthLoc >= 0);
+	MountainWidthLoc = glGetUniformLocation(ShaderProgram, "MountainWidth");
+	assert(MountainWidthLoc >= 0);
 }
 
 void TerrainShader::activate(const BaseCamera& Cam) const
@@ -23,7 +21,9 @@ void TerrainShader::activate(const BaseCamera& Cam) const
 	BaseShader::activate(Cam);
 
 	glUniform1f(TimeLoc, (GLfloat) glfwGetTime());
-	// always update matrices
+	glUniform1i(WorldWidthLoc, WorldWidth);
+	glUniform1i(MountainWidthLoc, MountainWidth);
+
 	Matrix ModelView = Cam.getViewMatrix() * ModelTransform;
 	Matrix ModelViewProj = Cam.getProjectionMatrix() * ModelView;
 	glUniformMatrix4fv(ModelViewProjLoc, 1, GL_FALSE, ModelViewProj.m);

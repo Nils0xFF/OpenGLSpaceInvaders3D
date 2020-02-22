@@ -4,21 +4,20 @@ layout(location=2) in vec2 VertexTexcoord;
 
 uniform mat4 ModelViewProjMat;
 uniform float Time;
+uniform int WorldWidth;
+uniform int MountainWidth;
 
 out vec4 Position;
 out vec2 Texcoord;
-
-#define M_PI 3.14159265359
-#define e 2.7182818284
 
 void main()
 {
 	Position = VertexPos;
 	Texcoord = VertexTexcoord;
 
-	//if (Texcoord.x < 0.25 || Texcoord.x > 0.75)
-	//Position.y = pow((1 / (2 * M_PI)) * pow(e, -0.5 * pow(Position.x, 2)), 0.5) * 4;
-	Position.y = Position.x * Texcoord.x;
+	float totalWidth = WorldWidth + 2 * MountainWidth;
+	float test = WorldWidth * 0.5;
+	Position.y = clamp((Position.x - test / 2) / (MountainWidth / 2), 0, 1);
 	
     gl_Position = ModelViewProjMat * Position;
 }

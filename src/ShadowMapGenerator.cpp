@@ -125,7 +125,7 @@ Matrix ShadowMapGenerator::calcView(BaseLight* pLight, const AABB& BBox) const
 
 AABB ShadowMapGenerator::calcSceneBoundingBox(std::list<BaseModel*>& Models) const
 {
-	AABB OverallBox = AABB(Vector(-GameSettings::WORLD_WITH/2.0f, -1, (float) -GameSettings::WORLD_DEPTH), Vector(-GameSettings::WORLD_WITH / 2.0f, -1, 2));
+	AABB OverallBox = AABB(Vector(-GameSettings::WORLD_WIDTH/2.0f, -1, (float) -GameSettings::WORLD_DEPTH), Vector(-GameSettings::WORLD_WIDTH / 2.0f, -1, 2));
 	if(Models.size()<= 0)
 		return OverallBox;
 

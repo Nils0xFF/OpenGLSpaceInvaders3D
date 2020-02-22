@@ -16,10 +16,10 @@ public:
 		if (gameObject->getTransform().translation().Z > 2) {
 			gameObject->Destroy();
 		}
-		if (xDir < 0 && gameObject->getAreaBox()->Min.X < -GameSettings::WORLD_WITH / 2.0f) {
+		if (xDir < 0 && gameObject->getAreaBox()->Min.X < -GameSettings::WORLD_WIDTH / 2.0f) {
 			xDir *= -1;
 		}
-		if (xDir > 0 && gameObject->getAreaBox()->Max.X > GameSettings::WORLD_WITH / 2.0f) {
+		if (xDir > 0 && gameObject->getAreaBox()->Max.X > GameSettings::WORLD_WIDTH / 2.0f) {
 			xDir *= -1;
 		}
 		if (gameObject->getTransform().translation().Z > -2) {
