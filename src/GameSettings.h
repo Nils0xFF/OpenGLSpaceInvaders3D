@@ -38,6 +38,7 @@ public:
 	static const unsigned int METEOR_DAMAGE;
 
 	// World Parameters
-	static const int WORLD_WITH;
+	static const int WORLD_WIDTH;
 	static const int WORLD_DEPTH;
+	static const int MOUNTAIN_WIDTH;
 };

@@ -11,7 +11,7 @@
 
 const BaseShader* BaseShader::ShaderInPipe = NULL;
 
-BaseShader::BaseShader() : LightUniformBuffer(GL_INVALID_INDEX)
+BaseShader::BaseShader() : LightUniformBuffer(GL_INVALID_INDEX), ShaderProgram(0)
 {
     ModelTransform.identity();
 }

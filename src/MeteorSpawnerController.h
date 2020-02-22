@@ -25,7 +25,7 @@ private:
 		int spawnIndex = std::round(Random::random() * (prefabs.size() - 1));
 		Prefab* prefab = prefabs[spawnIndex];
 		float xOffset = prefab->getGameObject()->getAreaBox()->size().X / 2.0f;
-		float xCord = Random::random() * (GameSettings::WORLD_WITH - xOffset) - (GameSettings::WORLD_WITH - xOffset) / 2.0f;
+		float xCord = Random::random() * (GameSettings::WORLD_WIDTH - xOffset) - (GameSettings::WORLD_WIDTH - xOffset) / 2.0f;
 		prefab->instantiate(gameObject->getTransform().translation() + Vector(xCord,0,0), prefab->getGameObject()->getTransform());
 		timeSinceLastMeteor = 0;
 	}

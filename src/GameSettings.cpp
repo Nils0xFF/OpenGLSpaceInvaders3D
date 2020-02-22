@@ -35,5 +35,6 @@ const float GameSettings::METEOR_Z_SPEED = 2.5f;
 const unsigned int GameSettings::METEOR_DAMAGE = 1;
 
 // World Parameters
-const int GameSettings::WORLD_WITH = 10;
+const int GameSettings::WORLD_WIDTH = 10;
 const int GameSettings::WORLD_DEPTH = 20;
+const int GameSettings::MOUNTAIN_WIDTH = WORLD_WIDTH / 4;

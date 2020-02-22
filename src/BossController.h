@@ -73,10 +73,10 @@ public:
 		if (zDir > 0 && gameObject->getAreaBox()->Max.Z > -(GameSettings::WORLD_DEPTH / 2.0f)) {
 			zDir *= -1;
 		}
-		if (xDir < 0 && gameObject->getAreaBox()->Min.X < -GameSettings::WORLD_WITH / 2.0f) {
+		if (xDir < 0 && gameObject->getAreaBox()->Min.X < -GameSettings::WORLD_WIDTH / 2.0f) {
 			xDir *= -1;
 		}
-		if (xDir > 0 && gameObject->getAreaBox()->Max.X > GameSettings::WORLD_WITH / 2.0f) {
+		if (xDir > 0 && gameObject->getAreaBox()->Max.X > GameSettings::WORLD_WIDTH / 2.0f) {
 			xDir *= -1;
 		}
 		gameObject->translate((-Vector::forward() * zDir * zSpeed + Vector::right() * xSpeed * xDir) * deltaTime);

@@ -25,6 +25,12 @@
 #include "matrix.h"
 #include "camera.h"
 
+#ifdef WIN32
+#define SHADER_DIRECTORY "../../assets/shader/"
+#else
+#define SHADER_DIRECTORY "../assets/shader/"
+#endif
+
 class BaseShader
 {
 public:
