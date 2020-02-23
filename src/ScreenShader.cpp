@@ -113,7 +113,7 @@ void ScreenShader::activate(const BaseCamera& Cam) const
 	if (UpdateState & FOG_COLOR_CHANGED && Fog)
 		glUniform3f(FogColorLoc, FogColor.R, FogColor.G, FogColor.B);
 
-	glUniform1f(WorldDepthLoc, WorldDepth);
+	glUniform1f(WorldDepthLoc, (float) WorldDepth);
 	glUniform1f(FogStartLoc, fogStartZ);
 	glUniform1f(FogEndLoc, fogEndZ);
 }

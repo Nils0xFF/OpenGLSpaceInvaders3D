@@ -3,6 +3,7 @@
 #include "Component.h"
 #include "GameObject.h"
 #include "GameSettings.h"
+#include "ParticleGenerator.h"
 
 class BulletController : public Component
 {
@@ -12,6 +13,14 @@ private:
 	int damage = 1;
 
 public:
+	void Start() {		
+		/*if (gameObject) {
+			ParticleGenerator* generator = gameObject->getComponentByType<ParticleGenerator>();
+			if (generator) {
+				generator->setEmiting(true);
+			}
+		}*/		
+	}
 
 	void Update(float deltaTime) {
 		if (gameObject->getTransform().translation().Z < -GameSettings::WORLD_DEPTH || gameObject->getTransform().translation().Z > 2) {
