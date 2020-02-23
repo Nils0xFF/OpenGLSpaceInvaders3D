@@ -158,7 +158,7 @@ void main()
 	{
 		color = grayscale(color);
 	}
-	if (!lines) 
+	if (lines) 
 	{
 		color = scanline(color, uv);
 	}
