@@ -1,6 +1,7 @@
 #include "TerrainShader.h"
 #include "GameSettings.h"
 #include "rgbimage.h"
+#include "PerlinNoiseGenerator.h"
 
 #ifdef WIN32
 #define ASSET_DIRECTORY "../../assets/"
@@ -26,6 +27,7 @@ TerrainShader::TerrainShader()
 	assert(MountainWidthLoc >= 0);
 	NoiseMapLoc = getParameterID("NoiseMap");
 	assert(NoiseMapLoc >= 0);
+
 	initNoiseTexture();
 }
 
@@ -58,8 +60,8 @@ void TerrainShader::deactivate()
 
 void TerrainShader::initNoiseTexture()
 {
-	int sizeX = 200;
-	int sizeZ = 200;
+	int sizeX = 500;
+	int sizeZ = 500;
 	/* float* noiseMap = new float[sizeX * sizeZ];
 	for (int z = 0; z < sizeZ; z++) {
 		for (int x = 0; x < sizeX; x++) {
@@ -68,10 +70,12 @@ void TerrainShader::initNoiseTexture()
 		}
 	}*/
 
+	std::vector<float> noiseMap = PerlinNoiseGenerator::generateNoiseMap(sizeX, sizeZ, 554532, 35.0f, 4, 0.5f, 1.87f, Vector(0,0,0));
+
 	NoiseMapImage = new RGBImage(sizeX, sizeZ);
 	for (int z = 0; z < sizeZ; z++) {
 		for (int x = 0; x < sizeX; x++) {
-			float perlinValue = siv::PerlinNoise().octaveNoise0_1(x / 20.0f, z / 20.0f, 4);
+			float perlinValue = noiseMap[z * sizeX + x];
 			NoiseMapImage->setPixelColor(x,z, 
 				Color(
 					perlinValue, 

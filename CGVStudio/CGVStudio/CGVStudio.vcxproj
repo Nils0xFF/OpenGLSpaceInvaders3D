@@ -130,6 +130,7 @@
     <ClCompile Include="..\..\src\ParticleGenerator.cpp" />
     <ClCompile Include="..\..\src\ParticleShader.cpp" />
     <ClCompile Include="..\..\src\ParticleSystem.cpp" />
+    <ClCompile Include="..\..\src\PerlinNoiseGenerator.cpp" />
     <ClCompile Include="..\..\src\PlayerController.cpp" />
     <ClCompile Include="..\..\src\PostProcessing.cpp" />
     <ClCompile Include="..\..\src\Prefab.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="..\..\src\ParticleShader.h" />
     <ClInclude Include="..\..\src\ParticleSystem.h" />
     <ClInclude Include="..\..\src\PerlinNoise.hpp" />
+    <ClInclude Include="..\..\src\PerlinNoiseGenerator.h" />
     <ClInclude Include="..\..\src\PlayerController.h" />
     <ClInclude Include="..\..\src\PostProcessing.h" />
     <ClInclude Include="..\..\src\Prefab.h" />

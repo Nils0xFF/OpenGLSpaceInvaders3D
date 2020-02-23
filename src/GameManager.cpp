@@ -36,7 +36,7 @@ void GameManager::createGameScene()
 {
 
 	GameObject* ground = new GameObject();
-	BaseModel* pModel = new TrianglePlaneModel(GameSettings::WORLD_WIDTH + 2 * GameSettings::MOUNTAIN_WIDTH, GameSettings::WORLD_DEPTH, 200, 200);
+	BaseModel* pModel = new TrianglePlaneModel(GameSettings::WORLD_WIDTH + 2 * GameSettings::MOUNTAIN_WIDTH, GameSettings::WORLD_DEPTH, 300, 300);
 	pModel->shadowCaster(true);
 	pModel->shadowReciver(true);
 	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
