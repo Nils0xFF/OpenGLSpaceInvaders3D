@@ -62,7 +62,6 @@ void GameManager::createGameScene()
 	props.Velocity = Vector(0, 0, 2);
 	props.VelocityVariation = Vector(1, 1, 1);
 	props.Position = Vector(0, 0, 0);
-	ParticleGenerator* gen = new ParticleGenerator(200, props);
 
 	GameObject* playerBullet = new GameObject();
 	playerBullet->setName("PlayerBullet");
@@ -75,7 +74,7 @@ void GameManager::createGameScene()
 	playerBullet->setRenderer(new MeshRenderer(pModel, shader, true));
 	playerBullet->setCollider(new BoxCollider());	
 	playerBullet->addComponent(new BulletController());
-	//playerBullet->addComponent(gen);
+	playerBullet->addComponent(new ParticleGenerator(200, props));
 
 	PointLight* pl = new PointLight();
 	pl->color(Color(0.15f, 0.15f, 0.95f));
@@ -93,7 +92,6 @@ void GameManager::createGameScene()
 	player->setCollider(new BoxCollider());
 	player->addComponent(new PlayerController(playerBulletPrefab));
 	player->addComponent(new FollowCameraController(*CameraManager::getInstance().activeCamera, Vector(0, .65f, 1.5f)));
-	player->addComponent(gen);
 	gameScene.addGameObject(player);
 
 	GameObject* enemyBullet = new GameObject();
