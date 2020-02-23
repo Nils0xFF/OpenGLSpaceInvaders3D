@@ -57,7 +57,7 @@ void Game::ProcessInput(GLfloat dt)
 		if (InputManager::getInstance().Keys[GLFW_KEY_ENTER])
 			gameManager.StartGame();
 		if (InputManager::getInstance().Keys[GLFW_KEY_ESCAPE])
-			glfwWindowShouldClose(pWindow);
+			glfwSetWindowShouldClose(pWindow, true);
 		break;
 	case GameState::PAUSED:
 		if (InputManager::getInstance().Keys[GLFW_KEY_ENTER])
