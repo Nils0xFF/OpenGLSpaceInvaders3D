@@ -6,6 +6,7 @@
 #include "SceneManager.h"
 #include "BulletController.h"
 #include "GameManager.h"
+#include "GameObject.h"
 
 #include <math.h>
 #include "Prefab.h"
@@ -39,7 +40,7 @@ private:
 		GameManager::getInstance().updatePlayerHP(currentHP);
 		if (this->currentHP <= 0) {
 			currentHP = 0;
-			gameObject->Destroy();
+			gameObject->setActive(false);
 			GameManager::getInstance().PlayerDied();
 		}
 	}
@@ -50,6 +51,10 @@ public:
 
 	~PlayerController() {
 		delete bullet;
+	}
+
+	void Init() {
+		gameObject->setActive(true);
 	}
 
 	void Start() {

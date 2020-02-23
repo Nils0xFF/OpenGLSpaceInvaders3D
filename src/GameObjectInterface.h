@@ -20,6 +20,7 @@ class GameObjectInterface: public LifecycleObject
 		virtual const GameObject* getParent() const = 0 ;
 		virtual void setParent(GameObject* p) = 0;
 		virtual const std::list<Component*>& getComponents() const = 0;
+		virtual void setActive(const bool active) = 0;
 
 		virtual void addComponent(Component* comp) = 0;
 
