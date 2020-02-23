@@ -52,12 +52,12 @@ void GameManager::createGameScene()
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	ConstantShader* shader = new ConstantShader();
-	shader->color(Color(0, 0, 0.75f));
+	shader->color(Color(0.8f, 0.355f, 0.295f));
 	playerBullet->setRenderer(new MeshRenderer(pModel, shader, true));
 	playerBullet->setCollider(new BoxCollider());
 
 	PointLight* pl = new PointLight();
-	pl->color(Color(0, 0, 0.75f));
+	pl->color(Color(0.8f, 0.355f, 0.295f));
 	pl->attenuation(Vector(0.5f, 0.1f, 0.5f));
 	pl->castShadows(true);
 	playerBullet->addComponent(new LightComponent(pl));
@@ -95,12 +95,12 @@ void GameManager::createGameScene()
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	shader = new ConstantShader();
-	shader->color(Color(0.75f, 0, 0));
+	shader->color(Color(0.8f, 0.2f, 0.92f));
 	enemyBullet->setRenderer(new MeshRenderer(pModel, shader, true));
 	enemyBullet->setCollider(new BoxCollider());
 
 	pl = new PointLight();
-	pl->color(Color(0.75f, 0, 0));
+	pl->color(Color(0.8f, 0.2f, 0.92f));
 	pl->attenuation(Vector(0.5f, 0.1f, 0.5f));
 	pl->castShadows(false);
 	enemyBullet->addComponent(new LightComponent(pl));

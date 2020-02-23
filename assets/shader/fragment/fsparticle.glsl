@@ -10,4 +10,6 @@ uniform float alpha;
 void main()
 {
 	FragColor = vec4(color, alpha);
+
+	BrightColor = vec4(FragColor.rgb, 1.0);
 }

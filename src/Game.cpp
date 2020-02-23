@@ -134,8 +134,8 @@ void Game::Render()
 		case GameState::WAVEMODE:
 			text->Render(("HP: " + std::to_string(
 				GameManager::getInstance().getPlayerHP()) + "/" +
-				std::to_string(GameSettings::PLAYER_HP)).c_str(), 0.125f, 0.85f, 0.25f, Color(1, 1, 1));
-			text2->Render(("Score: " + std::to_string(GameManager::getInstance().getScore())).c_str(), 0.125f, 0.8f, 0.25f, Color(1, 1, 1));
+				std::to_string(GameSettings::PLAYER_HP)).c_str(), 0.125f, 0.85f, 0.25f, Color(0.8f, 0.355f, 0.295f));
+			text2->Render(("Score: " + std::to_string(GameManager::getInstance().getScore())).c_str(), 0.125f, 0.8f, 0.25f, Color(0.8f, 0.3f, 0.5f));
 			break;
 		default:
 			break;
