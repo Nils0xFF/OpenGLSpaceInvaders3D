@@ -8,7 +8,6 @@ PostProcessing::PostProcessing()
 {
 	Init();
 	shader = new ScreenShader();
-	blurShader = new BlurShader();
 #ifdef _DEBUG
 	shader->on(false);
 #endif // _DEBUG	
@@ -52,26 +51,11 @@ void PostProcessing::End()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	bool horizontal = true, first_iteration = true;
-	unsigned int amount = 10;
-	blurShader->activate(*CameraManager::getInstance().activeCamera);
-	for (unsigned int i = 0; i < amount; i++)
-	{
-		glBindFramebuffer(GL_FRAMEBUFFER, pingpongFBO[horizontal]);
-		blurShader->setHorizontal(horizontal);
-		glBindTexture(GL_TEXTURE_2D, first_iteration ? textureBrightness : pingpongColorbuffers[!horizontal]);  // bind texture of other framebuffer (or scene if first iteration)
-		RenderScreenQuad();
-		horizontal = !horizontal;
-		if (first_iteration)
-			first_iteration = false;
-	}
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureColor);
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, pingpongColorbuffers[!horizontal]);
+	glBindTexture(GL_TEXTURE_2D, textureBrightness);
 	glActiveTexture(GL_TEXTURE2);
 	glBindTexture(GL_TEXTURE_2D, textureDepth);
 	glActiveTexture(GL_TEXTURE3);
@@ -177,23 +161,6 @@ void PostProcessing::Init()
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
 		throw std::exception("Not able to create framebuffer.");
-	}	
-
-	glGenFramebuffers(2, pingpongFBO);
-	glGenTextures(2, pingpongColorbuffers);
-	for (unsigned int i = 0; i < 2; i++)
-	{
-		glBindFramebuffer(GL_FRAMEBUFFER, pingpongFBO[i]);
-		glBindTexture(GL_TEXTURE_2D, pingpongColorbuffers[i]);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, Width, Height, 0, GL_RGB, GL_FLOAT, NULL);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // we clamp to the edge as the blur filter would otherwise sample repeated texture values!
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, pingpongColorbuffers[i], 0);
-		// also check if framebuffers are complete (no need for depth buffer)
-		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-			std::cout << "Framebuffer not complete!" << std::endl;
 	}
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);

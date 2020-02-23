@@ -2,7 +2,6 @@
 #include "ScreenShader.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
-#include "BlurShader.h"
 
 class PostProcessing
 {	
@@ -13,7 +12,6 @@ public:
 	}	
 
 	ScreenShader* shader = NULL;
-	BlurShader* blurShader = NULL;
 	void setMSAA(unsigned int samples);
 
 	void Begin();
@@ -44,9 +42,6 @@ private:
 	unsigned int fbo = 0;
 	unsigned int transferFbo = 0;
 	unsigned int rbo = 0;
-
-	unsigned int pingpongFBO[2] = { 0, 0 };
-	unsigned int pingpongColorbuffers[2] = { 0, 0 };
 
 	VertexBuffer VB;
 	IndexBuffer IB;

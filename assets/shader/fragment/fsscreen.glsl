@@ -95,6 +95,29 @@ vec2 horizontalBars(vec2 uv) {
 	return uv;
 }
 
+float normpdf(in float x, in float sigma)
+{
+	return 0.39894*exp(-0.5*x*x/(sigma*sigma))/sigma;
+}
+
+vec3 blur(sampler2D tex, vec2 uv) 
+{
+	//float weight[5] = float[] (0.4, 0.3, 0.2, 0.06, 0.03);
+	float weight[5] = float[] (0.7, 0.55, 0.32, 0.15, 0.09);
+	vec2 tex_offset = 1.0 / textureSize(tex, 0);
+    vec3 result = texture(tex, uv).rgb * weight[0];
+    
+	for(int i = 1; i < 5; ++i)
+	{
+		result += texture(tex, uv + vec2(tex_offset.x * i, 0.0)).rgb * weight[i];
+		result += texture(tex, uv - vec2(tex_offset.x * i, 0.0)).rgb * weight[i];
+		result += texture(tex, uv + vec2(0.0, tex_offset.y * i)).rgb * weight[i];
+		result += texture(tex, uv - vec2(0.0, tex_offset.y * i)).rgb * weight[i];
+	}
+
+	return result;
+}
+
 void main()
 {
 	if (!on) 
@@ -116,13 +139,8 @@ void main()
 
 	vec3 color = texture(screenTexture, uv).rgb;
 
-	if (!bloom) {
-		const float gamma = 2.2;
-		vec3 bloomColor = texture(brightnessTexture, TexCoords).rgb;
-		color += bloomColor;
-		vec3 result = vec3(1.0) - exp(-color * bloomExposure);    
-		result = pow(result, vec3(1.0 / gamma));
-		color = result;
+	if (bloom) {
+		color = mix(color, blur(brightnessTexture, uv), 0.5);
 	}
 	
 	if (fog) {
@@ -140,7 +158,7 @@ void main()
 	{
 		color = grayscale(color);
 	}
-	if (lines) 
+	if (!lines) 
 	{
 		color = scanline(color, uv);
 	}

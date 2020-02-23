@@ -19,12 +19,8 @@ float linearizeDepth(float depth) {
 void main()
 {
     FragColor = vec4(Color,1);
-
-    float brightness = dot(FragColor.rgb, vec3(0.9, 0.9, 0.9));//vec3(0.2126, 0.7152, 0.0722));
-    if(brightness > 1.0)
-        BrightColor = vec4(FragColor.rgb, 1.0);
-    else
-        BrightColor = vec4(0.0, 0.0, 0.0, 1.0); 
+    
+    BrightColor = vec4(FragColor.rgb, 1.0);
         
     DepthColor = vec4(vec3((gl_FragCoord.z / gl_FragCoord.w) / WorldDepth), 1.0);    
 }
