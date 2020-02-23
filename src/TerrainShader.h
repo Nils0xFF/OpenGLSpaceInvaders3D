@@ -28,6 +28,7 @@ private:
 	unsigned int NoiseMapLoc = 0;
     unsigned int ModelViewProjLoc = 0;
     unsigned int WorldWidthLoc = 0;
+	unsigned int WorldDepthLoc = 0;
     unsigned int MountainWidthLoc = 0;
 };
 
