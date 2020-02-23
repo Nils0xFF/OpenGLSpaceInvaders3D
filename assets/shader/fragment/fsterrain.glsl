@@ -16,10 +16,10 @@ float linearizeDepth(float depth) {
 
 void main()
 {   	
-    FragColor = vec4(0, 0, 0, 1);
+    FragColor = vec4(0, 0.25, 0.25, 1);
 	if (Position.y > 0.0) {
 		FragColor.r = Position.y;
-	}
+	} 
 
     float brightness = dot(FragColor.rgb, vec3(0.9, 0.9, 0.9));//vec3(0.2126, 0.7152, 0.0722));
     if(brightness > 1.0)

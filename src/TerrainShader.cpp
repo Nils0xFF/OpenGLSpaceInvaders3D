@@ -45,7 +45,6 @@ void TerrainShader::activate(const BaseCamera& Cam) const
 	glUniformMatrix4fv(ModelViewProjLoc, 1, GL_FALSE, ModelViewProj.m);
 
 	// glActiveTexture(GL_TEXTURE0);
-
 	NoiseMapTexture->activate(NoiseMapLoc);
 	glUniform1i(NoiseMapLoc, 2);
 
@@ -62,15 +61,9 @@ void TerrainShader::initNoiseTexture()
 {
 	int sizeX = 500;
 	int sizeZ = 500;
-	/* float* noiseMap = new float[sizeX * sizeZ];
-	for (int z = 0; z < sizeZ; z++) {
-		for (int x = 0; x < sizeX; x++) {
-			
-			noiseMap[z * (WorldWidth + 2 * MountainWidth) + x] = perlinValue;
-		}
-	}*/
 
-	std::vector<float> noiseMap = PerlinNoiseGenerator::generateNoiseMap(sizeX, sizeZ, 554532, 35.0f, 4, 0.5f, 1.87f, Vector(0,0,0));
+	std::vector<float> noiseMap = PerlinNoiseGenerator::generateNoiseMap(sizeX, sizeZ, 554532, 35.0f, 5, 0.35f, 1.75f, Vector(0,0,0));
+
 
 	NoiseMapImage = new RGBImage(sizeX, sizeZ);
 	for (int z = 0; z < sizeZ; z++) {

@@ -21,6 +21,7 @@
 #include "GameSettings.h"
 #include "TerrainShader.h"
 #include "ParticleGenerator.h"
+#include "TerrainController.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>

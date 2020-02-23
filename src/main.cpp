@@ -120,9 +120,6 @@ int main () {
 void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 	InputManager& inputManager = InputManager::getInstance();
-	// When a user presses the escape key, we set the WindowShouldClose property to true, closing the application
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
 	if (key == GLFW_KEY_KP_0 && action == GLFW_PRESS)
 		PostProcessing::getInstance().shader->on(!PostProcessing::getInstance().shader->isOn());
     if (key == GLFW_KEY_KP_1 && action == GLFW_PRESS)
