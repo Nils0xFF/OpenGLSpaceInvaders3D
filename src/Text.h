@@ -15,12 +15,12 @@
 
 struct Character {
     unsigned int texture;
-    int sizeX;
-    int sizeY;
+    unsigned int sizeX;
+    unsigned int sizeY;
     int bearingLeft;
     int bearingTop;
-    unsigned int advanceX;
-    unsigned int advanceY;
+    int advanceX;
+    int advanceY;
 };
 
 class Text

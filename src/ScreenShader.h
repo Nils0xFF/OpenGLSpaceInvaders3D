@@ -83,7 +83,7 @@ private:
 	float VignetteSoftness = 1.0f;
 	float BloomExposure = 1.0f;
 
-	float WorldDepth = GameSettings::WORLD_DEPTH;
+	int WorldDepth = GameSettings::WORLD_DEPTH;
 	float fogStartZ = 13.5f;
 	float fogEndZ = 18.0f;
 

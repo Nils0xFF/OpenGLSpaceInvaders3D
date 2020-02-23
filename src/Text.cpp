@@ -113,8 +113,8 @@ void Text::Init(const char* font)
 			face->glyph->bitmap.rows,
 			face->glyph->bitmap_left,
 			face->glyph->bitmap_top,
-			face->glyph->advance.x,
-			face->glyph->advance.y
+			(int) face->glyph->advance.x,
+			(int) face->glyph->advance.y
 		};
 		Characters.insert(std::pair<char, Character>(c, character));			
 	}

@@ -36,5 +36,5 @@ const unsigned int GameSettings::METEOR_DAMAGE = 1;
 
 // World Parameters
 const int GameSettings::WORLD_WIDTH = 10;
-const int GameSettings::WORLD_DEPTH = 20;
+const int GameSettings::WORLD_DEPTH = 40;
 const int GameSettings::MOUNTAIN_WIDTH = 5;

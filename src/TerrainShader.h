@@ -19,9 +19,9 @@ private:
 	RGBImage* NoiseMapImage = NULL;
 	void initNoiseTexture();
 
-    float WorldWidth = GameSettings::WORLD_WIDTH;
-    float WorldDepth = GameSettings::WORLD_DEPTH;
-    float MountainWidth = GameSettings::MOUNTAIN_WIDTH;
+    int WorldWidth = GameSettings::WORLD_WIDTH;
+    int WorldDepth = GameSettings::WORLD_DEPTH;
+    int MountainWidth = GameSettings::MOUNTAIN_WIDTH;
 
 	Texture* NoiseMapTexture = Texture::defaultTex();
 

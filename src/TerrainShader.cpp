@@ -36,9 +36,9 @@ void TerrainShader::activate(const BaseCamera& Cam) const
 	BaseShader::activate(Cam);
 
 	glUniform1f(TimeLoc, (GLfloat) glfwGetTime());
-	glUniform1f(WorldWidthLoc, WorldWidth);
-	glUniform1f(WorldDepthLoc, WorldDepth);
-	glUniform1f(MountainWidthLoc, MountainWidth);
+	glUniform1f(WorldWidthLoc, (float) WorldWidth);
+	glUniform1f(WorldDepthLoc, (float) WorldDepth);
+	glUniform1f(MountainWidthLoc, (float) MountainWidth);
 
 	Matrix ModelView = Cam.getViewMatrix() * ModelTransform;
 	Matrix ModelViewProj = Cam.getProjectionMatrix() * ModelView;

@@ -37,13 +37,23 @@ void GameManager::createGameScene()
 {
 	// ParticleGenerator gen = new ParticleGenerator();
 	GameObject* ground = new GameObject();
-	BaseModel* pModel = new TrianglePlaneModel(GameSettings::WORLD_WIDTH + 2 * GameSettings::MOUNTAIN_WIDTH, GameSettings::WORLD_DEPTH, 300, 300);
+	BaseModel* pModel = new TrianglePlaneModel((float) GameSettings::WORLD_WIDTH + 2 * GameSettings::MOUNTAIN_WIDTH, (float) GameSettings::WORLD_DEPTH, 300, 300);
 	pModel->shadowCaster(true);
 	pModel->shadowReciver(true);
 	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
 	gameScene.addGameObject(ground);
 
 	SceneManager::getInstance().activeScene = &gameScene;
+
+	ParticleProps props;
+	props.colorBegin = Color(1, 1, 1);
+	props.colorEnd = Color(0, 0, 0);
+	props.sizeBegin = 0.5f, props.sizeVariation = 0.3f, props.sizeEnd = 0.0f;
+	props.Life = 1.0f;
+	props.Velocity = Vector(0, 0, 2);
+	props.VelocityVariation = Vector(1, 1, 1);
+	props.Position = Vector(0, 0, 0);
+	ParticleGenerator* gen = new ParticleGenerator(200, props);
 
 	GameObject* playerBullet = new GameObject();
 	playerBullet->setName("PlayerBullet");
@@ -54,26 +64,17 @@ void GameManager::createGameScene()
 	ConstantShader* shader = new ConstantShader();
 	shader->color(Color(0.8f, 0.355f, 0.295f));
 	playerBullet->setRenderer(new MeshRenderer(pModel, shader, true));
-	playerBullet->setCollider(new BoxCollider());
+	playerBullet->setCollider(new BoxCollider());	
+	playerBullet->addComponent(new BulletController());
+	//playerBullet->addComponent(gen);
 
 	PointLight* pl = new PointLight();
 	pl->color(Color(0.8f, 0.355f, 0.295f));
 	pl->attenuation(Vector(0.5f, 0.1f, 0.5f));
 	pl->castShadows(true);
 	playerBullet->addComponent(new LightComponent(pl));
-	playerBullet->addComponent(new BulletController());
 
-	Prefab* playerBulletPrefab = new Prefab(playerBullet);
-
-	ParticleProps props;
-	props.colorBegin = Color(1, 1, 1);
-	props.colorEnd = Color(0, 0, 0);
-	props.sizeBegin = 0.5f, props.sizeVariation = 0.3f, props.sizeEnd = 0.0f;
-	props.Life = 1.0f;
-	props.Velocity = Vector(0, 0, 2);
-	props.VelocityVariation = Vector(1, 1, 1);
-	props.Position = Vector(0, 0, 0);
-	ParticleGenerator* gen = new ParticleGenerator(100, props);
+	Prefab* playerBulletPrefab = new Prefab(playerBullet);	
 
 	GameObject* player = new GameObject();
 	player->setName("Player");

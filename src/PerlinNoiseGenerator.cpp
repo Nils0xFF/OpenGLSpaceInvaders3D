@@ -14,8 +14,8 @@ std::vector<float> PerlinNoiseGenerator::generateNoiseMap(int mapWidth, int mapH
 	// noise.reseed(seed);
 	vector<Vector> octavesOffsets;
 	for (int i = 0; i < octaves; i++) {
-		float offsetX = noise.noise(0.25) * 1000 + offset.X;
-		float offsetY = noise.noise(0.75) * 1000 + offset.Y;
+		float offsetX = (float) noise.noise(0.25) * 1000 + offset.X;
+		float offsetY = (float) noise.noise(0.75) * 1000 + offset.Y;
 		octavesOffsets.push_back(Vector(offsetX, offsetY, 0));
 	}
 
@@ -39,7 +39,7 @@ std::vector<float> PerlinNoiseGenerator::generateNoiseMap(int mapWidth, int mapH
 				float sampleX = (x - halfWidth) / scale * frequency + octavesOffsets[i].X;
 				float sampleY = (y - halfHeight) / scale * frequency + octavesOffsets[i].Y;
 
-				float perlinValue = noise.noise(sampleX, sampleY) * 2 - 1;
+				float perlinValue = (float) noise.noise(sampleX, sampleY) * 2 - 1;
 				noiseHeigth += perlinValue * amplitude;
 
 				amplitude *= persistance;
