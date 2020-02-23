@@ -27,6 +27,7 @@
 #include "baseshader.h"
 #include "texture.h"
 #include "ShaderLightMapper.h"
+#include "GameSettings.h"
 
 class PhongShader : public BaseShader
 {
@@ -81,6 +82,8 @@ private:
 	GLint NormalTexLoc;
 	GLint ShadowMapTextureLoc[MaxLightCount];
 	GLint ShadowMapMatLoc[MaxLightCount];
+
+    GLint WorldDepthLoc;
     
     mutable unsigned int UpdateState;
     

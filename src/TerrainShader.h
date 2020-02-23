@@ -12,11 +12,13 @@ public:
 
 private:
     int WorldWidth = GameSettings::WORLD_WIDTH;
+    int WorldDepth = GameSettings::WORLD_DEPTH;
     int MountainWidth = GameSettings::MOUNTAIN_WIDTH;
 
     unsigned int TimeLoc = 0;
-    unsigned int ModelViewProjLoc = 0;
-    unsigned int WorldWidthLoc = 0;
-    unsigned int MountainWidthLoc = 0;
+    int ModelViewProjLoc = 0;
+    int WorldWidthLoc = 0;
+    int WorldDepthLoc = 0;
+    int MountainWidthLoc = 0;
 };
 

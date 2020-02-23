@@ -32,8 +32,12 @@ private:
 	unsigned int Height = 540;
 	unsigned int MSAA = 1;
 	unsigned int textureMulti = 0;
+	unsigned int textureMultiBrightness = 0;
+	unsigned int textureMultiDepth = 0;
 	unsigned int textureColor = 0;
+	unsigned int textureBrightness = 0;
 	unsigned int textureDepth = 0;
+	unsigned int textureTrueDepth = 0;
 	unsigned int fbo = 0;
 	unsigned int transferFbo = 0;
 	unsigned int rbo = 0;

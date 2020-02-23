@@ -12,6 +12,8 @@ TerrainShader::TerrainShader()
 	assert(ModelViewProjLoc >= 0);
 	WorldWidthLoc = glGetUniformLocation(ShaderProgram, "WorldWidth");
 	assert(WorldWidthLoc >= 0);
+	WorldDepthLoc = glGetUniformLocation(ShaderProgram, "WorldDepth");
+	assert(WorldDepthLoc >= 0);
 	MountainWidthLoc = glGetUniformLocation(ShaderProgram, "MountainWidth");
 	assert(MountainWidthLoc >= 0);
 }
@@ -22,6 +24,7 @@ void TerrainShader::activate(const BaseCamera& Cam) const
 
 	glUniform1f(TimeLoc, (GLfloat) glfwGetTime());
 	glUniform1i(WorldWidthLoc, WorldWidth);
+	glUniform1i(WorldDepthLoc, WorldDepth);
 	glUniform1i(MountainWidthLoc, MountainWidth);
 
 	Matrix ModelView = Cam.getViewMatrix() * ModelTransform;

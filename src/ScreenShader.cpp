@@ -43,13 +43,19 @@ void ScreenShader::assignLocations()
 	FogColorLoc = glGetUniformLocation(ShaderProgram, "fogColor");
 	
 	GLuint screenTexLoc = glGetUniformLocation(ShaderProgram, "screenTexture");
-	assert(screenTexLoc >= 0);	
+	assert(screenTexLoc >= 0);
+	GLuint brightnessTexLoc = glGetUniformLocation(ShaderProgram, "brightnessTexture");
+	assert(brightnessTexLoc >= 0);
 	GLuint depthTexLoc = glGetUniformLocation(ShaderProgram, "depthTexture");
-	assert(depthTexLoc >= 0);
+	assert(depthTexLoc >= 0);	
+	GLuint trueDepthTexLoc = glGetUniformLocation(ShaderProgram, "trueDepthTexture");
+	assert(trueDepthTexLoc >= 0);
 
 	activate(*CameraManager::getInstance().activeCamera);
 	glUniform1i(screenTexLoc, 0);
-	glUniform1i(depthTexLoc, 1);
+	glUniform1i(brightnessTexLoc, 1);
+	glUniform1i(depthTexLoc, 2);
+	glUniform1i(trueDepthTexLoc, 3);
 	deactivate();
 }
 
