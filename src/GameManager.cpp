@@ -35,7 +35,7 @@
 
 void GameManager::createGameScene()
 {
-
+	// ParticleGenerator gen = new ParticleGenerator();
 	GameObject* ground = new GameObject();
 	BaseModel* pModel = new TrianglePlaneModel(GameSettings::WORLD_WIDTH + 2 * GameSettings::MOUNTAIN_WIDTH, GameSettings::WORLD_DEPTH, 300, 300);
 	pModel->shadowCaster(true);

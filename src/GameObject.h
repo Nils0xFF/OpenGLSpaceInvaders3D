@@ -12,6 +12,7 @@
 #include "LineBoxModel.h"
 #include "Tags.h"
 
+class MeshRenderer;
 
 class GameObject : public GameObjectInterface
 {

@@ -28,19 +28,13 @@ class MeshRenderer : public Component
 		void Init() {
 		}
 
-		void Start() {
-			model->transform(gameObject->getTransform());
-		}
+		void Start();
 
 		void Update(float deltaTime) {
 		}
 
-		void Draw() {
-			model->draw(*CameraManager::getInstance().activeCamera);
-		}
+		void Draw();
 
-		void updateTransform() {
-			model->transform(gameObject->getTransform());
-		}
+		void updateTransform();
 };
 

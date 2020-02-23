@@ -20,13 +20,13 @@ float linearizeDepth(float depth) {
 
 vec3 scanline(vec3 color, vec2 uv, float height)
 {
-    if (!(abs(Position.x) < WorldWidth/2)) {
+
         vec3 lineColorStart = vec3(0.8, 0.2, 0.92);
         vec3 lineColorEnd = vec3(0.8, 0.355, 0.295);
         vec3 lineColor = mix(lineColorStart, lineColorEnd, height);
         float line = sin((uv.y / .003 + (Time * 0.5 * 6.0))) * .05;
         color += lineColor * line;
-    }
+    
 	return color;
 }
 

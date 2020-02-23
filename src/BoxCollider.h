@@ -38,16 +38,7 @@ public:
 		debugShader->color(Color(1.0f,0,1.0f));
 	}
 
-	void Start() {
-		if (gameObject->getRenderer()->model) 
-		{
-			collsionBox = OBB(gameObject->getRenderer()->model->initialBoundingBox());
-		}
-		else {
-			std::cout << "Warning:: Collider without Renderer!" << std::endl;
-		}
-		updateTransform();
-	}
+	void Start();
 
 	void Update(float deltaTime) {
 	}
@@ -64,9 +55,7 @@ public:
 		#endif //_DEBUG
 	}
 
-	void updateTransform() {
-		collsionBox.transform(gameObject->getTransform());
-	}
+	void updateTransform();
 
 
 };

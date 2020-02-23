@@ -2,6 +2,8 @@
 #include "Component.h"
 #include "Lights.h"
 #include "ShaderLightMapper.h"
+#include "GameObject.h"
+
 class LightComponent : public Component
 {
 public:

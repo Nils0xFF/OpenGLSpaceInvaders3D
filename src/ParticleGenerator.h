@@ -1,11 +1,14 @@
 #pragma once
 #include "Component.h"
 #include "ParticleSystem.h"
+#include "GameObject.h"
 
 class ParticleGenerator : public Component
 {
 public:
+	ParticleGenerator() {};
 	ParticleGenerator(const unsigned int max, const ParticleProps& props);
+	ParticleGenerator(const ParticleGenerator& other) { this->sys = new ParticleSystem(*other.sys); }
 	~ParticleGenerator() { delete sys; }
 	ParticleGenerator* clone() { return new ParticleGenerator(*this); }
 

@@ -6,11 +6,11 @@ class GameObject;
 class Component
 {
 protected:
-	GameObjectInterface* gameObject;
+	GameObject* gameObject;
 
 public:
 	Component() :gameObject(nullptr) {};
-	Component(GameObjectInterface* gameObject):gameObject(gameObject) {};
+	Component(GameObject* gameObject):gameObject(gameObject) {};
 	virtual ~Component() { gameObject = NULL; }
 
 	virtual void Init() {};
@@ -24,6 +24,6 @@ public:
 
 	virtual Component* clone() = 0;
 
-	virtual void setGameObject(GameObjectInterface* go) { this->gameObject = go; }
+	virtual void setGameObject(GameObject* go) { this->gameObject = go; }
 };
 

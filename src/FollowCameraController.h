@@ -1,6 +1,8 @@
 #pragma once
 #include "Component.h"
 #include "Camera.h"
+#include "GameObject.h"
+
 class FollowCameraController :
 	public Component
 {
