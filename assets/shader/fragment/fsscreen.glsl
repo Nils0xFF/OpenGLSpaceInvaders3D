@@ -4,7 +4,9 @@ out vec4 FragColor;
 in vec2 TexCoords;
 
 uniform sampler2D screenTexture;
+uniform sampler2D brightnessTexture;
 uniform sampler2D depthTexture;
+uniform sampler2D trueDepthTexture;
 uniform float time = 1.0;
 uniform bool on = true;
 uniform bool inverted = false;
@@ -142,10 +144,6 @@ void main()
 	}
 
 	vec3 color = texture(screenTexture, uv).rgb;
-	vec4 depthCol = texture(depthTexture, uv);
-	float depth = (depthCol.r + depthCol.g + depthCol.b) / 3;
-	if (fog && depth > 0.9975)	
-		color = mix(texture(screenTexture, uv).rgb, fogColor, depth).rgb;
 
 	if (inverted)
 	{

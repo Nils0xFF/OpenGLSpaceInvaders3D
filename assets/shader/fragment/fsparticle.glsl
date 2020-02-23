@@ -1,7 +1,8 @@
 #version 400
 in vec4 Position;
 
-out vec4 FragColor;
+layout (location = 0) out vec4 FragColor;
+layout (location = 1) out vec4 BrightColor;
 
 uniform vec3 color;
 uniform float alpha;

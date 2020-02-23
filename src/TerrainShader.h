@@ -19,6 +19,7 @@ private:
 	void initNoiseTexture();
 
     int WorldWidth = GameSettings::WORLD_WIDTH;
+    int WorldDepth = GameSettings::WORLD_DEPTH;
     int MountainWidth = GameSettings::MOUNTAIN_WIDTH;
 
 	Texture* NoiseMapTexture = Texture::defaultTex();

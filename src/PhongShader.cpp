@@ -99,6 +99,8 @@ void PhongShader::assignLocations()
     ModelMatLoc = glGetUniformLocation(ShaderProgram, "ModelMat");
     ModelViewProjLoc  = glGetUniformLocation(ShaderProgram, "ModelViewProjMat");
 
+    WorldDepthLoc = glGetUniformLocation(ShaderProgram, "WorldDepth");
+
 	for (int i = 0; i < MaxLightCount; ++i)
 	{
 		std::string smt = "ShadowMapTexture[" + std::to_string(i) + "]";
@@ -113,6 +115,8 @@ void PhongShader::activate(const BaseCamera& Cam) const
 {
     BaseShader::activate(Cam);
    
+    glUniform1i(WorldDepthLoc, GameSettings::WORLD_DEPTH);
+
     // update uniforms if necessary
     if(UpdateState&DIFF_COLOR_CHANGED)
         glUniform3f(DiffuseColorLoc, DiffuseColor.R, DiffuseColor.G, DiffuseColor.B);
