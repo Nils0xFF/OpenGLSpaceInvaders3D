@@ -37,9 +37,11 @@ public:
     virtual void activate(const BaseCamera& Cam) const;
 private:
     Color Col;
-    GLuint ShaderProgram;
+    // GLuint ShaderProgram;
     GLint ColorLoc;
     GLint ModelViewProjLoc;
+	GLint ModelMatLoc;
+	GLint WorldDepthLoc;
     
 };
 

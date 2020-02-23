@@ -29,7 +29,11 @@ uniform float lineIntensity = 0.03;
 uniform float lineSpeed = 1.0;
 uniform float vignetteRadius = 0.45;
 uniform	float vignetteSoftness = 1.0;
-uniform vec3 fogColor = vec3(0.4, 0.4, 0.4);
+
+uniform float worldDepth;
+uniform float fogStartZ;
+uniform float fogEndZ;
+uniform vec3 fogColor = vec3(0.95, 0.95, 0.95);
 
 const float density = 0.0001;
 const float gradient = 1.5;
@@ -128,7 +132,7 @@ void main()
 {
 	if (!on) 
 	{
-		FragColor = vec4(texture(screenTexture, TexCoords).rgb, 1.0);
+		FragColor = vec4(texture(depthTexture, TexCoords).rgb, 1.0);
 		return;
 	}
 
@@ -144,6 +148,11 @@ void main()
 	}
 
 	vec3 color = texture(screenTexture, uv).rgb;
+	float depth = texture(depthTexture, uv).r * worldDepth;
+	float fogFactor = (fogEndZ - depth)/(fogEndZ - fogStartZ);
+   	fogFactor = clamp( fogFactor, 0.0, 1.0 );
+   	color = mix(color.rgb, fogColor.rgb, 1.0 - fogFactor);
+
 
 	if (inverted)
 	{

@@ -1,5 +1,7 @@
 #pragma once
 #include "BaseShader.h"
+#include "GameSettings.h"
+
 class ScreenShader : public BaseShader
 {
 public:
@@ -80,7 +82,12 @@ private:
 	float LineSpeed = 1.0f;
 	float VignetteRadius = 0.45f;
 	float VignetteSoftness = 1.0f;
-	Color FogColor = Color(0.4f, 0.4f, 0.4f);
+
+	float WorldDepth = GameSettings::WORLD_DEPTH;
+	float fogStartZ = 13.5f;
+	float fogEndZ = 18.0f;
+
+	Color FogColor = Color(0.75f, 0.75f, 0.75f);
 
 	GLint OnLoc;
 	GLint TimeLoc;
@@ -104,6 +111,9 @@ private:
 	GLint VignetteRadiusLoc;
 	GLint VignetteSoftnessLoc;
 	GLint FogLoc;
+	GLint WorldDepthLoc;
+	GLint FogStartLoc;
+	GLint FogEndLoc;
 	GLint FogColorLoc;
 
 	mutable unsigned int UpdateState;

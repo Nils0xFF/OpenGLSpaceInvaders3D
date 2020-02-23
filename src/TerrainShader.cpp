@@ -34,9 +34,9 @@ void TerrainShader::activate(const BaseCamera& Cam) const
 	BaseShader::activate(Cam);
 
 	glUniform1f(TimeLoc, (GLfloat) glfwGetTime());
-	glUniform1i(WorldWidthLoc, WorldWidth);
-	glUniform1i(WorldDepthLoc, WorldDepth);
-	glUniform1i(MountainWidthLoc, MountainWidth);
+	glUniform1f(WorldWidthLoc, WorldWidth);
+	glUniform1f(WorldDepthLoc, WorldDepth);
+	glUniform1f(MountainWidthLoc, MountainWidth);
 
 	Matrix ModelView = Cam.getViewMatrix() * ModelTransform;
 	Matrix ModelViewProj = Cam.getProjectionMatrix() * ModelView;
@@ -71,7 +71,7 @@ void TerrainShader::initNoiseTexture()
 	NoiseMapImage = new RGBImage(sizeX, sizeZ);
 	for (int z = 0; z < sizeZ; z++) {
 		for (int x = 0; x < sizeX; x++) {
-			float perlinValue = siv::PerlinNoise().octaveNoise0_1(x /32.0f, z / 32.0f, 2);
+			float perlinValue = siv::PerlinNoise().octaveNoise0_1(x / 20.0f, z / 20.0f, 4);
 			NoiseMapImage->setPixelColor(x,z, 
 				Color(
 					perlinValue, 

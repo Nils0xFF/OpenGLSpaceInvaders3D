@@ -115,7 +115,7 @@ void PhongShader::activate(const BaseCamera& Cam) const
 {
     BaseShader::activate(Cam);
    
-    glUniform1i(WorldDepthLoc, GameSettings::WORLD_DEPTH);
+    glUniform1f(WorldDepthLoc, (float) GameSettings::WORLD_DEPTH);
 
     // update uniforms if necessary
     if(UpdateState&DIFF_COLOR_CHANGED)

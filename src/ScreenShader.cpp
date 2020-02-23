@@ -7,7 +7,7 @@
 #define ASSET_DIRECTORY "../assets/"
 #endif
 
-ScreenShader::ScreenShader() {
+ScreenShader::ScreenShader(): UpdateState(0xFFFFFFFF) {
 	bool loaded = load(ASSET_DIRECTORY "shader/vertex/vsscreen.glsl", ASSET_DIRECTORY "shader/fragment/fsscreen.glsl");
 	if (!loaded)
 		throw std::exception();
@@ -40,6 +40,11 @@ void ScreenShader::assignLocations()
 	LineSpeedLoc = glGetUniformLocation(ShaderProgram, "LineSpeed");
 	VignetteRadiusLoc = glGetUniformLocation(ShaderProgram, "vignetteRadius");
 	VignetteSoftnessLoc = glGetUniformLocation(ShaderProgram, "vignetteSoftness");
+
+	WorldDepthLoc = glGetUniformLocation(ShaderProgram, "worldDepth");
+	FogStartLoc = glGetUniformLocation(ShaderProgram, "fogStartZ");
+	FogEndLoc = glGetUniformLocation(ShaderProgram, "fogEndZ");
+
 	FogColorLoc = glGetUniformLocation(ShaderProgram, "fogColor");
 	
 	GLuint screenTexLoc = glGetUniformLocation(ShaderProgram, "screenTexture");
@@ -112,7 +117,11 @@ void ScreenShader::activate(const BaseCamera& Cam) const
 	if (UpdateState & VIGNETTE_SOFTNESS_CHANGED && Vig)
 		glUniform1f(VignetteSoftnessLoc, VignetteSoftness);
 	if (UpdateState & FOG_COLOR_CHANGED && Fog)
-		glUniform3f(FogColorLoc, FogColor.R, FogColor.G, FogColor.B);
+		// glUniform3f(FogColorLoc, FogColor.R, FogColor.G, FogColor.B);
+
+	glUniform1f(WorldDepthLoc, WorldDepth);
+	glUniform1f(FogStartLoc, fogStartZ);
+	glUniform1f(FogEndLoc, fogEndZ);
 }
 
 ScreenShader* ScreenShader::on(bool value)

@@ -7,6 +7,7 @@
 //
 
 #include "ConstantShader.h"
+#include "GameSettings.h"
 
 const char *CVertexShaderCode =
 "#version 400\n"
@@ -28,23 +29,34 @@ const char *CFragmentShaderCode =
 
 ConstantShader::ConstantShader() : Col(1.0f,0.0f,0.0f)
 {
-    ShaderProgram = createShaderProgram( CVertexShaderCode, CFragmentShaderCode );
-    
+    // ShaderProgram = createShaderProgram( CVertexShaderCode, CFragmentShaderCode );
+	bool loaded = load(SHADER_DIRECTORY "vertex/vsconstant.glsl", SHADER_DIRECTORY "fragment/fsconstant.glsl");
+	if (!loaded)
+		throw std::exception();
+
     ColorLoc = glGetUniformLocation(ShaderProgram, "Color");
     assert(ColorLoc>=0);
+
     ModelViewProjLoc  = glGetUniformLocation(ShaderProgram, "ModelViewProjMat");
-    assert(ModelViewProjLoc>=0);
-    
+    assert(ModelViewProjLoc >=0);
+
+	ModelMatLoc = glGetUniformLocation(ShaderProgram, "ModelMat");
+	// assert(ModelMatLoc >= 0);
+
+	WorldDepthLoc = glGetUniformLocation(ShaderProgram, "WorldDepth");
+	// assert(WorldDepthLoc >= 0);
 }
 void ConstantShader::activate(const BaseCamera& Cam) const
 {
     BaseShader::activate(Cam);
     
+	glUniform1f(WorldDepthLoc, GameSettings::WORLD_DEPTH);
     glUniform3f(ColorLoc, Col.R, Col.G, Col.B);
     // always update matrices
     Matrix ModelView = Cam.getViewMatrix() * ModelTransform;
     Matrix ModelViewProj = Cam.getProjectionMatrix() * ModelView;
     glUniformMatrix4fv(ModelViewProjLoc, 1, GL_FALSE, ModelViewProj.m);
+	glUniformMatrix4fv(ModelMatLoc, 1, GL_FALSE, modelTransform().m);
 }
 void ConstantShader::color( const Color& c)
 {
