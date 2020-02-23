@@ -35,13 +35,22 @@
 
 void GameManager::createGameScene()
 {
-	// ParticleGenerator gen = new ParticleGenerator();
+	GameObject* skyBox = new GameObject();
+	skyBox->setTransform(Matrix().translation(Vector(0, GameSettings::WORLD_DEPTH - 1, 0.0f)));
+	BaseModel *pModel = new Model(ASSET_DIRECTORY "models/skybox.obj", 2 * GameSettings::WORLD_DEPTH);
+	pModel->shadowCaster(false);
+	pModel->shadowReciver(false);
+	skyBox->setRenderer(new MeshRenderer(pModel, new PhongShader(),true));
+	gameScene.addGameObject(skyBox);
+
 	GameObject* ground = new GameObject();
-	BaseModel* pModel = new TrianglePlaneModel((float) GameSettings::WORLD_WIDTH + 2 * GameSettings::MOUNTAIN_WIDTH, (float) GameSettings::WORLD_DEPTH, 300, 300);
+	pModel = new TrianglePlaneModel((float) GameSettings::WORLD_WIDTH + 2 * GameSettings::MOUNTAIN_WIDTH, (float) GameSettings::WORLD_DEPTH + 5, 300, 300);
 	pModel->shadowCaster(true);
 	pModel->shadowReciver(true);
 	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
 	gameScene.addGameObject(ground);
+
+
 
 	SceneManager::getInstance().activeScene = &gameScene;
 
@@ -62,14 +71,14 @@ void GameManager::createGameScene()
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	ConstantShader* shader = new ConstantShader();
-	shader->color(Color(0.8f, 0.355f, 0.295f));
+	shader->color(Color(0.15f, 0.15f, 0.95f));
 	playerBullet->setRenderer(new MeshRenderer(pModel, shader, true));
 	playerBullet->setCollider(new BoxCollider());	
 	playerBullet->addComponent(new BulletController());
 	//playerBullet->addComponent(gen);
 
 	PointLight* pl = new PointLight();
-	pl->color(Color(0.8f, 0.355f, 0.295f));
+	pl->color(Color(0.15f, 0.15f, 0.95f));
 	pl->attenuation(Vector(0.5f, 0.1f, 0.5f));
 	pl->castShadows(true);
 	playerBullet->addComponent(new LightComponent(pl));
@@ -96,12 +105,12 @@ void GameManager::createGameScene()
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	shader = new ConstantShader();
-	shader->color(Color(0.8f, 0.2f, 0.92f));
+	shader->color(Color(0.95f, 0.02f, 0.02f));
 	enemyBullet->setRenderer(new MeshRenderer(pModel, shader, true));
 	enemyBullet->setCollider(new BoxCollider());
 
 	pl = new PointLight();
-	pl->color(Color(0.8f, 0.2f, 0.92f));
+	pl->color(Color(0.95f, 0.02f, 0.02f));
 	pl->attenuation(Vector(0.5f, 0.1f, 0.5f));
 	pl->castShadows(false);
 	enemyBullet->addComponent(new LightComponent(pl));
@@ -122,11 +131,19 @@ void GameManager::createGameScene()
 	enemyRow->addChild(enemy);
 
 	enemy = new GameObject(*enemy);
+	enemy->setTransform(Matrix().translation(2.5f, 0, 0));
+	enemyRow->addChild(enemy);
+
+	enemy = new GameObject(*enemy);
 	enemy->setTransform(Matrix().translation(1.5f, 0, 0));
 	enemyRow->addChild(enemy);
 
 	enemy = new GameObject(*enemy);
 	enemy->setTransform(Matrix().translation(-1.5f, 0, 0));
+	enemyRow->addChild(enemy);
+
+	enemy = new GameObject(*enemy);
+	enemy->setTransform(Matrix().translation(-2.5f, 0, 0));
 	enemyRow->addChild(enemy);
 
 	Prefab* enemyRowPrefab = new Prefab(enemyRow);
@@ -168,7 +185,7 @@ void GameManager::createGameScene()
 	Prefab* bossPrefab = new Prefab(boss);
 
 	GameObject* enemySpawner = new GameObject();
-	enemySpawner->setTransform(Matrix().translation(0.0f, 0.25f, (float)-GameSettings::WORLD_DEPTH));
+	enemySpawner->setTransform(Matrix().translation(0.0f, 0.25f, (float)-GameSettings::WORLD_DEPTH - 1));
 	shader = new ConstantShader();
 	shader->color(Color(0, 0, 0));
 	enemySpawner->setRenderer(new MeshRenderer(new TriangleBoxModel(0.1f, 0.1f, 0.1f), shader, true));

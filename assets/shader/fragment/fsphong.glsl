@@ -7,6 +7,7 @@ in vec3 Normal;
 in vec2 Texcoord;
 in vec3 Tangent;
 in vec3 BiTangent;
+in vec4 ViewSpace;
 
 layout (location = 0) out vec4 FragColor;
 layout (location = 1) out vec4 BrightColor;
@@ -162,5 +163,7 @@ void main()
         BrightColor = vec4(FragColor.rgb, 1.0);
          
     
-    DepthColor = vec4(vec3((gl_FragCoord.z / gl_FragCoord.w) / WorldDepth), 1.0);    
+    float dist = 2 * (vec3(0,0,WorldDepth)-Position).z - 1.0;
+    vec3 projected = Position - dist * vec3(0,0,1);
+    DepthColor = vec4(vec3(1, projected.y / WorldDepth, length(ViewSpace) / WorldDepth), 1.0);    
 }

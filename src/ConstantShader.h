@@ -35,14 +35,15 @@ public:
     void color( const Color& c);
     const Color& color() const { return Col; }
     virtual void activate(const BaseCamera& Cam) const;
+
 private:
     Color Col;
-    // GLuint ShaderProgram;
     GLint ColorLoc;
     GLint ModelViewProjLoc;
 	GLint ModelMatLoc;
 	GLint WorldDepthLoc;
-    
+	GLint EyePosLoc;
+
 };
 
 #endif /* ConstantShader_hpp */

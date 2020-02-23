@@ -4,7 +4,9 @@ class GameSettings
 {
 public:
 	// Player Parameters
-	static const float PLAYER_SPEED;
+	static const float PLAYER_MAX_SPEED;
+	static const float PLAYER_ACCEL;
+	static const float PLAYER_DECEL;
 	static const unsigned int PLAYER_HP;
 	static const float PLAYER_FIRERATE;
 	static const float PLAYER_BULLET_SPEED;

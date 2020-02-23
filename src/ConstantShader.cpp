@@ -45,11 +45,16 @@ ConstantShader::ConstantShader() : Col(1.0f,0.0f,0.0f)
 
 	WorldDepthLoc = glGetUniformLocation(ShaderProgram, "WorldDepth");
 	// assert(WorldDepthLoc >= 0);
+
+	EyePosLoc = glGetUniformLocation(ShaderProgram, "EyePos");
+	assert(EyePosLoc >= 0);
 }
 void ConstantShader::activate(const BaseCamera& Cam) const
 {
     BaseShader::activate(Cam);
-    
+
+	Vector EyePos = Cam.position();
+	glUniform3f(EyePosLoc, EyePos.X, EyePos.Y, EyePos.Z);
 	glUniform1i(WorldDepthLoc, GameSettings::WORLD_DEPTH);
     glUniform3f(ColorLoc, Col.R, Col.G, Col.B);
     // always update matrices

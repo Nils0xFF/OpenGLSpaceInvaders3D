@@ -63,16 +63,18 @@ public:
 
 	void Update(float deltaTime) {
 
-		float xMovement = 0.0f;
+		// float xMovement = 0.0f;
 
 		if (InputManager::getInstance().Keys[GLFW_KEY_A] && gameObject->getAreaBox()->Min.X > -GameSettings::WORLD_WIDTH / 2.0f)
 		{
-			xMovement -= GameSettings::PLAYER_SPEED;
+			if (deltaTranslate.X > -GameSettings::PLAYER_MAX_SPEED)
+				deltaTranslate.X -= GameSettings::PLAYER_ACCEL * deltaTime;
 		}
 
 		if (InputManager::getInstance().Keys[GLFW_KEY_D] && gameObject->getAreaBox()->Max.X < GameSettings::WORLD_WIDTH / 2.0f)
 		{
-			xMovement += GameSettings::PLAYER_SPEED;
+			if(deltaTranslate.X < GameSettings::PLAYER_MAX_SPEED)
+				deltaTranslate.X += GameSettings::PLAYER_ACCEL * deltaTime;
 		}
 
 		timeSinceLastShot += deltaTime;
@@ -83,11 +85,10 @@ public:
 			timeSinceLastShot = 0;
 		}
 
-		deltaTranslate = Vector(xMovement, 0.0f, 0.0f);
-
+		// deltaTranslate += Vector(xMovement, 0.0f, 0.0f);
 		gameObject->translate(deltaTranslate * deltaTime);
 
-		// deltaTranslate = deltaTranslate - deltaTranslate * deltaTime;
+		deltaTranslate = deltaTranslate - deltaTranslate * 5 * deltaTime;
 
 	}
 

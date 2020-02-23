@@ -85,7 +85,7 @@ private:
 
 	int WorldDepth = GameSettings::WORLD_DEPTH;
 	float fogStartZ = 13.5f;
-	float fogEndZ = 18.0f;
+	float fogEndZ = GameSettings::WORLD_DEPTH - 1;
 
 	Color FogColor = Color(0.75f, 0.75f, 0.75f);
 

@@ -76,6 +76,7 @@ private:
     GLint SpecularExpLoc;
     GLint LightPosLoc;
     GLint LightColorLoc;
+	GLint ViewMatLoc;
     GLint ModelMatLoc;
     GLint ModelViewProjLoc;
     GLint EyePosLoc;

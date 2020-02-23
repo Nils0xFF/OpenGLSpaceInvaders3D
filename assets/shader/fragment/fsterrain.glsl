@@ -20,19 +20,18 @@ float linearizeDepth(float depth) {
 
 vec3 scanline(vec3 color, vec2 uv, float height)
 {
-
-        vec3 lineColorStart = vec3(0.8, 0.2, 0.92);
-        vec3 lineColorEnd = vec3(0.8, 0.355, 0.295);
-        vec3 lineColor = mix(lineColorStart, lineColorEnd, height);
-        float line = sin((uv.y / .003 + (Time * 0.5 * 6.0))) * .05;
-        color += lineColor * line;
-    
+    vec3 lineColorStart = vec3(0.8, 0.2, 0.92);
+    vec3 lineColorEnd = vec3(0.8, 0.355, 0.295);
+    vec3 lineColor = mix(lineColorStart, lineColorEnd, height);
+    lineColor = mix (lineColor, vec3(0,0,0), clamp((WorldWidth - abs(Position.x)) / (WorldWidth),0.0,1.0));
+    float line = sin((uv.y / .003 + (Time * 0.5 * 6.0))) * .05;
+    color += lineColor * line;
 	return color;
 }
 
 void main()
 {   	
-    FragColor = vec4(0, 0, 0, 1);
+    FragColor = vec4(0.0, 0.00, 0, 1);
 
     FragColor = vec4(scanline(vec3(FragColor.rgb), Texcoord, Position.y), 1.0);
 

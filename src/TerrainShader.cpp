@@ -66,6 +66,7 @@ void TerrainShader::initNoiseTexture()
 
 
 	NoiseMapImage = new RGBImage(sizeX, sizeZ);
+
 	for (int z = 0; z < sizeZ; z++) {
 		for (int x = 0; x < sizeX; x++) {
 			float perlinValue = noiseMap[z * sizeX + x];
@@ -78,8 +79,12 @@ void TerrainShader::initNoiseTexture()
 		}
 	}
 
+	RGBImage smoothImage(sizeX, sizeZ);
+	RGBImage::GaussFilter(smoothImage, *NoiseMapImage);
+
+	smoothImage.saveToDisk(ASSET_DIRECTORY "smootherNoiseMap.jpg");
 	NoiseMapImage->saveToDisk(ASSET_DIRECTORY "NoiseMap.jpg");
-	bool loaded = NoiseMapTexture->create(*NoiseMapImage);
+	bool loaded = NoiseMapTexture->create(smoothImage);
 
 	assert(loaded);
 	// delete[] noiseMap;

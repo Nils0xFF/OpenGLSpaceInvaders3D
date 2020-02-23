@@ -1,7 +1,9 @@
 #include "GameSettings.h"
 
 // Player Parameters
-const float GameSettings::PLAYER_SPEED = 5.0f;
+const float GameSettings::PLAYER_MAX_SPEED = 3.5f;
+const float GameSettings::PLAYER_ACCEL = 10.0f;
+const float GameSettings::PLAYER_DECEL = 30.0f;
 const unsigned int GameSettings::PLAYER_HP = 5;
 const float GameSettings::PLAYER_FIRERATE = 1.25f;
 const float GameSettings::PLAYER_BULLET_SPEED = 2.0f;
@@ -36,5 +38,5 @@ const unsigned int GameSettings::METEOR_DAMAGE = 1;
 
 // World Parameters
 const int GameSettings::WORLD_WIDTH = 10;
-const int GameSettings::WORLD_DEPTH = 40;
 const int GameSettings::MOUNTAIN_WIDTH = 5;
+const int GameSettings::WORLD_DEPTH = GameSettings::WORLD_WIDTH + 2 * GameSettings::MOUNTAIN_WIDTH + 1;

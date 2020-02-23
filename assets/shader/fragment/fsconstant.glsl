@@ -6,8 +6,9 @@ layout (location = 1) out vec4 BrightColor;
 layout (location = 2) out vec4 DepthColor;
 
 uniform vec3 Color;
-
+uniform vec3 EyePos;
 uniform int WorldDepth;
+
 const float near = 0.1;
 
 float linearizeDepth(float depth) {
@@ -20,7 +21,9 @@ void main()
 {
     FragColor = vec4(Color,1);
     
-    BrightColor = vec4(FragColor.rgb, 1.0);
-        
-    DepthColor = vec4(vec3((gl_FragCoord.z / gl_FragCoord.w) / WorldDepth), 1.0);    
+    BrightColor = vec4(2 * FragColor.rgb, 1.0);
+
+    float dist = 2 * (vec3(0,0,WorldDepth)-Position).z - 1.0;
+    vec3 projected = Position - dist * vec3(0,0,1);    
+    DepthColor = vec4(vec3(1,projected.y / WorldDepth,(gl_FragCoord.z / gl_FragCoord.w) / WorldDepth), 1.0);    
 }

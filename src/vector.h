@@ -2,11 +2,15 @@
 #define __SimpleRayTracer__vector__
 
 #include <iostream>
+#include <algorithm>
 
 class Vector
 {
 public:
 
+	static const Vector Lerp(const Vector& a, const Vector& b, float t) {
+		return a * t + b * (1.0f - t);
+	}
 	static const Vector right() { return Vector(1, 0, 0); }
 	static const Vector up() { return Vector(0, 1, 0); }
 	static const Vector forward() { return Vector(0, 0, -1); }

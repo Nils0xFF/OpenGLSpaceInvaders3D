@@ -96,6 +96,7 @@ void PhongShader::assignLocations()
     LightPosLoc = glGetUniformLocation(ShaderProgram, "LightPos");
     LightColorLoc = glGetUniformLocation(ShaderProgram, "LightColor");
     EyePosLoc = glGetUniformLocation(ShaderProgram, "EyePos");
+	ViewMatLoc = glGetUniformLocation(ShaderProgram, "ViewMat");
     ModelMatLoc = glGetUniformLocation(ShaderProgram, "ModelMat");
     ModelViewProjLoc  = glGetUniformLocation(ShaderProgram, "ModelViewProjMat");
 
@@ -142,6 +143,7 @@ void PhongShader::activate(const BaseCamera& Cam) const
 
     // always update matrices
     Matrix ModelViewProj = Cam.getProjectionMatrix() * Cam.getViewMatrix() * modelTransform();
+	glUniformMatrix4fv(ViewMatLoc, 1, GL_FALSE, Cam.getViewMatrix().m);
     glUniformMatrix4fv(ModelMatLoc, 1, GL_FALSE, modelTransform().m);
     glUniformMatrix4fv(ModelViewProjLoc, 1, GL_FALSE, ModelViewProj.m);
     

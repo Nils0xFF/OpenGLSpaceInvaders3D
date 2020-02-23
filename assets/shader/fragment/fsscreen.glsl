@@ -33,7 +33,7 @@ uniform	float vignetteSoftness = 1.0;
 uniform float worldDepth;
 uniform float fogStartZ;
 uniform float fogEndZ;
-uniform vec3 fogColor = vec3(0.95, 0.95, 0.95);
+uniform vec3 fogColor = vec3(0.5, 0.5, 0.5);
 
 uniform float bloomExposure = 1.0;
 
@@ -122,7 +122,7 @@ void main()
 {
 	if (!on) 
 	{
-		FragColor = vec4(texture(depthTexture, TexCoords).rgb, 1.0);
+		FragColor = vec4(texture(depthTexture, TexCoords).yyy, 1.0);
 		return;
 	}
 
@@ -143,11 +143,24 @@ void main()
 		color = mix(color, blur(brightnessTexture, uv), 0.5);
 	}
 	
-	if (fog) {
-		float depth = texture(depthTexture, uv).r * worldDepth;
+	if (fog && texture(depthTexture, uv).x > 0.0) {
+		float depth = texture(depthTexture, uv).z * worldDepth;
 		float fogFactor = (fogEndZ - depth)/(fogEndZ - fogStartZ);
 		fogFactor = clamp( fogFactor, 0.0, 1.0 );
+		fogFactor = fogFactor + clamp((exp(texture(depthTexture, uv).y * 3.5) - 1.0),0.0,1.0);
+		fogFactor = clamp( fogFactor, 0.0, 1.0 );
 		color = mix(color.rgb, fogColor.rgb, 1.0 - fogFactor);
+
+		/*float be = texture(depthTexture, uv).y * 0.004;//0.004 is just a factor; change it if you want
+		float bi = texture(depthTexture, uv).y * 0.001;//0.001 is just a factor; change it if you want
+ 
+		float be = 0.025 * smoothstep(0.0, 6.0, 32 - gl_FragCoord.y);
+		float bi = 0.075* smoothstep(0.0, 80.0, 10.0 - gl_FragCoord.y); 
+
+		float ext = exp(-depth * be);
+		float insc = exp(-depth * bi);
+
+		color = color * ext + fogColor * (1 - insc); */
 	}
 
 	if (inverted)

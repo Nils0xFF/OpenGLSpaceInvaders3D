@@ -8,12 +8,15 @@ out vec3 Normal;
 out vec2 Texcoord;
 out vec3 Tangent;
 out vec3 BiTangent;
+out vec4 ViewSpace;
 
 uniform mat4 ModelMat;
+uniform mat4 ViewMat;
 uniform mat4 ModelViewProjMat;
 
 void main()
 {
+    ViewSpace = ViewMat * ModelMat * VertexPos;
     Position = (ModelMat * VertexPos).xyz;
     Normal = (ModelMat * vec4(VertexNormal.xyz,0)).xyz;
     Texcoord = VertexTexcoord[0].xy;

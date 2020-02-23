@@ -7,7 +7,7 @@ RGBImage::RGBImage( unsigned int Width, unsigned int Height):m_Width(Width),m_He
 {
     // TODO: add your code
 	this->m_Image = new Color[Height * Width];
-	std::cout << "Size: " << sizeof(Color) * Height * Width << std::endl;
+	// std::cout << "Size: " << sizeof(Color) * Height * Width << std::endl;
 }
 
 RGBImage::~RGBImage()
