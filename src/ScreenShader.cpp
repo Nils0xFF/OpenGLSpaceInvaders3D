@@ -1,12 +1,6 @@
 #include "ScreenShader.h"
 #include "CameraManager.h"
 
-#ifdef WIN32
-#define SHADER_DIRECTORY "../../assets/shader/"
-#else
-#define SHADER_DIRECTORY "../assets/shader/"
-#endif
-
 ScreenShader::ScreenShader(): UpdateState(0xFFFFFFFF) {
 	bool loaded = load(SHADER_DIRECTORY "vertex/vsscreen.glsl", SHADER_DIRECTORY "fragment/fsscreen.glsl");
 	if (!loaded)
@@ -117,7 +111,7 @@ void ScreenShader::activate(const BaseCamera& Cam) const
 	if (UpdateState & VIGNETTE_SOFTNESS_CHANGED && Vig)
 		glUniform1f(VignetteSoftnessLoc, VignetteSoftness);
 	if (UpdateState & FOG_COLOR_CHANGED && Fog)
-		// glUniform3f(FogColorLoc, FogColor.R, FogColor.G, FogColor.B);
+		glUniform3f(FogColorLoc, FogColor.R, FogColor.G, FogColor.B);
 
 	glUniform1f(WorldDepthLoc, WorldDepth);
 	glUniform1f(FogStartLoc, fogStartZ);

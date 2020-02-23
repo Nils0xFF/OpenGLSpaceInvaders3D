@@ -166,7 +166,7 @@ void BaseShader::deactivate() const
 
 GLuint BaseShader::getBlockID(const char* BlockName) const
 {
-	return glGetUniformBlockIndex(ShaderProgram, BlockName);
+    	return glGetUniformBlockIndex(ShaderProgram, BlockName);
 }
 
 void BaseShader::setBlock(GLuint ID, GLuint UniformBufferID) const
