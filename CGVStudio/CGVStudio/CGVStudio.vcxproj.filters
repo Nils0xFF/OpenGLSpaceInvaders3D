@@ -265,6 +265,9 @@
     <ClCompile Include="..\..\src\BlurShader.cpp">
       <Filter>Quelldateien\utils\shader</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\PerlinNoiseGenerator.cpp">
+      <Filter>Quelldateien\utils\noise</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Camera.h">
@@ -465,6 +468,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\BlurShader.h">
       <Filter>Quelldateien\utils\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PerlinNoiseGenerator.h">
+      <Filter>Quelldateien\utils\noise</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

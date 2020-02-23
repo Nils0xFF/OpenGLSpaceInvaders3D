@@ -14,8 +14,9 @@ public:
     virtual void activate(const BaseCamera& Cam) const;
 	virtual void deactivate();
 
+
 private:
-	RGBImage* NoiseMapImage;
+	RGBImage* NoiseMapImage = NULL;
 	void initNoiseTexture();
 
     float WorldWidth = GameSettings::WORLD_WIDTH;

@@ -37,6 +37,7 @@ public:
 	};
 
 	void Unload() {
+		dynamicObjects.remove(NULL);
 		while (!dynamicObjects.empty()) {
 			gameObjects.remove(dynamicObjects.front());
 			delete dynamicObjects.front();

@@ -17,8 +17,8 @@ void main()
 	Position = VertexPos;
 	Texcoord = VertexTexcoord;
 
-	float h = clamp((abs(Position.x) - (WorldWidth * 0.5)) / (MountainWidth / 3.0f), 0.0, 1.0);
-	float noiseValue = texture(NoiseMap, vec2(Texcoord.x, Texcoord.y)).r * 2;
+	float h = clamp((abs(Position.x) - (WorldWidth * 0.5)) / (MountainWidth / 4.0f), 0.0, 1.0);
+	float noiseValue = (texture(NoiseMap, vec2(Texcoord.x, Texcoord.y)).r + 0.25) * 1.75;
 	Position.y = h * noiseValue;
 	
     gl_Position = ModelViewProjMat * Position;

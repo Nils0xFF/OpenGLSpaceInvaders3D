@@ -20,6 +20,7 @@ void Scene::Update(float deltaTime) {
 	for (list<GameObject*>::iterator it = gameObjects.begin(); it != gameObjects.end();) {
 		if ((*it)->isDeleted()) {
 			delete (*it);
+			dynamicObjects.remove(*it);
 			it = gameObjects.erase(it);
 			continue;
 		}
@@ -27,6 +28,7 @@ void Scene::Update(float deltaTime) {
 			(*it)->Update(deltaTime);
 		it++;
 	}
+	gameObjects.remove(NULL);
 }
 
 bool compareZ(GameObject* a, GameObject* b) { return a->getAreaBox()->Min.Z > b->getAreaBox()->Min.Z; }

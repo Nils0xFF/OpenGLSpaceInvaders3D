@@ -28,8 +28,8 @@ public:
 	}
 	void ReStartGame() { StartGame(); };
 	void EndGame() { 
-		SceneManager::getInstance().LoadScene(&menuScene);
 		currentGameState = GameState::MENU;
+		SceneManager::getInstance().LoadScene(&menuScene);
 	};
 
 	void PauseGame() { 
