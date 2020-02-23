@@ -8,8 +8,8 @@ layout (location = 2) out vec4 DepthColor;
 
 void main()
 {   	
-    FragColor = vec4(1, 0, 1, 1);
+    FragColor = vec4(0, 0, 0, 1);
 	if (Position.y > 0.0) {
-		FragColor.r = 0;
+		FragColor.r = Position.y;
 	}
 }

@@ -110,7 +110,6 @@ void Game::Render()
 	ShadowGenerator.generate(SceneManager::getInstance().activeScene->getModelList());
 
 	PostProcessing::getInstance().Begin();
-
 	ShaderLightMapper::instance().activate();
 
 	SceneManager::getInstance().activeScene->Draw();
@@ -127,7 +126,7 @@ void Game::Render()
 			text3->Render("Press <ENTER> to Unpause\n\n<Q> for Menu", 0.35f, 0.35f, 0.35f, Color(.75f, .75f, .75f));
 			break;
 		case GameState::LOST:
-			text->Render("Game Over!\nScore:15", 0.35f, 0.9f, 0.5f, Color(1, 1, 1));
+			text->Render(("Game Over!\nScore:" + std::to_string(GameManager::getInstance().getScore())).c_str(), 0.35f, 0.9f, 0.5f, Color(1, 1, 1));
 			text3->Render("Press <ENTER> to Restart\n\n<Q> for Menu", 0.35f, 0.35f, 0.35f, Color(0, 0, 0));
 			break;
 		case GameState::BOSSFIGHT:

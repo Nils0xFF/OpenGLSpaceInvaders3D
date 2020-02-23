@@ -195,6 +195,7 @@
     <ClInclude Include="..\..\src\ParticleGenerator.h" />
     <ClInclude Include="..\..\src\ParticleShader.h" />
     <ClInclude Include="..\..\src\ParticleSystem.h" />
+    <ClInclude Include="..\..\src\PerlinNoise.hpp" />
     <ClInclude Include="..\..\src\PlayerController.h" />
     <ClInclude Include="..\..\src\PostProcessing.h" />
     <ClInclude Include="..\..\src\Prefab.h" />

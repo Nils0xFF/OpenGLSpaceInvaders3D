@@ -82,13 +82,13 @@ public:
 		delete debugModel;
 
 		while (!components.empty()) {
-			delete components.front();
-			components.pop_front();
+			delete components.back();
+			components.pop_back();
 		}
 
 		while (!children.empty()) {
-			delete children.front();
-			children.pop_front();
+			delete children.back();
+			children.pop_back();
 		}
 	};
 

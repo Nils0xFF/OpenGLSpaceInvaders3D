@@ -77,6 +77,9 @@
     <Filter Include="Quelldateien\game\customComponents\Enemy">
       <UniqueIdentifier>{79dfff99-a350-4897-b9d8-2e36ffe5d34d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Quelldateien\utils\noise">
+      <UniqueIdentifier>{9d8f9893-ffd5-42b2-a668-1403bed34c98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\main.cpp">
@@ -453,6 +456,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\GameManager.h">
       <Filter>Quelldateien\game\singeltons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PerlinNoise.hpp">
+      <Filter>Quelldateien\utils\noise</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

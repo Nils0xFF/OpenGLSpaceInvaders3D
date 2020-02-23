@@ -28,7 +28,7 @@ public:
 	}
 	void ReStartGame() { StartGame(); };
 	void EndGame() { 
-		SceneManager::getInstance().LoadScene(&gameScene);
+		SceneManager::getInstance().LoadScene(&menuScene);
 		currentGameState = GameState::MENU;
 	};
 
@@ -44,7 +44,7 @@ public:
 		createMenuScene();
 	};
 
-	void Start() { SceneManager::getInstance().LoadScene(&gameScene); }
+	void Start() { SceneManager::getInstance().LoadScene(&menuScene); }
 
 	void Update(float deltaTime) {
 		if (currentGameState == GameState::WAVEMODE || currentGameState == GameState::BOSSFIGHT || currentGameState == GameState::TRANSITION) {
@@ -87,6 +87,8 @@ public:
 	int getBossHP() { return bossHP; }
 
 	int getScore() { return (int) std::round(score); }
+
+	float deltaTime = 0;
 
 private:
 	Scene menuScene;

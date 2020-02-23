@@ -34,12 +34,20 @@
 
 void GameManager::createGameScene()
 {
+
+	GameObject* ground = new GameObject();
+	BaseModel* pModel = new TrianglePlaneModel(GameSettings::WORLD_WIDTH + 2 * GameSettings::MOUNTAIN_WIDTH, GameSettings::WORLD_DEPTH, 200, 200);
+	pModel->shadowCaster(true);
+	pModel->shadowReciver(true);
+	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
+	gameScene.addGameObject(ground);
+
 	SceneManager::getInstance().activeScene = &gameScene;
 
 	GameObject* playerBullet = new GameObject();
 	playerBullet->setName("PlayerBullet");
 	playerBullet->setTag(Tag::PlayerBullet);
-	BaseModel* pModel = new TriangleBoxModel(0.1f, 0.05f, 0.3f);
+	pModel = new TriangleBoxModel(0.1f, 0.05f, 0.3f);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	ConstantShader* shader = new ConstantShader();
@@ -121,12 +129,7 @@ void GameManager::createGameScene()
 
 	Prefab* enemyRowPrefab = new Prefab(enemyRow);
 
-	GameObject* ground = new GameObject();
-	pModel = new TrianglePlaneModel(GameSettings::WORLD_WIDTH + 2 * GameSettings::MOUNTAIN_WIDTH, GameSettings::WORLD_DEPTH, 200, 200);
-	pModel->shadowCaster(false);
-	pModel->shadowReciver(false);
-	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
-	gameScene.addGameObject(ground);
+
 
 	std::vector<Prefab*> meteors;
 

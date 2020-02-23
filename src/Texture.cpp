@@ -190,7 +190,7 @@ bool Texture::load( const char* Filename)
     
     if(ImageFormat == FIF_UNKNOWN)
     {
-        std::cout << "Warning: Unkown texture format: " << Filename << std::endl;
+        // std::cout << "Warning: Unkown texture format: " << Filename << std::endl;
         return false;
     }
     
@@ -198,7 +198,7 @@ bool Texture::load( const char* Filename)
     
     if(pBitmap==NULL)
     {
-        std::cout << "Warning: Unable to open texture image " << Filename << std::endl;
+        // std::cout << "Warning: Unable to open texture image " << Filename << std::endl;
         return false;
     }
     
@@ -359,7 +359,7 @@ void Texture::activate(int slot) const
 {
     if(m_TextureID==0 || slot < 0 || slot > 7 )
         return;
-    
+
     CurrentTextureUnit = slot;
 
     glActiveTexture(GL_TEXTURE0 + CurrentTextureUnit);

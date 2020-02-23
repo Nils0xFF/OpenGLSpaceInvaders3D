@@ -43,7 +43,7 @@ Terrain::Terrain(unsigned int Width, unsigned int Height, unsigned int SegX, uns
 
 void Terrain::draw(const BaseCamera& Cam)
 {
-    BaseModel::draw(Cam);
+	BaseModel::draw(Cam);
 
     VB.activate();
     IB.activate();

@@ -43,6 +43,7 @@ public:
     void lightPos( const Vector& pos);
     void lightColor(const Color& c);
 	void shadowMap(unsigned int slot, const Texture* pTex, const Matrix& Mtx);
+
     //getter
     const Color& diffuseColor() const { return DiffuseColor; }
     const Color& ambientColor() const { return AmbientColor; }

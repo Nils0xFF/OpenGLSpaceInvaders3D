@@ -36,6 +36,6 @@ void BaseModel::draw(const BaseCamera& Cam)
     
     pShader->modelTransform(transform());
     pShader->activate(Cam);
-    
+
 }
 
