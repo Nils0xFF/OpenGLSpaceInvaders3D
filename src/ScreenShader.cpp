@@ -2,13 +2,13 @@
 #include "CameraManager.h"
 
 #ifdef WIN32
-#define ASSET_DIRECTORY "../../assets/"
+#define SHADER_DIRECTORY "../../assets/shader/"
 #else
-#define ASSET_DIRECTORY "../assets/"
+#define SHADER_DIRECTORY "../assets/shader/"
 #endif
 
 ScreenShader::ScreenShader(): UpdateState(0xFFFFFFFF) {
-	bool loaded = load(ASSET_DIRECTORY "shader/vertex/vsscreen.glsl", ASSET_DIRECTORY "shader/fragment/fsscreen.glsl");
+	bool loaded = load(SHADER_DIRECTORY "vertex/vsscreen.glsl", SHADER_DIRECTORY "fragment/fsscreen.glsl");
 	if (!loaded)
 		throw std::exception();
 	assignLocations();
@@ -21,14 +21,14 @@ void ScreenShader::assignLocations()
 
 	InvertedLoc = glGetUniformLocation(ShaderProgram, "inverted");
 	GrayLoc = glGetUniformLocation(ShaderProgram, "gray");
-	BluredLoc = glGetUniformLocation(ShaderProgram, "blured");
+	BloomLoc = glGetUniformLocation(ShaderProgram, "bloom");
 	CurvedLoc = glGetUniformLocation(ShaderProgram, "curved");
 	BarsLoc = glGetUniformLocation(ShaderProgram, "bars");
 	LinesLoc = glGetUniformLocation(ShaderProgram, "lines");
 	VigLoc = glGetUniformLocation(ShaderProgram, "vig");
 	FogLoc = glGetUniformLocation(ShaderProgram, "fog");
 
-	BlurOffsetLoc = glGetUniformLocation(ShaderProgram, "blurOffset");
+	BloomExposureLoc = glGetUniformLocation(ShaderProgram, "bloomExposure");
 	CurveIntensityLoc = glGetUniformLocation(ShaderProgram, "curveIntensity");
 	CurveScaleLoc = glGetUniformLocation(ShaderProgram, "curveScale");
 	BarRangeLoc = glGetUniformLocation(ShaderProgram, "barRange");
@@ -79,8 +79,8 @@ void ScreenShader::activate(const BaseCamera& Cam) const
 		glUniform1f(InvertedLoc, Inverted);
 	if (UpdateState & GRAY_CHANGED)
 		glUniform1f(GrayLoc, Gray);
-	if (UpdateState & BLURED_CHANGED)
-		glUniform1f(BluredLoc, Blured);
+	if (UpdateState & BLOOM_CHANGED)
+		glUniform1f(BloomLoc, Bloom);
 	if (UpdateState & CURVED_CHANGED)
 		glUniform1f(CurvedLoc, Curved);
 	if (UpdateState & BARS_CHANGED)
@@ -92,8 +92,8 @@ void ScreenShader::activate(const BaseCamera& Cam) const
 	if (UpdateState & FOG_CHANGED)
 		glUniform1f(FogLoc, Fog);
 
-	if (UpdateState & BLUR_OFFSET_CHANGED && Blured)
-		glUniform1f(BlurOffsetLoc, BlurOffset);
+	if (UpdateState & BLOOM_EXPOSURE_CHANGED && Bloom)
+		glUniform1f(BloomExposureLoc, BloomExposure);
 	if (UpdateState & CURVE_INTENSITY_CHANGED && Curved)
 		glUniform1f(CurveIntensityLoc, CurveIntensity);
 	if (UpdateState & CURVE_SCALE_CHANGED && Curved)
@@ -145,10 +145,10 @@ ScreenShader* ScreenShader::gray(bool value)
 	return this;
 }
 
-ScreenShader* ScreenShader::blured(bool value)
+ScreenShader* ScreenShader::bloom(bool value)
 {
-	Blured = value;
-	UpdateState |= BLURED_CHANGED;
+	Bloom = value;
+	UpdateState |= BLOOM_CHANGED;
 	return this;
 }
 
@@ -178,12 +178,6 @@ ScreenShader* ScreenShader::vig(bool value)
 	Vig = value;
 	UpdateState |= VIG_CHANGED;
 	return this;
-}
-
-void ScreenShader::setBlurOffset(float value)
-{
-	BlurOffset = value;
-	UpdateState |= BLUR_OFFSET_CHANGED;
 }
 
 void ScreenShader::setCurveIntensity(float value)
@@ -252,14 +246,21 @@ void ScreenShader::setVignetteSoftness(float value)
 	UpdateState |= VIGNETTE_SOFTNESS_CHANGED;
 }
 
-void ScreenShader::setFog(const bool value)
+ScreenShader* ScreenShader::fog(const bool value)
 {
 	Fog = value;
 	UpdateState |= FOG_CHANGED;
+	return this;
 }
 
 void ScreenShader::setFogColor(const Color value)
 {
 	FogColor = value;
 	UpdateState |= FOG_COLOR_CHANGED;
+}
+
+void ScreenShader::setBloomExposure(const float value)
+{
+	BloomExposure = value;
+	UpdateState |= BLOOM_EXPOSURE_CHANGED;
 }

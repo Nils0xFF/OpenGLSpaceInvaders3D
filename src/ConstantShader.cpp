@@ -50,7 +50,7 @@ void ConstantShader::activate(const BaseCamera& Cam) const
 {
     BaseShader::activate(Cam);
     
-	glUniform1f(WorldDepthLoc, GameSettings::WORLD_DEPTH);
+	glUniform1i(WorldDepthLoc, GameSettings::WORLD_DEPTH);
     glUniform3f(ColorLoc, Col.R, Col.G, Col.B);
     // always update matrices
     Matrix ModelView = Cam.getViewMatrix() * ModelTransform;

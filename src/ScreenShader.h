@@ -11,12 +11,12 @@ public:
 	ScreenShader* on(bool value);
 	ScreenShader* inverted(bool value);
 	ScreenShader* gray(bool value);
-	ScreenShader* blured(bool value);
+	ScreenShader* bloom(bool value);
 	ScreenShader* curved(bool value);
 	ScreenShader* bars(bool value);
 	ScreenShader* lines(bool value);
 	ScreenShader* vig(bool value);
-	void setBlurOffset(float value);
+	ScreenShader* fog(const bool value);
 	void setCurveIntensity(float value);
 	void setCurveScale(float value);
 	void setBarRange(float value);
@@ -27,19 +27,18 @@ public:
 	void setLineIntensity(float value);
 	void setLineSpeed(float value);
 	void setVignetteRadius(float value);
-	void setVignetteSoftness(float value);
-	void setFog(const bool value);
+	void setVignetteSoftness(float value);	
 	void setFogColor(const Color value);
+	void setBloomExposure(const float value);
 
 	const bool isOn() const { return On; }
 	const bool isInverted() const { return Inverted; }
 	const bool isGray() const { return Gray; }
-	const bool isBlured() const { return Blured; }
+	const bool isBloom() const { return Bloom; }
 	const bool isCurved() const { return Curved; }
 	const bool isBars() const { return Bars; }
 	const bool isLines() const { return Lines; }
 	const bool isVig() const { return Vig; }
-	const float getBlurOffset() const { return BlurOffset; }
 	const float getCurveIntensity() const { return CurveIntensity; }
 	const float getCurveScale() const { return CurveScale; }
 	const float getBarRange() const { return BarRange; }
@@ -53,6 +52,7 @@ public:
 	const float getVignetteSoftness() const { return VignetteSoftness; }
 	const bool isFog() const { return Fog; }
 	const Color getFogColor() const { return FogColor; }
+	const float getBloomExposure() const { return BloomExposure; }
 
 	virtual void activate(const BaseCamera& Cam) const;
 
@@ -64,13 +64,12 @@ private:
 	bool On = true;
 	bool Inverted = false;
 	bool Gray = false;
-	bool Blured = false;
+	bool Bloom = true;
 	bool Curved = true;
 	bool Bars = true;
 	bool Lines = true;
 	bool Vig = true;
 	bool Fog = true;
-	float BlurOffset = 1.0f / 300.0f;
 	float CurveIntensity = 1.0f;
 	float CurveScale = 1.05f;
 	float BarRange = 0.015f;
@@ -82,6 +81,7 @@ private:
 	float LineSpeed = 1.0f;
 	float VignetteRadius = 0.45f;
 	float VignetteSoftness = 1.0f;
+	float BloomExposure = 1.0f;
 
 	float WorldDepth = GameSettings::WORLD_DEPTH;
 	float fogStartZ = 13.5f;
@@ -93,12 +93,12 @@ private:
 	GLint TimeLoc;
 	GLint InvertedLoc;
 	GLint GrayLoc;
-	GLint BluredLoc;
+	GLint BloomLoc;
 	GLint CurvedLoc;
 	GLint BarsLoc;
 	GLint LinesLoc;
 	GLint VigLoc;
-	GLint BlurOffsetLoc;
+	GLint BloomExposureLoc;
 	GLint CurveIntensityLoc;
 	GLint CurveScaleLoc;
 	GLint BarRangeLoc;
@@ -122,12 +122,12 @@ private:
 	{
 		INVERTED_CHANGED = 1 << 0,
 		GRAY_CHANGED = 1 << 1,
-		BLURED_CHANGED = 1 << 2,
+		BLOOM_CHANGED = 1 << 2,
 		CURVED_CHANGED = 1 << 3,
 		BARS_CHANGED = 1 << 4,
 		LINES_CHANGED = 1 << 5,
 		VIG_CHANGED = 1 << 6,
-		BLUR_OFFSET_CHANGED = 1 << 7,
+		BLOOM_EXPOSURE_CHANGED = 1 << 7,
 		CURVE_INTENSITY_CHANGED = 1 << 8,
 		CURVE_SCALE_CHANGED = 1 << 9,
 		BAR_RANGE_CHANGED = 1 << 10,

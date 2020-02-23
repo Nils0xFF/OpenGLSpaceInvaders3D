@@ -17,7 +17,7 @@ uniform bool bars = true;
 uniform bool lines = true;
 uniform bool vig = true;
 uniform bool fog = true;
-uniform float blurOffset = 1.0 / 300.0;
+uniform bool bloom = true;
 uniform float curveIntensity = 1.0;
 uniform float curveScale = 1.05;
 uniform float barRange = 0.015;
@@ -35,8 +35,7 @@ uniform float fogStartZ;
 uniform float fogEndZ;
 uniform vec3 fogColor = vec3(0.95, 0.95, 0.95);
 
-const float density = 0.0001;
-const float gradient = 1.5;
+uniform float bloomExposure = 1.0;
 
 
 vec3 inverse(vec3 color)
@@ -50,37 +49,6 @@ vec3 grayscale(vec3 color)
 	return vec3(average, average, average);
 }
 
-vec3 blur(vec3 color)
-{
-    vec2 offsets[9] = vec2[](
-        vec2(-blurOffset,  blurOffset), // top-left
-        vec2( 0.0f,    blurOffset), // top-center
-        vec2( blurOffset,  blurOffset), // top-right
-        vec2(-blurOffset,  0.0f),   // center-left
-        vec2( 0.0f,    0.0f),   // center-center
-        vec2( blurOffset,  0.0f),   // center-right
-        vec2(-blurOffset, -blurOffset), // bottom-left
-        vec2( 0.0f,   -blurOffset), // bottom-center
-        vec2( blurOffset, -blurOffset)  // bottom-right    
-    );
-
-    float kernel[9] = float[](
-		1.0 / 16, 2.0 / 16, 1.0 / 16,
-		2.0 / 16, 4.0 / 16, 2.0 / 16,
-		1.0 / 16, 2.0 / 16, 1.0 / 16  
-	);
-    
-    vec3 sampleTex[9];
-    for(int i = 0; i < 9; i++)
-    {
-        sampleTex[i] = vec3(texture(screenTexture, TexCoords.st + offsets[i]));
-    }
-    for(int i = 0; i < 9; i++)
-        color += sampleTex[i] * kernel[i];
-
-	return color;
-}
-
 vec3 vignette(vec3 color, vec2 uv)
 {
 	float vignette = uv.x * uv.y * ( 1.0 - uv.x ) * ( 1.0 - uv.y );
@@ -91,7 +59,6 @@ vec3 vignette(vec3 color, vec2 uv)
 vec3 scanline(vec3 color, vec2 uv)
 {
 	color.rgb += sin((uv.y / lineScale - (time * lineSpeed * 6.0))) * lineIntensity;
-	// color.rgb += sin(uv.x / lineScale * 2.0) * lineIntensity * 0.5;
 	return color;
 }
 
@@ -148,11 +115,22 @@ void main()
 	}
 
 	vec3 color = texture(screenTexture, uv).rgb;
-	float depth = texture(depthTexture, uv).r * worldDepth;
-	float fogFactor = (fogEndZ - depth)/(fogEndZ - fogStartZ);
-   	fogFactor = clamp( fogFactor, 0.0, 1.0 );
-   	color = mix(color.rgb, fogColor.rgb, 1.0 - fogFactor);
 
+	if (!bloom) {
+		const float gamma = 2.2;
+		vec3 bloomColor = texture(brightnessTexture, TexCoords).rgb;
+		color += bloomColor;
+		vec3 result = vec3(1.0) - exp(-color * bloomExposure);    
+		result = pow(result, vec3(1.0 / gamma));
+		color = result;
+	}
+	
+	if (fog) {
+		float depth = texture(depthTexture, uv).r * worldDepth;
+		float fogFactor = (fogEndZ - depth)/(fogEndZ - fogStartZ);
+		fogFactor = clamp( fogFactor, 0.0, 1.0 );
+		color = mix(color.rgb, fogColor.rgb, 1.0 - fogFactor);
+	}
 
 	if (inverted)
 	{
@@ -161,10 +139,6 @@ void main()
 	if (gray)
 	{
 		color = grayscale(color);
-	}
-	if (blured)
-	{
-		color = blur(color);
 	}
 	if (lines) 
 	{

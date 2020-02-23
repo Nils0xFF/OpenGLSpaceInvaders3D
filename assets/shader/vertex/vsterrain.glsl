@@ -17,7 +17,6 @@ void main()
 	Position = VertexPos;
 	Texcoord = VertexTexcoord;
 
-	// float totalWidth = WorldWidth + 2 * MountainWidth;
 	float h = clamp((abs(Position.x) - (WorldWidth * 0.5)) / (MountainWidth / 3.0f), 0.0, 1.0);
 	float noiseValue = texture(NoiseMap, vec2(Texcoord.x, Texcoord.y)).r * 2;
 	Position.y = h * noiseValue;

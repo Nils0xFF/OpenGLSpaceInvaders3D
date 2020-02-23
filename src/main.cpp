@@ -130,7 +130,7 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode)
     if (key == GLFW_KEY_KP_2 && action == GLFW_PRESS)
         PostProcessing::getInstance().setMSAA(32);
     if (key == GLFW_KEY_KP_3 && action == GLFW_PRESS)
-        PostProcessing::getInstance().shader->setFog(!PostProcessing::getInstance().shader->isFog());
+        PostProcessing::getInstance().shader->fog(!PostProcessing::getInstance().shader->isFog());
     if (key == GLFW_KEY_F11 && action == GLFW_PRESS)
         toggleFullScreen(window);
     if (key == GLFW_KEY_F10 && action == GLFW_PRESS)

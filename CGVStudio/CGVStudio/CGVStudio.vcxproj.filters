@@ -262,6 +262,9 @@
     <ClCompile Include="..\..\src\GameManager.cpp">
       <Filter>Quelldateien\game\singeltons</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\BlurShader.cpp">
+      <Filter>Quelldateien\utils\shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Camera.h">
@@ -459,6 +462,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\PerlinNoise.hpp">
       <Filter>Quelldateien\utils\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\BlurShader.h">
+      <Filter>Quelldateien\utils\shader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

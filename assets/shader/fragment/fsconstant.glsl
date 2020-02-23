@@ -7,7 +7,7 @@ layout (location = 2) out vec4 DepthColor;
 
 uniform vec3 Color;
 
-uniform float WorldDepth;
+uniform int WorldDepth;
 const float near = 0.1;
 
 float linearizeDepth(float depth) {
