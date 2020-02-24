@@ -33,6 +33,62 @@
 #define ASSET_DIRECTORY "../assets/"
 #endif
 
+void GameManager::StartGame() {
+	currentGameState = GameState::WAVEMODE;
+	score = 0;
+	bossAlive = false;
+	currentTransitionDuration = 0;
+	currentRows = 0;
+	rowsSpawnedSinceBoss = 0;
+
+}
+
+void GameManager::EndGame() {
+	currentGameState = GameState::MENU;
+	SceneManager::getInstance().Reset();
+}
+
+void GameManager::PauseGame() {
+	if (currentGameState != GameState::PAUSED && currentGameState != GameState::MENU && currentGameState != GameState::LOST) {
+		prePauseGameState = currentGameState;
+		currentGameState = GameState::PAUSED;
+	}
+}
+
+void GameManager::Init() {
+	createGameScene();
+	createMenuScene();
+}
+
+void GameManager::Update(float deltaTime) {
+	if (currentGameState == GameState::WAVEMODE || currentGameState == GameState::BOSSFIGHT || currentGameState == GameState::TRANSITION) {
+		score += deltaTime;
+	}
+
+	if (
+		(currentGameState == GameState::WAVEMODE && rowsSpawnedSinceBoss >= GameSettings::SPAWNER_WAVES_BEFORE_BOSS) ||
+		(currentGameState == GameState::BOSSFIGHT && !bossAlive)) {
+		previousGameState = currentGameState;
+		currentGameState = GameState::TRANSITION;
+	}
+
+	if (currentGameState == GameState::TRANSITION && currentRows == 0 && !bossAlive && currentTransitionDuration < transitionTime) {
+		currentTransitionDuration += deltaTime;
+	}
+
+	if (currentGameState == GameState::TRANSITION && currentTransitionDuration >= transitionTime) {
+		currentTransitionDuration = 0;
+		if (previousGameState == GameState::BOSSFIGHT) {
+			rowsSpawnedSinceBoss = 0;
+			currentGameState = GameState::WAVEMODE;
+		}if (previousGameState == GameState::WAVEMODE) {
+			bossAlive = true;
+			currentGameState = GameState::BOSSFIGHT;
+		}
+	}
+
+}
+
 void GameManager::createGameScene()
 {
 	GameObject* skyBox = new GameObject();
@@ -158,7 +214,6 @@ void GameManager::createGameScene()
 	meteor->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/meteors/rock/rock.obj"), new PhongShader(), true));
 	meteor->setCollider(new BoxCollider());
 	meteor->addComponent(new MeteorController());
-	// testScene.addGameObject(meteor);
 
 	Prefab* meteorPrefab = new Prefab(meteor);
 	meteors.push_back(meteorPrefab);

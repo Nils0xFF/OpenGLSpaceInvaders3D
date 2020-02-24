@@ -4,6 +4,15 @@
 
 using namespace std;
 
+Scene::~Scene() {
+	while (!gameObjects.empty()) {
+		delete gameObjects.front();
+		gameObjects.pop_front();
+	}
+	initialGameObjects.clear();
+	dynamicObjects.clear();
+}
+
 void Scene::Init() {
 	for (GameObject* g : initialGameObjects) {
 		g->Init();
@@ -81,4 +90,34 @@ void Scene::Draw() {
 		if (g->isActive())
 			g->Draw();
 	}
+}
+
+void Scene::Unload() {
+	dynamicObjects.remove(NULL);
+	while (!dynamicObjects.empty()) {
+		gameObjects.remove(dynamicObjects.front());
+		delete dynamicObjects.front();
+		dynamicObjects.pop_front();
+	}
+}
+
+std::list<GameObject*> Scene::allObjects() {
+	std::list<GameObject*> objects = gameObjects;
+	for (GameObject* g : objects) {
+		for (GameObject* c : g->getChildren()) {
+			objects.push_back(c);
+		}
+	}
+	objects.unique();
+	return objects;
+}
+
+std::list<BaseModel*> Scene::getModelList() {
+	std::list<BaseModel*> models;
+	for (GameObject* g : allObjects())
+	{
+		if (g->getRenderer())
+			models.push_back(g->getRenderer()->model);
+	}
+	return models;
 }

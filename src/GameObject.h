@@ -44,102 +44,18 @@ private:
 	std::list<GameObject*> children;
 
 public:
-	GameObject():active(true),staticObject(false),name(""),mr(NULL),collider(NULL),parent(NULL),modelBox(NULL),areaBox(),debugShader(),debugModel(NULL),tag(Tag::Default) {
-		transform.identity();
-		debugShader.color(Color(0,1,0));
-	};
-
-	GameObject(const GameObject& other):mr(NULL), collider(NULL),debugModel(NULL), modelBox(NULL), destroy(false) {
-		this->transform = other.transform;
-		this->active = other.active;
-		this->staticObject = other.staticObject;
-		this->name = other.name;
-		this->tag = other.tag;
-		this->parent = NULL;
-		this->areaBox = AABB(this->transform.translation(), this->transform.translation());
-		debugShader.color(Color(0, 1, 0));
-
-		for (Component* c : other.components) {
-			if (dynamic_cast<MeshRenderer*>(c)) {
-				setRenderer(dynamic_cast<MeshRenderer*>(c)->clone());
-				continue;
-			}
-			if (dynamic_cast<Collider*>(c)) {
-				setCollider(dynamic_cast<Collider*>(c)->clone());
-				continue;
-			} 
-			this->addComponent(c->clone());
-		}
-
-		for (GameObject* g : other.children) {
-			this->addChild(new GameObject(*g));
-		}
-	}
-
-	~GameObject() {
-		
-		// std::cout << "~GO()" << std::endl;
-
-		delete debugModel;
-
-		while (!components.empty()) {
-			delete components.back();
-			components.pop_back();
-		}
-
-		while (!children.empty()) {
-			delete children.back();
-			children.pop_back();
-		}
-	};
-
-	void Init() {
-		deltaRotation = Matrix().identity();
-		deltaTranslation = Vector(0, 0, 0);
-		for (Component* c : this->components) {
-			c->Init();
-			c->updateTransform();
-		}
-		for (GameObject* g : this->children) {
-			g->setTransform(g->getTransform() * transform);
-			g->Init();
-		}
-	};
-
-	void Start() {
-		for (Component* c : this->components) {
-			c->Start();
-		}
-		for (GameObject* g : this->children) {
-			g->Start();
-		}
-	};
-
+	GameObject();
+	GameObject(const GameObject& other);
+	~GameObject();
+	
+	void Init();
+	void Start();
 	void Update(float deltaTime);
-
-	void Draw() {
-		#if _DEBUG
-			if (debugModel != NULL) delete debugModel;
-			debugModel = new LineBoxModel(areaBox.Min, areaBox.Max);
-			debugModel->shader(&debugShader, false);
-			debugModel->shadowCaster(false);
-			debugModel->draw(*CameraManager::getInstance().activeCamera);
-		#endif
-
-		for (Component* c : this->components) {
-			c->Draw();
-		}
-
-		for (GameObject* g : this->children) {
-			g->Draw();
-		}
-	};
-
+	void Draw();
 	void Destroy() { 
-			this->active = false;
-			this->destroy = true;
+		this->active = false;
+		this->destroy = true;
 	}
-
 	void onCollision(GameObject* other) {
 		for (Component* c : this->components) {
 			c->onCollision(other);
@@ -164,14 +80,8 @@ public:
 		this->transform = transform;
 	}
 
-	void translate(const Vector& delta) {
-		this->deltaTranslation += delta;
-	}
-
-	void rotate(const Matrix& rot) {
-		this->deltaRotation *= rot;
-	}
-
+	void translate(const Vector& delta) { this->deltaTranslation += delta; }
+	void rotate(const Matrix& rot) { this->deltaRotation *= rot; }
 	void moveTo(const Matrix& transform) { 
 		if (staticObject) {
 			std::cout << "Trying to move static Object" << std::endl;
@@ -184,33 +94,10 @@ public:
 	}
 
 	const MeshRenderer* getRenderer() { return mr; }
-	void setRenderer(MeshRenderer* mr) {
-		if (this->mr != NULL) {
-			std::cout << "Warning Overwriting existing Renderer!" << std::endl;
-			delete this->mr;
-			components.remove(this->mr);
-			this->mr = NULL;
-		}
-		this->mr = mr;
-		this->addComponent(mr);
-		this->modelBox = &(mr->model->boundingBox());
-		areaBox = *modelBox;
-	}
-
+	void setRenderer(MeshRenderer* mr);
 	const Collider* getCollider() { return collider; }
-	void setCollider(Collider* collider) {
-		if (this->collider != NULL) {
-			std::cout << "Warning Overwriting existing Collider!" << std::endl;
-			delete this->collider;
-			components.remove(this->collider);
-			this->collider = NULL;
-		}
-		this->collider = collider;
-		this->addComponent(collider);
-	}
-
+	void setCollider(Collider* collider);
 	const AABB* getAreaBox() { return &areaBox; }
-
 	const GameObject* getParent() const { return parent; }
 	void setParent(GameObject* p) { parent = p; }
 

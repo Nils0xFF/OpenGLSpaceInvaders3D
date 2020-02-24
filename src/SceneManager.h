@@ -9,19 +9,8 @@ public:
 		return instance;
 	}
 
-	void LoadScene(Scene* scene) {
-		if(activeScene)
-			activeScene->Unload();
-
-		activeScene = scene;
-		activeScene->Load();
-	}
-
-	void Reset(){
-		if (activeScene)
-			activeScene->Unload();
-		activeScene->Load();
-	}
+	void LoadScene(Scene* scene);
+	void Reset();
 
 private:
 	SceneManager() {};

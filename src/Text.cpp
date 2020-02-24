@@ -17,6 +17,7 @@ Text::Text()
 	glBindVertexArray(0);
 }
 
+// Calculates text-rectangles for the character textures to be rendered onto
 void Text::Render(const char* text, float x, float y, float scale, const Color& col)
 {
 	if (!entry) return;
@@ -34,6 +35,7 @@ void Text::Render(const char* text, float x, float y, float scale, const Color& 
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(VAO);
 
+	// foreach character in text get properties from Character-struct and apply texture to defined quad
 	for (const char* c = text; *c; c++) {
 		if (*c == '\n') {
 			y -= (float) ((entry->fontHeight >> 6) * scale / scr_height) * 4;

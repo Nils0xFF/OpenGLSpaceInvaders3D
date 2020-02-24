@@ -25,14 +25,8 @@ class MeshRenderer : public Component
 
 		MeshRenderer* clone() { return new MeshRenderer(*this); }
 
-		void Init() {
-		}
-
 		void Start();
-
-		void Update(float deltaTime) {
-		}
-
+		void Update(float deltaTime) {}
 		void Draw();
 
 		void updateTransform();

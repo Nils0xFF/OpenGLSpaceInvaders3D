@@ -44,11 +44,9 @@ public:
 		currentIndex = 0;
 		neededIndex = 0;
 	}
-
 	void End();
 
-	FontEntry addFont(const char* Fontname);;
-
+	FontEntry addFont(const char* Fontname);
 	void renderText(const char* fontName, const char* text, float x, float y, float scale, Color col);
 
 };
