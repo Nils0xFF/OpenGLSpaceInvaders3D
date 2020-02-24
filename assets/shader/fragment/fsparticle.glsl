@@ -3,13 +3,17 @@ in vec4 Position;
 
 layout (location = 0) out vec4 FragColor;
 layout (location = 1) out vec4 BrightColor;
+layout (location = 2) out vec4 DepthColor;
 
 uniform vec3 color;
 uniform float alpha;
+uniform int WorldDepth;
 
 void main()
 {
 	FragColor = vec4(color, alpha);
 
 	BrightColor = vec4(FragColor.rgb, 1.0);
+
+	DepthColor = vec4(vec3((gl_FragCoord.z / gl_FragCoord.w) / WorldDepth), 1.0);    
 }

@@ -14,12 +14,12 @@ private:
 
 public:
 	void Start() {		
-		/*if (gameObject) {
+		if (gameObject) {
 			ParticleGenerator* generator = gameObject->getComponentByType<ParticleGenerator>();
 			if (generator) {
 				generator->setEmiting(true);
 			}
-		}*/		
+		}		
 	}
 
 	void Update(float deltaTime) {

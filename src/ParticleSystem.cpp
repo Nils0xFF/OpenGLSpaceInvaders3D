@@ -35,6 +35,7 @@ void ParticleSystem::Draw()
 			par.getColorEnd().G + life * (par.getColorBegin().G - par.getColorEnd().G),
 			par.getColorEnd().B + life * (par.getColorBegin().B - par.getColorEnd().B)
 		);
+
 		float size = par.getSizeEnd() + life * (par.getSizeBegin() - par.getSizeEnd());
 
 		//par.transform(par.transform() * Matrix().scale(size));
@@ -53,6 +54,7 @@ void ParticleSystem::Emit(const ParticleProps& props)
 	particle.transform(Matrix().translation(props.Position));
 	particle.transform(particle.transform() *
 		Matrix().rotationZ(props.Rotation * (Random::random() - 0.5f)));
+	particle.transform(particle.transform() * Matrix().scale(props.sizeBegin));
 	particle.setVelocity(
 		Vector(
 			props.Velocity.X + props.VelocityVariation.X * (Random::random() - 0.5f),

@@ -1,4 +1,5 @@
 #include "ParticleShader.h"
+#include "GameSettings.h"
 
 #ifdef WIN32
 #define ASSET_DIRECTORY "../../assets/"
@@ -17,6 +18,8 @@ ParticleShader::ParticleShader(): Col(0.0f, 0.0f, 1.0f), Alpha(1.0f)
 	assert(AlphaLoc >= 0);
 	ModelViewProjLoc = glGetUniformLocation(ShaderProgram, "ModelViewProjMat");
 	assert(ModelViewProjLoc >= 0);
+
+	WorldDepthLoc = glGetUniformLocation(ShaderProgram, "WorldDepth");
 }
 
 void ParticleShader::activate(const BaseCamera& Cam) const
@@ -25,6 +28,7 @@ void ParticleShader::activate(const BaseCamera& Cam) const
 
 	glUniform3f(ColorLoc, Col.R, Col.G, Col.B);
 	glUniform1f(AlphaLoc, Alpha);
+	glUniform1i(WorldDepthLoc, GameSettings::WORLD_DEPTH);
 
 	Matrix View = Cam.getViewMatrix();
 	Matrix Model = ModelTransform;
