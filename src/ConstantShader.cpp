@@ -47,7 +47,7 @@ ConstantShader::ConstantShader() : Col(1.0f,0.0f,0.0f)
 	assert(WorldDepthLoc >= 0);
 
 	EyePosLoc = glGetUniformLocation(ShaderProgram, "EyePos");
-	assert(EyePosLoc >= 0);
+	// assert(EyePosLoc >= 0);
 }
 void ConstantShader::activate(const BaseCamera& Cam) const
 {

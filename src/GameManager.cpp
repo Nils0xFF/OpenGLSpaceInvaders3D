@@ -50,14 +50,18 @@ void GameManager::createGameScene()
 	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
 	gameScene.addGameObject(ground);
 
-	ParticleProps props;
-	props.colorBegin = Color(1, 1, 1);
-	props.colorEnd = Color(0, 0, 0);
-	props.sizeBegin = 0.5f, props.sizeVariation = 0.3f, props.sizeEnd = 0.0f;
-	props.Life = 1.0f;
-	props.Velocity = Vector(0, 0, 2);
-	props.VelocityVariation = Vector(1, 1, 1);
-	props.Position = Vector(0, 0, 0);
+
+
+	SceneManager::getInstance().activeScene = &gameScene;
+
+	ParticleProps* props = new ParticleProps();
+	props->colorBegin = Color(1, 0, 0);
+	props->colorEnd = Color(1, 0.5f, 0);
+	props->sizeBegin = 0.1f, props->sizeVariation = 0.1f, props->sizeEnd = 0.0f;
+	props->Life = 1.0f;
+	props->Velocity = Vector(0, 0, 2);
+	props->VelocityVariation = Vector(1, 1, 1);
+	props->Position = Vector(0, 0, 0);
 
 	GameObject* playerBullet = new GameObject();
 	playerBullet->setName("PlayerBullet");

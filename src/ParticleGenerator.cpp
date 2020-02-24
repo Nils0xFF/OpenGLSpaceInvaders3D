@@ -1,20 +1,20 @@
 #include "ParticleGenerator.h"
 
-ParticleGenerator::ParticleGenerator(const unsigned int max, const ParticleProps& props)
+ParticleGenerator::ParticleGenerator(const unsigned int max, ParticleProps* props)
 {
 	sys = new ParticleSystem(max);
-	this->props = props;
+	this->props = props;	
 }
 
 void ParticleGenerator::Update(float deltaTime)
 {
 	if (gameObject) {
-		props.Position = gameObject->getTransform().translation();
+		props->Position = gameObject->getTransform().translation();
 	}
 
 	sys->Update(deltaTime);
 	if (emiting) {
-		sys->Emit(props);
+		sys->Emit(*props);
 	}
 }
 

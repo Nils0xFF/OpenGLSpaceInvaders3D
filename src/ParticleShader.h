@@ -20,6 +20,7 @@ private:
 
 	int ColorLoc;
 	int AlphaLoc;
+	int WorldDepthLoc;
 	int ModelViewProjLoc;
 };
 
