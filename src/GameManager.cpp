@@ -62,7 +62,7 @@ void GameManager::createGameScene()
 	GameObject* playerBullet = new GameObject();
 	playerBullet->setName("PlayerBullet");
 	playerBullet->setTag(Tag::PlayerBullet);
-	pModel = new TriangleBoxModel(0.1f, 0.05f, 0.3f);
+	pModel = new Model(ASSET_DIRECTORY "models/lazor/lazor.obj", 0.425f);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	ConstantShader* shader = new ConstantShader();
@@ -94,8 +94,8 @@ void GameManager::createGameScene()
 	enemyBullet->setName("EnemyBullet");
 	enemyBullet->setTag(Tag::EnemyBullet);
 	enemyBullet->addComponent(new BulletController());
-
-	pModel = new TriangleBoxModel(0.05f, 0.05f, 0.3f);
+	enemyBullet->setTransform(Matrix().rotationY(M_PI));
+	pModel = new Model(ASSET_DIRECTORY "models/lazor/lazor.obj", 0.315f);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	shader = new ConstantShader();

@@ -22,7 +22,7 @@ private:
 			Vector(
 				gameObject->getTransform().translation().X, 
 				gameObject->getTransform().translation().Y, 
-				gameObject->getAreaBox()->Max.Z + bullet->getGameObject()->getAreaBox()->size().Z));
+				gameObject->getAreaBox()->Max.Z + bullet->getGameObject()->getAreaBox()->size().Z), bullet->getGameObject()->getTransform());
 		BulletController* bc = bulletInstance->getComponentByType<BulletController>();
 
 		if (bc != NULL) {
