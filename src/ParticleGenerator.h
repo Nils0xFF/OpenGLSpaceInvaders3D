@@ -37,7 +37,11 @@ public:
 	void setLifeTime(const float life) { props->Life = life; }
 
 	const bool isEmiting() const { return emiting; }
+	const float getTimeBetween() const { return betweenEmit; }
+	const float getTimeLast() const { return lastEmit; }
 	void setEmiting(const bool value) { emiting = value; }
+	void setTimeBetween(const float time) { betweenEmit = time; }
+	void setTimeLast(const float time) { lastEmit = time; }
 
 protected:
 
@@ -45,5 +49,8 @@ private:
 	ParticleSystem* sys;
 	ParticleProps* props;
 	bool emiting = false;
+
+	float betweenEmit = 0.1f;
+	float lastEmit = betweenEmit;
 };
 

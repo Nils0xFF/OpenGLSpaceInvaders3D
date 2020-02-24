@@ -13,7 +13,7 @@ void main()
 {
 	FragColor = vec4(color, alpha);
 
-	BrightColor = vec4(FragColor.rgb, 1.0);
+	BrightColor = vec4(FragColor.rgb, alpha);
 
-	DepthColor = vec4(vec3((gl_FragCoord.z / gl_FragCoord.w) / WorldDepth), 1.0);    
+	DepthColor = vec4(vec3(1, 0, (gl_FragCoord.z / gl_FragCoord.w) / WorldDepth), 1.0);    
 }

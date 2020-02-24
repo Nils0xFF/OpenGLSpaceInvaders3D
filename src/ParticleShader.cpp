@@ -7,7 +7,7 @@
 #define ASSET_DIRECTORY "../assets/"
 #endif
 
-ParticleShader::ParticleShader(): Col(0.0f, 0.0f, 1.0f), Alpha(1.0f)
+ParticleShader::ParticleShader(): Col(0.0f, 0.0f, 0.0f), Alpha(1.0f)
 {
 	if (!load(ASSET_DIRECTORY "shader/vertex/vsparticle.glsl", ASSET_DIRECTORY "shader/fragment/fsparticle.glsl"))
 		throw new std::exception("Shader not found.");
@@ -44,7 +44,6 @@ void ParticleShader::activate(const BaseCamera& Cam) const
 	Model.m22 = View.m22;
 	Matrix ModelView = View * Model;
 
-	//Matrix ModelViewProj = Cam.getProjectionMatrix() * ModelView;
-	Matrix ModelViewProj = Cam.getProjectionMatrix() * Cam.getViewMatrix() * modelTransform();
+	Matrix ModelViewProj = Cam.getProjectionMatrix() * ModelView * Matrix().translation(ModelTransform.translation()).invert() * ModelTransform;
 	glUniformMatrix4fv(ModelViewProjLoc, 1, GL_FALSE, ModelViewProj.m);
 }

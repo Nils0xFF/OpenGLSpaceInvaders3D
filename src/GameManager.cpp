@@ -49,16 +49,7 @@ void GameManager::createGameScene()
 	pModel->shadowReciver(true);
 	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
 	gameScene.addGameObject(ground);
-
-	ParticleProps* props = new ParticleProps();
-	props->colorBegin = Color(1, 0, 0);
-	props->colorEnd = Color(1, 0.5f, 0);
-	props->sizeBegin = 0.1f, props->sizeVariation = 0.1f, props->sizeEnd = 0.0f;
-	props->Life = 1.0f;
-	props->Velocity = Vector(0, 0, 2);
-	props->VelocityVariation = Vector(1, 1, 1);
-	props->Position = Vector(0, 0, 0);
-
+	
 	GameObject* playerBullet = new GameObject();
 	playerBullet->setName("PlayerBullet");
 	playerBullet->setTag(Tag::PlayerBullet);
@@ -66,10 +57,19 @@ void GameManager::createGameScene()
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	ConstantShader* shader = new ConstantShader();
-	shader->color(Color(0.15f, 0.15f, 0.95f));
+	Color playerBulCol = Color(0.15f, 0.15f, 0.95f);
+	shader->color(playerBulCol);
 	playerBullet->setRenderer(new MeshRenderer(pModel, shader, true));
 	playerBullet->setCollider(new BoxCollider());	
 	playerBullet->addComponent(new BulletController());
+
+	ParticleProps* props = new ParticleProps();
+	props->colorBegin = playerBulCol;
+	props->colorEnd = Color(1, 1, 1);
+	props->sizeBegin = 0.07f, props->sizeVariation = 0.04f, props->sizeEnd = 0.0f;
+	props->Life = .8f;
+	props->Velocity = Vector(0, 0, 2);
+	props->VelocityVariation = Vector(10, 4, 0);
 	playerBullet->addComponent(new ParticleGenerator(200, props));
 
 	PointLight* pl = new PointLight();
@@ -99,9 +99,14 @@ void GameManager::createGameScene()
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	shader = new ConstantShader();
-	shader->color(Color(0.95f, 0.02f, 0.02f));
+	Color enemyBulCol = Color(0.95f, 0.02f, 0.02f);
+	shader->color(enemyBulCol);
 	enemyBullet->setRenderer(new MeshRenderer(pModel, shader, true));
 	enemyBullet->setCollider(new BoxCollider());
+	ParticleProps* props2 = new ParticleProps(*props);
+	props2->colorBegin = enemyBulCol;
+	props2->Life = 0.4f;
+	enemyBullet->addComponent(new ParticleGenerator(200, props2));
 
 	pl = new PointLight();
 	pl->color(Color(0.95f, 0.02f, 0.02f));

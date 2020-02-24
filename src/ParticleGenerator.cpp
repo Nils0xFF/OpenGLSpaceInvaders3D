@@ -13,8 +13,12 @@ void ParticleGenerator::Update(float deltaTime)
 	}
 
 	sys->Update(deltaTime);
-	if (emiting) {
-		sys->Emit(*props);
+	if (emiting) {		
+		lastEmit += deltaTime;
+		if (lastEmit >= betweenEmit) {
+			sys->Emit(*props);
+			lastEmit = 0;
+		}
 	}
 }
 

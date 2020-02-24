@@ -20,14 +20,6 @@ void ParticleSystem::Update(float deltaTime)
 		}
 		par.setRemaining(par.getRemaining() - deltaTime);
 		par.transform(par.transform() * Matrix().translation(par.getVelocity() * deltaTime));
-	}
-}
-
-void ParticleSystem::Draw()
-{
-	for (Particle& par : particlePool) {
-		if (!par.isActive())
-			continue;
 
 		float life = par.getRemaining() / par.getLife();
 		Color col = Color(
@@ -36,12 +28,20 @@ void ParticleSystem::Draw()
 			par.getColorEnd().B + life * (par.getColorBegin().B - par.getColorEnd().B)
 		);
 
-		float size = par.getSizeEnd() + life * (par.getSizeBegin() - par.getSizeEnd());
-
-		//par.transform(par.transform() * Matrix().scale(size));
-		ParticleShader* shader = (ParticleShader*) par.shader();
+		float size = par.getSizeEnd() + life * (par.getSizeBegin() - par.getSizeEnd());				
+		par.transform(par.transform() * Matrix().scale(par.getSize()).invert() * Matrix().scale(size));
+		par.setSize(size);
+		ParticleShader* shader = (ParticleShader*)par.shader();
 		shader->color(col);
 		shader->alpha(life);
+	}
+}
+
+void ParticleSystem::Draw()
+{
+	for (Particle& par : particlePool) {
+		if (!par.isActive())
+			continue;	
 
 		par.draw(*CameraManager::getInstance().activeCamera);
 	}
