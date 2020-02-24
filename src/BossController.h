@@ -37,7 +37,7 @@ private:
 				Vector(
 					gameObject->getTransform().translation().X + x * (gameObject->getAreaBox()->size().X /  2.0f), 
 					gameObject->getTransform().translation().Y, 
-					gameObject->getAreaBox()->Max.Z + bulletPrefab->getGameObject()->getAreaBox()->size().Z));
+					gameObject->getAreaBox()->Max.Z + bulletPrefab->getGameObject()->getAreaBox()->size().Z), bulletPrefab->getGameObject()->getTransform());
 			BulletController* bc = bulletInstance->getComponentByType<BulletController>();
 
 			if (bc != NULL) {
@@ -64,7 +64,7 @@ public:
 		if (timeSinceLastShot >= timeToNextShot) {
 			fire();
 			timeSinceLastShot = 0;
-			timeToNextShot = timeBetweenShots + timeBetweenShots * shotVariation * 2 * (Random::random() - 0.5f);
+			timeToNextShot = timeBetweenShots + timeBetweenShots * shotVariation * (Random::random() - 0.5f);
 		}
 
 		if (zDir < 0 && gameObject->getAreaBox()->Min.Z < -GameSettings::WORLD_DEPTH) {
