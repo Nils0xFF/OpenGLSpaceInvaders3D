@@ -31,7 +31,7 @@ private:
 
 	unsigned int Width = 960;
 	unsigned int Height = 540;
-	unsigned int MSAA = 32;
+	unsigned int MSAA = 8;
 	unsigned int textureMulti = 0;
 	unsigned int textureMultiBrightness = 0;
 	unsigned int textureMultiDepth = 0;

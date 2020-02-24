@@ -231,6 +231,7 @@ void PostProcessing::RenderScreenQuad()
 void PostProcessing::setMSAA(unsigned int samples)
 {
 	if (samples < 1) samples = 1;
+	if (samples > 16) samples = 16;
 	MSAA = samples;
 
 	Update();

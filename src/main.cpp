@@ -125,7 +125,7 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode)
     if (key == GLFW_KEY_KP_1 && action == GLFW_PRESS)
         PostProcessing::getInstance().setMSAA(1);
     if (key == GLFW_KEY_KP_2 && action == GLFW_PRESS)
-        PostProcessing::getInstance().setMSAA(32);
+        PostProcessing::getInstance().setMSAA(8);
     if (key == GLFW_KEY_KP_3 && action == GLFW_PRESS)
         PostProcessing::getInstance().shader->fog(!PostProcessing::getInstance().shader->isFog());
     if (key == GLFW_KEY_KP_4 && action == GLFW_PRESS)
