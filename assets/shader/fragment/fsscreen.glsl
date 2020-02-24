@@ -143,7 +143,7 @@ void main()
 		color = mix(color, blur(brightnessTexture, uv), 0.5);
 	}
 	
-	if (fog && texture(depthTexture, uv).x > 0.0) {
+	if (fog && texture(depthTexture, uv).x > 0.9) {
 		float depth = texture(depthTexture, uv).z * worldDepth;
 		float fogFactor = (fogEndZ - depth)/(fogEndZ - fogStartZ);
 		fogFactor = clamp( fogFactor, 0.0, 1.0 );

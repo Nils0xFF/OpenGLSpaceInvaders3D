@@ -65,16 +65,26 @@ public:
 
 		// float xMovement = 0.0f;
 
-		if (InputManager::getInstance().Keys[GLFW_KEY_A] && gameObject->getAreaBox()->Min.X > -GameSettings::WORLD_WIDTH / 2.0f)
+		if (InputManager::getInstance().Keys[GLFW_KEY_A])
 		{
-			if (deltaTranslate.X > -GameSettings::PLAYER_MAX_SPEED)
-				deltaTranslate.X -= GameSettings::PLAYER_ACCEL * deltaTime;
+			if (gameObject->getAreaBox()->Min.X > -GameSettings::WORLD_WIDTH / 2.0f) {
+				if (deltaTranslate.X > -GameSettings::PLAYER_MAX_SPEED)
+					deltaTranslate.X -= GameSettings::PLAYER_ACCEL * deltaTime;
+			}
+			else {
+				deltaTranslate.X = 0;
+			}
 		}
 
-		if (InputManager::getInstance().Keys[GLFW_KEY_D] && gameObject->getAreaBox()->Max.X < GameSettings::WORLD_WIDTH / 2.0f)
+		if (InputManager::getInstance().Keys[GLFW_KEY_D])
 		{
-			if(deltaTranslate.X < GameSettings::PLAYER_MAX_SPEED)
-				deltaTranslate.X += GameSettings::PLAYER_ACCEL * deltaTime;
+			if (gameObject->getAreaBox()->Max.X < GameSettings::WORLD_WIDTH / 2.0f) {
+				if (deltaTranslate.X < GameSettings::PLAYER_MAX_SPEED)
+					deltaTranslate.X += GameSettings::PLAYER_ACCEL * deltaTime;
+			}
+			else {
+				deltaTranslate.X = 0;
+			}
 		}
 
 		timeSinceLastShot += deltaTime;
