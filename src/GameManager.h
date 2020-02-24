@@ -38,7 +38,7 @@ public:
 	};
 
 	void PauseGame() { 
-		if (currentGameState != GameState::PAUSED && currentGameState != GameState::MENU) {
+		if (currentGameState != GameState::PAUSED && currentGameState != GameState::MENU && currentGameState != GameState::LOST) {
 			prePauseGameState = currentGameState;
 			currentGameState = GameState::PAUSED;
 		}
@@ -108,7 +108,7 @@ private:
 	GameState prePauseGameState = GameState::MENU;
 	GameState previousGameState = GameState::MENU;
 
-	float transitionTime = 5.0f;
+	float transitionTime = 3.0f;
 	float currentTransitionDuration = 0.0f;
 
 	int playerHP = 0;

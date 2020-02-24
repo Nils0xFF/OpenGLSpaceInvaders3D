@@ -36,7 +36,7 @@
 void GameManager::createGameScene()
 {
 	GameObject* skyBox = new GameObject();
-	skyBox->setTransform(Matrix().translation(Vector(0, GameSettings::WORLD_DEPTH - 1, 0.0f)));
+	skyBox->setTransform(Matrix().translation(Vector(0.0f, 0.0f, 0.0f)));
 	BaseModel *pModel = new Model(ASSET_DIRECTORY "models/skybox.obj", 2 * GameSettings::WORLD_DEPTH);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
@@ -57,7 +57,7 @@ void GameManager::createGameScene()
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	ConstantShader* shader = new ConstantShader();
-	Color playerBulCol = Color(0.15f, 0.15f, 0.95f);
+	Color playerBulCol = Color(0.02f, 0.02f, 0.12f);
 	shader->color(playerBulCol);
 	playerBullet->setRenderer(new MeshRenderer(pModel, shader, true));
 	playerBullet->setCollider(new BoxCollider());	
@@ -73,7 +73,7 @@ void GameManager::createGameScene()
 	playerBullet->addComponent(new ParticleGenerator(200, props));
 
 	PointLight* pl = new PointLight();
-	pl->color(Color(0.15f, 0.15f, 0.95f));
+	pl->color(Color(0.125f, 0.125f, 0.75f));
 	pl->attenuation(Vector(0.5f, 0.1f, 0.5f));
 	pl->castShadows(true);
 	playerBullet->addComponent(new LightComponent(pl));
