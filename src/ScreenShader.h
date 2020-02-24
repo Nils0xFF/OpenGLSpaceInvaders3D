@@ -77,7 +77,7 @@ private:
 	float BarSpeed = 0.4f;
 	float BarOffset = 0.0075f;
 	float LineScale = .004f;
-	float LineIntensity = 0.03f;
+	float LineIntensity = 0.1f;
 	float LineSpeed = 1.0f;
 	float VignetteRadius = 0.45f;
 	float VignetteSoftness = 1.0f;
