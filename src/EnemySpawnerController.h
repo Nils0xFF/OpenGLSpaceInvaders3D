@@ -20,21 +20,6 @@ public:
 
 	EnemySpawnerController* clone() { return new EnemySpawnerController(*this); }
 
-	void Update(float dTime) {
-		if (GameManager::getInstance().getGameState() == GameState::WAVEMODE) {
-			spawnedBoss = false;
-			timeSinceLastRow += dTime;
-			if (timeSinceLastRow >= timeBetweenRows) {
-				std::cout << "Spawing Row @ " << gameObject->getTransform().translation() << std::endl;
-				enemyRow->instantiate(gameObject->getTransform().translation());
-				timeSinceLastRow = 0;
-				GameManager::getInstance().RowSpawned();
-			}
-		}
-		else if (GameManager::getInstance().getGameState() == GameState::BOSSFIGHT && !spawnedBoss) {
-			bossPrefab->instantiate(gameObject->getTransform().translation(), bossPrefab->getGameObject()->getTransform());
-			spawnedBoss = true;
-		}
-	}
+	void Update(float dTime);
 };
 

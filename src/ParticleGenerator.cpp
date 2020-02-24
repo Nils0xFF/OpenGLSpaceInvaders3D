@@ -6,6 +6,7 @@ ParticleGenerator::ParticleGenerator(const unsigned int max, ParticleProps* prop
 	this->props = props;	
 }
 
+// Emits particle every other frame based on lastEmit
 void ParticleGenerator::Update(float deltaTime)
 {
 	if (gameObject) {

@@ -9,6 +9,7 @@ ParticleSystem::ParticleSystem(unsigned int nr)
 	index = nr;
 }
 
+// transforms each particle by their defined particle properties
 void ParticleSystem::Update(float deltaTime)
 {
 		for (Particle& par : particlePool) {
@@ -37,6 +38,7 @@ void ParticleSystem::Update(float deltaTime)
 	}
 }
 
+// If a particle is marked active, it will be drawn
 void ParticleSystem::Draw()
 {
 	for (Particle& par : particlePool) {
@@ -47,6 +49,7 @@ void ParticleSystem::Draw()
 	}
 }
 
+// Activates the currently indexed particle (to be rendered)
 void ParticleSystem::Emit(const ParticleProps& props)
 {
 	Particle& particle = particlePool[index];

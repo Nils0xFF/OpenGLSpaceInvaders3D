@@ -120,16 +120,26 @@ int main () {
 void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 	InputManager& inputManager = InputManager::getInstance();
-	if (key == GLFW_KEY_KP_0 && action == GLFW_PRESS)
-		PostProcessing::getInstance().shader->on(!PostProcessing::getInstance().shader->isOn());
-    if (key == GLFW_KEY_KP_1 && action == GLFW_PRESS)
-        PostProcessing::getInstance().setMSAA(1);
-    if (key == GLFW_KEY_KP_2 && action == GLFW_PRESS)
-        PostProcessing::getInstance().setMSAA(8);
-    if (key == GLFW_KEY_KP_3 && action == GLFW_PRESS)
+	if ((key == GLFW_KEY_KP_0 || key == GLFW_KEY_0) && action == GLFW_PRESS)
+		PostProcessing::getInstance().shader->on(!PostProcessing::getInstance().shader->isOn());    
+    if ((key == GLFW_KEY_KP_1 || key == GLFW_KEY_1) && action == GLFW_PRESS)
         PostProcessing::getInstance().shader->fog(!PostProcessing::getInstance().shader->isFog());
-    if (key == GLFW_KEY_KP_4 && action == GLFW_PRESS)
+    if ((key == GLFW_KEY_KP_2 || key == GLFW_KEY_2) && action == GLFW_PRESS)
         PostProcessing::getInstance().shader->bloom(!PostProcessing::getInstance().shader->isBloom());
+	if ((key == GLFW_KEY_KP_3 || key == GLFW_KEY_3) && action == GLFW_PRESS)
+		PostProcessing::getInstance().shader->inverted(!PostProcessing::getInstance().shader->isInverted());
+	if ((key == GLFW_KEY_KP_4 || key == GLFW_KEY_4) && action == GLFW_PRESS)
+		PostProcessing::getInstance().shader->gray(!PostProcessing::getInstance().shader->isGray());
+	if ((key == GLFW_KEY_KP_5 || key == GLFW_KEY_5) && action == GLFW_PRESS)
+		PostProcessing::getInstance().setMSAA(1);
+	if ((key == GLFW_KEY_KP_6 || key == GLFW_KEY_6) && action == GLFW_PRESS)
+		PostProcessing::getInstance().setMSAA(2);
+	if ((key == GLFW_KEY_KP_7 || key == GLFW_KEY_7) && action == GLFW_PRESS)
+		PostProcessing::getInstance().setMSAA(4);
+	if ((key == GLFW_KEY_KP_8 || key == GLFW_KEY_8) && action == GLFW_PRESS)
+		PostProcessing::getInstance().setMSAA(8);
+	if ((key == GLFW_KEY_KP_9 || key == GLFW_KEY_9) && action == GLFW_PRESS)
+		PostProcessing::getInstance().setMSAA(16);
     if (key == GLFW_KEY_F11 && action == GLFW_PRESS)
         toggleFullScreen(window);
     if (key == GLFW_KEY_F10 && action == GLFW_PRESS)
