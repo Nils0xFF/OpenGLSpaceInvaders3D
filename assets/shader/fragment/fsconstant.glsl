@@ -20,8 +20,9 @@ float linearizeDepth(float depth) {
 void main()
 {
     FragColor = vec4(Color,1);
-    
-    BrightColor = vec4(10 * FragColor.rgb, 1.0);
+    // BrightColor = vec4(FragColor.r * 1.0, FragColor.g * 1.0, FragColor.b * 0.7, 1.0);
+
+    BrightColor = vec4(10 * FragColor.rgb, 1);
 
     float dist = 2 * (vec3(0,0,WorldDepth)-Position).z - 1.0;
     vec3 projected = Position - dist * vec3(0,0,1);    

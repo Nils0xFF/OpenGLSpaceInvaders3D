@@ -66,14 +66,14 @@ void GameManager::createGameScene()
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
 	ConstantShader* shader = new ConstantShader();
-	shader->color(Color(0.15f, 0.15f, 0.95f));
+	shader->color(Color(0.02f, 0.02f, 0.12f));
 	playerBullet->setRenderer(new MeshRenderer(pModel, shader, true));
 	playerBullet->setCollider(new BoxCollider());	
 	playerBullet->addComponent(new BulletController());
 	playerBullet->addComponent(new ParticleGenerator(200, props));
 
 	PointLight* pl = new PointLight();
-	pl->color(Color(0.15f, 0.15f, 0.95f));
+	pl->color(Color(0.125f, 0.125f, 0.75f));
 	pl->attenuation(Vector(0.5f, 0.1f, 0.5f));
 	pl->castShadows(true);
 	playerBullet->addComponent(new LightComponent(pl));
