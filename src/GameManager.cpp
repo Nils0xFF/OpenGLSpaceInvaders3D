@@ -36,7 +36,7 @@
 void GameManager::createGameScene()
 {
 	GameObject* skyBox = new GameObject();
-	skyBox->setTransform(Matrix().translation(Vector(0, GameSettings::WORLD_DEPTH - 1, 0.0f)));
+	skyBox->setTransform(Matrix().translation(Vector(0.0f, 0.0f, 0.0f)));
 	BaseModel *pModel = new Model(ASSET_DIRECTORY "models/skybox.obj", 2 * GameSettings::WORLD_DEPTH);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);

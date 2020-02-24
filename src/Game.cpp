@@ -111,8 +111,11 @@ void Game::Render()
 	switch (gameManager.getGameState())
 	{
 		case GameState::MENU:
-			textManager.renderText("game_over.ttf","Space Phoenix", 0.2695f, 0.85f, 2.0f, Color(1, 1, 1));
-			textManager.renderText("game_over.ttf", "Controls:\n[A/D]: Move Left/Right\n[SPACE]: Shoot\n[P] to Pause the Game", 0.05f, 0.75f, 0.75f, Color(1, 1, 1));
+			textManager.renderText("game_over.ttf", "Space Phoenix", 0.2695f, 0.85f, 2.0f, Color(1, 1, 1));
+			textManager.renderText("game_over.ttf", "Controls", 0.05f, 0.75f, 0.95f, Color(1, 1, 1));
+			textManager.renderText("game_over.ttf", "[A/D]: Move Left/Right", 0.05f, 0.65f, 0.75f, Color(1, 1, 1));
+			textManager.renderText("game_over.ttf", "[SPACE]: Shoot", 0.05f, 0.60f, 0.75f, Color(1, 1, 1));
+			textManager.renderText("game_over.ttf", "[P]: Pause", 0.05f, 0.55f, 0.75f, Color(1, 1, 1));
 			textManager.renderText("game_over.ttf", "Insert Coin [ENTER] to Start", 0.3f, 0.25f, 1.0f, Color(1, 1, 1));
 			textManager.renderText("game_over.ttf", "Press [ESCAPE] to quit", 0.335f, 0.15f, 1.0f, Color(1, 1, 1));
 			break;
