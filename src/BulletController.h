@@ -13,28 +13,11 @@ private:
 	int damage = 1;
 
 public:
-	void Start() {		
-		if (gameObject) {
-			ParticleGenerator* generator = gameObject->getComponentByType<ParticleGenerator>();
-			if (generator) {
-				generator->setEmiting(true);
-			}
-		}		
-	}
+	void Start();
 
-	void Update(float deltaTime) {
-		if (gameObject->getTransform().translation().Z < -GameSettings::WORLD_DEPTH || gameObject->getTransform().translation().Z > 2) {
-			gameObject->Destroy();
-		}
-		gameObject->translate(direction * speed * deltaTime);
-	};
+	void Update(float deltaTime);
 
-	void onCollision(GameObject* other) {
-		if (other->getTag() == Tag::EnemyBullet || other->getTag() == Tag::PlayerBullet) {
-			this->Destroy();
-			other->Destroy();
-		}
-	}
+	void onCollision(GameObject* other);
 
 	BulletController* clone() { return new BulletController(*this); }
 
