@@ -50,10 +50,6 @@ void GameManager::createGameScene()
 	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
 	gameScene.addGameObject(ground);
 
-
-
-	SceneManager::getInstance().activeScene = &gameScene;
-
 	ParticleProps* props = new ParticleProps();
 	props->colorBegin = Color(1, 0, 0);
 	props->colorEnd = Color(1, 0.5f, 0);
