@@ -17,6 +17,12 @@ public:
 		activeScene->Load();
 	}
 
+	void Reset(){
+		if (activeScene)
+			activeScene->Unload();
+		activeScene->Load();
+	}
+
 private:
 	SceneManager() {};
 	SceneManager(const SceneManager& im) {};

@@ -38,11 +38,11 @@ public:
 
 private:
     Color Col;
-    GLint ColorLoc;
-    GLint ModelViewProjLoc;
-	GLint ModelMatLoc;
-	GLint WorldDepthLoc;
-	GLint EyePosLoc;
+	GLuint ColorLoc;
+	GLuint ModelViewProjLoc;
+	GLuint ModelMatLoc;
+	GLuint WorldDepthLoc;
+	GLuint EyePosLoc;
 
 };
 

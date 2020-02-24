@@ -41,10 +41,10 @@ ConstantShader::ConstantShader() : Col(1.0f,0.0f,0.0f)
     assert(ModelViewProjLoc >=0);
 
 	ModelMatLoc = glGetUniformLocation(ShaderProgram, "ModelMat");
-	// assert(ModelMatLoc >= 0);
+	assert(ModelMatLoc >= 0);
 
 	WorldDepthLoc = glGetUniformLocation(ShaderProgram, "WorldDepth");
-	// assert(WorldDepthLoc >= 0);
+	assert(WorldDepthLoc >= 0);
 
 	EyePosLoc = glGetUniformLocation(ShaderProgram, "EyePos");
 	assert(EyePosLoc >= 0);

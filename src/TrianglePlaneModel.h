@@ -32,6 +32,7 @@ public:
 	}
 
 	const Matrix& transform() const { return Transform; }
+
 protected:
     VertexBuffer VB;
     IndexBuffer IB;

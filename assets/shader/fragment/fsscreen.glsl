@@ -122,7 +122,7 @@ void main()
 {
 	if (!on) 
 	{
-		FragColor = vec4(texture(depthTexture, TexCoords).yyy, 1.0);
+		FragColor = vec4(texture(depthTexture, TexCoords).zzz, 1.0);
 		return;
 	}
 

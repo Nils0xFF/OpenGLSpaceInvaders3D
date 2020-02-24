@@ -5,11 +5,12 @@
 #include "PostProcessing.h"
 #include "ShadowMapGenerator.h"
 #include "GameManager.h"
+#include "TextManager.h"
 
 class Game
 {
 public:
-	Game(GLFWwindow* pWin) : pWindow(pWin), mainCamera(pWindow), ShadowGenerator(2048, 2048),gameManager(GameManager::getInstance()) {}
+	Game(GLFWwindow* pWin) : pWindow(pWin), mainCamera(pWindow), ShadowGenerator(2048, 2048), gameManager(GameManager::getInstance()), textManager(TextManager::getInstance()) {};
 
 	GLFWwindow* pWindow;
 	Camera mainCamera;
@@ -34,5 +35,6 @@ public:
 private:
 	ShadowMapGenerator ShadowGenerator;
 	GameManager& gameManager;
+	TextManager& textManager;
 };
 

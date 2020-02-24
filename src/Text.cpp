@@ -1,21 +1,33 @@
 #include "Text.h"
 #include <iostream>
 #include "CameraManager.h"
+#include "TextManager.h"
 
 Text::Text()
 {
 	shader = new TextShader();
-	Init(font);
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 }
 
-void Text::Render(const char* text, float x, float y, float scale, Color col)
+void Text::Render(const char* text, float x, float y, float scale, const Color& col)
 {
+	if (!entry) return;
+
+	glDisable(GL_DEPTH_TEST);
 	shader->activate(*CameraManager::getInstance().activeCamera);
 	shader->textColor(col);
 
 	float originX = x;
-	int scr_width = CameraManager::getInstance().activeCamera->WindowWidth;
-	int scr_height = CameraManager::getInstance().activeCamera->WindowHeight;
+	float scr_width = (float) CameraManager::getInstance().activeCamera->WindowWidth;
+	float scr_height = (float) CameraManager::getInstance().activeCamera->WindowHeight;
 
 	scale *= scr_width / 720.0f;
 
@@ -24,12 +36,12 @@ void Text::Render(const char* text, float x, float y, float scale, Color col)
 
 	for (const char* c = text; *c; c++) {
 		if (*c == '\n') {
-			y -= (float) ((fontHeight >> 6) * scale / scr_height) * 4;
+			y -= (float) ((entry->fontHeight >> 6) * scale / scr_height) * 4;
 			x = originX;
 			continue;
 		}
 
-		Character ch = Characters[*c];
+		Character ch = entry->characters[*c];
 
 		float xpos = ((x * 2- 1.0f) * scr_width + ch.bearingLeft * scale) / scr_width;
 		float ypos = ((y * 2- 1.0f) * scr_height - (ch.sizeY - ch.bearingTop) * scale) / scr_height;
@@ -54,84 +66,15 @@ void Text::Render(const char* text, float x, float y, float scale, Color col)
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		
-		x += (ch.advanceX >> 6) * scale / scr_width / 2;
-		y += (ch.advanceY >> 6) * scale / scr_height / 2;
+		x += (ch.advanceX >> 6) * scale / (float)scr_width / 2.0f;
+		y += (ch.advanceY >> 6) * scale / (float)scr_height / 2.0f;
 	}
 
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	shader->deactivate();
+	glEnable(GL_DEPTH_TEST);
+	entry = NULL;
 }
 
-void Text::Init(const char* font)
-{
-	Characters.clear();
-
-	std::string location = FONT_DIRECTORY;
-	location.append(font);
-
-	FT_Library lib;
-	if (FT_Init_FreeType(&lib))
-		throw new std::exception("Could not init FreeType library.");
-
-	FT_Face face;
-	if (FT_New_Face(lib, location.c_str(), 0, &face))
-		throw new std::exception("Could not load font.");
-
-	FT_Set_Pixel_Sizes(face, 0, 128);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-	for (char c = 0; c < 127; c++) {		
-		if (FT_Load_Char(face, c, FT_LOAD_RENDER)) {
-			std::cout << "Failed to load glyph: " << c << std::endl;
-			continue;
-		}
-
-		unsigned int texture;
-		glGenTextures(1, &texture);
-		glBindTexture(GL_TEXTURE_2D, texture);
-		glTexImage2D(
-			GL_TEXTURE_2D,
-			0,
-			GL_RED,
-			face->glyph->bitmap.width,
-			face->glyph->bitmap.rows,
-			0,
-			GL_RED,
-			GL_UNSIGNED_BYTE,
-			face->glyph->bitmap.buffer
-		);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		
-		Character character = {
-			texture,
-			face->glyph->bitmap.width,
-			face->glyph->bitmap.rows,
-			face->glyph->bitmap_left,
-			face->glyph->bitmap_top,
-			(int) face->glyph->advance.x,
-			(int) face->glyph->advance.y
-		};
-		Characters.insert(std::pair<char, Character>(c, character));			
-	}
-
-	fontHeight = face->height;
-
-	glBindTexture(GL_TEXTURE_2D, 0);
-	FT_Done_Face(face);
-	FT_Done_FreeType(lib);
-
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
-}

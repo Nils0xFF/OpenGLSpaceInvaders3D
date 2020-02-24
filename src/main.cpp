@@ -146,15 +146,20 @@ void keyPressed(GLFWwindow* window, int key, int scancode, int action, int mode)
 
 void windowResize(GLFWwindow* window, int width, int height)
 {	
-    WINDOW_WIDTH = (int)(height * 16 / 9);
-    WINDOW_HEIGHT = height;
-    if (width < WINDOW_WIDTH) {
-        WINDOW_WIDTH = width;
-        WINDOW_HEIGHT = (int)(width * 9 / 16);
-    }        
-    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (width > 0 && height > 0) {
+		WINDOW_WIDTH = (int)(height * 16 / 9);
+		WINDOW_HEIGHT = height;
+		if (width < WINDOW_WIDTH) {
+			WINDOW_WIDTH = width;
+			WINDOW_HEIGHT = (int)(width * 9 / 16);
+		}
+		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-    CameraManager::getInstance().activeCamera->updateResolution(WINDOW_WIDTH, WINDOW_HEIGHT);
+		CameraManager::getInstance().activeCamera->updateResolution(WINDOW_WIDTH, WINDOW_HEIGHT);
+	}
+	else {
+		GameManager::getInstance().PauseGame();
+	}
 }
 
 void toggleFullScreen(GLFWwindow* window)

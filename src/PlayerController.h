@@ -55,6 +55,7 @@ public:
 
 	void Init() {
 		gameObject->setActive(true);
+		currentHP = GameSettings::PLAYER_HP;
 	}
 
 	void Start() {

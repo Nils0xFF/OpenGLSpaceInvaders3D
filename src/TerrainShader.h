@@ -9,8 +9,9 @@ class TerrainShader : public BaseShader
 {
 public:
 	TerrainShader();
+	TerrainShader(const TerrainShader& other) :TerrainShader() {};
 	~TerrainShader() { delete NoiseMapTexture; }
-    TerrainShader* clone() { return new TerrainShader(*this); }
+    TerrainShader* clone() { return new TerrainShader(); }
     virtual void activate(const BaseCamera& Cam) const;
 	virtual void deactivate();
 

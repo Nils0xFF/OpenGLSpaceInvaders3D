@@ -82,8 +82,8 @@ void TerrainShader::initNoiseTexture()
 	RGBImage smoothImage(sizeX, sizeZ);
 	RGBImage::GaussFilter(smoothImage, *NoiseMapImage);
 
-	smoothImage.saveToDisk(ASSET_DIRECTORY "smootherNoiseMap.jpg");
-	NoiseMapImage->saveToDisk(ASSET_DIRECTORY "NoiseMap.jpg");
+	// smoothImage.saveToDisk(ASSET_DIRECTORY "smootherNoiseMap.jpg");
+	// NoiseMapImage->saveToDisk(ASSET_DIRECTORY "NoiseMap.jpg");
 	bool loaded = NoiseMapTexture->create(smoothImage);
 
 	assert(loaded);

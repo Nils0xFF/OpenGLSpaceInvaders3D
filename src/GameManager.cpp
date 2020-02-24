@@ -50,10 +50,6 @@ void GameManager::createGameScene()
 	ground->setRenderer(new MeshRenderer(pModel, new TerrainShader(), true));
 	gameScene.addGameObject(ground);
 
-
-
-	SceneManager::getInstance().activeScene = &gameScene;
-
 	ParticleProps props;
 	props.colorBegin = Color(1, 1, 1);
 	props.colorEnd = Color(0, 0, 0);
@@ -91,7 +87,7 @@ void GameManager::createGameScene()
 	player->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/spaceships/fighterjet/fighterjet.obj"), new PhongShader(), true));
 	player->setCollider(new BoxCollider());
 	player->addComponent(new PlayerController(playerBulletPrefab));
-	player->addComponent(new FollowCameraController(*CameraManager::getInstance().activeCamera, Vector(0, .65f, 1.5f)));
+	player->addComponent(new FollowCameraController(*CameraManager::getInstance().activeCamera, Vector(0, 0.75f, 1.5f)));
 	gameScene.addGameObject(player);
 
 	GameObject* enemyBullet = new GameObject();

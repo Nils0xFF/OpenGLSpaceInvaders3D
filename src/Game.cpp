@@ -26,10 +26,6 @@
 #include <math.h>
 #include <time.h>
 
-Text* text;
-Text* text2;
-Text* text3;
-
 #ifdef WIN32
 #define ASSET_DIRECTORY "../../assets/"
 #else
@@ -40,9 +36,6 @@ void Game::Init()
 {
 	CameraManager::getInstance().activeCamera = &mainCamera;
 	GameManager::getInstance().Init();
-	text = new Text();
-	text2 = new Text();
-	text3 = new Text();
 }
 
 void Game::Start() {
@@ -55,7 +48,7 @@ void Game::ProcessInput(GLfloat dt)
 	{
 	case GameState::MENU:
 		if (InputManager::getInstance().Keys[GLFW_KEY_ENTER])
-			gameManager.StartGame();
+			gameManager.ReStartGame();
 		if (InputManager::getInstance().Keys[GLFW_KEY_ESCAPE])
 			glfwSetWindowShouldClose(pWindow, true);
 		break;
@@ -89,6 +82,7 @@ void Game::Update(GLfloat dt)
 	switch (gameManager.getGameState())
 	{
 	case GameState::MENU:
+		SceneManager::getInstance().activeScene->Update(dt);
 		break;
 	case GameState::BOSSFIGHT:
 	case GameState::WAVEMODE:
@@ -111,36 +105,43 @@ void Game::Render()
 
 	PostProcessing::getInstance().Begin();
 	ShaderLightMapper::instance().activate();
-
+	TextManager::getInstance().Begin();
 	SceneManager::getInstance().activeScene->Draw();
-
+	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	switch (gameManager.getGameState())
 	{
 		case GameState::MENU:
-			text->Render("Space Invaders", 0.05f, 0.9f, 0.5f, Color(0, 0, 0));
-			text2->Render("Controls:\n<A/D>: Move Left/Right\n<SPACE>: Shoot\n<P> to Pause the Game", 0.05f, 0.8f, 0.25f, Color(0, 0, 0));
-			text3->Render("Press <ENTER> to Start\n\n<ESCAPE> to quit", 0.35f, 0.35f, 0.35f, Color(0, 0, 0));
+			textManager.renderText("game_over.ttf","Space Phoenix", 0.2695f, 0.85f, 2.0f, Color(1, 1, 1));
+			textManager.renderText("game_over.ttf", std::string("Controls:\n[A/D]: Move Left/Right\n[SPACE]: Shoot\n[P] to Pause the Game").c_str(), 0.05f, 0.75f, 0.75f, Color(1, 1, 1));
+			textManager.renderText("game_over.ttf", "Insert Coin [ENTER] to Start", 0.3f, 0.25f, 1.0f, Color(1, 1, 1));
+			textManager.renderText("game_over.ttf", "Press [ESCAPE] to quit", 0.335f, 0.15f, 1.0f, Color(1, 1, 1));
 			break;
 		case GameState::PAUSED:
-			text->Render("Paused!", 0.35f, 0.9f, 0.5f, Color(1, 1, 1));
-			text3->Render("Press <ENTER> to Unpause\n\n<Q> for Menu", 0.35f, 0.35f, 0.35f, Color(.75f, .75f, .75f));
+			textManager.renderText("game_over.ttf", "PAUSE", 0.385f, 0.85f, 2.0f, Color(.75f, .75f, .75f));
+			textManager.renderText("game_over.ttf", "Press [ENTER] to Unpause", 0.285f, 0.25f, 1.0f, Color(1.0f, 1.0f, 1.0f));
+			textManager.renderText("game_over.ttf", "Press [Q] for Menu", 0.345f, 0.15f, 1.0f, Color(1.0f, 1.0f, 1.0f));
 			break;
 		case GameState::LOST:
-			text->Render(("Game Over!\nScore:" + std::to_string(GameManager::getInstance().getScore())).c_str(), 0.35f, 0.9f, 0.5f, Color(1, 1, 1));
-			text3->Render("Press <ENTER> to Restart\n\n<Q> for Menu", 0.35f, 0.35f, 0.35f, Color(0, 0, 0));
+			textManager.renderText("game_over.ttf", "GAME OVER", 0.29f, 0.85f, 2.0f, Color(1, 1, 1));
+			textManager.renderText("game_over.ttf", ("Score: " + std::to_string(GameManager::getInstance().getScore())).c_str(), 0.385f, 0.45f, 1.5f, Color(1, 1, 1));
+			textManager.renderText("game_over.ttf", "Press [ENTER] to Restart", 0.285f, 0.25f, 1.0f, Color(1, 1, 1));
+			textManager.renderText("game_over.ttf", "Press [Q] for Menu", 0.345f, 0.15f, 1.0f, Color(1.0f, 1.0f, 1.0f));
 			break;
 		case GameState::BOSSFIGHT:
+			textManager.renderText("game_over.ttf", 
+				("Boss: " + std::to_string(GameManager::getInstance().getBossHP()) + "/" + std::to_string(GameSettings::BOSS_HP)).c_str(), 0.35f, 0.85f, 1.75f, Color(1, 1, 1));
 		case GameState::TRANSITION:
 		case GameState::WAVEMODE:
-			text->Render(("HP: " + std::to_string(
+			textManager.renderText("game_over.ttf", ("HP: " + std::to_string(
 				GameManager::getInstance().getPlayerHP()) + "/" +
-				std::to_string(GameSettings::PLAYER_HP)).c_str(), 0.125f, 0.85f, 0.25f, Color(0.8f, 0.355f, 0.295f));
-			text2->Render(("Score: " + std::to_string(GameManager::getInstance().getScore())).c_str(), 0.125f, 0.8f, 0.25f, Color(0.8f, 0.3f, 0.5f));
+				std::to_string(GameSettings::PLAYER_HP)).c_str(), 0.125f, 0.85f, 0.75f, Color(0.8f, 0.355f, 0.295f));
+			textManager.renderText("game_over.ttf", ("Score: " + std::to_string(GameManager::getInstance().getScore())).c_str(), 0.125f, 0.8f, 0.75f, Color(0.8f, 0.3f, 0.5f));
 			break;
 		default:
 			break;
-	}		
-
+	}
+	// glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	TextManager::getInstance().End();
 	ShaderLightMapper::instance().deactivate();
 	PostProcessing::getInstance().End();
 
@@ -152,7 +153,4 @@ void Game::Render()
 
 void Game::End()
 {
-	delete text;
-	delete text2;
-	delete text3;
 }

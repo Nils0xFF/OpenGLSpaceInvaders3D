@@ -4,44 +4,33 @@
 #include "color.h"
 #include "TextShader.h"
 
-#include "ft2build.h"
-#include FT_FREETYPE_H
-
-#ifdef WIN32
-#define FONT_DIRECTORY "../../assets/fonts/"
-#else
-#define FONT_DIRECTORY "../assets/fonts/"
-#endif
-
 struct Character {
-    unsigned int texture;
-    unsigned int sizeX;
-    unsigned int sizeY;
-    int bearingLeft;
-    int bearingTop;
-    int advanceX;
-    int advanceY;
+	unsigned int texture;
+	unsigned int sizeX;
+	unsigned int sizeY;
+	int bearingLeft;
+	int bearingTop;
+	int advanceX;
+	int advanceY;
+};
+
+struct FontEntry {
+	int fontHeight;
+	std::map<char, Character> characters;
 };
 
 class Text
 {
 public:
-    Text();
-    ~Text() { delete shader; }
-    void Render(const char* text, float x, float y, float scale, Color col);
-
-    void setFont(const char* font) { this->font = font; Init(this->font); }
-    const char* getFont() const { return font; }
-
-protected:
-    void Init(const char* font);
+	Text();
+	~Text() { delete shader; }
+    void Render(const char* text, float x, float y, float scale, const Color& col);
+	void setFont(FontEntry* entry) { this->entry = entry; }
 
 private:
-    std::map<char, Character> Characters;
-    int fontHeight;
-    const char* font = "F25_Bank_Printer.ttf";
+    FontEntry* entry = NULL;
 
-    TextShader* shader;
+    TextShader* shader = NULL;
     unsigned int VAO;
     unsigned int VBO;
 };

@@ -23,18 +23,25 @@ public:
 	GameState getGameState() { return currentGameState; }
 
 	void StartGame() { 
-		SceneManager::getInstance().LoadScene(&gameScene); 
 		currentGameState = GameState::WAVEMODE;
+		score = 0;
+		bossAlive = false;
+		currentTransitionDuration = 0;
+		currentRows = 0;
+		rowsSpawnedSinceBoss = 0;
+
 	}
-	void ReStartGame() { StartGame(); };
+	void ReStartGame() { SceneManager::getInstance().Reset(); StartGame(); }
 	void EndGame() { 
 		currentGameState = GameState::MENU;
-		SceneManager::getInstance().LoadScene(&menuScene);
+		SceneManager::getInstance().Reset();
 	};
 
 	void PauseGame() { 
-		prePauseGameState = currentGameState;
-		currentGameState = GameState::PAUSED; 
+		if (currentGameState != GameState::PAUSED && currentGameState != GameState::MENU) {
+			prePauseGameState = currentGameState;
+			currentGameState = GameState::PAUSED;
+		}
 	};
 
 	void UnPauseGame() { currentGameState = prePauseGameState; };
@@ -44,7 +51,7 @@ public:
 		createMenuScene();
 	};
 
-	void Start() { SceneManager::getInstance().LoadScene(&menuScene); }
+	void Start() { SceneManager::getInstance().LoadScene(&gameScene); }
 
 	void Update(float deltaTime) {
 		if (currentGameState == GameState::WAVEMODE || currentGameState == GameState::BOSSFIGHT || currentGameState == GameState::TRANSITION) {

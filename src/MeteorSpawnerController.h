@@ -58,6 +58,10 @@ public:
 		}
 	}
 
+	void Init() {
+		
+	}
+
 	MeteorSpawnerController* clone() { return new MeteorSpawnerController(*this); }
 
 	void Update(float deltaTime) {

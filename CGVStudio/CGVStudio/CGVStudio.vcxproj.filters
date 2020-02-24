@@ -265,6 +265,9 @@
     <ClCompile Include="..\..\src\PerlinNoiseGenerator.cpp">
       <Filter>Quelldateien\utils\noise</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\TextManager.cpp">
+      <Filter>Quelldateien\game\singeltons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Camera.h">
@@ -465,6 +468,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\PerlinNoiseGenerator.h">
       <Filter>Quelldateien\utils\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\TextManager.h">
+      <Filter>Quelldateien\game\singeltons</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
