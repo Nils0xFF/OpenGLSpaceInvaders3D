@@ -6,7 +6,6 @@ int Particle::counter = 0;
 
 Particle::Particle()
 {
-	std::cout << "Particle: " << ++counter << std::endl;
 	Init();
 }
 
@@ -16,13 +15,11 @@ Particle::Particle(Vector velocity, Color beginCol,
 	colorBegin(beginCol), colorEnd(endCol),
 	sizeBegin(beginSize), sizeEnd(endSize)
 {
-	std::cout << "Particle: " << ++counter << std::endl;
 	Init();
 }
 
 Particle::Particle(const Particle& other) {
 
-	std::cout << "Particle: " << ++counter << std::endl;
 	this->Velocity = other.Velocity;
 	this->colorBegin = other.colorBegin;
 	this->colorEnd = other.colorEnd;

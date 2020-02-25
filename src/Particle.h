@@ -18,9 +18,7 @@ public:
 		return new Particle(*this);
 	}
 
-	~Particle() {
-		std::cout << "Particle: " << --counter << std::endl;
-	};
+	~Particle() {};
 	virtual void draw(const BaseCamera& Cam);
 
 	const Vector getVelocity() const { return Velocity; }
