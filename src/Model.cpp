@@ -28,6 +28,7 @@ Model::~Model()
     delete [] this->pMeshes;
     for(unsigned int i = 0; i < MaterialCount; i++){
         Texture::ReleaseShared(this->pMaterials[i].DiffTex);
+		Texture::ReleaseShared(this->pMaterials[i].NormalTex);
     }
     delete [] this->pMaterials;
 }

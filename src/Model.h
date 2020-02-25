@@ -35,6 +35,7 @@ public:
 		newModel->transform(this->transform());
 		return newModel;
 	}
+
     virtual ~Model();
 
     bool load(const char* ModelFile, float fitScale = 1.0f, bool Center = true);
