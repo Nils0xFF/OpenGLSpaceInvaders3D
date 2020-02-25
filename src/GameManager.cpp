@@ -162,7 +162,7 @@ void GameManager::createGameScene()
 
 	ParticleProps props2;
 	props2.colorEnd = Color(1, 1, 1);
-	props2.sizeVariation = 0.04f, props2.sizeEnd = 0.0f;
+	props2.sizeBegin = 0.07f, props2.sizeVariation = 0.04f, props2.sizeEnd = 0.0f;
 	props2.Velocity = Vector(0, 0, 2);
 	props2.VelocityVariation = Vector(10, 4, 0);
 	props2.colorBegin = enemyBulCol;

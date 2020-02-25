@@ -9,7 +9,8 @@ void SceneManager::LoadScene(Scene* scene) {
 }
 
 void SceneManager::Reset() {
-	if (activeScene)
+	if (activeScene) {
 		activeScene->Unload();
-	activeScene->Load();
+		activeScene->Load();
+	}
 }
