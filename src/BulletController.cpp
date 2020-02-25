@@ -22,7 +22,7 @@ void BulletController::Update(float deltaTime) {
 void BulletController::onCollision(GameObject* other) {
 	// If a bullet hits another bullet, both will be destroyed
 	if (other->getTag() == Tag::EnemyBullet || other->getTag() == Tag::PlayerBullet) {
-		this->Destroy();
+		gameObject->Destroy();
 		other->Destroy();
 	}
 }
