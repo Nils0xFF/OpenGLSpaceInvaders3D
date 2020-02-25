@@ -1,5 +1,6 @@
 #include "Particle.h"
 #include "ParticleShader.h"
+#include "ShaderManager.h"
 
 Particle::Particle()
 {
@@ -8,15 +9,35 @@ Particle::Particle()
 
 Particle::Particle(Vector velocity, Color beginCol,
 	Color endCol, float beginSize, float endSize, 
-	float life): Velocity(velocity), Life(life), 
+	float life): Velocity(velocity), Life(life),
 	colorBegin(beginCol), colorEnd(endCol),
 	sizeBegin(beginSize), sizeEnd(endSize)
 {
 	Init();
 }
 
+Particle::Particle(const Particle& other) {
+	Init();
+
+	this->Velocity = other.Velocity;
+	this->colorBegin = other.colorBegin;
+	this->colorEnd = other.colorEnd;
+	this->sizeBegin = other.sizeBegin;
+	this->sizeEnd = other.sizeEnd;
+	this->Life = other.Life;
+
+	// shader(ShaderManager::getParticleShader(), false);
+
+}
+
 void Particle::draw(const BaseCamera& Cam)
 {
+
+	ParticleShader* partShader = dynamic_cast<ParticleShader*>(this->shader());
+	if (partShader) {
+		partShader->color(col);
+		partShader->alpha(alpha);
+	}
 	BaseModel::draw(Cam);
 	VB.activate();
 	IB.activate();
@@ -25,6 +46,9 @@ void Particle::draw(const BaseCamera& Cam)
 
 	IB.deactivate();
 	VB.deactivate();
+
+
+
 }
 
 void Particle::Init()
@@ -60,5 +84,5 @@ void Particle::Init()
 
 	IB.end();
 
-	this->shader(new ParticleShader(), true);
+	this->shader(ShaderManager::getParticleShader(), false);
 }

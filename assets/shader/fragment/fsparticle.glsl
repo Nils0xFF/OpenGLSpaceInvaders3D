@@ -7,7 +7,7 @@ layout (location = 2) out vec4 DepthColor;
 
 uniform vec3 color;
 uniform float alpha;
-uniform int WorldDepth;
+uniform float WorldDepth;
 
 void main()
 {

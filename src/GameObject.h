@@ -12,6 +12,7 @@
 #include "LineBoxModel.h"
 #include "Tags.h"
 
+
 class MeshRenderer;
 
 class GameObject : public GameObjectInterface
@@ -38,7 +39,6 @@ private:
 	const AABB* modelBox;
 	AABB areaBox;
 	LineBoxModel* debugModel;
-	ConstantShader debugShader;
 
 	std::list<Component*> components;
 	std::list<GameObject*> children;

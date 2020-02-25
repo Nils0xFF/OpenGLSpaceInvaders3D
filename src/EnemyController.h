@@ -22,7 +22,7 @@ private:
 public:
 	EnemyController(int maxHP, float timeBetweenShots, Prefab* bullet);
 	EnemyController(const EnemyController& other);
-	~EnemyController() { if (bullet) delete bullet;	}
+	~EnemyController() { delete bullet;	}
 	EnemyController* clone() { return new EnemyController(*this); }
 
 	void Update(float deltaTime);

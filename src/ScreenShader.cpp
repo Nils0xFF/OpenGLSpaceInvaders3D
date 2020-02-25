@@ -2,9 +2,11 @@
 #include "CameraManager.h"
 
 ScreenShader::ScreenShader(): UpdateState(0xFFFFFFFF) {
+
 	bool loaded = load(SHADER_DIRECTORY "vertex/vsscreen.glsl", SHADER_DIRECTORY "fragment/fsscreen.glsl");
 	if (!loaded)
 		throw std::exception();
+
 	assignLocations();
 }
 

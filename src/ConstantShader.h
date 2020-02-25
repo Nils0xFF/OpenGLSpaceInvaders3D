@@ -31,7 +31,8 @@ class ConstantShader : public BaseShader
 {
 public:
     ConstantShader();
-	ConstantShader* clone() { return new ConstantShader(*this); }
+	ConstantShader(const Color& c);
+	ConstantShader* clone() { return new ConstantShader(this->Col); }
     void color( const Color& c);
     const Color& color() const { return Col; }
     virtual void activate(const BaseCamera& Cam) const;

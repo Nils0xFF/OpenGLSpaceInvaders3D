@@ -1,10 +1,10 @@
 #include "GameObject.h"
+#include "ShaderManager.h"
 
 using namespace std;
 
-GameObject::GameObject() :active(true), staticObject(false), name(""), mr(NULL), collider(NULL), parent(NULL), modelBox(NULL), areaBox(), debugShader(), debugModel(NULL), tag(Tag::Default) {
+GameObject::GameObject() :active(true), staticObject(false), name(""), mr(NULL), collider(NULL), parent(NULL), modelBox(NULL), areaBox(), debugModel(NULL), tag(Tag::Default) {
 	transform.identity();
-	debugShader.color(Color(0, 1, 0));
 }
 
 GameObject::GameObject(const GameObject& other) : mr(NULL), collider(NULL), debugModel(NULL), modelBox(NULL), destroy(false) {
@@ -15,7 +15,6 @@ GameObject::GameObject(const GameObject& other) : mr(NULL), collider(NULL), debu
 	this->tag = other.tag;
 	this->parent = NULL;
 	this->areaBox = AABB(this->transform.translation(), this->transform.translation());
-	debugShader.color(Color(0, 1, 0));
 
 	for (Component* c : other.components) {
 		if (dynamic_cast<MeshRenderer*>(c)) {
@@ -114,7 +113,7 @@ void GameObject::Draw() {
 #if _DEBUG
 	if (debugModel != NULL) delete debugModel;
 	debugModel = new LineBoxModel(areaBox.Min, areaBox.Max);
-	debugModel->shader(&debugShader, false);
+	debugModel->shader(ShaderManager::getDebugShader(), false);
 	debugModel->shadowCaster(false);
 	debugModel->draw(*CameraManager::getInstance().activeCamera);
 #endif

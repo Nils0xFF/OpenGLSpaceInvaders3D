@@ -151,7 +151,7 @@ void Game::Render()
 	GLenum Error = glGetError();
 	if (Error != 0)
 		std::cout << Error << std::endl;
-	assert(Error == 0);
+	// assert(Error == 0);
 }
 
 void Game::End()

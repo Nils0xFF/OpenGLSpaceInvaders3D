@@ -5,7 +5,7 @@
 
 ParticleSystem::ParticleSystem(unsigned int nr)
 {
-	particlePool.resize(nr + 1);
+	particlePool.resize(nr + 1, Particle());
 	index = nr;
 }
 
@@ -32,9 +32,8 @@ void ParticleSystem::Update(float deltaTime)
 		float size = par.getSizeEnd() + life * (par.getSizeBegin() - par.getSizeEnd());				
 		par.transform(par.transform() * Matrix().scale(par.getSize()).invert() * Matrix().scale(size));
 		par.setSize(size);
-		ParticleShader* shader = (ParticleShader*)par.shader();
-		shader->color(col);
-		shader->alpha(life);
+		par.setColor(col);
+		par.setAlpha(life);
 	}
 }
 

@@ -27,18 +27,17 @@ const char *CFragmentShaderCode =
 "    FragColor = vec4(Color,1);"
 "}";
 
-ConstantShader::ConstantShader() : Col(1.0f,0.0f,0.0f)
+ConstantShader::ConstantShader(): Col(1,1,1)
 {
-    // ShaderProgram = createShaderProgram( CVertexShaderCode, CFragmentShaderCode );
 	bool loaded = load(SHADER_DIRECTORY "vertex/vsconstant.glsl", SHADER_DIRECTORY "fragment/fsconstant.glsl");
 	if (!loaded)
 		throw std::exception();
 
-    ColorLoc = glGetUniformLocation(ShaderProgram, "Color");
-    assert(ColorLoc>=0);
+	ColorLoc = glGetUniformLocation(ShaderProgram, "Color");
+	assert(ColorLoc >= 0);
 
-    ModelViewProjLoc  = glGetUniformLocation(ShaderProgram, "ModelViewProjMat");
-    assert(ModelViewProjLoc >=0);
+	ModelViewProjLoc = glGetUniformLocation(ShaderProgram, "ModelViewProjMat");
+	assert(ModelViewProjLoc >= 0);
 
 	ModelMatLoc = glGetUniformLocation(ShaderProgram, "ModelMat");
 	assert(ModelMatLoc >= 0);
@@ -47,8 +46,32 @@ ConstantShader::ConstantShader() : Col(1.0f,0.0f,0.0f)
 	assert(WorldDepthLoc >= 0);
 
 	EyePosLoc = glGetUniformLocation(ShaderProgram, "EyePos");
-	// assert(EyePosLoc >= 0);
+	assert(EyePosLoc >= 0);
 }
+
+ConstantShader::ConstantShader(const Color& c) : Col(c)
+{
+	// ShaderProgram = createShaderProgram( CVertexShaderCode, CFragmentShaderCode );
+	bool loaded = load(SHADER_DIRECTORY "vertex/vsconstant.glsl", SHADER_DIRECTORY "fragment/fsconstant.glsl");
+	if (!loaded)
+		throw std::exception();
+
+	ColorLoc = glGetUniformLocation(ShaderProgram, "Color");
+	assert(ColorLoc >= 0);
+
+	ModelViewProjLoc = glGetUniformLocation(ShaderProgram, "ModelViewProjMat");
+	assert(ModelViewProjLoc >= 0);
+
+	ModelMatLoc = glGetUniformLocation(ShaderProgram, "ModelMat");
+	assert(ModelMatLoc >= 0);
+
+	WorldDepthLoc = glGetUniformLocation(ShaderProgram, "WorldDepth");
+	assert(WorldDepthLoc >= 0);
+
+	EyePosLoc = glGetUniformLocation(ShaderProgram, "EyePos");
+	assert(EyePosLoc >= 0);
+}
+
 void ConstantShader::activate(const BaseCamera& Cam) const
 {
     BaseShader::activate(Cam);
@@ -57,6 +80,7 @@ void ConstantShader::activate(const BaseCamera& Cam) const
 	glUniform3f(EyePosLoc, EyePos.X, EyePos.Y, EyePos.Z);
 	glUniform1i(WorldDepthLoc, GameSettings::WORLD_DEPTH);
     glUniform3f(ColorLoc, Col.R, Col.G, Col.B);
+
     // always update matrices
     Matrix ModelView = Cam.getViewMatrix() * ModelTransform;
     Matrix ModelViewProj = Cam.getProjectionMatrix() * ModelView;

@@ -34,6 +34,7 @@ public:
 		gameObject->setActive(true);
 		currentHP = GameSettings::PLAYER_HP;
 	}
+
 	void Start() { GameManager::getInstance().updatePlayerHP(currentHP); }
 
 	void Update(float deltaTime);

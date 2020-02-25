@@ -2,10 +2,11 @@
 #include <iostream>
 #include "CameraManager.h"
 #include "TextManager.h"
+#include "ShaderManager.h"
 
 Text::Text()
 {
-	shader = new TextShader();
+	shader = ShaderManager::getTextShader();
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 	glBindVertexArray(VAO);
@@ -75,8 +76,9 @@ void Text::Render(const char* text, float x, float y, float scale, const Color& 
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	shader->deactivate();
+
 	glEnable(GL_DEPTH_TEST);
 	entry = NULL;
+	shader->deactivate();
 }
 

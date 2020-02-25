@@ -96,7 +96,7 @@ void GameManager::createGameScene()
 	BaseModel *pModel = new Model(ASSET_DIRECTORY "models/skybox.obj", 2 * GameSettings::WORLD_DEPTH);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
-	skyBox->setRenderer(new MeshRenderer(pModel, new PhongShader(),true));
+	skyBox->setRenderer(new MeshRenderer(pModel, &phongShader ,false));
 	gameScene.addGameObject(skyBox);
 
 	GameObject* ground = new GameObject();
@@ -112,10 +112,9 @@ void GameManager::createGameScene()
 	pModel = new Model(ASSET_DIRECTORY "models/lazor/lazor.obj", 0.425f);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
-	ConstantShader* shader = new ConstantShader();
 	Color playerBulCol = Color(0.02f, 0.02f, 0.12f);
-	shader->color(playerBulCol);
-	playerBullet->setRenderer(new MeshRenderer(pModel, shader, true));
+	playerBullterShader.color(playerBulCol);
+	playerBullet->setRenderer(new MeshRenderer(pModel, &playerBullterShader, false));
 	playerBullet->setCollider(new BoxCollider());	
 	playerBullet->addComponent(new BulletController());
 
@@ -140,7 +139,7 @@ void GameManager::createGameScene()
 	player->setName("Player");
 	player->setTag(Tag::Player);
 	player->setTransform(Matrix().translation(0, 0.25f, 0) * Matrix().rotationY((float)M_PI));
-	player->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/spaceships/fighterjet/fighterjet.obj"), new PhongShader(), true));
+	player->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/spaceships/fighterjet/fighterjet.obj"), &phongShader, false));
 	player->setCollider(new BoxCollider());
 	player->addComponent(new PlayerController(playerBulletPrefab));
 	player->addComponent(new FollowCameraController(*CameraManager::getInstance().activeCamera, Vector(0, 0.75f, 1.5f)));
@@ -154,11 +153,13 @@ void GameManager::createGameScene()
 	pModel = new Model(ASSET_DIRECTORY "models/lazor/lazor.obj", 0.315f);
 	pModel->shadowCaster(false);
 	pModel->shadowReciver(false);
-	shader = new ConstantShader();
+
 	Color enemyBulCol = Color(0.95f, 0.02f, 0.02f);
-	shader->color(enemyBulCol);
-	enemyBullet->setRenderer(new MeshRenderer(pModel, shader, true));
+	enemyBulletShader.color(enemyBulCol);
+
+	enemyBullet->setRenderer(new MeshRenderer(pModel, &enemyBulletShader, false));
 	enemyBullet->setCollider(new BoxCollider());
+
 	ParticleProps* props2 = new ParticleProps(*props);
 	props2->colorBegin = enemyBulCol;
 	props2->Life = 0.4f;
@@ -175,10 +176,10 @@ void GameManager::createGameScene()
 	GameObject* enemy = new GameObject();
 	BaseModel* enemyModel = new Model(ASSET_DIRECTORY "models/spaceships/frigate01/frigate01.obj");
 	enemyModel->shadowCaster(false);
-	enemy->setRenderer(new MeshRenderer(enemyModel, new PhongShader(), true));
+	enemy->setRenderer(new MeshRenderer(enemyModel, &phongShader, false));
 	enemy->setName("Enemy");
 	enemy->setTag(Tag::Enemy);
-	enemy->addComponent(new EnemyController(1, 2.5f, enemyBulletPrefab));
+	// enemy->addComponent(new EnemyController(1, 2.5f, enemyBulletPrefab));
 	enemy->setCollider(new BoxCollider());
 
 	GameObject* enemyRow = new GameObject();
@@ -203,15 +204,13 @@ void GameManager::createGameScene()
 
 	Prefab* enemyRowPrefab = new Prefab(enemyRow);
 
-
-
 	std::vector<Prefab*> meteors;
 
 	GameObject* meteor = new GameObject();
 	meteor->setTag(Tag::Meteor);
 	meteor->setName("Meteor");
 	meteor->setTransform(Matrix().rotationY(0.5f * (float) M_PI));
-	meteor->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/meteors/rock/rock.obj"), new PhongShader(), true));
+	meteor->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/meteors/rock/rock.obj"), &phongShader, false));
 	meteor->setCollider(new BoxCollider());
 	meteor->addComponent(new MeteorController());
 
@@ -222,7 +221,7 @@ void GameManager::createGameScene()
 	meteor->setTag(Tag::Meteor);
 	meteor->setName("Meteor");
 	meteor->setTransform(Matrix().rotationY(0.5f * (float) M_PI));
-	meteor->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/meteors/rock_02/rock_02.obj"), new PhongShader(), true));
+	meteor->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/meteors/rock_02/rock_02.obj"), &phongShader, false));
 	meteor->setCollider(new BoxCollider());
 	meteor->addComponent(new MeteorController());
 
@@ -232,7 +231,7 @@ void GameManager::createGameScene()
 	GameObject* boss = new GameObject();
 	boss->setTag(Tag::Boss);
 	boss->setName("Boss");
-	boss->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/spaceships/cruiser01/cruiser01.obj", 7.5f), new PhongShader(), true));
+	boss->setRenderer(new MeshRenderer(new Model(ASSET_DIRECTORY "models/spaceships/cruiser01/cruiser01.obj", 7.5f), &phongShader, false));
 	boss->setCollider(new BoxCollider());
 	boss->addComponent(new BossController(new Prefab(*enemyBulletPrefab)));
 
@@ -240,9 +239,6 @@ void GameManager::createGameScene()
 
 	GameObject* enemySpawner = new GameObject();
 	enemySpawner->setTransform(Matrix().translation(0.0f, 0.25f, (float)-GameSettings::WORLD_DEPTH - 1));
-	shader = new ConstantShader();
-	shader->color(Color(0, 0, 0));
-	enemySpawner->setRenderer(new MeshRenderer(new TriangleBoxModel(0.1f, 0.1f, 0.1f), shader, true));
 	enemySpawner->addComponent(new EnemySpawnerController(enemyRowPrefab, bossPrefab));
 	enemySpawner->addComponent(new MeteorSpawnerController(meteors));
 	gameScene.addGameObject(enemySpawner);

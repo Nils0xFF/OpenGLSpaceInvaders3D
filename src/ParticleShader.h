@@ -5,7 +5,7 @@ class ParticleShader : public BaseShader
 {
 public:
 	ParticleShader();
-	ParticleShader* clone() { return new ParticleShader(*this); }
+	ParticleShader* clone() { return new ParticleShader(); }
 
 	void color(const Color& c) { Col = c; }
 	void alpha(const float a) { Alpha = a; }

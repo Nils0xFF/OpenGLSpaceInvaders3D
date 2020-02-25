@@ -13,6 +13,7 @@ const BaseShader* BaseShader::ShaderInPipe = NULL;
 
 BaseShader::BaseShader() : LightUniformBuffer(GL_INVALID_INDEX), ShaderProgram(0)
 {
+	std::cout << "Shader()" << std::endl;
     ModelTransform.identity();
 }
 
@@ -162,6 +163,8 @@ void BaseShader::activate(const BaseCamera& Cam) const
 void BaseShader::deactivate() const
 {
     glUseProgram(0);
+	if(ShaderInPipe == this)
+		ShaderInPipe = NULL;
 }
 
 GLuint BaseShader::getBlockID(const char* BlockName) const

@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "SceneManager.h"
 #include "GameSettings.h"
+#include "PhongShader.h"
+#include "ConstantShader.h"
 
 enum class GameState {
 	MENU,
@@ -48,6 +50,11 @@ public:
 	float deltaTime = 0;
 
 private:
+
+	PhongShader phongShader;
+	ConstantShader enemyBulletShader;
+	ConstantShader playerBullterShader;
+
 	Scene menuScene;
 	Scene gameScene;
 	GameManager() {};

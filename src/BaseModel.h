@@ -20,7 +20,11 @@ class BaseModel
 public:
     BaseModel();
 	BaseModel(const BaseModel& other) {
-		this->pShader = other.pShader->clone();
+		if(DeleteShader)
+			this->pShader = other.pShader->clone();
+		else
+			this->pShader = other.pShader;
+
 		this->DeleteShader = other.DeleteShader;
 		this->ShadowCaster = other.ShadowCaster;
 		this->ShadowReciver = other.ShadowReciver;
@@ -40,11 +44,13 @@ public:
 	void shadowCaster(bool sc) { ShadowCaster = sc; }
 	bool shadowReciver() const { return ShadowReciver; }
 	void shadowReciver(bool sr) { ShadowReciver = sr; }
+	bool getDeleteShader() { return DeleteShader; }
+
 
 protected:
     Matrix Transform;
     BaseShader* pShader;
-    bool DeleteShader;
+    bool DeleteShader = false;
 	bool ShadowCaster;
 	bool ShadowReciver;
 

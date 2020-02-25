@@ -28,7 +28,7 @@ void ParticleShader::activate(const BaseCamera& Cam) const
 
 	glUniform3f(ColorLoc, Col.R, Col.G, Col.B);
 	glUniform1f(AlphaLoc, Alpha);
-	glUniform1i(WorldDepthLoc, GameSettings::WORLD_DEPTH);
+	glUniform1f(WorldDepthLoc, GameSettings::WORLD_DEPTH);
 
 	Matrix View = Cam.getViewMatrix();
 	Matrix Model = ModelTransform;

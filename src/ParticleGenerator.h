@@ -46,8 +46,8 @@ public:
 protected:
 
 private:
-	ParticleSystem* sys;
-	ParticleProps* props;
+	ParticleSystem* sys = NULL;
+	ParticleProps* props = NULL;
 	bool emiting = false;
 
 	float betweenEmit = 0.1f;

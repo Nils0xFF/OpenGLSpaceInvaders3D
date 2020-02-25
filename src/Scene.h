@@ -24,7 +24,8 @@ public:
 		Init();
 		Start();
 	};
-	void Unload();;
+
+	void Unload();
 
 	void addGameObject(GameObject* go) { initialGameObjects.push_back(go); gameObjects.push_back(go); }
 	void addDynamicGameObject(GameObject* go) { dynamicObjects.push_back(go); gameObjects.push_back(go); }

@@ -7,6 +7,7 @@ uniform sampler2D screenTexture;
 uniform sampler2D brightnessTexture;
 uniform sampler2D depthTexture;
 uniform sampler2D trueDepthTexture;
+
 uniform float time = 1.0;
 uniform bool on = true;
 uniform bool inverted = false;

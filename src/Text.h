@@ -23,7 +23,7 @@ class Text
 {
 public:
 	Text();
-	~Text() { delete shader; }
+	~Text() {}
     void Render(const char* text, float x, float y, float scale, const Color& col);
 	void setFont(FontEntry* entry) { this->entry = entry; }
 

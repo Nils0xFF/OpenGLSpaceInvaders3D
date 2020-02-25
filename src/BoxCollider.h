@@ -6,6 +6,7 @@
 #include "CameraManager.h"
 #include "ConstantShader.h"
 #include"OBB.h"
+#include "ShaderManager.h"
 
 class BoxCollider :
 	public Collider
@@ -13,20 +14,16 @@ class BoxCollider :
 public:
 	OBB collsionBox = OBB(AABB());
 	LineBoxModel* debugModel = NULL;
-	ConstantShader* debugShader = NULL;
 
 	BoxCollider() {}
 
 	BoxCollider(const BoxCollider& other) {
 		debugModel = NULL;
-		debugShader = NULL;
 	}
 
 	~BoxCollider() {
 		delete debugModel;
 		debugModel = NULL;
-		delete debugShader;
-		debugShader = NULL;
 	}
 
 	BoxCollider* clone() { return new BoxCollider(*this); }
@@ -34,8 +31,6 @@ public:
 	bool checkCollision(const Collider* other) const;
 
 	void Init() {
-		debugShader = new ConstantShader();
-		debugShader->color(Color(1.0f,0,1.0f));
 	}
 
 	void Start();
@@ -49,7 +44,7 @@ public:
 			Vector c[8];
 			collsionBox.corners(c);
 			debugModel = new LineBoxModel(c);
-			debugModel->shader(debugShader, false);
+			debugModel->shader(ShaderManager::getColliderDebugShader(), false);
 			debugModel->shadowCaster(false);
 			debugModel->draw(*CameraManager::getInstance().activeCamera);
 		#endif //_DEBUG

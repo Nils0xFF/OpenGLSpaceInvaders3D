@@ -25,10 +25,17 @@ class Model : public BaseModel
 public:
     Model();
     Model(const char* ModelFile, float fitScale = 1.0f, bool Center=true);
+	Model(const Model& other) {
+		
+	};
 
-	Model* clone() { 
+	Model* clone() {
+		// copyNodesRecursive(othe);
 		Model* newModel = new Model(this->Filepath.c_str(), fitScale);
-		newModel->shader(pShader->clone(), true);
+		if(DeleteShader)
+			newModel->shader(pShader->clone(), true);
+		else
+			newModel->shader(pShader, false);
 		newModel->transform(this->transform());
 		return newModel;
 	}

@@ -3,11 +3,12 @@
 #include <GL/glew.h>
 #include <exception>
 #include "CameraManager.h"
+#include "ShaderManager.h"
 
 PostProcessing::PostProcessing()
 {
+	shader = ShaderManager::getScreenShader();
 	Init();
-	shader = new ScreenShader();
 #ifdef _DEBUG
 	shader->on(false);
 #endif // _DEBUG	
@@ -15,11 +16,6 @@ PostProcessing::PostProcessing()
 
 PostProcessing::~PostProcessing()
 {
-	if (shader) {
-		delete shader;		
-	}
-	shader = NULL;
-
 	glDeleteFramebuffers(1, &fbo);
 	glDeleteFramebuffers(1, &transferFbo);
 }

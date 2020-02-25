@@ -12,6 +12,7 @@ private:
 	float speed = GameSettings::METEOR_Z_SPEED;
 
 	void takeDamage(int damage);
+
 public:
 	MeteorController* clone() { return new MeteorController(*this); }
 

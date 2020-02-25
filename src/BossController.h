@@ -32,6 +32,8 @@ public:
 
 	BossController* clone() { return new BossController(*this); }
 
+	~BossController() { delete bulletPrefab; }
+
 	void Start();
 
 	void Update(float deltaTime);
