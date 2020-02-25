@@ -7,6 +7,7 @@
 class Particle : public BaseModel
 {
 public:
+	static int counter;
 	Particle();
 	Particle(Vector velocity, Color beginCol, Color endCol, 
 		float beginSize, float endSize, float life);
@@ -17,7 +18,9 @@ public:
 		return new Particle(*this);
 	}
 
-	~Particle() {};
+	~Particle() {
+		std::cout << "Particle: " << --counter << std::endl;
+	};
 	virtual void draw(const BaseCamera& Cam);
 
 	const Vector getVelocity() const { return Velocity; }
@@ -57,4 +60,3 @@ private:
 	float Remaining = 0.0f;
 	bool Active = false;
 };
-

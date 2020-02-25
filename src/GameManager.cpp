@@ -118,13 +118,13 @@ void GameManager::createGameScene()
 	playerBullet->setCollider(new BoxCollider());	
 	playerBullet->addComponent(new BulletController());
 
-	ParticleProps* props = new ParticleProps();
-	props->colorBegin = playerBulCol;
-	props->colorEnd = Color(1, 1, 1);
-	props->sizeBegin = 0.07f, props->sizeVariation = 0.04f, props->sizeEnd = 0.0f;
-	props->Life = .8f;
-	props->Velocity = Vector(0, 0, 2);
-	props->VelocityVariation = Vector(10, 4, 0);
+	ParticleProps props = ParticleProps();
+	props.colorBegin = playerBulCol;
+	props.colorEnd = Color(1, 1, 1);
+	props.sizeBegin = 0.07f, props.sizeVariation = 0.04f, props.sizeEnd = 0.0f;
+	props.Life = .8f;
+	props.Velocity = Vector(0, 0, 2);
+	props.VelocityVariation = Vector(10, 4, 0);
 	playerBullet->addComponent(new ParticleGenerator(200, props));
 
 	PointLight* pl = new PointLight();
@@ -160,9 +160,9 @@ void GameManager::createGameScene()
 	enemyBullet->setRenderer(new MeshRenderer(pModel, &enemyBulletShader, false));
 	enemyBullet->setCollider(new BoxCollider());
 
-	ParticleProps* props2 = new ParticleProps(*props);
-	props2->colorBegin = enemyBulCol;
-	props2->Life = 0.4f;
+	ParticleProps props2 = ParticleProps(props);
+	props2.colorBegin = enemyBulCol;
+	props2.Life = 0.4f;
 	enemyBullet->addComponent(new ParticleGenerator(200, props2));
 
 	pl = new PointLight();
@@ -179,7 +179,7 @@ void GameManager::createGameScene()
 	enemy->setRenderer(new MeshRenderer(enemyModel, &phongShader, false));
 	enemy->setName("Enemy");
 	enemy->setTag(Tag::Enemy);
-	// enemy->addComponent(new EnemyController(1, 2.5f, enemyBulletPrefab));
+	enemy->addComponent(new EnemyController(1, 2.5f, enemyBulletPrefab));
 	enemy->setCollider(new BoxCollider());
 
 	GameObject* enemyRow = new GameObject();
@@ -248,5 +248,6 @@ void GameManager::createGameScene()
 	dl->color(Color(1, 1, 1));
 	dl->castShadows(true);
 	ShaderLightMapper::instance().addLight(dl);
+
 
 }

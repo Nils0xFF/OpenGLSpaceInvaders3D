@@ -15,6 +15,19 @@ class ParticleSystem
 {
 public:
 	ParticleSystem(unsigned int nr);
+	ParticleSystem(const ParticleSystem& other) {
+		for (Particle* p : other.particlePool) {
+			particlePool.push_back(new Particle());
+		}
+		index = particlePool.size() - 1;
+	}
+
+	~ParticleSystem() {
+		while (!particlePool.empty()) {
+			delete particlePool.back();
+			particlePool.pop_back();
+		}
+	}
 
 	void Update(float deltaTime);
 	void Draw();
@@ -23,6 +36,6 @@ public:
 protected:
 
 private:
-	std::vector<Particle> particlePool;
+	std::vector<Particle*> particlePool;
 	unsigned int index;
 };

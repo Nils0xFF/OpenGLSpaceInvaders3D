@@ -2,8 +2,11 @@
 #include "ParticleShader.h"
 #include "ShaderManager.h"
 
+int Particle::counter = 0;
+
 Particle::Particle()
 {
+	std::cout << "Particle: " << ++counter << std::endl;
 	Init();
 }
 
@@ -13,19 +16,20 @@ Particle::Particle(Vector velocity, Color beginCol,
 	colorBegin(beginCol), colorEnd(endCol),
 	sizeBegin(beginSize), sizeEnd(endSize)
 {
+	std::cout << "Particle: " << ++counter << std::endl;
 	Init();
 }
 
 Particle::Particle(const Particle& other) {
-	Init();
 
+	std::cout << "Particle: " << ++counter << std::endl;
 	this->Velocity = other.Velocity;
 	this->colorBegin = other.colorBegin;
 	this->colorEnd = other.colorEnd;
 	this->sizeBegin = other.sizeBegin;
 	this->sizeEnd = other.sizeEnd;
 	this->Life = other.Life;
-
+	Init();
 	// shader(ShaderManager::getParticleShader(), false);
 
 }
@@ -34,10 +38,12 @@ void Particle::draw(const BaseCamera& Cam)
 {
 
 	ParticleShader* partShader = dynamic_cast<ParticleShader*>(this->shader());
+
 	if (partShader) {
 		partShader->color(col);
 		partShader->alpha(alpha);
 	}
+
 	BaseModel::draw(Cam);
 	VB.activate();
 	IB.activate();

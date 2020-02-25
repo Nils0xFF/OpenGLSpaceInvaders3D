@@ -1,8 +1,7 @@
 #include "ParticleGenerator.h"
 
-ParticleGenerator::ParticleGenerator(const unsigned int max, ParticleProps* props)
+ParticleGenerator::ParticleGenerator(const unsigned int max, ParticleProps& props):sys(max)
 {
-	sys = new ParticleSystem(max);
 	this->props = props;	
 }
 
@@ -10,14 +9,14 @@ ParticleGenerator::ParticleGenerator(const unsigned int max, ParticleProps* prop
 void ParticleGenerator::Update(float deltaTime)
 {
 	if (gameObject) {
-		props->Position = gameObject->getTransform().translation();
+		props.Position = gameObject->getTransform().translation();
 	}
 
-	sys->Update(deltaTime);
+	sys.Update(deltaTime);
 	if (emiting) {		
 		lastEmit += deltaTime;
 		if (lastEmit >= betweenEmit) {
-			sys->Emit(*props);
+			sys.Emit(props);
 			lastEmit = 0;
 		}
 	}
@@ -25,5 +24,5 @@ void ParticleGenerator::Update(float deltaTime)
 
 void ParticleGenerator::Draw() 
 {
-	sys->Draw();
+	sys.Draw();
 }
