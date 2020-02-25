@@ -92,9 +92,8 @@ void Scene::Draw() {
 	}
 }
 
-void Scene::Unload() {
-	dynamicObjects.remove(NULL);
-	while (!dynamicObjects.empty()) {
+void Scene::Unload(){
+while (!dynamicObjects.empty()) {
 		gameObjects.remove(dynamicObjects.front());
 		delete dynamicObjects.front();
 		dynamicObjects.pop_front();

@@ -21,6 +21,7 @@ Model::Model(const char* ModelFile, float fitScale, bool Center) : pMeshes(NULL)
     if(!ret)
         throw std::exception();
 }
+
 Model::~Model()
 {
     // TODO: Add your code (Exercise 3)
@@ -39,6 +40,7 @@ void Model::deleteNodes(Node* pNode)
         return;
     for(unsigned int i=0; i<pNode->ChildCount; ++i)
         deleteNodes(&(pNode->Children[i]));
+
     if(pNode->ChildCount>0)
         delete [] pNode->Children;
     if(pNode->MeshCount>0)

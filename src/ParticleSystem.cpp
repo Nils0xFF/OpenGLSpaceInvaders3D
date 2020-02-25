@@ -53,7 +53,8 @@ void ParticleSystem::Draw()
 // Activates the currently indexed particle (to be rendered)
 void ParticleSystem::Emit(const ParticleProps& props)
 {
-	Particle* particle = particlePool[index];
+	auto it = std::next(particlePool.begin(), index);
+	Particle* particle = *it;
 	particle->setActive(true);	
 	particle->transform(Matrix().translation(props.Position));
 	particle->transform(particle->transform() *

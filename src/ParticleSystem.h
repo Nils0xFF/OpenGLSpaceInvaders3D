@@ -1,6 +1,6 @@
 #pragma once
-#include <vector>
 #include "Particle.h"
+#include <list>
 
 struct ParticleProps {
 	Vector Position;
@@ -36,6 +36,6 @@ public:
 protected:
 
 private:
-	std::vector<Particle*> particlePool;
+	std::list<Particle*> particlePool;
 	unsigned int index;
 };

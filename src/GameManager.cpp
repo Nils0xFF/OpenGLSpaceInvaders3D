@@ -160,10 +160,14 @@ void GameManager::createGameScene()
 	enemyBullet->setRenderer(new MeshRenderer(pModel, &enemyBulletShader, false));
 	enemyBullet->setCollider(new BoxCollider());
 
-	ParticleProps props2 = ParticleProps(props);
+	ParticleProps props2;
+	props2.colorEnd = Color(1, 1, 1);
+	props2.sizeVariation = 0.04f, props2.sizeEnd = 0.0f;
+	props2.Velocity = Vector(0, 0, 2);
+	props2.VelocityVariation = Vector(10, 4, 0);
 	props2.colorBegin = enemyBulCol;
 	props2.Life = 0.4f;
-	enemyBullet->addComponent(new ParticleGenerator(200, props2));
+	enemyBullet->addComponent(new ParticleGenerator(100, props2));
 
 	pl = new PointLight();
 	pl->color(Color(0.95f, 0.02f, 0.02f));

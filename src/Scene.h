@@ -11,7 +11,7 @@ private:
 	std::list<GameObject*> dynamicObjects;
 
 public:
-	Scene():gameObjects() {};
+	Scene():gameObjects(),initialGameObjects(),dynamicObjects() {};
 	~Scene();
 
 	void Init();
@@ -21,6 +21,7 @@ public:
 	void Draw();
 
 	void Load() {
+		Unload();
 		Init();
 		Start();
 	};
