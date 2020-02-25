@@ -63,6 +63,7 @@ bool Model::load(const char* ModelFile, float fitScale, bool Center)
     loadMaterials(pScene);
     loadNodes(pScene);
     
+	aiReleaseImport(pScene);
     return true;
 }
 

@@ -25,12 +25,8 @@ class Model : public BaseModel
 public:
     Model();
     Model(const char* ModelFile, float fitScale = 1.0f, bool Center=true);
-	Model(const Model& other) {
-		
-	};
 
 	Model* clone() {
-		// copyNodesRecursive(othe);
 		Model* newModel = new Model(this->Filepath.c_str(), fitScale);
 		if(DeleteShader)
 			newModel->shader(pShader->clone(), true);
